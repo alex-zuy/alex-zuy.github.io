@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2014</copyright>
     <item>
-      <title>File: 2914,
+      <title>File: 2917,
              Errors: 0,
              Warnings: 14,
              Infos: 0
@@ -7425,6 +7425,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#guava.guava-tests.test.com.google.common.util.concurrent.MoreExecutorsTest.java">guava/guava-tests/test/com/google/common/util/concurrent/MoreExecutorsTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#sevntu-checkstyle.sevntu-checks.src.test.resources.com.github.sevntu.checkstyle.checks.design.InputAvoidConditionInversion.java">sevntu-checkstyle/sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputAvoidConditionInversion.java</a>
                 </td>
                 <td>
                   0
@@ -33464,6 +33478,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#sevntu-checkstyle.sevntu-checks.src.test.java.com.github.sevntu.checkstyle.checks.design.AvoidConditionInversionTest.java">sevntu-checkstyle/sevntu-checks/src/test/java/com/github/sevntu/checkstyle/checks/design/AvoidConditionInversionTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#guava.guava.src.com.google.common.escape.Escaper.java">guava/guava/src/com/google/common/escape/Escaper.java</a>
                 </td>
                 <td>
@@ -33563,6 +33591,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#guava.guava-gwt.src-super.com.google.common.base.super.com.google.common.base.CharMatcher.java">guava/guava-gwt/src-super/com/google/common/base/super/com/google/common/base/CharMatcher.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#sevntu-checkstyle.sevntu-checks.src.main.java.com.github.sevntu.checkstyle.checks.design.AvoidConditionInversionCheck.java">sevntu-checkstyle/sevntu-checks/src/main/java/com/github/sevntu/checkstyle/checks/design/AvoidConditionInversionCheck.java</a>
                 </td>
                 <td>
                   0
