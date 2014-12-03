@@ -263,7 +263,7 @@
 <a class="jxr_linenumber" name="L255" href="#L255">255</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testManualServiceStopMultipleTimesWhileStarting() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L256" href="#L256">256</a>     <a href="../../../../../com/google/common/util/concurrent/AbstractServiceTest.html">ManualSwitchedService</a> service = <strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractServiceTest.html">ManualSwitchedService</a>();
 <a class="jxr_linenumber" name="L257" href="#L257">257</a>     <strong class="jxr_keyword">final</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicInteger.html">AtomicInteger</a> stopppingCount = <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicInteger.html">AtomicInteger</a>();
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>     service.addListener(<strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/common/util/concurrent/ServiceManager.html">Listener</a>() {
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>     service.addListener(<strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a>() {
 <a class="jxr_linenumber" name="L259" href="#L259">259</a>       @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> stopping(<a href="../../../../../com/google/common/collect/AbstractIterator.html">State</a> from) {
 <a class="jxr_linenumber" name="L260" href="#L260">260</a>         stopppingCount.incrementAndGet();
 <a class="jxr_linenumber" name="L261" href="#L261">261</a>       }
@@ -709,7 +709,7 @@
 <a class="jxr_linenumber" name="L701" href="#L701">701</a> 
 <a class="jxr_linenumber" name="L702" href="#L702">702</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testListenerDoesntDeadlockOnStartAndWaitFromRunning() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L703" href="#L703">703</a>     <strong class="jxr_keyword">final</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractServiceTest.html">NoOpThreadedService</a> service = <strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractServiceTest.html">NoOpThreadedService</a>();
-<a class="jxr_linenumber" name="L704" href="#L704">704</a>     service.addListener(<strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/common/util/concurrent/ServiceManager.html">Listener</a>() {
+<a class="jxr_linenumber" name="L704" href="#L704">704</a>     service.addListener(<strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a>() {
 <a class="jxr_linenumber" name="L705" href="#L705">705</a>       @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> running() {
 <a class="jxr_linenumber" name="L706" href="#L706">706</a>         service.awaitRunning();
 <a class="jxr_linenumber" name="L707" href="#L707">707</a>       }
@@ -720,7 +720,7 @@
 <a class="jxr_linenumber" name="L712" href="#L712">712</a> 
 <a class="jxr_linenumber" name="L713" href="#L713">713</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testListenerDoesntDeadlockOnStopAndWaitFromTerminated() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L714" href="#L714">714</a>     <strong class="jxr_keyword">final</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractServiceTest.html">NoOpThreadedService</a> service = <strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractServiceTest.html">NoOpThreadedService</a>();
-<a class="jxr_linenumber" name="L715" href="#L715">715</a>     service.addListener(<strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/common/util/concurrent/ServiceManager.html">Listener</a>() {
+<a class="jxr_linenumber" name="L715" href="#L715">715</a>     service.addListener(<strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a>() {
 <a class="jxr_linenumber" name="L716" href="#L716">716</a>       @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> terminated(<a href="../../../../../com/google/common/collect/AbstractIterator.html">State</a> from) {
 <a class="jxr_linenumber" name="L717" href="#L717">717</a>         service.stopAsync().awaitTerminated();
 <a class="jxr_linenumber" name="L718" href="#L718">718</a>       }
@@ -818,7 +818,7 @@
 <a class="jxr_linenumber" name="L810" href="#L810">810</a>     }
 <a class="jxr_linenumber" name="L811" href="#L811">811</a>   }
 <a class="jxr_linenumber" name="L812" href="#L812">812</a> 
-<a class="jxr_linenumber" name="L813" href="#L813">813</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractServiceTest.html">RecordingListener</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../com/google/common/util/concurrent/ServiceManager.html">Listener</a> {
+<a class="jxr_linenumber" name="L813" href="#L813">813</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractServiceTest.html">RecordingListener</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a> {
 <a class="jxr_linenumber" name="L814" href="#L814">814</a>     <strong class="jxr_keyword">static</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractServiceTest.html">RecordingListener</a> record(<a href="../../../../../com/google/common/util/concurrent/Service.html">Service</a> service) {
 <a class="jxr_linenumber" name="L815" href="#L815">815</a>       <a href="../../../../../com/google/common/util/concurrent/AbstractServiceTest.html">RecordingListener</a> listener = <strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractServiceTest.html">RecordingListener</a>(service);
 <a class="jxr_linenumber" name="L816" href="#L816">816</a>       service.addListener(listener, directExecutor());

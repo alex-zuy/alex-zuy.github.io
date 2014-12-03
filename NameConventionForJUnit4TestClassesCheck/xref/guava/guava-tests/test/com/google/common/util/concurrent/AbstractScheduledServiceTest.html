@@ -122,7 +122,7 @@
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>       @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> running() {
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>         <strong class="jxr_keyword">throw</strong> error;
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>       }
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>       @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> failed(<a href="../../../../../com/google/common/util/concurrent/Service.html">State</a> from, Throwable failure) {
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>       @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> failed(<a href="../../../../../com/google/common/util/concurrent/AbstractFutureFootprintBenchmark.html">State</a> from, Throwable failure) {
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>         assertEquals(State.RUNNING, from);
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>         assertEquals(error, failure);
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>         latch.countDown();

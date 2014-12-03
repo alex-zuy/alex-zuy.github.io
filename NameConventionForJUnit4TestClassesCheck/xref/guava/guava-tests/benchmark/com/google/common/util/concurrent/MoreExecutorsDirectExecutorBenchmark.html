@@ -45,7 +45,7 @@
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  @VmOptions({<span class="jxr_string">"-Xms12g"</span>, <span class="jxr_string">"-Xmx12g"</span>, <span class="jxr_string">"-d64"</span>})
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/google/common/util/concurrent/MoreExecutorsDirectExecutorBenchmark.html">MoreExecutorsDirectExecutorBenchmark</a> {
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>    enum <a href="../../../../../com/google/common/util/concurrent/ExecutionListBenchmark.html">Impl</a> {
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>    enum <a href="../../../../../com/google/common/util/concurrent/AbstractFutureBenchmarks.html">Impl</a> {
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      EXECUTOR_SERVICE {
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>        @Override Executor executor() {
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>          <strong class="jxr_keyword">return</strong> newDirectExecutorService();
@@ -59,7 +59,7 @@
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">abstract</strong> Executor executor();
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>    }
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>    @Param <a href="../../../../../com/google/common/util/concurrent/ExecutionListBenchmark.html">Impl</a> impl;
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>    @Param <a href="../../../../../com/google/common/util/concurrent/AbstractFutureBenchmarks.html">Impl</a> impl;
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>    Executor executor;
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>    <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/google/common/util/concurrent/MoreExecutorsTest.html">CountingRunnable</a> <strong class="jxr_keyword">implements</strong> Runnable {
