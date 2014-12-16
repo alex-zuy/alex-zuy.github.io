@@ -208,7 +208,7 @@
 <a class="jxr_linenumber" name="L200" href="#L200">200</a> 		bindingResult = (BindingResult) model.get(BindingResult.MODEL_KEY_PREFIX + conventionAttrName);
 <a class="jxr_linenumber" name="L201" href="#L201">201</a> 		assertSame(modelAttrByConvention, bindingResult.getTarget());
 <a class="jxr_linenumber" name="L202" href="#L202">202</a> 
-<a class="jxr_linenumber" name="L203" href="#L203">203</a> 		assertTrue(model.get(<span class="jxr_string">"customArg"</span>) instanceof Color);
+<a class="jxr_linenumber" name="L203" href="#L203">203</a> 		assertTrue(model.get(<span class="jxr_string">"customArg"</span>) instanceof <a href="../../../../../../../org/springframework/core/CollectionFactoryTests.html">Color</a>);
 <a class="jxr_linenumber" name="L204" href="#L204">204</a> 		assertEquals(User.<strong class="jxr_keyword">class</strong>, model.get(<span class="jxr_string">"user"</span>).getClass());
 <a class="jxr_linenumber" name="L205" href="#L205">205</a> 		assertEquals(OtherUser.<strong class="jxr_keyword">class</strong>, model.get(<span class="jxr_string">"otherUser"</span>).getClass());
 <a class="jxr_linenumber" name="L206" href="#L206">206</a> 
@@ -411,7 +411,7 @@
 <a class="jxr_linenumber" name="L403" href="#L403">403</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapterIntegrationTests.html">ColorArgumentResolver</a> <strong class="jxr_keyword">implements</strong> <a href="../../../../../../../org/springframework/web/bind/support/WebArgumentResolver.html">WebArgumentResolver</a> {
 <a class="jxr_linenumber" name="L404" href="#L404">404</a> 		@Override
 <a class="jxr_linenumber" name="L405" href="#L405">405</a> 		<strong class="jxr_keyword">public</strong> Object resolveArgument(<a href="../../../../../../../org/springframework/core/MethodParameter.html">MethodParameter</a> methodParameter, <a href="../../../../../../../org/springframework/web/context/request/NativeWebRequest.html">NativeWebRequest</a> webRequest) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L406" href="#L406">406</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Color(0);
+<a class="jxr_linenumber" name="L406" href="#L406">406</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/core/CollectionFactoryTests.html">Color</a>(0);
 <a class="jxr_linenumber" name="L407" href="#L407">407</a> 		}
 <a class="jxr_linenumber" name="L408" href="#L408">408</a> 	}
 <a class="jxr_linenumber" name="L409" href="#L409">409</a> 

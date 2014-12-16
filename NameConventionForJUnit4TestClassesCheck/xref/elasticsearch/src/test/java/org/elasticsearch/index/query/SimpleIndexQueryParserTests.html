@@ -69,7 +69,7 @@
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.search.geo.GeoPolygonFilter;
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.search.geo.InMemoryGeoBoundingBoxFilter;
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.search.morelikethis.MoreLikeThisFetchService;
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.service.IndexService;
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.search.internal.SearchContext;
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.test.ElasticsearchSingleNodeTest;
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  <strong class="jxr_keyword">import</strong> org.hamcrest.Matchers;
@@ -105,7 +105,7 @@
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>                  .put(<span class="jxr_string">"index.cache.filter.type"</span>, <span class="jxr_string">"none"</span>)
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>                  .put(<span class="jxr_string">"name"</span>, <span class="jxr_string">"SimpleIndexQueryParserTests"</span>)
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>                  .build();
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = createIndex(<span class="jxr_string">"test"</span>, settings);
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = createIndex(<span class="jxr_string">"test"</span>, settings);
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>         <a href="../../../../org/elasticsearch/index/mapper/MapperService.html">MapperService</a> mapperService = indexService.mapperService();
 <a class="jxr_linenumber" name="L102" href="#L102">102</a> 
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>         String mapping = copyToStringFromClasspath(<span class="jxr_string">"/org/elasticsearch/index/query/mapping.json"</span>);
@@ -2470,7 +2470,7 @@
 <a class="jxr_linenumber" name="L2462" href="#L2462">2462</a>                 .endArray()
 <a class="jxr_linenumber" name="L2463" href="#L2463">2463</a>                 .endObject()
 <a class="jxr_linenumber" name="L2464" href="#L2464">2464</a>                 .endObject().string();
-<a class="jxr_linenumber" name="L2465" href="#L2465">2465</a>         <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = createIndex(<span class="jxr_string">"testidx"</span>, client().admin().indices().prepareCreate(<span class="jxr_string">"testidx"</span>)
+<a class="jxr_linenumber" name="L2465" href="#L2465">2465</a>         <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = createIndex(<span class="jxr_string">"testidx"</span>, client().admin().indices().prepareCreate(<span class="jxr_string">"testidx"</span>)
 <a class="jxr_linenumber" name="L2466" href="#L2466">2466</a>                 .addMapping(<span class="jxr_string">"doc"</span>,jsonBuilder().startObject()
 <a class="jxr_linenumber" name="L2467" href="#L2467">2467</a>                         .startObject(<span class="jxr_string">"properties"</span>)
 <a class="jxr_linenumber" name="L2468" href="#L2468">2468</a>                         .startObject(<span class="jxr_string">"popularity"</span>).field(<span class="jxr_string">"type"</span>, <span class="jxr_string">"float"</span>).endObject()
@@ -2532,7 +2532,7 @@
 <a class="jxr_linenumber" name="L2524" href="#L2524">2524</a>     <em class="jxr_comment">// https://github.com/elasticsearch/elasticsearch/issues/6722</em>
 <a class="jxr_linenumber" name="L2525" href="#L2525">2525</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testEmptyBoolSubClausesIsMatchAll() <strong class="jxr_keyword">throws</strong> ElasticsearchException, IOException {
 <a class="jxr_linenumber" name="L2526" href="#L2526">2526</a>         String query = copyToStringFromClasspath(<span class="jxr_string">"/org/elasticsearch/index/query/bool-query-with-empty-clauses-for-parsing.json"</span>);
-<a class="jxr_linenumber" name="L2527" href="#L2527">2527</a>         <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = createIndex(<span class="jxr_string">"testidx"</span>, client().admin().indices().prepareCreate(<span class="jxr_string">"testidx"</span>)
+<a class="jxr_linenumber" name="L2527" href="#L2527">2527</a>         <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = createIndex(<span class="jxr_string">"testidx"</span>, client().admin().indices().prepareCreate(<span class="jxr_string">"testidx"</span>)
 <a class="jxr_linenumber" name="L2528" href="#L2528">2528</a>                 .addMapping(<span class="jxr_string">"foo"</span>)
 <a class="jxr_linenumber" name="L2529" href="#L2529">2529</a>                 .addMapping(<span class="jxr_string">"test"</span>, <span class="jxr_string">"_parent"</span>, <span class="jxr_string">"type=foo"</span>));
 <a class="jxr_linenumber" name="L2530" href="#L2530">2530</a>         SearchContext.setCurrent(createSearchContext(indexService));

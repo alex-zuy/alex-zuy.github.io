@@ -88,7 +88,7 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          ImmutableOpenMap&lt;String, ImmutableOpenMap&lt;String, MappingMetaData&gt;&gt; mappingsResult = ImmutableOpenMap.of();
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>          ImmutableOpenMap&lt;String, ImmutableList&lt;AliasMetaData&gt;&gt; aliasesResult = ImmutableOpenMap.of();
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          ImmutableOpenMap&lt;String, Settings&gt; settings = ImmutableOpenMap.of();
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>          <a href="../../../../../../org/elasticsearch/action/admin/indices/get/GetIndexRequest.html">Feature</a>[] features = request.featuresAsEnums();
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>          <a href="../../../../../../org/elasticsearch/action/admin/indices/get/GetIndexRequest.html">Feature</a>[] features = request.features();
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          <strong class="jxr_keyword">boolean</strong> doneAliases = false;
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>          <strong class="jxr_keyword">boolean</strong> doneMappings = false;
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>          <strong class="jxr_keyword">boolean</strong> doneSettings = false;

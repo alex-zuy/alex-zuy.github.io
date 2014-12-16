@@ -346,7 +346,7 @@
 <a class="jxr_linenumber" name="L338" href="#L338">338</a> 
 <a class="jxr_linenumber" name="L339" href="#L339">339</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/springframework/core/convert/support/GenericConversionServiceTests.html">ColorConverter</a> <strong class="jxr_keyword">implements</strong> Converter&lt;String, Color&gt; {
 <a class="jxr_linenumber" name="L340" href="#L340">340</a> 		@Override
-<a class="jxr_linenumber" name="L341" href="#L341">341</a> 		<strong class="jxr_keyword">public</strong> Color convert(String source) { <strong class="jxr_keyword">if</strong> (!source.startsWith(<span class="jxr_string">"#"</span>)) source = <span class="jxr_string">"#"</span> + source; <strong class="jxr_keyword">return</strong> Color.decode(source); }
+<a class="jxr_linenumber" name="L341" href="#L341">341</a> 		<strong class="jxr_keyword">public</strong> <a href="../../../../../org/springframework/core/CollectionFactoryTests.html">Color</a> convert(String source) { <strong class="jxr_keyword">if</strong> (!source.startsWith(<span class="jxr_string">"#"</span>)) source = <span class="jxr_string">"#"</span> + source; <strong class="jxr_keyword">return</strong> Color.decode(source); }
 <a class="jxr_linenumber" name="L342" href="#L342">342</a> 	}
 <a class="jxr_linenumber" name="L343" href="#L343">343</a> 
 <a class="jxr_linenumber" name="L344" href="#L344">344</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> handlerMethod(List&lt;Color&gt; color) {

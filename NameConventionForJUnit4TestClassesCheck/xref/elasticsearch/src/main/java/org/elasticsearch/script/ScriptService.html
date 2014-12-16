@@ -369,7 +369,7 @@
 <a class="jxr_linenumber" name="L361" href="#L361">361</a>         String scriptLang = validateScriptLanguage(request.scriptLang());
 <a class="jxr_linenumber" name="L362" href="#L362">362</a>         <a href="../../../org/elasticsearch/action/get/GetRequest.html">GetRequest</a> getRequest = <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/action/get/GetRequest.html">GetRequest</a>(request, SCRIPT_INDEX).type(scriptLang).id(request.id())
 <a class="jxr_linenumber" name="L363" href="#L363">363</a>                 .version(request.version()).versionType(request.versionType())
-<a class="jxr_linenumber" name="L364" href="#L364">364</a>                 .operationThreaded(false).preference(<span class="jxr_string">"_local"</span>); <em class="jxr_comment">//Set preference for no forking</em>
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>                 .preference(<span class="jxr_string">"_local"</span>); <em class="jxr_comment">//Set preference for no forking</em>
 <a class="jxr_linenumber" name="L365" href="#L365">365</a>         client.get(getRequest, listener);
 <a class="jxr_linenumber" name="L366" href="#L366">366</a>     }
 <a class="jxr_linenumber" name="L367" href="#L367">367</a> 
@@ -424,7 +424,7 @@
 <a class="jxr_linenumber" name="L416" href="#L416">416</a>         validate(request.safeSource(), scriptLang);
 <a class="jxr_linenumber" name="L417" href="#L417">417</a> 
 <a class="jxr_linenumber" name="L418" href="#L418">418</a>         <a href="../../../org/elasticsearch/action/index/IndexRequest.html">IndexRequest</a> indexRequest = <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/action/index/IndexRequest.html">IndexRequest</a>(request).index(SCRIPT_INDEX).type(scriptLang).id(request.id())
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>                 .listenerThreaded(false).operationThreaded(false).version(request.version()).versionType(request.versionType())
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>                 .version(request.version()).versionType(request.versionType())
 <a class="jxr_linenumber" name="L420" href="#L420">420</a>                 .source(request.safeSource(), <strong class="jxr_keyword">true</strong>).opType(request.opType()).refresh(<strong class="jxr_keyword">true</strong>); <em class="jxr_comment">//Always refresh after indexing a template</em>
 <a class="jxr_linenumber" name="L421" href="#L421">421</a>         client.index(indexRequest, listener);
 <a class="jxr_linenumber" name="L422" href="#L422">422</a>     }

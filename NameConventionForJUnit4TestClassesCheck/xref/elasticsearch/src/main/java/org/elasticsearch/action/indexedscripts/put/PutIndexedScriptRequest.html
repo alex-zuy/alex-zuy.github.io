@@ -355,7 +355,7 @@
 <a class="jxr_linenumber" name="L347" href="#L347">347</a>         sourceUnsafe = false;
 <a class="jxr_linenumber" name="L348" href="#L348">348</a> 
 <a class="jxr_linenumber" name="L349" href="#L349">349</a>         opType = IndexRequest.OpType.fromId(in.readByte());
-<a class="jxr_linenumber" name="L350" href="#L350">350</a>         version = Versions.readVersion(in);
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>         version = in.readLong();
 <a class="jxr_linenumber" name="L351" href="#L351">351</a>         versionType = VersionType.fromValue(in.readByte());
 <a class="jxr_linenumber" name="L352" href="#L352">352</a>     }
 <a class="jxr_linenumber" name="L353" href="#L353">353</a> 
@@ -366,7 +366,7 @@
 <a class="jxr_linenumber" name="L358" href="#L358">358</a>         out.writeOptionalString(id);
 <a class="jxr_linenumber" name="L359" href="#L359">359</a>         out.writeBytesReference(source);
 <a class="jxr_linenumber" name="L360" href="#L360">360</a>         out.writeByte(opType.id());
-<a class="jxr_linenumber" name="L361" href="#L361">361</a>         Versions.writeVersion(version, out);
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>         out.writeLong(version);
 <a class="jxr_linenumber" name="L362" href="#L362">362</a>         out.writeByte(versionType.getValue());
 <a class="jxr_linenumber" name="L363" href="#L363">363</a>     }
 <a class="jxr_linenumber" name="L364" href="#L364">364</a> 

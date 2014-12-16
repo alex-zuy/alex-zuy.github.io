@@ -34,7 +34,7 @@
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.xcontent.ToXContent;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.xcontent.XContentBuilder;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.xcontent.XContentBuilderString;
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.service.IndexShard;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.IndexShard;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
@@ -51,7 +51,7 @@
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      <a href="../../../../../../org/elasticsearch/action/admin/indices/stats/ShardStats.html">ShardStats</a>() {
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      }
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/action/admin/indices/stats/ShardStats.html">ShardStats</a>(<a href="../../../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard, <a href="../../../../../../org/elasticsearch/cluster/routing/ShardRouting.html">ShardRouting</a> shardRouting, <a href="../../../../../../org/elasticsearch/action/admin/indices/stats/CommonStatsFlags.html">CommonStatsFlags</a> flags) {
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/action/admin/indices/stats/ShardStats.html">ShardStats</a>(<a href="../../../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard, <a href="../../../../../../org/elasticsearch/cluster/routing/ShardRouting.html">ShardRouting</a> shardRouting, <a href="../../../../../../org/elasticsearch/action/admin/indices/stats/CommonStatsFlags.html">CommonStatsFlags</a> flags) {
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>          <strong class="jxr_keyword">super</strong>(indexShard.shardId());
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">this</strong>.shardRouting = shardRouting;
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">this</strong>.stats = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/action/admin/indices/stats/CommonStats.html">CommonStats</a>(indexShard, flags);
@@ -101,7 +101,7 @@
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>          <strong class="jxr_keyword">return</strong> builder;
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>      }
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/elasticsearch/action/admin/indices/stats/ShardStats.html">Fields</a> {
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/elasticsearch/index/shard/DocsStats.html">Fields</a> {
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>          <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../org/elasticsearch/common/xcontent/XContentBuilderString.html">XContentBuilderString</a> ROUTING = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/common/xcontent/XContentBuilderString.html">XContentBuilderString</a>(<span class="jxr_string">"routing"</span>);
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../org/elasticsearch/common/xcontent/XContentBuilderString.html">XContentBuilderString</a> STATE = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/common/xcontent/XContentBuilderString.html">XContentBuilderString</a>(<span class="jxr_string">"state"</span>);
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>          <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../org/elasticsearch/common/xcontent/XContentBuilderString.html">XContentBuilderString</a> PRIMARY = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/common/xcontent/XContentBuilderString.html">XContentBuilderString</a>(<span class="jxr_string">"primary"</span>);

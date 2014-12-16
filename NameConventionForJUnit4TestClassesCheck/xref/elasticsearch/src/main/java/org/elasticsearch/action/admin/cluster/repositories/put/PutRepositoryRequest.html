@@ -293,26 +293,19 @@
 <a class="jxr_linenumber" name="L285" href="#L285">285</a>         type = in.readString();
 <a class="jxr_linenumber" name="L286" href="#L286">286</a>         settings = readSettingsFromStream(in);
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>         readTimeout(in);
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>         <strong class="jxr_keyword">if</strong> (in.getVersion().onOrAfter(Version.V_1_4_0)) {
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>             verify = in.readBoolean();
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>             <em class="jxr_comment">// we received this request from an older client that doesn't expect us to validate the request</em>
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>             verify = false;
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>         }
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>     }
-<a class="jxr_linenumber" name="L295" href="#L295">295</a> 
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>     @Override
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>         <strong class="jxr_keyword">super</strong>.writeTo(out);
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>         out.writeString(name);
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>         out.writeString(type);
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>         writeSettingsToStream(settings, out);
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>         writeTimeout(out);
-<a class="jxr_linenumber" name="L303" href="#L303">303</a>         <strong class="jxr_keyword">if</strong> (out.getVersion().onOrAfter(Version.V_1_4_0)) {
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>             out.writeBoolean(verify);
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>         }
-<a class="jxr_linenumber" name="L306" href="#L306">306</a>     }
-<a class="jxr_linenumber" name="L307" href="#L307">307</a> }
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>         verify = in.readBoolean();
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>     }
+<a class="jxr_linenumber" name="L290" href="#L290">290</a> 
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>     @Override
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>         <strong class="jxr_keyword">super</strong>.writeTo(out);
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>         out.writeString(name);
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>         out.writeString(type);
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>         writeSettingsToStream(settings, out);
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>         writeTimeout(out);
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>         out.writeBoolean(verify);
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>     }
+<a class="jxr_linenumber" name="L300" href="#L300">300</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

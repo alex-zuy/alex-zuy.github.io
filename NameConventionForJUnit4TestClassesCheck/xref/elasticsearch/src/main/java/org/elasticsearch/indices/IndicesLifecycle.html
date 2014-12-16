@@ -30,10 +30,10 @@
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.routing.ShardRouting;
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.Nullable;
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.Index;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.service.IndexService;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.IndexShardState;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.ShardId;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.service.IndexShard;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.IndexShard;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> * A global component allowing to register for lifecycle of an index (create/closed) and</em>
@@ -63,7 +63,7 @@
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment">         * @param oldRouting The old routing state (can be null)</em>
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">         * @param newRouting The new routing state</em>
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> shardRoutingChanged(<a href="../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard, @Nullable <a href="../../../org/elasticsearch/cluster/routing/ShardRouting.html">ShardRouting</a> oldRouting, <a href="../../../org/elasticsearch/cluster/routing/ShardRouting.html">ShardRouting</a> newRouting) {
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> shardRoutingChanged(<a href="../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard, @Nullable <a href="../../../org/elasticsearch/cluster/routing/ShardRouting.html">ShardRouting</a> oldRouting, <a href="../../../org/elasticsearch/cluster/routing/ShardRouting.html">ShardRouting</a> newRouting) {
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>          }
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  
@@ -77,7 +77,7 @@
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment">         * Called after the index has been created.</em>
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexCreated(<a href="../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService) {
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexCreated(<a href="../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService) {
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>          }
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  
@@ -91,18 +91,18 @@
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">         * Called after the index shard has been created.</em>
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexShardCreated(<a href="../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard) {
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexShardCreated(<a href="../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard) {
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>          }
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexShardPostRecovery(<a href="../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard) {
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexShardPostRecovery(<a href="../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard) {
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          }
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">         * Called after the index shard has been started.</em>
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexShardStarted(<a href="../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard) {
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexShardStarted(<a href="../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard) {
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>  
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>          }
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> 
@@ -111,7 +111,7 @@
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">         * @param indexService The index service</em>
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beforeIndexClosed(<a href="../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService) {
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beforeIndexClosed(<a href="../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService) {
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         }
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> 
@@ -129,7 +129,7 @@
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">         * @param indexShard The index shard</em>
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beforeIndexShardClosed(<a href="../../../org/elasticsearch/index/shard/ShardId.html">ShardId</a> shardId, @Nullable <a href="../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard) {
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beforeIndexShardClosed(<a href="../../../org/elasticsearch/index/shard/ShardId.html">ShardId</a> shardId, @Nullable <a href="../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard) {
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> 
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>         }
 <a class="jxr_linenumber" name="L127" href="#L127">127</a> 
@@ -138,7 +138,7 @@
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L131" href="#L131">131</a> <em class="jxr_javadoccomment">         * @param shardId The shard id</em>
 <a class="jxr_linenumber" name="L132" href="#L132">132</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexShardClosed(<a href="../../../org/elasticsearch/index/shard/ShardId.html">ShardId</a> shardId, @Nullable <a href="../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard) {
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexShardClosed(<a href="../../../org/elasticsearch/index/shard/ShardId.html">ShardId</a> shardId, @Nullable <a href="../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard) {
 <a class="jxr_linenumber" name="L134" href="#L134">134</a> 
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>         }
 <a class="jxr_linenumber" name="L136" href="#L136">136</a> 
@@ -151,7 +151,7 @@
 <a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">         * @param currentState the new shard state</em>
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> <em class="jxr_javadoccomment">         * @param reason the reason for the state change if there is one, null otherwise</em>
 <a class="jxr_linenumber" name="L145" href="#L145">145</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> indexShardStateChanged(<a href="../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard, @Nullable <a href="../../../org/elasticsearch/index/shard/IndexShardState.html">IndexShardState</a> previousState, <a href="../../../org/elasticsearch/index/shard/IndexShardState.html">IndexShardState</a> currentState, @Nullable String reason) {
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> indexShardStateChanged(<a href="../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard, @Nullable <a href="../../../org/elasticsearch/index/shard/IndexShardState.html">IndexShardState</a> previousState, <a href="../../../org/elasticsearch/index/shard/IndexShardState.html">IndexShardState</a> currentState, @Nullable String reason) {
 <a class="jxr_linenumber" name="L147" href="#L147">147</a> 
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         }
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> 
@@ -169,11 +169,11 @@
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> <em class="jxr_javadoccomment">         * Called before the index gets deleted.</em>
 <a class="jxr_linenumber" name="L163" href="#L163">163</a> <em class="jxr_javadoccomment">         * This listener method is invoked after</em>
-<a class="jxr_linenumber" name="L164" href="#L164">164</a> <em class="jxr_javadoccomment">         * {@link #beforeIndexClosed(org.elasticsearch.index.service.IndexService)} when an index is deleted</em>
+<a class="jxr_linenumber" name="L164" href="#L164">164</a> <em class="jxr_javadoccomment">         * {@link #beforeIndexClosed(org.elasticsearch.index.IndexService)} when an index is deleted</em>
 <a class="jxr_linenumber" name="L165" href="#L165">165</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L166" href="#L166">166</a> <em class="jxr_javadoccomment">         * @param indexService The index service</em>
 <a class="jxr_linenumber" name="L167" href="#L167">167</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beforeIndexDeleted(<a href="../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService) {
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beforeIndexDeleted(<a href="../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService) {
 <a class="jxr_linenumber" name="L169" href="#L169">169</a> 
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>         }
 <a class="jxr_linenumber" name="L171" href="#L171">171</a>     }

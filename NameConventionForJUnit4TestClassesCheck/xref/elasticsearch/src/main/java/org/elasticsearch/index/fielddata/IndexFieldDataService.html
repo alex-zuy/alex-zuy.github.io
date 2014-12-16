@@ -43,7 +43,7 @@
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.mapper.FieldMapper;
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.mapper.internal.IndexFieldMapper;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.mapper.internal.ParentFieldMapper;
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.service.IndexService;
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.settings.IndexSettings;
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.breaker.CircuitBreakerService;
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.fielddata.cache.IndicesFieldDataCache;
@@ -146,7 +146,7 @@
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> KeyedLock.GlobalLockable&lt;String&gt; fieldLoadingLock = <strong class="jxr_keyword">new</strong> KeyedLock.GlobalLockable&lt;&gt;();
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Map&lt;String, IndexFieldDataCache&gt; fieldDataCaches = Maps.newHashMap(); <em class="jxr_comment">// no need for concurrency support, always used under lock</em>
 <a class="jxr_linenumber" name="L140" href="#L140">140</a> 
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>     <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService;
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>     <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService;
 <a class="jxr_linenumber" name="L142" href="#L142">142</a> 
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>     @Inject
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/index/fielddata/IndexFieldDataService.html">IndexFieldDataService</a>(<a href="../../../../org/elasticsearch/index/Index.html">Index</a> index, @IndexSettings <a href="../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> indexSettings, <a href="../../../../org/elasticsearch/indices/fielddata/cache/IndicesFieldDataCache.html">IndicesFieldDataCache</a> indicesFieldDataCache,
@@ -157,7 +157,7 @@
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>     }
 <a class="jxr_linenumber" name="L150" href="#L150">150</a> 
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>     <em class="jxr_comment">// we need to "inject" the index service to not create cyclic dep</em>
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setIndexService(<a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService) {
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setIndexService(<a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService) {
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>         <strong class="jxr_keyword">this</strong>.indexService = indexService;
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>     }
 <a class="jxr_linenumber" name="L155" href="#L155">155</a> 

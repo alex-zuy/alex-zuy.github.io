@@ -154,7 +154,7 @@
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         <strong class="jxr_keyword">super</strong>.readFrom(in);
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>         scriptLang = in.readString();
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         id = in.readString();
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>         version = Versions.readVersion(in);
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>         version = in.readLong();
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>         versionType = VersionType.fromValue(in.readByte());
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>     }
 <a class="jxr_linenumber" name="L152" href="#L152">152</a> 
@@ -163,7 +163,7 @@
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>         <strong class="jxr_keyword">super</strong>.writeTo(out);
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>         out.writeString(scriptLang);
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>         out.writeString(id);
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>         Versions.writeVersion(version, out);
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>         out.writeLong(version);
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>         out.writeByte(versionType.getValue());
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>     }
 <a class="jxr_linenumber" name="L161" href="#L161">161</a> 

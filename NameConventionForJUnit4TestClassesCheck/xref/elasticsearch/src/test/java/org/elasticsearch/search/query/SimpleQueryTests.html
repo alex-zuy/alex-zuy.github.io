@@ -2260,17 +2260,17 @@
 <a class="jxr_linenumber" name="L2252" href="#L2252">2252</a> 
 <a class="jxr_linenumber" name="L2253" href="#L2253">2253</a>         <em class="jxr_comment">// We define a time zone to be applied to the filter and from/to have no time zone</em>
 <a class="jxr_linenumber" name="L2254" href="#L2254">2254</a>         searchResponse = client().prepareSearch(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L2255" href="#L2255">2255</a>                 .setQuery(QueryBuilders.filteredQuery(matchAllQuery(), FilterBuilders.rangeFilter(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01T03:00:00"</span>).to(<span class="jxr_string">"2014-01-01T03:59:00"</span>).timeZone(<span class="jxr_string">"+3:00"</span>)))
+<a class="jxr_linenumber" name="L2255" href="#L2255">2255</a>                 .setQuery(QueryBuilders.filteredQuery(matchAllQuery(), FilterBuilders.rangeFilter(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01T03:00:00"</span>).to(<span class="jxr_string">"2014-01-01T03:59:00"</span>).timeZone(<span class="jxr_string">"+03:00"</span>)))
 <a class="jxr_linenumber" name="L2256" href="#L2256">2256</a>                 .get();
 <a class="jxr_linenumber" name="L2257" href="#L2257">2257</a>         assertHitCount(searchResponse, 1l);
 <a class="jxr_linenumber" name="L2258" href="#L2258">2258</a>         assertThat(searchResponse.getHits().getAt(0).getId(), is(<span class="jxr_string">"1"</span>));
 <a class="jxr_linenumber" name="L2259" href="#L2259">2259</a>         searchResponse = client().prepareSearch(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L2260" href="#L2260">2260</a>                 .setQuery(QueryBuilders.filteredQuery(matchAllQuery(), FilterBuilders.rangeFilter(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01T02:00:00"</span>).to(<span class="jxr_string">"2014-01-01T02:59:00"</span>).timeZone(<span class="jxr_string">"+3:00"</span>)))
+<a class="jxr_linenumber" name="L2260" href="#L2260">2260</a>                 .setQuery(QueryBuilders.filteredQuery(matchAllQuery(), FilterBuilders.rangeFilter(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01T02:00:00"</span>).to(<span class="jxr_string">"2014-01-01T02:59:00"</span>).timeZone(<span class="jxr_string">"+03:00"</span>)))
 <a class="jxr_linenumber" name="L2261" href="#L2261">2261</a>                 .get();
 <a class="jxr_linenumber" name="L2262" href="#L2262">2262</a>         assertHitCount(searchResponse, 1l);
 <a class="jxr_linenumber" name="L2263" href="#L2263">2263</a>         assertThat(searchResponse.getHits().getAt(0).getId(), is(<span class="jxr_string">"2"</span>));
 <a class="jxr_linenumber" name="L2264" href="#L2264">2264</a>         searchResponse = client().prepareSearch(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L2265" href="#L2265">2265</a>                 .setQuery(QueryBuilders.filteredQuery(matchAllQuery(), FilterBuilders.rangeFilter(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01T04:00:00"</span>).to(<span class="jxr_string">"2014-01-01T04:59:00"</span>).timeZone(<span class="jxr_string">"+3:00"</span>)))
+<a class="jxr_linenumber" name="L2265" href="#L2265">2265</a>                 .setQuery(QueryBuilders.filteredQuery(matchAllQuery(), FilterBuilders.rangeFilter(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01T04:00:00"</span>).to(<span class="jxr_string">"2014-01-01T04:59:00"</span>).timeZone(<span class="jxr_string">"+03:00"</span>)))
 <a class="jxr_linenumber" name="L2266" href="#L2266">2266</a>                 .get();
 <a class="jxr_linenumber" name="L2267" href="#L2267">2267</a>         assertHitCount(searchResponse, 1l);
 <a class="jxr_linenumber" name="L2268" href="#L2268">2268</a>         assertThat(searchResponse.getHits().getAt(0).getId(), is(<span class="jxr_string">"3"</span>));
@@ -2278,7 +2278,7 @@
 <a class="jxr_linenumber" name="L2270" href="#L2270">2270</a>         <em class="jxr_comment">// When we use long values, it means we have ms since epoch UTC based so we don't apply any transformation</em>
 <a class="jxr_linenumber" name="L2271" href="#L2271">2271</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L2272" href="#L2272">2272</a>             client().prepareSearch(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L2273" href="#L2273">2273</a>                     .setQuery(QueryBuilders.filteredQuery(matchAllQuery(), FilterBuilders.rangeFilter(<span class="jxr_string">"date"</span>).from(1388534400000L).to(1388537940999L).timeZone(<span class="jxr_string">"+1:00"</span>)))
+<a class="jxr_linenumber" name="L2273" href="#L2273">2273</a>                     .setQuery(QueryBuilders.filteredQuery(matchAllQuery(), FilterBuilders.rangeFilter(<span class="jxr_string">"date"</span>).from(1388534400000L).to(1388537940999L).timeZone(<span class="jxr_string">"+01:00"</span>)))
 <a class="jxr_linenumber" name="L2274" href="#L2274">2274</a>                     .get();
 <a class="jxr_linenumber" name="L2275" href="#L2275">2275</a>             fail(<span class="jxr_string">"A Range Filter using ms since epoch with a TimeZone should raise a QueryParsingException"</span>);
 <a class="jxr_linenumber" name="L2276" href="#L2276">2276</a>         } <strong class="jxr_keyword">catch</strong> (SearchPhaseExecutionException e) {
@@ -2286,13 +2286,13 @@
 <a class="jxr_linenumber" name="L2278" href="#L2278">2278</a>         }
 <a class="jxr_linenumber" name="L2279" href="#L2279">2279</a> 
 <a class="jxr_linenumber" name="L2280" href="#L2280">2280</a>         searchResponse = client().prepareSearch(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L2281" href="#L2281">2281</a>                 .setQuery(QueryBuilders.filteredQuery(matchAllQuery(), FilterBuilders.rangeFilter(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01"</span>).to(<span class="jxr_string">"2014-01-01T00:59:00"</span>).timeZone(<span class="jxr_string">"-1:00"</span>)))
+<a class="jxr_linenumber" name="L2281" href="#L2281">2281</a>                 .setQuery(QueryBuilders.filteredQuery(matchAllQuery(), FilterBuilders.rangeFilter(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01"</span>).to(<span class="jxr_string">"2014-01-01T00:59:00"</span>).timeZone(<span class="jxr_string">"-01:00"</span>)))
 <a class="jxr_linenumber" name="L2282" href="#L2282">2282</a>                 .get();
 <a class="jxr_linenumber" name="L2283" href="#L2283">2283</a>         assertHitCount(searchResponse, 1l);
 <a class="jxr_linenumber" name="L2284" href="#L2284">2284</a>         assertThat(searchResponse.getHits().getAt(0).getId(), is(<span class="jxr_string">"3"</span>));
 <a class="jxr_linenumber" name="L2285" href="#L2285">2285</a> 
 <a class="jxr_linenumber" name="L2286" href="#L2286">2286</a>         searchResponse = client().prepareSearch(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L2287" href="#L2287">2287</a>                 .setQuery(QueryBuilders.filteredQuery(matchAllQuery(), FilterBuilders.rangeFilter(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"now/d-1d"</span>).timeZone(<span class="jxr_string">"+1:00"</span>)))
+<a class="jxr_linenumber" name="L2287" href="#L2287">2287</a>                 .setQuery(QueryBuilders.filteredQuery(matchAllQuery(), FilterBuilders.rangeFilter(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"now/d-1d"</span>).timeZone(<span class="jxr_string">"+01:00"</span>)))
 <a class="jxr_linenumber" name="L2288" href="#L2288">2288</a>                 .get();
 <a class="jxr_linenumber" name="L2289" href="#L2289">2289</a>         assertHitCount(searchResponse, 1l);
 <a class="jxr_linenumber" name="L2290" href="#L2290">2290</a>         assertThat(searchResponse.getHits().getAt(0).getId(), is(<span class="jxr_string">"4"</span>));
@@ -2300,7 +2300,7 @@
 <a class="jxr_linenumber" name="L2292" href="#L2292">2292</a>         <em class="jxr_comment">// A Range Filter on a numeric field with a TimeZone should raise an exception</em>
 <a class="jxr_linenumber" name="L2293" href="#L2293">2293</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L2294" href="#L2294">2294</a>             client().prepareSearch(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L2295" href="#L2295">2295</a>                     .setQuery(QueryBuilders.filteredQuery(matchAllQuery(), FilterBuilders.rangeFilter(<span class="jxr_string">"num"</span>).from(<span class="jxr_string">"0"</span>).to(<span class="jxr_string">"4"</span>).timeZone(<span class="jxr_string">"-1:00"</span>)))
+<a class="jxr_linenumber" name="L2295" href="#L2295">2295</a>                     .setQuery(QueryBuilders.filteredQuery(matchAllQuery(), FilterBuilders.rangeFilter(<span class="jxr_string">"num"</span>).from(<span class="jxr_string">"0"</span>).to(<span class="jxr_string">"4"</span>).timeZone(<span class="jxr_string">"-01:00"</span>)))
 <a class="jxr_linenumber" name="L2296" href="#L2296">2296</a>                     .get();
 <a class="jxr_linenumber" name="L2297" href="#L2297">2297</a>             fail(<span class="jxr_string">"A Range Filter on a numeric field with a TimeZone should raise a QueryParsingException"</span>);
 <a class="jxr_linenumber" name="L2298" href="#L2298">2298</a>         } <strong class="jxr_keyword">catch</strong> (SearchPhaseExecutionException e) {
@@ -2356,17 +2356,17 @@
 <a class="jxr_linenumber" name="L2348" href="#L2348">2348</a> 
 <a class="jxr_linenumber" name="L2349" href="#L2349">2349</a>         <em class="jxr_comment">// We define a time zone to be applied to the filter and from/to have no time zone</em>
 <a class="jxr_linenumber" name="L2350" href="#L2350">2350</a>         searchResponse = client().prepareSearch(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L2351" href="#L2351">2351</a>                 .setQuery(QueryBuilders.rangeQuery(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01T03:00:00"</span>).to(<span class="jxr_string">"2014-01-01T03:59:00"</span>).timeZone(<span class="jxr_string">"+3:00"</span>))
+<a class="jxr_linenumber" name="L2351" href="#L2351">2351</a>                 .setQuery(QueryBuilders.rangeQuery(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01T03:00:00"</span>).to(<span class="jxr_string">"2014-01-01T03:59:00"</span>).timeZone(<span class="jxr_string">"+03:00"</span>))
 <a class="jxr_linenumber" name="L2352" href="#L2352">2352</a>                 .get();
 <a class="jxr_linenumber" name="L2353" href="#L2353">2353</a>         assertHitCount(searchResponse, 1l);
 <a class="jxr_linenumber" name="L2354" href="#L2354">2354</a>         assertThat(searchResponse.getHits().getAt(0).getId(), is(<span class="jxr_string">"1"</span>));
 <a class="jxr_linenumber" name="L2355" href="#L2355">2355</a>         searchResponse = client().prepareSearch(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L2356" href="#L2356">2356</a>                 .setQuery(QueryBuilders.rangeQuery(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01T02:00:00"</span>).to(<span class="jxr_string">"2014-01-01T02:59:00"</span>).timeZone(<span class="jxr_string">"+3:00"</span>))
+<a class="jxr_linenumber" name="L2356" href="#L2356">2356</a>                 .setQuery(QueryBuilders.rangeQuery(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01T02:00:00"</span>).to(<span class="jxr_string">"2014-01-01T02:59:00"</span>).timeZone(<span class="jxr_string">"+03:00"</span>))
 <a class="jxr_linenumber" name="L2357" href="#L2357">2357</a>                 .get();
 <a class="jxr_linenumber" name="L2358" href="#L2358">2358</a>         assertHitCount(searchResponse, 1l);
 <a class="jxr_linenumber" name="L2359" href="#L2359">2359</a>         assertThat(searchResponse.getHits().getAt(0).getId(), is(<span class="jxr_string">"2"</span>));
 <a class="jxr_linenumber" name="L2360" href="#L2360">2360</a>         searchResponse = client().prepareSearch(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L2361" href="#L2361">2361</a>                 .setQuery(QueryBuilders.rangeQuery(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01T04:00:00"</span>).to(<span class="jxr_string">"2014-01-01T04:59:00"</span>).timeZone(<span class="jxr_string">"+3:00"</span>))
+<a class="jxr_linenumber" name="L2361" href="#L2361">2361</a>                 .setQuery(QueryBuilders.rangeQuery(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01T04:00:00"</span>).to(<span class="jxr_string">"2014-01-01T04:59:00"</span>).timeZone(<span class="jxr_string">"+03:00"</span>))
 <a class="jxr_linenumber" name="L2362" href="#L2362">2362</a>                 .get();
 <a class="jxr_linenumber" name="L2363" href="#L2363">2363</a>         assertHitCount(searchResponse, 1l);
 <a class="jxr_linenumber" name="L2364" href="#L2364">2364</a>         assertThat(searchResponse.getHits().getAt(0).getId(), is(<span class="jxr_string">"3"</span>));
@@ -2374,7 +2374,7 @@
 <a class="jxr_linenumber" name="L2366" href="#L2366">2366</a>         <em class="jxr_comment">// When we use long values, it means we have ms since epoch UTC based so we don't apply any transformation</em>
 <a class="jxr_linenumber" name="L2367" href="#L2367">2367</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L2368" href="#L2368">2368</a>             client().prepareSearch(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L2369" href="#L2369">2369</a>                     .setQuery(QueryBuilders.rangeQuery(<span class="jxr_string">"date"</span>).from(1388534400000L).to(1388537940999L).timeZone(<span class="jxr_string">"+1:00"</span>))
+<a class="jxr_linenumber" name="L2369" href="#L2369">2369</a>                     .setQuery(QueryBuilders.rangeQuery(<span class="jxr_string">"date"</span>).from(1388534400000L).to(1388537940999L).timeZone(<span class="jxr_string">"+01:00"</span>))
 <a class="jxr_linenumber" name="L2370" href="#L2370">2370</a>                     .get();
 <a class="jxr_linenumber" name="L2371" href="#L2371">2371</a>             fail(<span class="jxr_string">"A Range Filter using ms since epoch with a TimeZone should raise a QueryParsingException"</span>);
 <a class="jxr_linenumber" name="L2372" href="#L2372">2372</a>         } <strong class="jxr_keyword">catch</strong> (SearchPhaseExecutionException e) {
@@ -2382,13 +2382,13 @@
 <a class="jxr_linenumber" name="L2374" href="#L2374">2374</a>         }
 <a class="jxr_linenumber" name="L2375" href="#L2375">2375</a> 
 <a class="jxr_linenumber" name="L2376" href="#L2376">2376</a>         searchResponse = client().prepareSearch(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L2377" href="#L2377">2377</a>                 .setQuery(QueryBuilders.rangeQuery(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01"</span>).to(<span class="jxr_string">"2014-01-01T00:59:00"</span>).timeZone(<span class="jxr_string">"-1:00"</span>))
+<a class="jxr_linenumber" name="L2377" href="#L2377">2377</a>                 .setQuery(QueryBuilders.rangeQuery(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"2014-01-01"</span>).to(<span class="jxr_string">"2014-01-01T00:59:00"</span>).timeZone(<span class="jxr_string">"-01:00"</span>))
 <a class="jxr_linenumber" name="L2378" href="#L2378">2378</a>                 .get();
 <a class="jxr_linenumber" name="L2379" href="#L2379">2379</a>         assertHitCount(searchResponse, 1l);
 <a class="jxr_linenumber" name="L2380" href="#L2380">2380</a>         assertThat(searchResponse.getHits().getAt(0).getId(), is(<span class="jxr_string">"3"</span>));
 <a class="jxr_linenumber" name="L2381" href="#L2381">2381</a> 
 <a class="jxr_linenumber" name="L2382" href="#L2382">2382</a>         searchResponse = client().prepareSearch(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L2383" href="#L2383">2383</a>                 .setQuery(QueryBuilders.rangeQuery(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"now/d-1d"</span>).timeZone(<span class="jxr_string">"+1:00"</span>))
+<a class="jxr_linenumber" name="L2383" href="#L2383">2383</a>                 .setQuery(QueryBuilders.rangeQuery(<span class="jxr_string">"date"</span>).from(<span class="jxr_string">"now/d-1d"</span>).timeZone(<span class="jxr_string">"+01:00"</span>))
 <a class="jxr_linenumber" name="L2384" href="#L2384">2384</a>                 .get();
 <a class="jxr_linenumber" name="L2385" href="#L2385">2385</a>         assertHitCount(searchResponse, 1l);
 <a class="jxr_linenumber" name="L2386" href="#L2386">2386</a>         assertThat(searchResponse.getHits().getAt(0).getId(), is(<span class="jxr_string">"4"</span>));
@@ -2396,7 +2396,7 @@
 <a class="jxr_linenumber" name="L2388" href="#L2388">2388</a>         <em class="jxr_comment">// A Range Filter on a numeric field with a TimeZone should raise an exception</em>
 <a class="jxr_linenumber" name="L2389" href="#L2389">2389</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L2390" href="#L2390">2390</a>             client().prepareSearch(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L2391" href="#L2391">2391</a>                     .setQuery(QueryBuilders.rangeQuery(<span class="jxr_string">"num"</span>).from(<span class="jxr_string">"0"</span>).to(<span class="jxr_string">"4"</span>).timeZone(<span class="jxr_string">"-1:00"</span>))
+<a class="jxr_linenumber" name="L2391" href="#L2391">2391</a>                     .setQuery(QueryBuilders.rangeQuery(<span class="jxr_string">"num"</span>).from(<span class="jxr_string">"0"</span>).to(<span class="jxr_string">"4"</span>).timeZone(<span class="jxr_string">"-01:00"</span>))
 <a class="jxr_linenumber" name="L2392" href="#L2392">2392</a>                     .get();
 <a class="jxr_linenumber" name="L2393" href="#L2393">2393</a>             fail(<span class="jxr_string">"A Range Filter on a numeric field with a TimeZone should raise a QueryParsingException"</span>);
 <a class="jxr_linenumber" name="L2394" href="#L2394">2394</a>         } <strong class="jxr_keyword">catch</strong> (SearchPhaseExecutionException e) {

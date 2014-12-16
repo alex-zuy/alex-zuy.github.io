@@ -122,7 +122,7 @@
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>     <strong class="jxr_keyword">protected</strong> <a href="../../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> nodeSettings(<strong class="jxr_keyword">int</strong> nodeOrdinal) {
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>         <a href="../../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = ImmutableSettings.settingsBuilder()
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>                 .put(<strong class="jxr_keyword">super</strong>.nodeSettings(nodeOrdinal))
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>                 .put(<span class="jxr_string">"path.conf"</span>, getResource(<span class="jxr_string">"/org/elasticsearch/search/aggregations/metrics/scripted/conf"</span>))
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>                 .put(<span class="jxr_string">"path.conf"</span>, getResourcePath(<span class="jxr_string">"/org/elasticsearch/search/aggregations/metrics/scripted/conf"</span>))
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>                 .build();
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>         <strong class="jxr_keyword">return</strong> settings;
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>     }

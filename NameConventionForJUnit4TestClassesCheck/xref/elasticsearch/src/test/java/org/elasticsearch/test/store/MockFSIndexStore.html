@@ -31,7 +31,7 @@
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.settings.Settings;
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.env.NodeEnvironment;
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.Index;
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.service.IndexService;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.store.DirectoryService;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.store.support.AbstractIndexStore;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.store.IndicesStore;
@@ -39,7 +39,7 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/elasticsearch/test/store/MockFSIndexStore.html">MockFSIndexStore</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../org/elasticsearch/index/store/support/AbstractIndexStore.html">AbstractIndexStore</a> {
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      @Inject
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/test/store/MockFSIndexStore.html">MockFSIndexStore</a>(<a href="../../../../org/elasticsearch/index/Index.html">Index</a> index, <a href="../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> indexSettings, <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService, <a href="../../../../org/elasticsearch/indices/store/IndicesStore.html">IndicesStore</a> indicesStore, <a href="../../../../org/elasticsearch/env/NodeEnvironment.html">NodeEnvironment</a> nodeEnv) {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/test/store/MockFSIndexStore.html">MockFSIndexStore</a>(<a href="../../../../org/elasticsearch/index/Index.html">Index</a> index, <a href="../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> indexSettings, <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService, <a href="../../../../org/elasticsearch/indices/store/IndicesStore.html">IndicesStore</a> indicesStore, <a href="../../../../org/elasticsearch/env/NodeEnvironment.html">NodeEnvironment</a> nodeEnv) {
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>          <strong class="jxr_keyword">super</strong>(index, indexSettings, indexService, indicesStore, nodeEnv);
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      }
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  

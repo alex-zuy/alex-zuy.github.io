@@ -633,62 +633,49 @@
 <a class="jxr_linenumber" name="L625" href="#L625">625</a>         }
 <a class="jxr_linenumber" name="L626" href="#L626">626</a> 
 <a class="jxr_linenumber" name="L627" href="#L627">627</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../org/elasticsearch/cluster/ClusterState.html">ClusterState</a> state, <a href="../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L628" href="#L628">628</a>             <strong class="jxr_keyword">if</strong> (out.getVersion().onOrAfter(Version.V_1_1_1)) {
-<a class="jxr_linenumber" name="L629" href="#L629">629</a>                 out.writeBoolean(state.clusterName != <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L630" href="#L630">630</a>                 <strong class="jxr_keyword">if</strong> (state.clusterName != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L631" href="#L631">631</a>                     state.clusterName.writeTo(out);
-<a class="jxr_linenumber" name="L632" href="#L632">632</a>                 }
-<a class="jxr_linenumber" name="L633" href="#L633">633</a>             }
-<a class="jxr_linenumber" name="L634" href="#L634">634</a>             out.writeLong(state.version());
-<a class="jxr_linenumber" name="L635" href="#L635">635</a>             MetaData.Builder.writeTo(state.metaData(), out);
-<a class="jxr_linenumber" name="L636" href="#L636">636</a>             RoutingTable.Builder.writeTo(state.routingTable(), out);
-<a class="jxr_linenumber" name="L637" href="#L637">637</a>             DiscoveryNodes.Builder.writeTo(state.nodes(), out);
-<a class="jxr_linenumber" name="L638" href="#L638">638</a>             ClusterBlocks.Builder.writeClusterBlocks(state.blocks(), out);
-<a class="jxr_linenumber" name="L639" href="#L639">639</a>             <strong class="jxr_keyword">if</strong> (out.getVersion().before(Version.V_1_1_0)) {
-<a class="jxr_linenumber" name="L640" href="#L640">640</a>                 <em class="jxr_comment">// Versions before 1.1.0 are expecting AllocationExplanation</em>
-<a class="jxr_linenumber" name="L641" href="#L641">641</a>                 AllocationExplanation.EMPTY.writeTo(out);
-<a class="jxr_linenumber" name="L642" href="#L642">642</a>             }
-<a class="jxr_linenumber" name="L643" href="#L643">643</a>             out.writeVInt(state.customs().size());
-<a class="jxr_linenumber" name="L644" href="#L644">644</a>             <strong class="jxr_keyword">for</strong> (ObjectObjectCursor&lt;String, Custom&gt; cursor : state.customs()) {
-<a class="jxr_linenumber" name="L645" href="#L645">645</a>                 out.writeString(cursor.key);
-<a class="jxr_linenumber" name="L646" href="#L646">646</a>                 lookupFactorySafe(cursor.key).writeTo(cursor.value, out);
-<a class="jxr_linenumber" name="L647" href="#L647">647</a>             }
-<a class="jxr_linenumber" name="L648" href="#L648">648</a>         }
-<a class="jxr_linenumber" name="L649" href="#L649">649</a> 
-<a class="jxr_linenumber" name="L650" href="#L650">650</a>         <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L651" href="#L651">651</a> <em class="jxr_javadoccomment">         * @param in                 input stream</em>
-<a class="jxr_linenumber" name="L652" href="#L652">652</a> <em class="jxr_javadoccomment">         * @param localNode          used to set the local node in the cluster state. can be null.</em>
-<a class="jxr_linenumber" name="L653" href="#L653">653</a> <em class="jxr_javadoccomment">         * @param defaultClusterName this cluster name will be used of receiving a cluster state from a node on version older than 1.1.1</em>
-<a class="jxr_linenumber" name="L654" href="#L654">654</a> <em class="jxr_javadoccomment">         *                           or if the sending node did not set a cluster name</em>
-<a class="jxr_linenumber" name="L655" href="#L655">655</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L656" href="#L656">656</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../org/elasticsearch/cluster/ClusterState.html">ClusterState</a> readFrom(<a href="../../../org/elasticsearch/common/io/stream/StreamInput.html">StreamInput</a> in, @Nullable <a href="../../../org/elasticsearch/cluster/node/DiscoveryNode.html">DiscoveryNode</a> localNode, @Nullable <a href="../../../org/elasticsearch/cluster/ClusterName.html">ClusterName</a> defaultClusterName) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L657" href="#L657">657</a>             <a href="../../../org/elasticsearch/cluster/ClusterName.html">ClusterName</a> clusterName = defaultClusterName;
-<a class="jxr_linenumber" name="L658" href="#L658">658</a>             <strong class="jxr_keyword">if</strong> (in.getVersion().onOrAfter(Version.V_1_1_1)) {
-<a class="jxr_linenumber" name="L659" href="#L659">659</a>                 <em class="jxr_comment">// it might be null even if it comes from a &gt;= 1.1.1 node since it's origin might be an older node</em>
-<a class="jxr_linenumber" name="L660" href="#L660">660</a>                 <strong class="jxr_keyword">if</strong> (in.readBoolean()) {
-<a class="jxr_linenumber" name="L661" href="#L661">661</a>                     clusterName = ClusterName.readClusterName(in);
-<a class="jxr_linenumber" name="L662" href="#L662">662</a>                 }
-<a class="jxr_linenumber" name="L663" href="#L663">663</a>             }
-<a class="jxr_linenumber" name="L664" href="#L664">664</a>             <a href="../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a> builder = <strong class="jxr_keyword">new</strong> <a href="../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a>(clusterName);
-<a class="jxr_linenumber" name="L665" href="#L665">665</a>             builder.version = in.readLong();
-<a class="jxr_linenumber" name="L666" href="#L666">666</a>             builder.metaData = MetaData.Builder.readFrom(in);
-<a class="jxr_linenumber" name="L667" href="#L667">667</a>             builder.routingTable = RoutingTable.Builder.readFrom(in);
-<a class="jxr_linenumber" name="L668" href="#L668">668</a>             builder.nodes = DiscoveryNodes.Builder.readFrom(in, localNode);
-<a class="jxr_linenumber" name="L669" href="#L669">669</a>             builder.blocks = ClusterBlocks.Builder.readClusterBlocks(in);
-<a class="jxr_linenumber" name="L670" href="#L670">670</a>             <strong class="jxr_keyword">if</strong> (in.getVersion().before(Version.V_1_1_0)) {
-<a class="jxr_linenumber" name="L671" href="#L671">671</a>                 <em class="jxr_comment">// Ignore the explanation read, since after 1.1.0 it's not part of the cluster state</em>
-<a class="jxr_linenumber" name="L672" href="#L672">672</a>                 AllocationExplanation.readAllocationExplanation(in);
-<a class="jxr_linenumber" name="L673" href="#L673">673</a>             }
-<a class="jxr_linenumber" name="L674" href="#L674">674</a>             <strong class="jxr_keyword">int</strong> customSize = in.readVInt();
-<a class="jxr_linenumber" name="L675" href="#L675">675</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; customSize; i++) {
-<a class="jxr_linenumber" name="L676" href="#L676">676</a>                 String type = in.readString();
-<a class="jxr_linenumber" name="L677" href="#L677">677</a>                 <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">Custom</a> customIndexMetaData = lookupFactorySafe(type).readFrom(in);
-<a class="jxr_linenumber" name="L678" href="#L678">678</a>                 builder.putCustom(type, customIndexMetaData);
-<a class="jxr_linenumber" name="L679" href="#L679">679</a>             }
-<a class="jxr_linenumber" name="L680" href="#L680">680</a>             <strong class="jxr_keyword">return</strong> builder.build();
-<a class="jxr_linenumber" name="L681" href="#L681">681</a>         }
-<a class="jxr_linenumber" name="L682" href="#L682">682</a>     }
-<a class="jxr_linenumber" name="L683" href="#L683">683</a> }
+<a class="jxr_linenumber" name="L628" href="#L628">628</a>             out.writeBoolean(state.clusterName != <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L629" href="#L629">629</a>             <strong class="jxr_keyword">if</strong> (state.clusterName != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L630" href="#L630">630</a>                 state.clusterName.writeTo(out);
+<a class="jxr_linenumber" name="L631" href="#L631">631</a>             }
+<a class="jxr_linenumber" name="L632" href="#L632">632</a>             out.writeLong(state.version());
+<a class="jxr_linenumber" name="L633" href="#L633">633</a>             MetaData.Builder.writeTo(state.metaData(), out);
+<a class="jxr_linenumber" name="L634" href="#L634">634</a>             RoutingTable.Builder.writeTo(state.routingTable(), out);
+<a class="jxr_linenumber" name="L635" href="#L635">635</a>             DiscoveryNodes.Builder.writeTo(state.nodes(), out);
+<a class="jxr_linenumber" name="L636" href="#L636">636</a>             ClusterBlocks.Builder.writeClusterBlocks(state.blocks(), out);
+<a class="jxr_linenumber" name="L637" href="#L637">637</a>             out.writeVInt(state.customs().size());
+<a class="jxr_linenumber" name="L638" href="#L638">638</a>             <strong class="jxr_keyword">for</strong> (ObjectObjectCursor&lt;String, Custom&gt; cursor : state.customs()) {
+<a class="jxr_linenumber" name="L639" href="#L639">639</a>                 out.writeString(cursor.key);
+<a class="jxr_linenumber" name="L640" href="#L640">640</a>                 lookupFactorySafe(cursor.key).writeTo(cursor.value, out);
+<a class="jxr_linenumber" name="L641" href="#L641">641</a>             }
+<a class="jxr_linenumber" name="L642" href="#L642">642</a>         }
+<a class="jxr_linenumber" name="L643" href="#L643">643</a> 
+<a class="jxr_linenumber" name="L644" href="#L644">644</a>         <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L645" href="#L645">645</a> <em class="jxr_javadoccomment">         * @param in                 input stream</em>
+<a class="jxr_linenumber" name="L646" href="#L646">646</a> <em class="jxr_javadoccomment">         * @param localNode          used to set the local node in the cluster state. can be null.</em>
+<a class="jxr_linenumber" name="L647" href="#L647">647</a> <em class="jxr_javadoccomment">         * @param defaultClusterName this cluster name will be used of receiving a cluster state from a node on version older than 1.1.1</em>
+<a class="jxr_linenumber" name="L648" href="#L648">648</a> <em class="jxr_javadoccomment">         *                           or if the sending node did not set a cluster name</em>
+<a class="jxr_linenumber" name="L649" href="#L649">649</a> <em class="jxr_javadoccomment">         */</em>
+<a class="jxr_linenumber" name="L650" href="#L650">650</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../org/elasticsearch/cluster/ClusterState.html">ClusterState</a> readFrom(<a href="../../../org/elasticsearch/common/io/stream/StreamInput.html">StreamInput</a> in, @Nullable <a href="../../../org/elasticsearch/cluster/node/DiscoveryNode.html">DiscoveryNode</a> localNode, @Nullable <a href="../../../org/elasticsearch/cluster/ClusterName.html">ClusterName</a> defaultClusterName) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L651" href="#L651">651</a>             <a href="../../../org/elasticsearch/cluster/ClusterName.html">ClusterName</a> clusterName = defaultClusterName;
+<a class="jxr_linenumber" name="L652" href="#L652">652</a>             <strong class="jxr_keyword">if</strong> (in.readBoolean()) {
+<a class="jxr_linenumber" name="L653" href="#L653">653</a>                 clusterName = ClusterName.readClusterName(in);
+<a class="jxr_linenumber" name="L654" href="#L654">654</a>             }
+<a class="jxr_linenumber" name="L655" href="#L655">655</a>             <a href="../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a> builder = <strong class="jxr_keyword">new</strong> <a href="../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a>(clusterName);
+<a class="jxr_linenumber" name="L656" href="#L656">656</a>             builder.version = in.readLong();
+<a class="jxr_linenumber" name="L657" href="#L657">657</a>             builder.metaData = MetaData.Builder.readFrom(in);
+<a class="jxr_linenumber" name="L658" href="#L658">658</a>             builder.routingTable = RoutingTable.Builder.readFrom(in);
+<a class="jxr_linenumber" name="L659" href="#L659">659</a>             builder.nodes = DiscoveryNodes.Builder.readFrom(in, localNode);
+<a class="jxr_linenumber" name="L660" href="#L660">660</a>             builder.blocks = ClusterBlocks.Builder.readClusterBlocks(in);
+<a class="jxr_linenumber" name="L661" href="#L661">661</a>             <strong class="jxr_keyword">int</strong> customSize = in.readVInt();
+<a class="jxr_linenumber" name="L662" href="#L662">662</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; customSize; i++) {
+<a class="jxr_linenumber" name="L663" href="#L663">663</a>                 String type = in.readString();
+<a class="jxr_linenumber" name="L664" href="#L664">664</a>                 <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">Custom</a> customIndexMetaData = lookupFactorySafe(type).readFrom(in);
+<a class="jxr_linenumber" name="L665" href="#L665">665</a>                 builder.putCustom(type, customIndexMetaData);
+<a class="jxr_linenumber" name="L666" href="#L666">666</a>             }
+<a class="jxr_linenumber" name="L667" href="#L667">667</a>             <strong class="jxr_keyword">return</strong> builder.build();
+<a class="jxr_linenumber" name="L668" href="#L668">668</a>         }
+<a class="jxr_linenumber" name="L669" href="#L669">669</a>     }
+<a class="jxr_linenumber" name="L670" href="#L670">670</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

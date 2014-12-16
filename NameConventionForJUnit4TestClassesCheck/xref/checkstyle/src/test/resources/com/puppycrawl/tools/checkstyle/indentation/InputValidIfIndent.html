@@ -253,16 +253,17 @@
 <a class="jxr_linenumber" name="L245" href="#L245">245</a> 
 <a class="jxr_linenumber" name="L246" href="#L246">246</a> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/indentation/InputValidIfIndent.html">FooFoo</a> {
 <a class="jxr_linenumber" name="L247" href="#L247">247</a>     <strong class="jxr_keyword">void</strong> foo42() {
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>         <strong class="jxr_keyword">if</strong> (test) {
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>             System.getProperty(<span class="jxr_string">"blah"</span>);
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (7 &lt; 8
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>             &amp;&amp; 8 &lt; 9) {
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>             System.getProperty(<span class="jxr_string">"blah"</span>);
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (8 &lt; 9) {
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>             System.getProperty(<span class="jxr_string">"blah"</span>);
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>         }
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>     }
-<a class="jxr_linenumber" name="L257" href="#L257">257</a> }
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>         <strong class="jxr_keyword">boolean</strong> test = false;
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>         <strong class="jxr_keyword">if</strong> (test) {
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>             System.getProperty(<span class="jxr_string">"blah"</span>);
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (7 &lt; 8
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>             &amp;&amp; 8 &lt; 9) {
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>             System.getProperty(<span class="jxr_string">"blah"</span>);
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (8 &lt; 9) {
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>             System.getProperty(<span class="jxr_string">"blah"</span>);
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>         }
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>     }
+<a class="jxr_linenumber" name="L258" href="#L258">258</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

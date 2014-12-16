@@ -89,7 +89,12 @@
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>      <strong class="jxr_keyword">public</strong> ImmutableMap&lt;String, BlobMetaData&gt; listBlobsByPrefix(String blobNamePrefix) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          <strong class="jxr_keyword">return</strong> delegate.listBlobsByPrefix(blobNamePrefix);
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>      }
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  }
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>      @Override
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> move(String sourceBlobName, String targetBlobName) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>          delegate.move(sourceBlobName, targetBlobName);
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>      }
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

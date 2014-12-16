@@ -43,8 +43,8 @@
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.util.BigArrays;
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.engine.Engine;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.query.ParsedQuery;
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.service.IndexService;
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.service.IndexShard;
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.IndexShard;
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndicesService;
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.script.ScriptService;
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.search.internal.DefaultSearchContext;
@@ -110,8 +110,8 @@
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>     @Override
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>     <strong class="jxr_keyword">protected</strong> PrimaryResponse&lt;ShardDeleteByQueryResponse, ShardDeleteByQueryRequest&gt; shardOperationOnPrimary(<a href="../../../../org/elasticsearch/cluster/ClusterState.html">ClusterState</a> clusterState, <a href="../../../../org/elasticsearch/action/support/replication/TransportShardReplicationOperationAction.html">PrimaryOperationRequest</a> shardRequest) {
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>         <a href="../../../../org/elasticsearch/action/deletebyquery/ShardDeleteByQueryRequest.html">ShardDeleteByQueryRequest</a> request = shardRequest.request;
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>         <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = indicesService.indexServiceSafe(shardRequest.shardId.getIndex());
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>         <a href="../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard = indexService.shardSafe(shardRequest.shardId.id());
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>         <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = indicesService.indexServiceSafe(shardRequest.shardId.getIndex());
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>         <a href="../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard = indexService.shardSafe(shardRequest.shardId.id());
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         SearchContext.setCurrent(<strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/search/internal/DefaultSearchContext.html">DefaultSearchContext</a>(0, <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/search/internal/ShardSearchLocalRequest.html">ShardSearchLocalRequest</a>(request.types(), request.nowInMillis()), <strong class="jxr_keyword">null</strong>,
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>                 indexShard.acquireSearcher(DELETE_BY_QUERY_API), indexService, indexShard, scriptService,
@@ -132,11 +132,11 @@
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>     @Override
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> shardOperationOnReplica(<a href="../../../../org/elasticsearch/action/support/replication/TransportShardReplicationOperationAction.html">ReplicaOperationRequest</a> shardRequest) {
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>         <a href="../../../../org/elasticsearch/action/deletebyquery/ShardDeleteByQueryRequest.html">ShardDeleteByQueryRequest</a> request = shardRequest.request;
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>         <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = indicesService.indexServiceSafe(shardRequest.shardId.getIndex());
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>         <a href="../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard = indexService.shardSafe(shardRequest.shardId.id());
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>         <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = indicesService.indexServiceSafe(shardRequest.shardId.getIndex());
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>         <a href="../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard = indexService.shardSafe(shardRequest.shardId.id());
 <a class="jxr_linenumber" name="L129" href="#L129">129</a> 
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>         SearchContext.setCurrent(<strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/search/internal/DefaultSearchContext.html">DefaultSearchContext</a>(0, <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/search/internal/ShardSearchLocalRequest.html">ShardSearchLocalRequest</a>(request.types(), request.nowInMillis()), <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>                 indexShard.acquireSearcher(DELETE_BY_QUERY_API, IndexShard.Mode.WRITE), indexService, indexShard, scriptService,
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>                 indexShard.acquireSearcher(DELETE_BY_QUERY_API, <strong class="jxr_keyword">true</strong>), indexService, indexShard, scriptService,
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>                 pageCacheRecycler, bigArrays, threadPool.estimatedTimeInMillisCounter()));
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>             Engine.DeleteByQuery deleteByQuery = indexShard.prepareDeleteByQuery(request.source(), request.filteringAliases(), Engine.Operation.Origin.REPLICA, request.types());

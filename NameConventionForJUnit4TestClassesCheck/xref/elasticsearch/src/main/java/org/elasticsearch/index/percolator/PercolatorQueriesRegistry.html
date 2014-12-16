@@ -58,7 +58,7 @@
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.settings.IndexSettings;
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.AbstractIndexShardComponent;
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.ShardId;
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.service.IndexShard;
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.IndexShard;
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndicesLifecycle;
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.percolator.PercolatorService;
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
@@ -250,14 +250,14 @@
 <a class="jxr_linenumber" name="L242" href="#L242">242</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/elasticsearch/index/percolator/PercolatorQueriesRegistry.html">ShardLifecycleListener</a> <strong class="jxr_keyword">extends</strong> IndicesLifecycle.Listener {
 <a class="jxr_linenumber" name="L243" href="#L243">243</a> 
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>         @Override
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexShardCreated(<a href="../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard) {
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexShardCreated(<a href="../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard) {
 <a class="jxr_linenumber" name="L246" href="#L246">246</a>             <strong class="jxr_keyword">if</strong> (hasPercolatorType(indexShard)) {
 <a class="jxr_linenumber" name="L247" href="#L247">247</a>                 enableRealTimePercolator();
 <a class="jxr_linenumber" name="L248" href="#L248">248</a>             }
 <a class="jxr_linenumber" name="L249" href="#L249">249</a>         }
 <a class="jxr_linenumber" name="L250" href="#L250">250</a> 
 <a class="jxr_linenumber" name="L251" href="#L251">251</a>         @Override
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexShardPostRecovery(<a href="../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard) {
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexShardPostRecovery(<a href="../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard) {
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>             <strong class="jxr_keyword">if</strong> (hasPercolatorType(indexShard)) {
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>                 <em class="jxr_comment">// percolator index has started, fetch what we can from it and initialize the indices</em>
 <a class="jxr_linenumber" name="L255" href="#L255">255</a>                 <em class="jxr_comment">// we have</em>
@@ -267,15 +267,15 @@
 <a class="jxr_linenumber" name="L259" href="#L259">259</a>             }
 <a class="jxr_linenumber" name="L260" href="#L260">260</a>         }
 <a class="jxr_linenumber" name="L261" href="#L261">261</a> 
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> hasPercolatorType(<a href="../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard) {
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> hasPercolatorType(<a href="../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard) {
 <a class="jxr_linenumber" name="L263" href="#L263">263</a>             <a href="../../../../org/elasticsearch/index/shard/ShardId.html">ShardId</a> otherShardId = indexShard.shardId();
 <a class="jxr_linenumber" name="L264" href="#L264">264</a>             <strong class="jxr_keyword">return</strong> shardId.equals(otherShardId) &amp;&amp; mapperService.hasMapping(PercolatorService.TYPE_NAME);
 <a class="jxr_linenumber" name="L265" href="#L265">265</a>         }
 <a class="jxr_linenumber" name="L266" href="#L266">266</a> 
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> loadQueries(<a href="../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> shard) {
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>             shard.refresh(<strong class="jxr_keyword">new</strong> Engine.Refresh(<span class="jxr_string">"percolator_load_queries"</span>).force(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> loadQueries(<a href="../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> shard) {
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>             shard.refresh(<span class="jxr_string">"percolator_load_queries"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L269" href="#L269">269</a>             <em class="jxr_comment">// Maybe add a mode load? This isn't really a write. We need write b/c state=post_recovery</em>
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>             <strong class="jxr_keyword">try</strong> (Engine.Searcher searcher = shard.acquireSearcher(<span class="jxr_string">"percolator_load_queries"</span>, IndexShard.Mode.WRITE)) {
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>             <strong class="jxr_keyword">try</strong> (Engine.Searcher searcher = shard.acquireSearcher(<span class="jxr_string">"percolator_load_queries"</span>, <strong class="jxr_keyword">true</strong>)) {
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>                 Query query = <strong class="jxr_keyword">new</strong> ConstantScoreQuery(
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>                         indexCache.filter().cache(
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>                                 <strong class="jxr_keyword">new</strong> TermFilter(<strong class="jxr_keyword">new</strong> Term(TypeFieldMapper.NAME, PercolatorService.TYPE_NAME))

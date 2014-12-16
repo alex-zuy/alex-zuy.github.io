@@ -34,7 +34,7 @@
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.xcontent.XContentBuilder;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.xcontent.XContentFactory;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.query.FilterBuilder;
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.service.IndexService;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.InvalidAliasNameException;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.test.ElasticsearchSingleNodeTest;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
@@ -52,7 +52,7 @@
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/index/aliases/IndexAliasesService.html">IndexAliasesService</a> newIndexAliasesService() {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          <a href="../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = ImmutableSettings.builder().put(<span class="jxr_string">"name"</span>, <span class="jxr_string">"IndexAliasesServiceTests"</span>).build();
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>          <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = createIndex(<span class="jxr_string">"test"</span>, settings);
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>          <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = createIndex(<span class="jxr_string">"test"</span>, settings);
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">return</strong> indexService.aliasesService();
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      }
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  

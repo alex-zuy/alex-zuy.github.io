@@ -394,164 +394,148 @@
 <a class="jxr_linenumber" name="L386" href="#L386">386</a>     @Override
 <a class="jxr_linenumber" name="L387" href="#L387">387</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> readFrom(<a href="../../../../org/elasticsearch/common/io/stream/StreamInput.html">StreamInput</a> in) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L388" href="#L388">388</a>         <strong class="jxr_keyword">super</strong>.readFrom(in);
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>         <strong class="jxr_keyword">if</strong> (in.getVersion().before(Version.V_1_4_0_Beta1)) {
-<a class="jxr_linenumber" name="L390" href="#L390">390</a>             <em class="jxr_comment">//term vector used to read &amp; write the index twice, here and in the parent class</em>
-<a class="jxr_linenumber" name="L391" href="#L391">391</a>             in.readString();
-<a class="jxr_linenumber" name="L392" href="#L392">392</a>         }
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>         type = in.readString();
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>         id = in.readString();
-<a class="jxr_linenumber" name="L395" href="#L395">395</a> 
-<a class="jxr_linenumber" name="L396" href="#L396">396</a>         <strong class="jxr_keyword">if</strong> (in.getVersion().onOrAfter(Version.V_1_4_0_Beta1)) {
-<a class="jxr_linenumber" name="L397" href="#L397">397</a>             <strong class="jxr_keyword">if</strong> (in.readBoolean()) {
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>                 doc = in.readBytesReference();
-<a class="jxr_linenumber" name="L399" href="#L399">399</a>             }
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>         }
-<a class="jxr_linenumber" name="L401" href="#L401">401</a>         routing = in.readOptionalString();
-<a class="jxr_linenumber" name="L402" href="#L402">402</a>         preference = in.readOptionalString();
-<a class="jxr_linenumber" name="L403" href="#L403">403</a>         <strong class="jxr_keyword">long</strong> flags = in.readVLong();
-<a class="jxr_linenumber" name="L404" href="#L404">404</a> 
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>         flagsEnum.clear();
-<a class="jxr_linenumber" name="L406" href="#L406">406</a>         <strong class="jxr_keyword">for</strong> (Flag flag : Flag.values()) {
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>             <strong class="jxr_keyword">if</strong> ((flags &amp; (1 &lt;&lt; flag.ordinal())) != 0) {
-<a class="jxr_linenumber" name="L408" href="#L408">408</a>                 flagsEnum.add(flag);
-<a class="jxr_linenumber" name="L409" href="#L409">409</a>             }
-<a class="jxr_linenumber" name="L410" href="#L410">410</a>         }
-<a class="jxr_linenumber" name="L411" href="#L411">411</a>         <strong class="jxr_keyword">int</strong> numSelectedFields = in.readVInt();
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>         <strong class="jxr_keyword">if</strong> (numSelectedFields &gt; 0) {
-<a class="jxr_linenumber" name="L413" href="#L413">413</a>             selectedFields = <strong class="jxr_keyword">new</strong> HashSet&lt;&gt;();
-<a class="jxr_linenumber" name="L414" href="#L414">414</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; numSelectedFields; i++) {
-<a class="jxr_linenumber" name="L415" href="#L415">415</a>                 selectedFields.add(in.readString());
-<a class="jxr_linenumber" name="L416" href="#L416">416</a>             }
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>         }
-<a class="jxr_linenumber" name="L418" href="#L418">418</a>         <strong class="jxr_keyword">if</strong> (in.getVersion().onOrAfter(Version.V_1_5_0)) {
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>             <strong class="jxr_keyword">if</strong> (in.readBoolean()) {
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>                 perFieldAnalyzer = readPerFieldAnalyzer(in.readMap());
-<a class="jxr_linenumber" name="L421" href="#L421">421</a>             }
-<a class="jxr_linenumber" name="L422" href="#L422">422</a>             <strong class="jxr_keyword">this</strong>.realtime = in.readBoolean();
-<a class="jxr_linenumber" name="L423" href="#L423">423</a>         }
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>     }
-<a class="jxr_linenumber" name="L425" href="#L425">425</a> 
-<a class="jxr_linenumber" name="L426" href="#L426">426</a>     @Override
-<a class="jxr_linenumber" name="L427" href="#L427">427</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L428" href="#L428">428</a>         <strong class="jxr_keyword">super</strong>.writeTo(out);
-<a class="jxr_linenumber" name="L429" href="#L429">429</a>         <strong class="jxr_keyword">if</strong> (out.getVersion().before(Version.V_1_4_0_Beta1)) {
-<a class="jxr_linenumber" name="L430" href="#L430">430</a>             <em class="jxr_comment">//term vector used to read &amp; write the index twice, here and in the parent class</em>
-<a class="jxr_linenumber" name="L431" href="#L431">431</a>             out.writeString(index);
-<a class="jxr_linenumber" name="L432" href="#L432">432</a>         }
-<a class="jxr_linenumber" name="L433" href="#L433">433</a>         out.writeString(type);
-<a class="jxr_linenumber" name="L434" href="#L434">434</a>         out.writeString(id);
-<a class="jxr_linenumber" name="L435" href="#L435">435</a> 
-<a class="jxr_linenumber" name="L436" href="#L436">436</a>         <strong class="jxr_keyword">if</strong> (out.getVersion().onOrAfter(Version.V_1_4_0_Beta1)) {
-<a class="jxr_linenumber" name="L437" href="#L437">437</a>             out.writeBoolean(doc != <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L438" href="#L438">438</a>             <strong class="jxr_keyword">if</strong> (doc != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L439" href="#L439">439</a>                 out.writeBytesReference(doc);
-<a class="jxr_linenumber" name="L440" href="#L440">440</a>             }
-<a class="jxr_linenumber" name="L441" href="#L441">441</a>         }
-<a class="jxr_linenumber" name="L442" href="#L442">442</a>         out.writeOptionalString(routing);
-<a class="jxr_linenumber" name="L443" href="#L443">443</a>         out.writeOptionalString(preference);
-<a class="jxr_linenumber" name="L444" href="#L444">444</a>         <strong class="jxr_keyword">long</strong> longFlags = 0;
-<a class="jxr_linenumber" name="L445" href="#L445">445</a>         <strong class="jxr_keyword">for</strong> (Flag flag : flagsEnum) {
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>             longFlags |= (1 &lt;&lt; flag.ordinal());
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>         }
-<a class="jxr_linenumber" name="L448" href="#L448">448</a>         out.writeVLong(longFlags);
-<a class="jxr_linenumber" name="L449" href="#L449">449</a>         <strong class="jxr_keyword">if</strong> (selectedFields != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L450" href="#L450">450</a>             out.writeVInt(selectedFields.size());
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>             <strong class="jxr_keyword">for</strong> (String selectedField : selectedFields) {
-<a class="jxr_linenumber" name="L452" href="#L452">452</a>                 out.writeString(selectedField);
-<a class="jxr_linenumber" name="L453" href="#L453">453</a>             }
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>             out.writeVInt(0);
-<a class="jxr_linenumber" name="L456" href="#L456">456</a>         }
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>         <strong class="jxr_keyword">if</strong> (out.getVersion().onOrAfter(Version.V_1_5_0)) {
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>             out.writeBoolean(perFieldAnalyzer != <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>             <strong class="jxr_keyword">if</strong> (perFieldAnalyzer != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L460" href="#L460">460</a>                 out.writeGenericValue(perFieldAnalyzer);
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>             }
-<a class="jxr_linenumber" name="L462" href="#L462">462</a>             out.writeBoolean(realtime());
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>         }
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>     }
-<a class="jxr_linenumber" name="L465" href="#L465">465</a> 
-<a class="jxr_linenumber" name="L466" href="#L466">466</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> enum <a href="../../../../org/elasticsearch/action/termvectors/TermVectorsRequest.html">Flag</a> {
-<a class="jxr_linenumber" name="L467" href="#L467">467</a>         <em class="jxr_comment">// Do not change the order of these flags we use</em>
-<a class="jxr_linenumber" name="L468" href="#L468">468</a>         <em class="jxr_comment">// the ordinal for encoding! Only append to the end!</em>
-<a class="jxr_linenumber" name="L469" href="#L469">469</a>         Positions, Offsets, Payloads, FieldStatistics, TermStatistics, Dfs
-<a class="jxr_linenumber" name="L470" href="#L470">470</a>     }
-<a class="jxr_linenumber" name="L471" href="#L471">471</a> 
-<a class="jxr_linenumber" name="L472" href="#L472">472</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L473" href="#L473">473</a> <em class="jxr_javadoccomment">     * populates a request object (pre-populated with defaults) based on a parser.</em>
-<a class="jxr_linenumber" name="L474" href="#L474">474</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L475" href="#L475">475</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> parseRequest(<a href="../../../../org/elasticsearch/action/termvectors/TermVectorsRequest.html">TermVectorsRequest</a> termVectorsRequest, <a href="../../../../org/elasticsearch/common/xcontent/XContentParser.html">XContentParser</a> parser) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L476" href="#L476">476</a>         XContentParser.Token token;
-<a class="jxr_linenumber" name="L477" href="#L477">477</a>         String currentFieldName = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L478" href="#L478">478</a>         List&lt;String&gt; fields = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
-<a class="jxr_linenumber" name="L479" href="#L479">479</a>         <strong class="jxr_keyword">while</strong> ((token = parser.nextToken()) != XContentParser.Token.END_OBJECT) {
-<a class="jxr_linenumber" name="L480" href="#L480">480</a>             <strong class="jxr_keyword">if</strong> (token == XContentParser.Token.FIELD_NAME) {
-<a class="jxr_linenumber" name="L481" href="#L481">481</a>                 currentFieldName = parser.currentName();
-<a class="jxr_linenumber" name="L482" href="#L482">482</a>             } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L483" href="#L483">483</a>                 <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"fields"</span>)) {
-<a class="jxr_linenumber" name="L484" href="#L484">484</a>                     <strong class="jxr_keyword">if</strong> (token == XContentParser.Token.START_ARRAY) {
-<a class="jxr_linenumber" name="L485" href="#L485">485</a>                         <strong class="jxr_keyword">while</strong> (parser.nextToken() != XContentParser.Token.END_ARRAY) {
-<a class="jxr_linenumber" name="L486" href="#L486">486</a>                             fields.add(parser.text());
-<a class="jxr_linenumber" name="L487" href="#L487">487</a>                         }
-<a class="jxr_linenumber" name="L488" href="#L488">488</a>                     } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L489" href="#L489">489</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(
-<a class="jxr_linenumber" name="L490" href="#L490">490</a>                                 <span class="jxr_string">"The parameter fields must be given as an array! Use syntax : \&quot;fields\&quot; : [\&quot;field1\&quot;, \&quot;field2\&quot;,...]"</span>);
-<a class="jxr_linenumber" name="L491" href="#L491">491</a>                     }
-<a class="jxr_linenumber" name="L492" href="#L492">492</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"offsets"</span>)) {
-<a class="jxr_linenumber" name="L493" href="#L493">493</a>                     termVectorsRequest.offsets(parser.booleanValue());
-<a class="jxr_linenumber" name="L494" href="#L494">494</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"positions"</span>)) {
-<a class="jxr_linenumber" name="L495" href="#L495">495</a>                     termVectorsRequest.positions(parser.booleanValue());
-<a class="jxr_linenumber" name="L496" href="#L496">496</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"payloads"</span>)) {
-<a class="jxr_linenumber" name="L497" href="#L497">497</a>                     termVectorsRequest.payloads(parser.booleanValue());
-<a class="jxr_linenumber" name="L498" href="#L498">498</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"term_statistics"</span>) || currentFieldName.equals(<span class="jxr_string">"termStatistics"</span>)) {
-<a class="jxr_linenumber" name="L499" href="#L499">499</a>                     termVectorsRequest.termStatistics(parser.booleanValue());
-<a class="jxr_linenumber" name="L500" href="#L500">500</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"field_statistics"</span>) || currentFieldName.equals(<span class="jxr_string">"fieldStatistics"</span>)) {
-<a class="jxr_linenumber" name="L501" href="#L501">501</a>                     termVectorsRequest.fieldStatistics(parser.booleanValue());
-<a class="jxr_linenumber" name="L502" href="#L502">502</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"dfs"</span>)) {
-<a class="jxr_linenumber" name="L503" href="#L503">503</a>                     termVectorsRequest.dfs(parser.booleanValue());
-<a class="jxr_linenumber" name="L504" href="#L504">504</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"per_field_analyzer"</span>) || currentFieldName.equals(<span class="jxr_string">"perFieldAnalyzer"</span>)) {
-<a class="jxr_linenumber" name="L505" href="#L505">505</a>                     termVectorsRequest.perFieldAnalyzer(readPerFieldAnalyzer(parser.map()));
-<a class="jxr_linenumber" name="L506" href="#L506">506</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"_index"</span>.equals(currentFieldName)) { <em class="jxr_comment">// the following is important for multi request parsing.</em>
-<a class="jxr_linenumber" name="L507" href="#L507">507</a>                     termVectorsRequest.index = parser.text();
-<a class="jxr_linenumber" name="L508" href="#L508">508</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"_type"</span>.equals(currentFieldName)) {
-<a class="jxr_linenumber" name="L509" href="#L509">509</a>                     termVectorsRequest.type = parser.text();
-<a class="jxr_linenumber" name="L510" href="#L510">510</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"_id"</span>.equals(currentFieldName)) {
-<a class="jxr_linenumber" name="L511" href="#L511">511</a>                     <strong class="jxr_keyword">if</strong> (termVectorsRequest.doc != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L512" href="#L512">512</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"Either \&quot;id\&quot; or \&quot;doc\&quot; can be specified, but not both!"</span>);
-<a class="jxr_linenumber" name="L513" href="#L513">513</a>                     }
-<a class="jxr_linenumber" name="L514" href="#L514">514</a>                     termVectorsRequest.id = parser.text();
-<a class="jxr_linenumber" name="L515" href="#L515">515</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"doc"</span>.equals(currentFieldName)) {
-<a class="jxr_linenumber" name="L516" href="#L516">516</a>                     <strong class="jxr_keyword">if</strong> (termVectorsRequest.id != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L517" href="#L517">517</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"Either \&quot;id\&quot; or \&quot;doc\&quot; can be specified, but not both!"</span>);
-<a class="jxr_linenumber" name="L518" href="#L518">518</a>                     }
-<a class="jxr_linenumber" name="L519" href="#L519">519</a>                     termVectorsRequest.doc(jsonBuilder().copyCurrentStructure(parser));
-<a class="jxr_linenumber" name="L520" href="#L520">520</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"_routing"</span>.equals(currentFieldName) || <span class="jxr_string">"routing"</span>.equals(currentFieldName)) {
-<a class="jxr_linenumber" name="L521" href="#L521">521</a>                     termVectorsRequest.routing = parser.text();
-<a class="jxr_linenumber" name="L522" href="#L522">522</a>                 } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L523" href="#L523">523</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"The parameter "</span> + currentFieldName
-<a class="jxr_linenumber" name="L524" href="#L524">524</a>                             + <span class="jxr_string">" is not valid for term vector request!"</span>);
-<a class="jxr_linenumber" name="L525" href="#L525">525</a>                 }
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>         type = in.readString();
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>         id = in.readString();
+<a class="jxr_linenumber" name="L391" href="#L391">391</a> 
+<a class="jxr_linenumber" name="L392" href="#L392">392</a>         <strong class="jxr_keyword">if</strong> (in.readBoolean()) {
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>             doc = in.readBytesReference();
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>         }
+<a class="jxr_linenumber" name="L395" href="#L395">395</a>         routing = in.readOptionalString();
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>         preference = in.readOptionalString();
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>         <strong class="jxr_keyword">long</strong> flags = in.readVLong();
+<a class="jxr_linenumber" name="L398" href="#L398">398</a> 
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>         flagsEnum.clear();
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>         <strong class="jxr_keyword">for</strong> (Flag flag : Flag.values()) {
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>             <strong class="jxr_keyword">if</strong> ((flags &amp; (1 &lt;&lt; flag.ordinal())) != 0) {
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>                 flagsEnum.add(flag);
+<a class="jxr_linenumber" name="L403" href="#L403">403</a>             }
+<a class="jxr_linenumber" name="L404" href="#L404">404</a>         }
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>         <strong class="jxr_keyword">int</strong> numSelectedFields = in.readVInt();
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>         <strong class="jxr_keyword">if</strong> (numSelectedFields &gt; 0) {
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>             selectedFields = <strong class="jxr_keyword">new</strong> HashSet&lt;&gt;();
+<a class="jxr_linenumber" name="L408" href="#L408">408</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; numSelectedFields; i++) {
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>                 selectedFields.add(in.readString());
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>             }
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>         }
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>         <strong class="jxr_keyword">if</strong> (in.readBoolean()) {
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>             perFieldAnalyzer = readPerFieldAnalyzer(in.readMap());
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>         }
+<a class="jxr_linenumber" name="L415" href="#L415">415</a>         <strong class="jxr_keyword">this</strong>.realtime = in.readBoolean();
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>     }
+<a class="jxr_linenumber" name="L417" href="#L417">417</a> 
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>     @Override
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>         <strong class="jxr_keyword">super</strong>.writeTo(out);
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>         out.writeString(type);
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>         out.writeString(id);
+<a class="jxr_linenumber" name="L423" href="#L423">423</a> 
+<a class="jxr_linenumber" name="L424" href="#L424">424</a>         out.writeBoolean(doc != <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L425" href="#L425">425</a>         <strong class="jxr_keyword">if</strong> (doc != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L426" href="#L426">426</a>             out.writeBytesReference(doc);
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>         }
+<a class="jxr_linenumber" name="L428" href="#L428">428</a>         out.writeOptionalString(routing);
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>         out.writeOptionalString(preference);
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>         <strong class="jxr_keyword">long</strong> longFlags = 0;
+<a class="jxr_linenumber" name="L431" href="#L431">431</a>         <strong class="jxr_keyword">for</strong> (Flag flag : flagsEnum) {
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>             longFlags |= (1 &lt;&lt; flag.ordinal());
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>         }
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>         out.writeVLong(longFlags);
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>         <strong class="jxr_keyword">if</strong> (selectedFields != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L436" href="#L436">436</a>             out.writeVInt(selectedFields.size());
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>             <strong class="jxr_keyword">for</strong> (String selectedField : selectedFields) {
+<a class="jxr_linenumber" name="L438" href="#L438">438</a>                 out.writeString(selectedField);
+<a class="jxr_linenumber" name="L439" href="#L439">439</a>             }
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>             out.writeVInt(0);
+<a class="jxr_linenumber" name="L442" href="#L442">442</a>         }
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>         out.writeBoolean(perFieldAnalyzer != <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>         <strong class="jxr_keyword">if</strong> (perFieldAnalyzer != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>             out.writeGenericValue(perFieldAnalyzer);
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>         }
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>         out.writeBoolean(realtime());
+<a class="jxr_linenumber" name="L448" href="#L448">448</a>     }
+<a class="jxr_linenumber" name="L449" href="#L449">449</a> 
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> enum <a href="../../../../org/elasticsearch/action/termvectors/TermVectorsRequest.html">Flag</a> {
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>         <em class="jxr_comment">// Do not change the order of these flags we use</em>
+<a class="jxr_linenumber" name="L452" href="#L452">452</a>         <em class="jxr_comment">// the ordinal for encoding! Only append to the end!</em>
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>         Positions, Offsets, Payloads, FieldStatistics, TermStatistics, Dfs
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>     }
+<a class="jxr_linenumber" name="L455" href="#L455">455</a> 
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L457" href="#L457">457</a> <em class="jxr_javadoccomment">     * populates a request object (pre-populated with defaults) based on a parser.</em>
+<a class="jxr_linenumber" name="L458" href="#L458">458</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> parseRequest(<a href="../../../../org/elasticsearch/action/termvectors/TermVectorsRequest.html">TermVectorsRequest</a> termVectorsRequest, <a href="../../../../org/elasticsearch/common/xcontent/XContentParser.html">XContentParser</a> parser) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>         XContentParser.Token token;
+<a class="jxr_linenumber" name="L461" href="#L461">461</a>         String currentFieldName = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>         List&lt;String&gt; fields = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>         <strong class="jxr_keyword">while</strong> ((token = parser.nextToken()) != XContentParser.Token.END_OBJECT) {
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>             <strong class="jxr_keyword">if</strong> (token == XContentParser.Token.FIELD_NAME) {
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>                 currentFieldName = parser.currentName();
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>             } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L467" href="#L467">467</a>                 <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"fields"</span>)) {
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>                     <strong class="jxr_keyword">if</strong> (token == XContentParser.Token.START_ARRAY) {
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>                         <strong class="jxr_keyword">while</strong> (parser.nextToken() != XContentParser.Token.END_ARRAY) {
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>                             fields.add(parser.text());
+<a class="jxr_linenumber" name="L471" href="#L471">471</a>                         }
+<a class="jxr_linenumber" name="L472" href="#L472">472</a>                     } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L473" href="#L473">473</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(
+<a class="jxr_linenumber" name="L474" href="#L474">474</a>                                 <span class="jxr_string">"The parameter fields must be given as an array! Use syntax : \&quot;fields\&quot; : [\&quot;field1\&quot;, \&quot;field2\&quot;,...]"</span>);
+<a class="jxr_linenumber" name="L475" href="#L475">475</a>                     }
+<a class="jxr_linenumber" name="L476" href="#L476">476</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"offsets"</span>)) {
+<a class="jxr_linenumber" name="L477" href="#L477">477</a>                     termVectorsRequest.offsets(parser.booleanValue());
+<a class="jxr_linenumber" name="L478" href="#L478">478</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"positions"</span>)) {
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>                     termVectorsRequest.positions(parser.booleanValue());
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"payloads"</span>)) {
+<a class="jxr_linenumber" name="L481" href="#L481">481</a>                     termVectorsRequest.payloads(parser.booleanValue());
+<a class="jxr_linenumber" name="L482" href="#L482">482</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"term_statistics"</span>) || currentFieldName.equals(<span class="jxr_string">"termStatistics"</span>)) {
+<a class="jxr_linenumber" name="L483" href="#L483">483</a>                     termVectorsRequest.termStatistics(parser.booleanValue());
+<a class="jxr_linenumber" name="L484" href="#L484">484</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"field_statistics"</span>) || currentFieldName.equals(<span class="jxr_string">"fieldStatistics"</span>)) {
+<a class="jxr_linenumber" name="L485" href="#L485">485</a>                     termVectorsRequest.fieldStatistics(parser.booleanValue());
+<a class="jxr_linenumber" name="L486" href="#L486">486</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"dfs"</span>)) {
+<a class="jxr_linenumber" name="L487" href="#L487">487</a>                     termVectorsRequest.dfs(parser.booleanValue());
+<a class="jxr_linenumber" name="L488" href="#L488">488</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentFieldName.equals(<span class="jxr_string">"per_field_analyzer"</span>) || currentFieldName.equals(<span class="jxr_string">"perFieldAnalyzer"</span>)) {
+<a class="jxr_linenumber" name="L489" href="#L489">489</a>                     termVectorsRequest.perFieldAnalyzer(readPerFieldAnalyzer(parser.map()));
+<a class="jxr_linenumber" name="L490" href="#L490">490</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"_index"</span>.equals(currentFieldName)) { <em class="jxr_comment">// the following is important for multi request parsing.</em>
+<a class="jxr_linenumber" name="L491" href="#L491">491</a>                     termVectorsRequest.index = parser.text();
+<a class="jxr_linenumber" name="L492" href="#L492">492</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"_type"</span>.equals(currentFieldName)) {
+<a class="jxr_linenumber" name="L493" href="#L493">493</a>                     termVectorsRequest.type = parser.text();
+<a class="jxr_linenumber" name="L494" href="#L494">494</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"_id"</span>.equals(currentFieldName)) {
+<a class="jxr_linenumber" name="L495" href="#L495">495</a>                     <strong class="jxr_keyword">if</strong> (termVectorsRequest.doc != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L496" href="#L496">496</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"Either \&quot;id\&quot; or \&quot;doc\&quot; can be specified, but not both!"</span>);
+<a class="jxr_linenumber" name="L497" href="#L497">497</a>                     }
+<a class="jxr_linenumber" name="L498" href="#L498">498</a>                     termVectorsRequest.id = parser.text();
+<a class="jxr_linenumber" name="L499" href="#L499">499</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"doc"</span>.equals(currentFieldName)) {
+<a class="jxr_linenumber" name="L500" href="#L500">500</a>                     <strong class="jxr_keyword">if</strong> (termVectorsRequest.id != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L501" href="#L501">501</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"Either \&quot;id\&quot; or \&quot;doc\&quot; can be specified, but not both!"</span>);
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>                     }
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>                     termVectorsRequest.doc(jsonBuilder().copyCurrentStructure(parser));
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"_routing"</span>.equals(currentFieldName) || <span class="jxr_string">"routing"</span>.equals(currentFieldName)) {
+<a class="jxr_linenumber" name="L505" href="#L505">505</a>                     termVectorsRequest.routing = parser.text();
+<a class="jxr_linenumber" name="L506" href="#L506">506</a>                 } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L507" href="#L507">507</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"The parameter "</span> + currentFieldName
+<a class="jxr_linenumber" name="L508" href="#L508">508</a>                             + <span class="jxr_string">" is not valid for term vector request!"</span>);
+<a class="jxr_linenumber" name="L509" href="#L509">509</a>                 }
+<a class="jxr_linenumber" name="L510" href="#L510">510</a>             }
+<a class="jxr_linenumber" name="L511" href="#L511">511</a>         }
+<a class="jxr_linenumber" name="L512" href="#L512">512</a>         <strong class="jxr_keyword">if</strong> (fields.size() &gt; 0) {
+<a class="jxr_linenumber" name="L513" href="#L513">513</a>             String[] fieldsAsArray = <strong class="jxr_keyword">new</strong> String[fields.size()];
+<a class="jxr_linenumber" name="L514" href="#L514">514</a>             termVectorsRequest.selectedFields(fields.toArray(fieldsAsArray));
+<a class="jxr_linenumber" name="L515" href="#L515">515</a>         }
+<a class="jxr_linenumber" name="L516" href="#L516">516</a>     }
+<a class="jxr_linenumber" name="L517" href="#L517">517</a> 
+<a class="jxr_linenumber" name="L518" href="#L518">518</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Map&lt;String, String&gt; readPerFieldAnalyzer(Map&lt;String, Object&gt; map) {
+<a class="jxr_linenumber" name="L519" href="#L519">519</a>         Map&lt;String, String&gt; mapStrStr = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
+<a class="jxr_linenumber" name="L520" href="#L520">520</a>         <strong class="jxr_keyword">for</strong> (Map.Entry&lt;String, Object&gt; e : map.entrySet()) {
+<a class="jxr_linenumber" name="L521" href="#L521">521</a>             <strong class="jxr_keyword">if</strong> (e.getValue() instanceof String) {
+<a class="jxr_linenumber" name="L522" href="#L522">522</a>                 mapStrStr.put(e.getKey(), (String) e.getValue());
+<a class="jxr_linenumber" name="L523" href="#L523">523</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L524" href="#L524">524</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/ElasticsearchException.html">ElasticsearchException</a>(
+<a class="jxr_linenumber" name="L525" href="#L525">525</a>                         <span class="jxr_string">"The analyzer at "</span> + e.getKey() + <span class="jxr_string">" should be of type String, but got a "</span> + e.getValue().getClass() + <span class="jxr_string">"!"</span>);
 <a class="jxr_linenumber" name="L526" href="#L526">526</a>             }
 <a class="jxr_linenumber" name="L527" href="#L527">527</a>         }
-<a class="jxr_linenumber" name="L528" href="#L528">528</a>         <strong class="jxr_keyword">if</strong> (fields.size() &gt; 0) {
-<a class="jxr_linenumber" name="L529" href="#L529">529</a>             String[] fieldsAsArray = <strong class="jxr_keyword">new</strong> String[fields.size()];
-<a class="jxr_linenumber" name="L530" href="#L530">530</a>             termVectorsRequest.selectedFields(fields.toArray(fieldsAsArray));
-<a class="jxr_linenumber" name="L531" href="#L531">531</a>         }
-<a class="jxr_linenumber" name="L532" href="#L532">532</a>     }
-<a class="jxr_linenumber" name="L533" href="#L533">533</a> 
-<a class="jxr_linenumber" name="L534" href="#L534">534</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Map&lt;String, String&gt; readPerFieldAnalyzer(Map&lt;String, Object&gt; map) {
-<a class="jxr_linenumber" name="L535" href="#L535">535</a>         Map&lt;String, String&gt; mapStrStr = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
-<a class="jxr_linenumber" name="L536" href="#L536">536</a>         <strong class="jxr_keyword">for</strong> (Map.Entry&lt;String, Object&gt; e : map.entrySet()) {
-<a class="jxr_linenumber" name="L537" href="#L537">537</a>             <strong class="jxr_keyword">if</strong> (e.getValue() instanceof String) {
-<a class="jxr_linenumber" name="L538" href="#L538">538</a>                 mapStrStr.put(e.getKey(), (String) e.getValue());
-<a class="jxr_linenumber" name="L539" href="#L539">539</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L540" href="#L540">540</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/ElasticsearchException.html">ElasticsearchException</a>(
-<a class="jxr_linenumber" name="L541" href="#L541">541</a>                         <span class="jxr_string">"The analyzer at "</span> + e.getKey() + <span class="jxr_string">" should be of type String, but got a "</span> + e.getValue().getClass() + <span class="jxr_string">"!"</span>);
-<a class="jxr_linenumber" name="L542" href="#L542">542</a>             }
-<a class="jxr_linenumber" name="L543" href="#L543">543</a>         }
-<a class="jxr_linenumber" name="L544" href="#L544">544</a>         <strong class="jxr_keyword">return</strong> mapStrStr;
-<a class="jxr_linenumber" name="L545" href="#L545">545</a>     }
-<a class="jxr_linenumber" name="L546" href="#L546">546</a> }
+<a class="jxr_linenumber" name="L528" href="#L528">528</a>         <strong class="jxr_keyword">return</strong> mapStrStr;
+<a class="jxr_linenumber" name="L529" href="#L529">529</a>     }
+<a class="jxr_linenumber" name="L530" href="#L530">530</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

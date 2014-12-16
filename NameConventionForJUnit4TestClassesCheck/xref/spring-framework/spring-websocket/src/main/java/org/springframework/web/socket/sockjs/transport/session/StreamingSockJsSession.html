@@ -57,7 +57,7 @@
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  	@Override
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  	<strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> flushCache() <strong class="jxr_keyword">throws</strong> SockJsTransportFailureException {
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  		<strong class="jxr_keyword">do</strong> {
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  		<strong class="jxr_keyword">while</strong> (!getMessageCache().isEmpty()) {
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  			String message = getMessageCache().poll();
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  			SockJsMessageCodec messageCodec = getSockJsServiceConfig().getMessageCodec();
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  			SockJsFrame frame = SockJsFrame.messageFrame(messageCodec, message);
@@ -77,11 +77,10 @@
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  				<strong class="jxr_keyword">break</strong>;
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  			}
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  		}
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>  		<strong class="jxr_keyword">while</strong> (!getMessageCache().isEmpty());
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>  		scheduleHeartbeat();
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>  	}
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>  
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>  }
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  		scheduleHeartbeat();
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  	}
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

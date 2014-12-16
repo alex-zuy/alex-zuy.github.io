@@ -110,7 +110,7 @@
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>                     to = parser.objectBytes();
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>                     includeUpper = <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"time_zone"</span>.equals(currentFieldName) || <span class="jxr_string">"timeZone"</span>.equals(currentFieldName)) {
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>                     timeZone = DateMathParser.parseZone(parser.text());
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>                     timeZone = DateTimeZone.forID(parser.text());
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"_name"</span>.equals(currentFieldName)) {
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>                     queryName = parser.text();
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"format"</span>.equals(currentFieldName)) {

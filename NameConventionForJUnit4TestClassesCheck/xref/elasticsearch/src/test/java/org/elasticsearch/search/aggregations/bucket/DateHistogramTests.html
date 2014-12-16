@@ -1055,7 +1055,7 @@
 <a class="jxr_linenumber" name="L1047" href="#L1047">1047</a>                 .setQuery(matchAllQuery())
 <a class="jxr_linenumber" name="L1048" href="#L1048">1048</a>                 .addAggregation(dateHistogram(<span class="jxr_string">"date_histo"</span>)
 <a class="jxr_linenumber" name="L1049" href="#L1049">1049</a>                         .field(<span class="jxr_string">"date"</span>)
-<a class="jxr_linenumber" name="L1050" href="#L1050">1050</a>                         .preZone(<span class="jxr_string">"-2:00"</span>)
+<a class="jxr_linenumber" name="L1050" href="#L1050">1050</a>                         .preZone(<span class="jxr_string">"-02:00"</span>)
 <a class="jxr_linenumber" name="L1051" href="#L1051">1051</a>                         .interval(DateHistogram.Interval.DAY)
 <a class="jxr_linenumber" name="L1052" href="#L1052">1052</a>                         .format(<span class="jxr_string">"yyyy-MM-dd"</span>))
 <a class="jxr_linenumber" name="L1053" href="#L1053">1053</a>                 .execute().actionGet();
@@ -1090,7 +1090,7 @@
 <a class="jxr_linenumber" name="L1082" href="#L1082">1082</a>                 .setQuery(matchAllQuery())
 <a class="jxr_linenumber" name="L1083" href="#L1083">1083</a>                 .addAggregation(dateHistogram(<span class="jxr_string">"date_histo"</span>)
 <a class="jxr_linenumber" name="L1084" href="#L1084">1084</a>                         .field(<span class="jxr_string">"date"</span>)
-<a class="jxr_linenumber" name="L1085" href="#L1085">1085</a>                         .preZone(<span class="jxr_string">"-2:00"</span>)
+<a class="jxr_linenumber" name="L1085" href="#L1085">1085</a>                         .preZone(<span class="jxr_string">"-02:00"</span>)
 <a class="jxr_linenumber" name="L1086" href="#L1086">1086</a>                         .interval(DateHistogram.Interval.DAY)
 <a class="jxr_linenumber" name="L1087" href="#L1087">1087</a>                         .preZoneAdjustLargeInterval(<strong class="jxr_keyword">true</strong>)
 <a class="jxr_linenumber" name="L1088" href="#L1088">1088</a>                         .format(<span class="jxr_string">"yyyy-MM-dd'T'HH:mm:ss"</span>))

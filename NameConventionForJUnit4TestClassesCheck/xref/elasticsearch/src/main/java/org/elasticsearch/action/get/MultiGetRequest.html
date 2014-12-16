@@ -193,7 +193,7 @@
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>                     fields[i] = in.readString();
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>                 }
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>             }
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>             version = Versions.readVersionWithVLongForBW(in);
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>             version = in.readLong();
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>             versionType = VersionType.fromValue(in.readByte());
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> 
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>             fetchSourceContext = FetchSourceContext.optionalReadFromStream(in);
@@ -214,7 +214,7 @@
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>                 }
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>             }
 <a class="jxr_linenumber" name="L208" href="#L208">208</a> 
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>             Versions.writeVersionWithVLongForBW(version, out);
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>             out.writeLong(version);
 <a class="jxr_linenumber" name="L210" href="#L210">210</a>             out.writeByte(versionType.getValue());
 <a class="jxr_linenumber" name="L211" href="#L211">211</a> 
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>             FetchSourceContext.optionalWriteToStream(fetchSourceContext, out);
@@ -521,39 +521,35 @@
 <a class="jxr_linenumber" name="L513" href="#L513">513</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (realtime == 1) {
 <a class="jxr_linenumber" name="L514" href="#L514">514</a>             <strong class="jxr_keyword">this</strong>.realtime = <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L515" href="#L515">515</a>         }
-<a class="jxr_linenumber" name="L516" href="#L516">516</a>         <strong class="jxr_keyword">if</strong>(in.getVersion().onOrAfter(Version.V_1_4_0_Beta1)) {
-<a class="jxr_linenumber" name="L517" href="#L517">517</a>             ignoreErrorsOnGeneratedFields = in.readBoolean();
-<a class="jxr_linenumber" name="L518" href="#L518">518</a>         }
-<a class="jxr_linenumber" name="L519" href="#L519">519</a> 
-<a class="jxr_linenumber" name="L520" href="#L520">520</a>         <strong class="jxr_keyword">int</strong> size = in.readVInt();
-<a class="jxr_linenumber" name="L521" href="#L521">521</a>         items = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(size);
-<a class="jxr_linenumber" name="L522" href="#L522">522</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; size; i++) {
-<a class="jxr_linenumber" name="L523" href="#L523">523</a>             items.add(Item.readItem(in));
-<a class="jxr_linenumber" name="L524" href="#L524">524</a>         }
-<a class="jxr_linenumber" name="L525" href="#L525">525</a>     }
-<a class="jxr_linenumber" name="L526" href="#L526">526</a> 
-<a class="jxr_linenumber" name="L527" href="#L527">527</a>     @Override
-<a class="jxr_linenumber" name="L528" href="#L528">528</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L529" href="#L529">529</a>         <strong class="jxr_keyword">super</strong>.writeTo(out);
-<a class="jxr_linenumber" name="L530" href="#L530">530</a>         out.writeOptionalString(preference);
-<a class="jxr_linenumber" name="L531" href="#L531">531</a>         out.writeBoolean(refresh);
-<a class="jxr_linenumber" name="L532" href="#L532">532</a>         <strong class="jxr_keyword">if</strong> (realtime == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L533" href="#L533">533</a>             out.writeByte((byte) -1);
-<a class="jxr_linenumber" name="L534" href="#L534">534</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (realtime == false) {
-<a class="jxr_linenumber" name="L535" href="#L535">535</a>             out.writeByte((byte) 0);
-<a class="jxr_linenumber" name="L536" href="#L536">536</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L537" href="#L537">537</a>             out.writeByte((byte) 1);
-<a class="jxr_linenumber" name="L538" href="#L538">538</a>         }
-<a class="jxr_linenumber" name="L539" href="#L539">539</a>         <strong class="jxr_keyword">if</strong>(out.getVersion().onOrAfter(Version.V_1_4_0_Beta1)) {
-<a class="jxr_linenumber" name="L540" href="#L540">540</a>             out.writeBoolean(ignoreErrorsOnGeneratedFields);
-<a class="jxr_linenumber" name="L541" href="#L541">541</a>         }
-<a class="jxr_linenumber" name="L542" href="#L542">542</a> 
-<a class="jxr_linenumber" name="L543" href="#L543">543</a>         out.writeVInt(items.size());
-<a class="jxr_linenumber" name="L544" href="#L544">544</a>         <strong class="jxr_keyword">for</strong> (Item item : items) {
-<a class="jxr_linenumber" name="L545" href="#L545">545</a>             item.writeTo(out);
-<a class="jxr_linenumber" name="L546" href="#L546">546</a>         }
-<a class="jxr_linenumber" name="L547" href="#L547">547</a>     }
-<a class="jxr_linenumber" name="L548" href="#L548">548</a> }
+<a class="jxr_linenumber" name="L516" href="#L516">516</a>         ignoreErrorsOnGeneratedFields = in.readBoolean();
+<a class="jxr_linenumber" name="L517" href="#L517">517</a> 
+<a class="jxr_linenumber" name="L518" href="#L518">518</a>         <strong class="jxr_keyword">int</strong> size = in.readVInt();
+<a class="jxr_linenumber" name="L519" href="#L519">519</a>         items = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(size);
+<a class="jxr_linenumber" name="L520" href="#L520">520</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; size; i++) {
+<a class="jxr_linenumber" name="L521" href="#L521">521</a>             items.add(Item.readItem(in));
+<a class="jxr_linenumber" name="L522" href="#L522">522</a>         }
+<a class="jxr_linenumber" name="L523" href="#L523">523</a>     }
+<a class="jxr_linenumber" name="L524" href="#L524">524</a> 
+<a class="jxr_linenumber" name="L525" href="#L525">525</a>     @Override
+<a class="jxr_linenumber" name="L526" href="#L526">526</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L527" href="#L527">527</a>         <strong class="jxr_keyword">super</strong>.writeTo(out);
+<a class="jxr_linenumber" name="L528" href="#L528">528</a>         out.writeOptionalString(preference);
+<a class="jxr_linenumber" name="L529" href="#L529">529</a>         out.writeBoolean(refresh);
+<a class="jxr_linenumber" name="L530" href="#L530">530</a>         <strong class="jxr_keyword">if</strong> (realtime == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L531" href="#L531">531</a>             out.writeByte((byte) -1);
+<a class="jxr_linenumber" name="L532" href="#L532">532</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (realtime == false) {
+<a class="jxr_linenumber" name="L533" href="#L533">533</a>             out.writeByte((byte) 0);
+<a class="jxr_linenumber" name="L534" href="#L534">534</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L535" href="#L535">535</a>             out.writeByte((byte) 1);
+<a class="jxr_linenumber" name="L536" href="#L536">536</a>         }
+<a class="jxr_linenumber" name="L537" href="#L537">537</a>         out.writeBoolean(ignoreErrorsOnGeneratedFields);
+<a class="jxr_linenumber" name="L538" href="#L538">538</a> 
+<a class="jxr_linenumber" name="L539" href="#L539">539</a>         out.writeVInt(items.size());
+<a class="jxr_linenumber" name="L540" href="#L540">540</a>         <strong class="jxr_keyword">for</strong> (Item item : items) {
+<a class="jxr_linenumber" name="L541" href="#L541">541</a>             item.writeTo(out);
+<a class="jxr_linenumber" name="L542" href="#L542">542</a>         }
+<a class="jxr_linenumber" name="L543" href="#L543">543</a>     }
+<a class="jxr_linenumber" name="L544" href="#L544">544</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

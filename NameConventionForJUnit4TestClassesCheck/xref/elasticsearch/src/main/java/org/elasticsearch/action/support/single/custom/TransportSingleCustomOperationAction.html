@@ -354,51 +354,38 @@
 <a class="jxr_linenumber" name="L346" href="#L346">346</a>             <strong class="jxr_keyword">super</strong>.readFrom(in);
 <a class="jxr_linenumber" name="L347" href="#L347">347</a>             request = newRequest();
 <a class="jxr_linenumber" name="L348" href="#L348">348</a>             request.readFrom(in);
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>             <strong class="jxr_keyword">if</strong> (in.getVersion().onOrAfter(Version.V_1_4_0_Beta1)) {
-<a class="jxr_linenumber" name="L350" href="#L350">350</a>                 shardId = ShardId.readShardId(in);
-<a class="jxr_linenumber" name="L351" href="#L351">351</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L352" href="#L352">352</a>                 <em class="jxr_comment">//older nodes will send the concrete index as part of the request</em>
-<a class="jxr_linenumber" name="L353" href="#L353">353</a>                 shardId = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/index/shard/ShardId.html">ShardId</a>(request.index(), in.readVInt());
-<a class="jxr_linenumber" name="L354" href="#L354">354</a>             }
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>         }
-<a class="jxr_linenumber" name="L356" href="#L356">356</a> 
-<a class="jxr_linenumber" name="L357" href="#L357">357</a>         @Override
-<a class="jxr_linenumber" name="L358" href="#L358">358</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L359" href="#L359">359</a>             <strong class="jxr_keyword">super</strong>.writeTo(out);
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>             <strong class="jxr_keyword">if</strong> (out.getVersion().before(Version.V_1_4_0_Beta1)) {
-<a class="jxr_linenumber" name="L361" href="#L361">361</a>                 <em class="jxr_comment">//older nodes expect the concrete index as part of the request</em>
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>                 request.index(shardId.getIndex());
-<a class="jxr_linenumber" name="L363" href="#L363">363</a>             }
-<a class="jxr_linenumber" name="L364" href="#L364">364</a>             request.writeTo(out);
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>             <strong class="jxr_keyword">if</strong> (out.getVersion().onOrAfter(Version.V_1_4_0_Beta1)) {
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>                 shardId.writeTo(out);
-<a class="jxr_linenumber" name="L367" href="#L367">367</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L368" href="#L368">368</a>                 out.writeVInt(shardId.id());
-<a class="jxr_linenumber" name="L369" href="#L369">369</a>             }
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>             shardId = ShardId.readShardId(in);
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>         }
+<a class="jxr_linenumber" name="L351" href="#L351">351</a> 
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>         @Override
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L354" href="#L354">354</a>             <strong class="jxr_keyword">super</strong>.writeTo(out);
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>             request.writeTo(out);
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>             shardId.writeTo(out);
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>         }
+<a class="jxr_linenumber" name="L358" href="#L358">358</a>     }
+<a class="jxr_linenumber" name="L359" href="#L359">359</a> 
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L361" href="#L361">361</a> <em class="jxr_javadoccomment">     * Internal request class that gets built on each node. Holds the original request plus additional info.</em>
+<a class="jxr_linenumber" name="L362" href="#L362">362</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/elasticsearch/action/support/single/custom/TransportSingleCustomOperationAction.html">InternalRequest</a> {
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>         <strong class="jxr_keyword">final</strong> Request request;
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>         <strong class="jxr_keyword">final</strong> String concreteIndex;
+<a class="jxr_linenumber" name="L366" href="#L366">366</a> 
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>         <a href="../../../../../../org/elasticsearch/action/support/single/custom/TransportSingleCustomOperationAction.html">InternalRequest</a>(Request request, String concreteIndex) {
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>             <strong class="jxr_keyword">this</strong>.request = request;
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>             <strong class="jxr_keyword">this</strong>.concreteIndex = concreteIndex;
 <a class="jxr_linenumber" name="L370" href="#L370">370</a>         }
-<a class="jxr_linenumber" name="L371" href="#L371">371</a>     }
-<a class="jxr_linenumber" name="L372" href="#L372">372</a> 
-<a class="jxr_linenumber" name="L373" href="#L373">373</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L374" href="#L374">374</a> <em class="jxr_javadoccomment">     * Internal request class that gets built on each node. Holds the original request plus additional info.</em>
-<a class="jxr_linenumber" name="L375" href="#L375">375</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L376" href="#L376">376</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/elasticsearch/action/support/single/custom/TransportSingleCustomOperationAction.html">InternalRequest</a> {
-<a class="jxr_linenumber" name="L377" href="#L377">377</a>         <strong class="jxr_keyword">final</strong> Request request;
-<a class="jxr_linenumber" name="L378" href="#L378">378</a>         <strong class="jxr_keyword">final</strong> String concreteIndex;
-<a class="jxr_linenumber" name="L379" href="#L379">379</a> 
-<a class="jxr_linenumber" name="L380" href="#L380">380</a>         <a href="../../../../../../org/elasticsearch/action/support/single/custom/TransportSingleCustomOperationAction.html">InternalRequest</a>(Request request, String concreteIndex) {
-<a class="jxr_linenumber" name="L381" href="#L381">381</a>             <strong class="jxr_keyword">this</strong>.request = request;
-<a class="jxr_linenumber" name="L382" href="#L382">382</a>             <strong class="jxr_keyword">this</strong>.concreteIndex = concreteIndex;
-<a class="jxr_linenumber" name="L383" href="#L383">383</a>         }
-<a class="jxr_linenumber" name="L384" href="#L384">384</a> 
-<a class="jxr_linenumber" name="L385" href="#L385">385</a>         <strong class="jxr_keyword">public</strong> Request request() {
-<a class="jxr_linenumber" name="L386" href="#L386">386</a>             <strong class="jxr_keyword">return</strong> request;
-<a class="jxr_linenumber" name="L387" href="#L387">387</a>         }
-<a class="jxr_linenumber" name="L388" href="#L388">388</a> 
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>         <strong class="jxr_keyword">public</strong> String concreteIndex() {
-<a class="jxr_linenumber" name="L390" href="#L390">390</a>             <strong class="jxr_keyword">return</strong> concreteIndex;
-<a class="jxr_linenumber" name="L391" href="#L391">391</a>         }
-<a class="jxr_linenumber" name="L392" href="#L392">392</a>     }
-<a class="jxr_linenumber" name="L393" href="#L393">393</a> }
+<a class="jxr_linenumber" name="L371" href="#L371">371</a> 
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>         <strong class="jxr_keyword">public</strong> Request request() {
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>             <strong class="jxr_keyword">return</strong> request;
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>         }
+<a class="jxr_linenumber" name="L375" href="#L375">375</a> 
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>         <strong class="jxr_keyword">public</strong> String concreteIndex() {
+<a class="jxr_linenumber" name="L377" href="#L377">377</a>             <strong class="jxr_keyword">return</strong> concreteIndex;
+<a class="jxr_linenumber" name="L378" href="#L378">378</a>         }
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>     }
+<a class="jxr_linenumber" name="L380" href="#L380">380</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

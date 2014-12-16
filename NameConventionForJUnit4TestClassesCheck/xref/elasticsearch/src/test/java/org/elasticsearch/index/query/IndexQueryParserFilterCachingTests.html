@@ -41,7 +41,7 @@
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.settings.ImmutableSettings;
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.settings.Settings;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.mapper.MapperService;
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.service.IndexService;
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.search.internal.SearchContext;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.test.ElasticsearchSingleNodeTest;
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.test.TestSearchContext;
@@ -70,7 +70,7 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>                  .put(<span class="jxr_string">"index.cache.filter.type"</span>, <span class="jxr_string">"weighted"</span>)
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>                  .put(<span class="jxr_string">"name"</span>, <span class="jxr_string">"IndexQueryParserFilterCachingTests"</span>)
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>                  .build();
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = createIndex(<span class="jxr_string">"test"</span>, settings);
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = createIndex(<span class="jxr_string">"test"</span>, settings);
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          injector = indexService.injector();
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          <a href="../../../../org/elasticsearch/index/mapper/MapperService.html">MapperService</a> mapperService = indexService.mapperService();

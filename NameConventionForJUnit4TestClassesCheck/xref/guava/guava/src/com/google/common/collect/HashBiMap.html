@@ -655,8 +655,8 @@
 <a class="jxr_linenumber" name="L647" href="#L647">647</a>   @GwtIncompatible(<span class="jxr_string">"java.io.ObjectInputStream"</span>)
 <a class="jxr_linenumber" name="L648" href="#L648">648</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> readObject(ObjectInputStream stream) <strong class="jxr_keyword">throws</strong> IOException, ClassNotFoundException {
 <a class="jxr_linenumber" name="L649" href="#L649">649</a>     stream.defaultReadObject();
-<a class="jxr_linenumber" name="L650" href="#L650">650</a>     <strong class="jxr_keyword">int</strong> size = Serialization.readCount(stream);
-<a class="jxr_linenumber" name="L651" href="#L651">651</a>     init(size);
+<a class="jxr_linenumber" name="L650" href="#L650">650</a>     init(16);
+<a class="jxr_linenumber" name="L651" href="#L651">651</a>     <strong class="jxr_keyword">int</strong> size = Serialization.readCount(stream);
 <a class="jxr_linenumber" name="L652" href="#L652">652</a>     Serialization.populateMap(<strong class="jxr_keyword">this</strong>, stream, size);
 <a class="jxr_linenumber" name="L653" href="#L653">653</a>   }
 <a class="jxr_linenumber" name="L654" href="#L654">654</a> 

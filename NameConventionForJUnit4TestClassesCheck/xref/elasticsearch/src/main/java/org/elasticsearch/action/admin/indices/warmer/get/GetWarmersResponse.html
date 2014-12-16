@@ -77,39 +77,35 @@
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>                  String[] types = in.readStringArray();
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>                  <a href="../../../../../../../org/elasticsearch/common/bytes/BytesReference.html">BytesReference</a> source = in.readBytesReference();
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>                  Boolean queryCache = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>                  <strong class="jxr_keyword">if</strong> (in.getVersion().onOrAfter(Version.V_1_4_0_Beta1)) {
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>                      queryCache = in.readOptionalBoolean();
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>                  }
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>                  warmerEntryBuilder.add(<strong class="jxr_keyword">new</strong> IndexWarmersMetaData.Entry(
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>                                  name,
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>                                  types,
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>                                  queryCache,
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>                                  source)
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>                  );
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>              }
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>              indexMapBuilder.put(key, warmerEntryBuilder.build());
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>          }
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>          warmers = indexMapBuilder.build();
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>      }
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>  
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>      @Override
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>          <strong class="jxr_keyword">super</strong>.writeTo(out);
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          out.writeVInt(warmers.size());
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>          <strong class="jxr_keyword">for</strong> (ObjectObjectCursor&lt;String, ImmutableList&lt;IndexWarmersMetaData.Entry&gt;&gt; indexEntry : warmers) {
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>              out.writeString(indexEntry.key);
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>              out.writeVInt(indexEntry.value.size());
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>              <strong class="jxr_keyword">for</strong> (IndexWarmersMetaData.Entry warmerEntry : indexEntry.value) {
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>                  out.writeString(warmerEntry.name());
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>                  out.writeStringArray(warmerEntry.types());
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>                  out.writeBytesReference(warmerEntry.source());
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>                  <strong class="jxr_keyword">if</strong> (out.getVersion().onOrAfter(Version.V_1_4_0_Beta1)) {
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>                      out.writeOptionalBoolean(warmerEntry.queryCache());
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>                 }
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>             }
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>         }
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>     }
-<a class="jxr_linenumber" name="L104" href="#L104">104</a> }
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>                  queryCache = in.readOptionalBoolean();
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>                  warmerEntryBuilder.add(<strong class="jxr_keyword">new</strong> IndexWarmersMetaData.Entry(
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>                                  name,
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>                                  types,
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>                                  queryCache,
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>                                  source)
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>                  );
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>              }
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>              indexMapBuilder.put(key, warmerEntryBuilder.build());
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          }
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>          warmers = indexMapBuilder.build();
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>      }
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>      @Override
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">super</strong>.writeTo(out);
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          out.writeVInt(warmers.size());
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>          <strong class="jxr_keyword">for</strong> (ObjectObjectCursor&lt;String, ImmutableList&lt;IndexWarmersMetaData.Entry&gt;&gt; indexEntry : warmers) {
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>              out.writeString(indexEntry.key);
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>              out.writeVInt(indexEntry.value.size());
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>              <strong class="jxr_keyword">for</strong> (IndexWarmersMetaData.Entry warmerEntry : indexEntry.value) {
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>                  out.writeString(warmerEntry.name());
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>                  out.writeStringArray(warmerEntry.types());
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>                  out.writeBytesReference(warmerEntry.source());
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>                  out.writeOptionalBoolean(warmerEntry.queryCache());
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>              }
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>          }
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>      }
+<a class="jxr_linenumber" name="L100" href="#L100">100</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

@@ -41,7 +41,7 @@
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.mapper.internal.UidFieldMapper;
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.query.QueryBuilder;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.query.QueryParseContext;
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.service.IndexService;
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.search.internal.SearchContext;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.test.ElasticsearchSingleNodeLuceneTestCase;
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.hamcrest.Description;
@@ -64,7 +64,7 @@
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> String CHILD_SCORE_NAME = <span class="jxr_string">"childScore"</span>;
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>      <strong class="jxr_keyword">static</strong> <a href="../../../../../org/elasticsearch/search/internal/SearchContext.html">SearchContext</a> createSearchContext(String indexName, String parentType, String childType) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>          <a href="../../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = createIndex(indexName);
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>          <a href="../../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = createIndex(indexName);
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>          <a href="../../../../../org/elasticsearch/index/mapper/MapperService.html">MapperService</a> mapperService = indexService.mapperService();
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>          <em class="jxr_comment">// Parent/child parsers require that the parent and child type to be presented in mapping</em>
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>          <em class="jxr_comment">// Sometimes we want a nested object field in the parent type that triggers nonNestedDocsFilter to be used</em>

@@ -48,7 +48,7 @@
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.mapper.DocumentMapper;
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.mapper.MapperService;
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.mapper.MergeMappingException;
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.service.IndexService;
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndexMissingException;
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndicesService;
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.InvalidTypeNameException;
@@ -218,7 +218,7 @@
 <a class="jxr_linenumber" name="L210" href="#L210">210</a> 
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>             <em class="jxr_comment">// construct the actual index if needed, and make sure the relevant mappings are there</em>
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>             <strong class="jxr_keyword">boolean</strong> removeIndex = false;
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>             <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = indicesService.indexService(index);
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>             <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = indicesService.indexService(index);
 <a class="jxr_linenumber" name="L214" href="#L214">214</a>             <strong class="jxr_keyword">if</strong> (indexService == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>                 <em class="jxr_comment">// we need to create the index here, and add the current mapping to it, so we can merge</em>
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>                 indexService = indicesService.createIndex(indexMetaData.index(), indexMetaData.settings(), currentState.nodes().localNode().id());
@@ -260,7 +260,7 @@
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>         <strong class="jxr_keyword">return</strong> Tuple.tuple(ClusterState.builder(currentState).metaData(mdBuilder).build(), allTasks);
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>     }
 <a class="jxr_linenumber" name="L254" href="#L254">254</a> 
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> processIndexMappingTasks(List&lt;MappingTask&gt; tasks, <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService, IndexMetaData.Builder builder) {
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> processIndexMappingTasks(List&lt;MappingTask&gt; tasks, <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService, IndexMetaData.Builder builder) {
 <a class="jxr_linenumber" name="L256" href="#L256">256</a>         <strong class="jxr_keyword">boolean</strong> dirty = false;
 <a class="jxr_linenumber" name="L257" href="#L257">257</a>         String index = indexService.index().name();
 <a class="jxr_linenumber" name="L258" href="#L258">258</a>         <em class="jxr_comment">// keep track of what we already refreshed, no need to refresh it again...</em>
@@ -487,7 +487,7 @@
 <a class="jxr_linenumber" name="L479" href="#L479">479</a>                             <strong class="jxr_keyword">continue</strong>;
 <a class="jxr_linenumber" name="L480" href="#L480">480</a>                         }
 <a class="jxr_linenumber" name="L481" href="#L481">481</a>                         <strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> indexMetaData = currentState.metaData().index(index);
-<a class="jxr_linenumber" name="L482" href="#L482">482</a>                         <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = indicesService.createIndex(indexMetaData.index(), indexMetaData.settings(), clusterService.localNode().id());
+<a class="jxr_linenumber" name="L482" href="#L482">482</a>                         <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = indicesService.createIndex(indexMetaData.index(), indexMetaData.settings(), clusterService.localNode().id());
 <a class="jxr_linenumber" name="L483" href="#L483">483</a>                         indicesToClose.add(indexMetaData.index());
 <a class="jxr_linenumber" name="L484" href="#L484">484</a>                         <em class="jxr_comment">// make sure to add custom default mapping if exists</em>
 <a class="jxr_linenumber" name="L485" href="#L485">485</a>                         <strong class="jxr_keyword">if</strong> (indexMetaData.mappings().containsKey(MapperService.DEFAULT_MAPPING)) {
@@ -502,7 +502,7 @@
 <a class="jxr_linenumber" name="L494" href="#L494">494</a>                     Map&lt;String, DocumentMapper&gt; newMappers = newHashMap();
 <a class="jxr_linenumber" name="L495" href="#L495">495</a>                     Map&lt;String, DocumentMapper&gt; existingMappers = newHashMap();
 <a class="jxr_linenumber" name="L496" href="#L496">496</a>                     <strong class="jxr_keyword">for</strong> (String index : request.indices()) {
-<a class="jxr_linenumber" name="L497" href="#L497">497</a>                         <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = indicesService.indexServiceSafe(index);
+<a class="jxr_linenumber" name="L497" href="#L497">497</a>                         <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = indicesService.indexServiceSafe(index);
 <a class="jxr_linenumber" name="L498" href="#L498">498</a>                         <em class="jxr_comment">// try and parse it (no need to add it here) so we can bail early in case of parsing exception</em>
 <a class="jxr_linenumber" name="L499" href="#L499">499</a>                         <a href="../../../../org/elasticsearch/index/mapper/DocumentMapper.html">DocumentMapper</a> newMapper;
 <a class="jxr_linenumber" name="L500" href="#L500">500</a>                         <a href="../../../../org/elasticsearch/index/mapper/DocumentMapper.html">DocumentMapper</a> existingMapper = indexService.mapperService().documentMapper(request.type());
@@ -542,7 +542,7 @@
 <a class="jxr_linenumber" name="L534" href="#L534">534</a>                         String index = entry.getKey();
 <a class="jxr_linenumber" name="L535" href="#L535">535</a>                         <em class="jxr_comment">// do the actual merge here on the master, and update the mapping source</em>
 <a class="jxr_linenumber" name="L536" href="#L536">536</a>                         <a href="../../../../org/elasticsearch/index/mapper/DocumentMapper.html">DocumentMapper</a> newMapper = entry.getValue();
-<a class="jxr_linenumber" name="L537" href="#L537">537</a>                         <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = indicesService.indexService(index);
+<a class="jxr_linenumber" name="L537" href="#L537">537</a>                         <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = indicesService.indexService(index);
 <a class="jxr_linenumber" name="L538" href="#L538">538</a>                         <strong class="jxr_keyword">if</strong> (indexService == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L539" href="#L539">539</a>                             <strong class="jxr_keyword">continue</strong>;
 <a class="jxr_linenumber" name="L540" href="#L540">540</a>                         }

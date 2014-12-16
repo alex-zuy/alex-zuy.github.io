@@ -354,27 +354,22 @@
 <a class="jxr_linenumber" name="L346" href="#L346">346</a>     }
 <a class="jxr_linenumber" name="L347" href="#L347">347</a> 
 <a class="jxr_linenumber" name="L348" href="#L348">348</a>     @Override
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/search/internal/SearchContext.html">SearchContext</a> useSlowScroll(<strong class="jxr_keyword">boolean</strong> useSlowScroll) {
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>     <strong class="jxr_keyword">public</strong> Counter timeEstimateCounter() {
 <a class="jxr_linenumber" name="L350" href="#L350">350</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException(<span class="jxr_string">"Not supported"</span>);
 <a class="jxr_linenumber" name="L351" href="#L351">351</a>     }
 <a class="jxr_linenumber" name="L352" href="#L352">352</a> 
-<a class="jxr_linenumber" name="L353" href="#L353">353</a>     @Override
-<a class="jxr_linenumber" name="L354" href="#L354">354</a>     <strong class="jxr_keyword">public</strong> Counter timeEstimateCounter() {
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException(<span class="jxr_string">"Not supported"</span>);
-<a class="jxr_linenumber" name="L356" href="#L356">356</a>     }
-<a class="jxr_linenumber" name="L357" href="#L357">357</a> 
-<a class="jxr_linenumber" name="L358" href="#L358">358</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../org/elasticsearch/search/fetch/innerhits/InnerHitsContext.html">InnerHitsContext</a> innerHitsContext;
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../org/elasticsearch/search/fetch/innerhits/InnerHitsContext.html">InnerHitsContext</a> innerHitsContext;
+<a class="jxr_linenumber" name="L354" href="#L354">354</a> 
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>     @Override
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> innerHits(<a href="../../../../org/elasticsearch/search/fetch/innerhits/InnerHitsContext.html">InnerHitsContext</a> innerHitsContext) {
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>         <strong class="jxr_keyword">this</strong>.innerHitsContext = innerHitsContext;
+<a class="jxr_linenumber" name="L358" href="#L358">358</a>     }
 <a class="jxr_linenumber" name="L359" href="#L359">359</a> 
 <a class="jxr_linenumber" name="L360" href="#L360">360</a>     @Override
-<a class="jxr_linenumber" name="L361" href="#L361">361</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> innerHits(<a href="../../../../org/elasticsearch/search/fetch/innerhits/InnerHitsContext.html">InnerHitsContext</a> innerHitsContext) {
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>         <strong class="jxr_keyword">this</strong>.innerHitsContext = innerHitsContext;
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/search/fetch/innerhits/InnerHitsContext.html">InnerHitsContext</a> innerHits() {
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>         <strong class="jxr_keyword">return</strong> innerHitsContext;
 <a class="jxr_linenumber" name="L363" href="#L363">363</a>     }
-<a class="jxr_linenumber" name="L364" href="#L364">364</a> 
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>     @Override
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/search/fetch/innerhits/InnerHitsContext.html">InnerHitsContext</a> innerHits() {
-<a class="jxr_linenumber" name="L367" href="#L367">367</a>         <strong class="jxr_keyword">return</strong> innerHitsContext;
-<a class="jxr_linenumber" name="L368" href="#L368">368</a>     }
-<a class="jxr_linenumber" name="L369" href="#L369">369</a> }
+<a class="jxr_linenumber" name="L364" href="#L364">364</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

@@ -51,8 +51,8 @@
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.query.IndexQueryParserService;
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.query.ParsedFilter;
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.query.ParsedQuery;
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.service.IndexService;
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.service.IndexShard;
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.IndexShard;
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.similarity.SimilarityService;
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.script.ScriptService;
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.search.Scroll;
@@ -90,9 +90,9 @@
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> trackScores;
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/search/SearchShardTarget.html">SearchShardTarget</a> searchShardTarget;
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService;
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService;
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/index/fielddata/IndexFieldDataService.html">IndexFieldDataService</a> fieldDataService;
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard;
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard;
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/cache/recycler/PageCacheRecycler.html">PageCacheRecycler</a> pageCacheRecycler;
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/common/util/BigArrays.html">BigArrays</a> bigArrays;
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/script/ScriptService.html">ScriptService</a> scriptService;
@@ -115,8 +115,8 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>     <strong class="jxr_keyword">private</strong> <a href="../../../org/elasticsearch/search/query/QuerySearchResult.html">QuerySearchResult</a> querySearchResult;
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">private</strong> <a href="../../../org/elasticsearch/search/suggest/Suggest.html">Sort</a> sort;
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> 
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/percolator/PercolateContext.html">PercolateContext</a>(<a href="../../../org/elasticsearch/action/percolate/PercolateShardRequest.html">PercolateShardRequest</a> request, <a href="../../../org/elasticsearch/search/SearchShardTarget.html">SearchShardTarget</a> searchShardTarget, <a href="../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard,
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>                             <a href="../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService, <a href="../../../org/elasticsearch/cache/recycler/PageCacheRecycler.html">PageCacheRecycler</a> pageCacheRecycler,
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/percolator/PercolateContext.html">PercolateContext</a>(<a href="../../../org/elasticsearch/action/percolate/PercolateShardRequest.html">PercolateShardRequest</a> request, <a href="../../../org/elasticsearch/search/SearchShardTarget.html">SearchShardTarget</a> searchShardTarget, <a href="../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard,
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>                             <a href="../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService, <a href="../../../org/elasticsearch/cache/recycler/PageCacheRecycler.html">PageCacheRecycler</a> pageCacheRecycler,
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>                             <a href="../../../org/elasticsearch/common/util/BigArrays.html">BigArrays</a> bigArrays, <a href="../../../org/elasticsearch/script/ScriptService.html">ScriptService</a> scriptService) {
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         <strong class="jxr_keyword">this</strong>.indexShard = indexShard;
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         <strong class="jxr_keyword">this</strong>.indexService = indexService;
@@ -156,11 +156,11 @@
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         );
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>     }
 <a class="jxr_linenumber" name="L150" href="#L150">150</a> 
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard() {
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard() {
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>         <strong class="jxr_keyword">return</strong> indexShard;
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>     }
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> 
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService() {
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService() {
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>         <strong class="jxr_keyword">return</strong> indexService;
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>     }
 <a class="jxr_linenumber" name="L158" href="#L158">158</a> 
@@ -677,30 +677,20 @@
 <a class="jxr_linenumber" name="L669" href="#L669">669</a>     }
 <a class="jxr_linenumber" name="L670" href="#L670">670</a> 
 <a class="jxr_linenumber" name="L671" href="#L671">671</a>     @Override
-<a class="jxr_linenumber" name="L672" href="#L672">672</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> useSlowScroll() {
+<a class="jxr_linenumber" name="L672" href="#L672">672</a>     <strong class="jxr_keyword">public</strong> Counter timeEstimateCounter() {
 <a class="jxr_linenumber" name="L673" href="#L673">673</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException();
 <a class="jxr_linenumber" name="L674" href="#L674">674</a>     }
 <a class="jxr_linenumber" name="L675" href="#L675">675</a> 
 <a class="jxr_linenumber" name="L676" href="#L676">676</a>     @Override
-<a class="jxr_linenumber" name="L677" href="#L677">677</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/search/internal/SearchContext.html">SearchContext</a> useSlowScroll(<strong class="jxr_keyword">boolean</strong> useSlowScroll) {
+<a class="jxr_linenumber" name="L677" href="#L677">677</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> innerHits(<a href="../../../org/elasticsearch/search/fetch/innerhits/InnerHitsContext.html">InnerHitsContext</a> innerHitsContext) {
 <a class="jxr_linenumber" name="L678" href="#L678">678</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException();
 <a class="jxr_linenumber" name="L679" href="#L679">679</a>     }
 <a class="jxr_linenumber" name="L680" href="#L680">680</a> 
 <a class="jxr_linenumber" name="L681" href="#L681">681</a>     @Override
-<a class="jxr_linenumber" name="L682" href="#L682">682</a>     <strong class="jxr_keyword">public</strong> Counter timeEstimateCounter() {
+<a class="jxr_linenumber" name="L682" href="#L682">682</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/search/fetch/innerhits/InnerHitsContext.html">InnerHitsContext</a> innerHits() {
 <a class="jxr_linenumber" name="L683" href="#L683">683</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException();
 <a class="jxr_linenumber" name="L684" href="#L684">684</a>     }
-<a class="jxr_linenumber" name="L685" href="#L685">685</a> 
-<a class="jxr_linenumber" name="L686" href="#L686">686</a>     @Override
-<a class="jxr_linenumber" name="L687" href="#L687">687</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> innerHits(<a href="../../../org/elasticsearch/search/fetch/innerhits/InnerHitsContext.html">InnerHitsContext</a> innerHitsContext) {
-<a class="jxr_linenumber" name="L688" href="#L688">688</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException();
-<a class="jxr_linenumber" name="L689" href="#L689">689</a>     }
-<a class="jxr_linenumber" name="L690" href="#L690">690</a> 
-<a class="jxr_linenumber" name="L691" href="#L691">691</a>     @Override
-<a class="jxr_linenumber" name="L692" href="#L692">692</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/search/fetch/innerhits/InnerHitsContext.html">InnerHitsContext</a> innerHits() {
-<a class="jxr_linenumber" name="L693" href="#L693">693</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException();
-<a class="jxr_linenumber" name="L694" href="#L694">694</a>     }
-<a class="jxr_linenumber" name="L695" href="#L695">695</a> }
+<a class="jxr_linenumber" name="L685" href="#L685">685</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

@@ -52,7 +52,7 @@
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      @Test
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testLocaleDirectoryWithNodeLevelConfig() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          <a href="../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = ImmutableSettings.settingsBuilder()
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>                  .put(<span class="jxr_string">"path.conf"</span>, getResource(<span class="jxr_string">"/indices/analyze/conf_dir"</span>))
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>                  .put(<span class="jxr_string">"path.conf"</span>, getResourcePath(<span class="jxr_string">"/indices/analyze/conf_dir"</span>))
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>                  .put(HUNSPELL_LAZY_LOAD, randomBoolean())
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>                  .put(HUNSPELL_IGNORE_CASE, <strong class="jxr_keyword">true</strong>)
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>                  .build();
@@ -66,7 +66,7 @@
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>      @Test
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testLocaleDirectoryWithLocaleSpecificConfig() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>          <a href="../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = ImmutableSettings.settingsBuilder()
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>                  .put(<span class="jxr_string">"path.conf"</span>, getResource(<span class="jxr_string">"/indices/analyze/conf_dir"</span>))
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>                  .put(<span class="jxr_string">"path.conf"</span>, getResourcePath(<span class="jxr_string">"/indices/analyze/conf_dir"</span>))
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>                  .put(HUNSPELL_LAZY_LOAD, randomBoolean())
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>                  .put(HUNSPELL_IGNORE_CASE, <strong class="jxr_keyword">true</strong>)
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>                  .put(<span class="jxr_string">"indices.analysis.hunspell.dictionary.en_US.strict_affix_parsing"</span>, false)
@@ -89,7 +89,7 @@
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>      @Test
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testCustomizeLocaleDirectory() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          <a href="../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = ImmutableSettings.settingsBuilder()
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>                  .put(HUNSPELL_LOCATION, getResource(<span class="jxr_string">"/indices/analyze/conf_dir/hunspell"</span>))
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>                  .put(HUNSPELL_LOCATION, getResourcePath(<span class="jxr_string">"/indices/analyze/conf_dir/hunspell"</span>))
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>                  .build();
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>          internalCluster().startNode(settings);
@@ -100,7 +100,7 @@
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>      @Test
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testDicWithNoAff() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          <a href="../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = ImmutableSettings.settingsBuilder()
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>                  .put(<span class="jxr_string">"path.conf"</span>, getResource(<span class="jxr_string">"/indices/analyze/no_aff_conf_dir"</span>))
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>                  .put(<span class="jxr_string">"path.conf"</span>, getResourcePath(<span class="jxr_string">"/indices/analyze/no_aff_conf_dir"</span>))
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>                  .put(HUNSPELL_LAZY_LOAD, randomBoolean())
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>                  .build();
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>  
@@ -119,7 +119,7 @@
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>     @Test
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testDicWithTwoAffs() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         <a href="../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = ImmutableSettings.settingsBuilder()
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>                 .put(<span class="jxr_string">"path.conf"</span>, getResource(<span class="jxr_string">"/indices/analyze/two_aff_conf_dir"</span>))
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>                 .put(<span class="jxr_string">"path.conf"</span>, getResourcePath(<span class="jxr_string">"/indices/analyze/two_aff_conf_dir"</span>))
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>                 .put(HUNSPELL_LAZY_LOAD, randomBoolean())
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>                 .build();
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> 

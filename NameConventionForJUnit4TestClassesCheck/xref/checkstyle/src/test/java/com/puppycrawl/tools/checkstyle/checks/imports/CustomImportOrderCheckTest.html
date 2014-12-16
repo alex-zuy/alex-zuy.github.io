@@ -112,7 +112,7 @@
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>             <span class="jxr_string">"15: Wrong lexicographical order for 'java.io.InputStream' import."</span>,
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>             <span class="jxr_string">"18: Import statement is in the wrong order. Should be in the 'SAME_PACKAGE' group."</span>,
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>             <span class="jxr_string">"20: Imports without groups should be placed at the end of the import list."</span>,
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>             <span class="jxr_string">"21: 'org.apache.*'should be separated from previous import group."</span>,
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>             <span class="jxr_string">"21: 'org.junit.*'should be separated from previous import group."</span>,
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         };
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> 
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>         verify(checkConfig, getPath(<span class="jxr_string">"imports"</span> + File.separator
@@ -242,7 +242,40 @@
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>         verify(checkConfig, getPath(<span class="jxr_string">"imports"</span> + File.separator
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>                 + <span class="jxr_string">"DOMSource.java"</span>), expected);
 <a class="jxr_linenumber" name="L236" href="#L236">236</a>     }
-<a class="jxr_linenumber" name="L237" href="#L237">237</a> }
+<a class="jxr_linenumber" name="L237" href="#L237">237</a> 
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L239" href="#L239">239</a> <em class="jxr_javadoccomment">     * @throws Exception</em>
+<a class="jxr_linenumber" name="L240" href="#L240">240</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>     @Test
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testDefaultPackage2() <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>     {
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> checkConfig =
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>                 createCheckConfig(CustomImportOrderCheck.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>         checkConfig.addAttribute(<span class="jxr_string">"standardPackageRegExp"</span>, <span class="jxr_string">"java|javax"</span>);
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>         checkConfig.addAttribute(<span class="jxr_string">"thirdPartyPackageRegExp"</span>, <span class="jxr_string">"com|org"</span>);
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>         checkConfig.addAttribute(<span class="jxr_string">"customImportOrderRules"</span>,
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>             <span class="jxr_string">"STATIC###SAME_PACKAGE(3)###THIRD_PARTY_PACKAGE###STANDARD_JAVA_PACKAGE"</span>);
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>         checkConfig.addAttribute(<span class="jxr_string">"sortImportsInGroupAlphabetically"</span>, <span class="jxr_string">"true"</span>);
+<a class="jxr_linenumber" name="L251" href="#L251">251</a> 
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>         <strong class="jxr_keyword">final</strong> String[] expected = {
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>             <span class="jxr_string">"7: Wrong lexicographical order for 'java.awt.Button.ABORT' import."</span>,
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>             <span class="jxr_string">"10: Import statement is in the wrong order. Should be in the 'STANDARD_JAVA_PACKAGE' group."</span>,
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>             <span class="jxr_string">"11: Import statement is in the wrong order. Should be in the 'STANDARD_JAVA_PACKAGE' group."</span>,
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>             <span class="jxr_string">"12: Import statement is in the wrong order. Should be in the 'STANDARD_JAVA_PACKAGE' group."</span>,
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>             <span class="jxr_string">"13: Import statement is in the wrong order. Should be in the 'STANDARD_JAVA_PACKAGE' group."</span>,
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>             <span class="jxr_string">"14: Import statement is in the wrong order. Should be in the 'STANDARD_JAVA_PACKAGE' group."</span>,
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>             <span class="jxr_string">"15: Import statement is in the wrong order. Should be in the 'STANDARD_JAVA_PACKAGE' group."</span>,
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>             <span class="jxr_string">"16: Import statement is in the wrong order. Should be in the 'STANDARD_JAVA_PACKAGE' group."</span>,
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>             <span class="jxr_string">"17: Import statement is in the wrong order. Should be in the 'STANDARD_JAVA_PACKAGE' group."</span>,
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>             <span class="jxr_string">"18: Import statement is in the wrong order. Should be in the 'STANDARD_JAVA_PACKAGE' group."</span>,
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>             <span class="jxr_string">"19: Import statement is in the wrong order. Should be in the 'STANDARD_JAVA_PACKAGE' group."</span>,
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>             <span class="jxr_string">"23: Wrong lexicographical order for 'com.google.common.*' import."</span>,
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>         };
+<a class="jxr_linenumber" name="L266" href="#L266">266</a> 
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>         verify(checkConfig, <strong class="jxr_keyword">new</strong> File(<span class="jxr_string">"src/test/resources-noncompilable/com/puppycrawl/tools/"</span>
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>                 + <span class="jxr_string">"checkstyle/imports/InputDefaultPackage.java"</span>).getCanonicalPath(), expected);
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>     }
+<a class="jxr_linenumber" name="L270" href="#L270">270</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

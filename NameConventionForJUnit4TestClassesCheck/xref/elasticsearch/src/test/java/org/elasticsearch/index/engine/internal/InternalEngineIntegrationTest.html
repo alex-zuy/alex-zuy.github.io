@@ -51,13 +51,13 @@
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>          refresh();
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>          assertTotalCompoundSegments(1, 1, <span class="jxr_string">"test"</span>);
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>          client().admin().indices().prepareUpdateSettings(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>                  .setSettings(ImmutableSettings.builder().put(InternalEngine.INDEX_COMPOUND_ON_FLUSH, false)).get();
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>                  .setSettings(ImmutableSettings.builder().put(InternalEngineHolder.INDEX_COMPOUND_ON_FLUSH, false)).get();
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>          client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"foo"</span>).setSource(<span class="jxr_string">"field"</span>, <span class="jxr_string">"foo"</span>).get();
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          refresh();
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          assertTotalCompoundSegments(1, 2, <span class="jxr_string">"test"</span>);
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          client().admin().indices().prepareUpdateSettings(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>                  .setSettings(ImmutableSettings.builder().put(InternalEngine.INDEX_COMPOUND_ON_FLUSH, <strong class="jxr_keyword">true</strong>)).get();
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>                  .setSettings(ImmutableSettings.builder().put(InternalEngineHolder.INDEX_COMPOUND_ON_FLUSH, <strong class="jxr_keyword">true</strong>)).get();
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>          client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"foo"</span>).setSource(<span class="jxr_string">"field"</span>, <span class="jxr_string">"foo"</span>).get();
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>          refresh();
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>          assertTotalCompoundSegments(2, 3, <span class="jxr_string">"test"</span>);

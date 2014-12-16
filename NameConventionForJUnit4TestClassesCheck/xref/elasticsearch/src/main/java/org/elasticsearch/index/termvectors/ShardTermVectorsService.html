@@ -50,11 +50,11 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.mapper.*;
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.mapper.core.StringFieldMapper;
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.mapper.internal.UidFieldMapper;
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.service.IndexService;
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.settings.IndexSettings;
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.AbstractIndexShardComponent;
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.ShardId;
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.service.IndexShard;
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.IndexShard;
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.search.dfs.AggregatedDfs;
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
@@ -67,7 +67,7 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/elasticsearch/index/termvectors/ShardTermVectorsService.html">ShardTermVectorsService</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../org/elasticsearch/index/shard/AbstractIndexShardComponent.html">AbstractIndexShardComponent</a> {
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard;
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard;
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/cluster/action/index/MappingUpdatedAction.html">MappingUpdatedAction</a> mappingUpdatedAction;
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/action/termvectors/dfs/TransportDfsOnlyAction.html">TransportDfsOnlyAction</a> dfsAction;
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
@@ -79,7 +79,7 @@
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>      }
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      <em class="jxr_comment">// sadly, to overcome cyclic dep, we need to do this and inject it ourselves...</em>
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/index/termvectors/ShardTermVectorsService.html">ShardTermVectorsService</a> setIndexShard(<a href="../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard) {
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/index/termvectors/ShardTermVectorsService.html">ShardTermVectorsService</a> setIndexShard(<a href="../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard) {
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">this</strong>.indexShard = indexShard;
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      }
@@ -278,7 +278,7 @@
 <a class="jxr_linenumber" name="L270" href="#L270">270</a> 
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../org/elasticsearch/index/mapper/ParsedDocument.html">ParsedDocument</a> parseDocument(String index, String type, <a href="../../../../org/elasticsearch/common/bytes/BytesReference.html">BytesReference</a> doc) {
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>         <a href="../../../../org/elasticsearch/index/mapper/MapperService.html">MapperService</a> mapperService = indexShard.mapperService();
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>         <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = indexShard.indexService();
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>         <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = indexShard.indexService();
 <a class="jxr_linenumber" name="L274" href="#L274">274</a> 
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>         <em class="jxr_comment">// TODO: make parsing not dynamically create fields not in the original mapping</em>
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>         Tuple&lt;DocumentMapper, Boolean&gt; docMapper = mapperService.documentMapperWithAutoCreate(type);

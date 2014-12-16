@@ -76,7 +76,7 @@
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">private</strong> <a href="../../rx/Subscription.html">Subscription</a> enqueue(<a href="../../rx/functions/Action0.html">Action0</a> action, <strong class="jxr_keyword">long</strong> execTime) {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>              <strong class="jxr_keyword">if</strong> (innerSubscription.isUnsubscribed()) {
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>                  <strong class="jxr_keyword">return</strong> Subscriptions.empty();
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>                  <strong class="jxr_keyword">return</strong> Subscriptions.unsubscribed();
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>              }
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>              <strong class="jxr_keyword">final</strong> <a href="../../rx/schedulers/TestScheduler.html">TimedAction</a> timedAction = <strong class="jxr_keyword">new</strong> <a href="../../rx/schedulers/TestScheduler.html">TimedAction</a>(action, execTime, COUNTER_UPDATER.incrementAndGet(TrampolineScheduler.<strong class="jxr_keyword">this</strong>));
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>              queue.add(timedAction);
@@ -89,7 +89,7 @@
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>                          polled.action.call();
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>                      }
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>                  } <strong class="jxr_keyword">while</strong> (wip.decrementAndGet() &gt; 0);
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>                  <strong class="jxr_keyword">return</strong> Subscriptions.empty();
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>                  <strong class="jxr_keyword">return</strong> Subscriptions.unsubscribed();
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>              } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>                  <em class="jxr_comment">// queue wasn't empty, a parent is already processing so we just add to the end of the queue</em>
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>                  <strong class="jxr_keyword">return</strong> Subscriptions.create(<strong class="jxr_keyword">new</strong> <a href="../../rx/functions/Action0.html">Action0</a>() {

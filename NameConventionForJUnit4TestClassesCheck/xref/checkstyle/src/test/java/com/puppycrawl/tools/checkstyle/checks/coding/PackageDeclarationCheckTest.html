@@ -42,9 +42,10 @@
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>              <span class="jxr_string">"4: Missing package declaration."</span>,
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>          };
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>          verify(checkConfig, getPath(<span class="jxr_string">"coding"</span> + File.separator + <span class="jxr_string">"InputNoPackage.java"</span>), expected);
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>      }
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  }
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>          verify(checkConfig, <strong class="jxr_keyword">new</strong> File(<span class="jxr_string">"src/test/resources-noncompilable/com/puppycrawl/tools/"</span>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>                  + <span class="jxr_string">"checkstyle/coding/InputNoPackage.java"</span>).getCanonicalPath(), expected);
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      }
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

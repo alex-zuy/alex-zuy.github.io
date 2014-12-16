@@ -52,7 +52,7 @@
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.util.concurrent.ConcurrentCollections;
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.util.concurrent.EsRejectedExecutionException;
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.IndexShardState;
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.service.IndexShard;
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.IndexShard;
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.search.SearchShardTarget;
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.search.internal.SearchContext;
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.search.internal.ShardSearchRequest;
@@ -162,7 +162,7 @@
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>         cache.invalidateAll();
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>     }
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> 
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> clear(<a href="../../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> shard) {
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> clear(<a href="../../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> shard) {
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>         <strong class="jxr_keyword">if</strong> (shard == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>             <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         }
@@ -276,11 +276,11 @@
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>     }
 <a class="jxr_linenumber" name="L269" href="#L269">269</a> 
 <a class="jxr_linenumber" name="L270" href="#L270">270</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/google/common/cache/CacheReferencesTest.html">Key</a> <strong class="jxr_keyword">implements</strong> Accountable {
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> shard; <em class="jxr_comment">// use as identity equality</em>
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> shard; <em class="jxr_comment">// use as identity equality</em>
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> readerVersion; <em class="jxr_comment">// use the reader version to now keep a reference to a "short" lived reader until its reaped</em>
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../org/elasticsearch/common/bytes/BytesReference.html">BytesReference</a> value;
 <a class="jxr_linenumber" name="L274" href="#L274">274</a> 
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>         <a href="../../../../../com/google/common/cache/CacheReferencesTest.html">Key</a>(<a href="../../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> shard, <strong class="jxr_keyword">long</strong> readerVersion, <a href="../../../../../org/elasticsearch/common/bytes/BytesReference.html">BytesReference</a> value) {
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>         <a href="../../../../../com/google/common/cache/CacheReferencesTest.html">Key</a>(<a href="../../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> shard, <strong class="jxr_keyword">long</strong> readerVersion, <a href="../../../../../org/elasticsearch/common/bytes/BytesReference.html">BytesReference</a> value) {
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>             <strong class="jxr_keyword">this</strong>.shard = shard;
 <a class="jxr_linenumber" name="L277" href="#L277">277</a>             <strong class="jxr_keyword">this</strong>.readerVersion = readerVersion;
 <a class="jxr_linenumber" name="L278" href="#L278">278</a>             <strong class="jxr_keyword">this</strong>.value = value;
@@ -317,10 +317,10 @@
 <a class="jxr_linenumber" name="L309" href="#L309">309</a>     }
 <a class="jxr_linenumber" name="L310" href="#L310">310</a> 
 <a class="jxr_linenumber" name="L311" href="#L311">311</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/elasticsearch/indices/cache/query/IndicesQueryCache.html">CleanupKey</a> <strong class="jxr_keyword">implements</strong> IndexReader.ReaderClosedListener {
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>         <a href="../../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard;
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>         <a href="../../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard;
 <a class="jxr_linenumber" name="L313" href="#L313">313</a>         <strong class="jxr_keyword">long</strong> readerVersion; <em class="jxr_comment">// use the reader version to now keep a reference to a "short" lived reader until its reaped</em>
 <a class="jxr_linenumber" name="L314" href="#L314">314</a> 
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../../org/elasticsearch/indices/cache/query/IndicesQueryCache.html">CleanupKey</a>(<a href="../../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard, <strong class="jxr_keyword">long</strong> readerVersion) {
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../../org/elasticsearch/indices/cache/query/IndicesQueryCache.html">CleanupKey</a>(<a href="../../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard, <strong class="jxr_keyword">long</strong> readerVersion) {
 <a class="jxr_linenumber" name="L316" href="#L316">316</a>             <strong class="jxr_keyword">this</strong>.indexShard = indexShard;
 <a class="jxr_linenumber" name="L317" href="#L317">317</a>             <strong class="jxr_keyword">this</strong>.readerVersion = readerVersion;
 <a class="jxr_linenumber" name="L318" href="#L318">318</a>         }

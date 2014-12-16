@@ -73,7 +73,7 @@
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      @Override
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> nodeSettings(<strong class="jxr_keyword">int</strong> nodeOrdinal) {
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">return</strong> settingsBuilder().put(<strong class="jxr_keyword">super</strong>.nodeSettings(nodeOrdinal))
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>                  .put(<span class="jxr_string">"path.conf"</span>, <strong class="jxr_keyword">this</strong>.getResource(<span class="jxr_string">"config"</span>).getPath()).build();
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>                  .put(<span class="jxr_string">"path.conf"</span>, <strong class="jxr_keyword">this</strong>.getResourcePath(<span class="jxr_string">"config"</span>)).build();
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>      }
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>      @Test

@@ -34,7 +34,7 @@
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.settings.Settings;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.mapper.*;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.mapper.ParseContext.Document;
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.service.IndexService;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.test.ElasticsearchSingleNodeTest;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
@@ -50,7 +50,7 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      @Test
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testSimpleMapper() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>          <a href="../../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = createIndex(<span class="jxr_string">"test"</span>);
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>          <a href="../../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = createIndex(<span class="jxr_string">"test"</span>);
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          <a href="../../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = indexService.settingsService().getSettings();
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>          <a href="../../../../../org/elasticsearch/index/mapper/DocumentMapperParser.html">DocumentMapperParser</a> mapperParser = indexService.mapperService().documentMapperParser();
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          <a href="../../../../../org/elasticsearch/index/mapper/DocumentMapper.html">DocumentMapper</a> docMapper = doc(<span class="jxr_string">"test"</span>, settings,
@@ -129,7 +129,7 @@
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> 
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>     @Test
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testNoDocumentSent() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>         <a href="../../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = createIndex(<span class="jxr_string">"test"</span>);
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>         <a href="../../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = createIndex(<span class="jxr_string">"test"</span>);
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         <a href="../../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = indexService.settingsService().getSettings();
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>         <a href="../../../../../org/elasticsearch/index/mapper/DocumentMapperParser.html">DocumentMapperParser</a> mapperParser = indexService.mapperService().documentMapperParser();
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>         <a href="../../../../../org/elasticsearch/index/mapper/DocumentMapper.html">DocumentMapper</a> docMapper = doc(<span class="jxr_string">"test"</span>, settings,

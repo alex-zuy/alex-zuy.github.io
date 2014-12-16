@@ -46,7 +46,7 @@
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.settings.Settings;
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.VersionType;
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.engine.Engine;
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.service.IndexShard;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.IndexShard;
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndexAlreadyExistsException;
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndicesService;
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.threadpool.ThreadPool;
@@ -176,7 +176,7 @@
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>     @Override
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>     <strong class="jxr_keyword">protected</strong> PrimaryResponse&lt;DeleteResponse, DeleteRequest&gt; shardOperationOnPrimary(<a href="../../../../org/elasticsearch/cluster/ClusterState.html">ClusterState</a> clusterState, <a href="../../../../org/elasticsearch/action/support/replication/TransportShardReplicationOperationAction.html">PrimaryOperationRequest</a> shardRequest) {
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>         <a href="../../../../org/elasticsearch/action/delete/DeleteRequest.html">DeleteRequest</a> request = shardRequest.request;
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>         <a href="../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard = indicesService.indexServiceSafe(shardRequest.shardId.getIndex()).shardSafe(shardRequest.shardId.id());
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>         <a href="../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard = indicesService.indexServiceSafe(shardRequest.shardId.getIndex()).shardSafe(shardRequest.shardId.id());
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>         Engine.Delete delete = indexShard.prepareDelete(request.type(), request.id(), request.version(), request.versionType(), Engine.Operation.Origin.PRIMARY);
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>         indexShard.delete(delete);
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>         <em class="jxr_comment">// update the request with teh version so it will go to the replicas</em>
@@ -187,7 +187,7 @@
 <a class="jxr_linenumber" name="L179" href="#L179">179</a> 
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>         <strong class="jxr_keyword">if</strong> (request.refresh()) {
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>             <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>                 indexShard.refresh(<strong class="jxr_keyword">new</strong> Engine.Refresh(<span class="jxr_string">"refresh_flag_delete"</span>).force(false));
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>                 indexShard.refresh(<span class="jxr_string">"refresh_flag_delete"</span>, false);
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>             } <strong class="jxr_keyword">catch</strong> (Exception e) {
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>                 <em class="jxr_comment">// ignore</em>
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>             }
@@ -200,14 +200,14 @@
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>     @Override
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> shardOperationOnReplica(<a href="../../../../org/elasticsearch/action/support/replication/TransportShardReplicationOperationAction.html">ReplicaOperationRequest</a> shardRequest) {
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>         <a href="../../../../org/elasticsearch/action/delete/DeleteRequest.html">DeleteRequest</a> request = shardRequest.request;
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>         <a href="../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard = indicesService.indexServiceSafe(shardRequest.shardId.getIndex()).shardSafe(shardRequest.shardId.id());
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>         <a href="../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard = indicesService.indexServiceSafe(shardRequest.shardId.getIndex()).shardSafe(shardRequest.shardId.id());
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>         Engine.Delete delete = indexShard.prepareDelete(request.type(), request.id(), request.version(), request.versionType(), Engine.Operation.Origin.REPLICA);
 <a class="jxr_linenumber" name="L197" href="#L197">197</a> 
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>         indexShard.delete(delete);
 <a class="jxr_linenumber" name="L199" href="#L199">199</a> 
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>         <strong class="jxr_keyword">if</strong> (request.refresh()) {
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>             <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>                 indexShard.refresh(<strong class="jxr_keyword">new</strong> Engine.Refresh(<span class="jxr_string">"refresh_flag_delete"</span>).force(false));
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>                 indexShard.refresh(<span class="jxr_string">"refresh_flag_delete"</span>, false);
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>             } <strong class="jxr_keyword">catch</strong> (Exception e) {
 <a class="jxr_linenumber" name="L204" href="#L204">204</a>                 <em class="jxr_comment">// ignore</em>
 <a class="jxr_linenumber" name="L205" href="#L205">205</a>             }

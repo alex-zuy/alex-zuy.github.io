@@ -79,7 +79,7 @@
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          @Override
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">public</strong> <a href="../../rx/Subscription.html">Subscription</a> schedule(<a href="../../rx/functions/Action0.html">Action0</a> action) {
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>              <strong class="jxr_keyword">if</strong> (isUnsubscribed()) {
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>                  <strong class="jxr_keyword">return</strong> Subscriptions.empty();
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>                  <strong class="jxr_keyword">return</strong> Subscriptions.unsubscribed();
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>              }
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>              <a href="../../rx/schedulers/ExecutorScheduler.html">ExecutorAction</a> ea = <strong class="jxr_keyword">new</strong> <a href="../../rx/schedulers/ExecutorScheduler.html">ExecutorAction</a>(action, tasks);
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>              tasks.add(ea);
@@ -114,7 +114,7 @@
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>                 <strong class="jxr_keyword">return</strong> schedule(action);
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>             }
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>             <strong class="jxr_keyword">if</strong> (isUnsubscribed()) {
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>                 <strong class="jxr_keyword">return</strong> Subscriptions.empty();
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>                 <strong class="jxr_keyword">return</strong> Subscriptions.unsubscribed();
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>             }
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>             ScheduledExecutorService service;
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>             <strong class="jxr_keyword">if</strong> (executor instanceof ScheduledExecutorService) {

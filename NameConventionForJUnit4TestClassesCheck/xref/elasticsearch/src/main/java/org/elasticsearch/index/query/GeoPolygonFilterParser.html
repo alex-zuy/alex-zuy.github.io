@@ -132,14 +132,14 @@
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/index/query/QueryParsingException.html">QueryParsingException</a>(parseContext.index(), <span class="jxr_string">"no points defined for geo_polygon filter"</span>);
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>             <strong class="jxr_keyword">if</strong> (shell.size() &lt; 3) {
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/index/query/QueryParsingException.html">QueryParsingException</a>(parseContext.index(), <span class="jxr_string">"to few points defined for geo_polygon filter"</span>);
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/index/query/QueryParsingException.html">QueryParsingException</a>(parseContext.index(), <span class="jxr_string">"too few points defined for geo_polygon filter"</span>);
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>             }
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>             <a href="../../../../org/elasticsearch/common/geo/GeoPoint.html">GeoPoint</a> start = shell.get(0);
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>             <strong class="jxr_keyword">if</strong> (!start.equals(shell.get(shell.size() - 1))) {
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>                 shell.add(start);
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>             }
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>             <strong class="jxr_keyword">if</strong> (shell.size() &lt; 4) {
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/index/query/QueryParsingException.html">QueryParsingException</a>(parseContext.index(), <span class="jxr_string">"to few points defined for geo_polygon filter"</span>);
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/index/query/QueryParsingException.html">QueryParsingException</a>(parseContext.index(), <span class="jxr_string">"too few points defined for geo_polygon filter"</span>);
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>             }
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         }
 <a class="jxr_linenumber" name="L137" href="#L137">137</a> 

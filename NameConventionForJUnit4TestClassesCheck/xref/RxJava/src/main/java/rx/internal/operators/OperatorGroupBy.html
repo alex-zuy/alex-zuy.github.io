@@ -110,7 +110,7 @@
 <a class="jxr_linenumber" name="L102" href="#L102">102</a> 
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>         }
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> 
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> ConcurrentHashMap&lt;K, GroupState&lt;K, T&gt;&gt; groups = <strong class="jxr_keyword">new</strong> ConcurrentHashMap&lt;K, GroupState&lt;K, T&gt;&gt;();
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> ConcurrentHashMap&lt;Object, GroupState&lt;K, T&gt;&gt; groups = <strong class="jxr_keyword">new</strong> ConcurrentHashMap&lt;Object, GroupState&lt;K, T&gt;&gt;();
 <a class="jxr_linenumber" name="L106" href="#L106">106</a> 
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> NotificationLite&lt;Object&gt; nl = NotificationLite.instance();
 <a class="jxr_linenumber" name="L108" href="#L108">108</a> 
@@ -174,198 +174,207 @@
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>             }
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>         }
 <a class="jxr_linenumber" name="L168" href="#L168">168</a> 
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>         @Override
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onNext(T t) {
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>             <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>                 <strong class="jxr_keyword">final</strong> K key = keySelector.call(t);
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>                 GroupState&lt;K, T&gt; group = groups.get(key);
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>                 <strong class="jxr_keyword">if</strong> (group == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>                     <em class="jxr_comment">// this group doesn't exist</em>
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>                     <strong class="jxr_keyword">if</strong> (child.isUnsubscribed()) {
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>                         <em class="jxr_comment">// we have been unsubscribed on the outer so won't send any  more groups</em>
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>                         <strong class="jxr_keyword">return</strong>;
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>                     }
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>                     group = createNewGroup(key);
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>                 }
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>                 emitItem(group, nl.next(t));
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>             } <strong class="jxr_keyword">catch</strong> (Throwable e) {
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>                 onError(OnErrorThrowable.addValueAsLastCause(e, t));
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>             }
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>         }
-<a class="jxr_linenumber" name="L187" href="#L187">187</a> 
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>         <strong class="jxr_keyword">private</strong> GroupState&lt;K, T&gt; createNewGroup(<strong class="jxr_keyword">final</strong> K key) {
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>             <strong class="jxr_keyword">final</strong> GroupState&lt;K, T&gt; groupState = <strong class="jxr_keyword">new</strong> GroupState&lt;K, T&gt;();
-<a class="jxr_linenumber" name="L190" href="#L190">190</a> 
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>             GroupedObservable&lt;K, R&gt; go = GroupedObservable.create(key, <strong class="jxr_keyword">new</strong> OnSubscribe&lt;R&gt;() {
-<a class="jxr_linenumber" name="L192" href="#L192">192</a> 
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>                 @Override
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>                 <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> call(<strong class="jxr_keyword">final</strong> Subscriber&lt;? <strong class="jxr_keyword">super</strong> R&gt; o) {
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>                     o.setProducer(<strong class="jxr_keyword">new</strong> <a href="../../../rx/Producer.html">Producer</a>() {
-<a class="jxr_linenumber" name="L196" href="#L196">196</a> 
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>                         @Override
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>                         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> request(<strong class="jxr_keyword">long</strong> n) {
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>                             requestFromGroupedObservable(n, groupState);
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>                         }
-<a class="jxr_linenumber" name="L201" href="#L201">201</a> 
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>                     });
-<a class="jxr_linenumber" name="L203" href="#L203">203</a> 
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>                     <strong class="jxr_keyword">final</strong> AtomicBoolean once = <strong class="jxr_keyword">new</strong> AtomicBoolean();
-<a class="jxr_linenumber" name="L205" href="#L205">205</a> 
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>                     groupState.getObservable().doOnUnsubscribe(<strong class="jxr_keyword">new</strong> Action0() {
-<a class="jxr_linenumber" name="L207" href="#L207">207</a> 
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>                         @Override
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>                         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> call() {
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>                             <strong class="jxr_keyword">if</strong> (once.compareAndSet(false, <strong class="jxr_keyword">true</strong>)) {
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>                                 <em class="jxr_comment">// done once per instance, either onComplete or onUnSubscribe</em>
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>                                 cleanupGroup(key);
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>                             }
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>                         }
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>         <strong class="jxr_keyword">private</strong> Object groupedKey(K key) {
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>             <strong class="jxr_keyword">return</strong> key == <strong class="jxr_keyword">null</strong> ? NULL_KEY : key;
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>         }
+<a class="jxr_linenumber" name="L172" href="#L172">172</a> 
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>         <strong class="jxr_keyword">private</strong> K getKey(Object groupedKey) {
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>             <strong class="jxr_keyword">return</strong> groupedKey == NULL_KEY ? <strong class="jxr_keyword">null</strong> : (K) groupedKey;
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>         }
+<a class="jxr_linenumber" name="L176" href="#L176">176</a> 
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>         @Override
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onNext(T t) {
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>             <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>                 <strong class="jxr_keyword">final</strong> Object key = groupedKey(keySelector.call(t));
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>                 GroupState&lt;K, T&gt; group = groups.get(key);
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>                 <strong class="jxr_keyword">if</strong> (group == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>                     <em class="jxr_comment">// this group doesn't exist</em>
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>                     <strong class="jxr_keyword">if</strong> (child.isUnsubscribed()) {
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>                         <em class="jxr_comment">// we have been unsubscribed on the outer so won't send any  more groups</em>
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>                         <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>                     }
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>                     group = createNewGroup(key);
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>                 }
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>                 emitItem(group, nl.next(t));
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>             } <strong class="jxr_keyword">catch</strong> (Throwable e) {
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>                 onError(OnErrorThrowable.addValueAsLastCause(e, t));
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>             }
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>         }
+<a class="jxr_linenumber" name="L195" href="#L195">195</a> 
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>         <strong class="jxr_keyword">private</strong> GroupState&lt;K, T&gt; createNewGroup(<strong class="jxr_keyword">final</strong> Object key) {
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>             <strong class="jxr_keyword">final</strong> GroupState&lt;K, T&gt; groupState = <strong class="jxr_keyword">new</strong> GroupState&lt;K, T&gt;();
+<a class="jxr_linenumber" name="L198" href="#L198">198</a> 
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>             GroupedObservable&lt;K, R&gt; go = GroupedObservable.create(getKey(key), <strong class="jxr_keyword">new</strong> OnSubscribe&lt;R&gt;() {
+<a class="jxr_linenumber" name="L200" href="#L200">200</a> 
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>                 @Override
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>                 <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> call(<strong class="jxr_keyword">final</strong> Subscriber&lt;? <strong class="jxr_keyword">super</strong> R&gt; o) {
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>                     o.setProducer(<strong class="jxr_keyword">new</strong> <a href="../../../rx/Producer.html">Producer</a>() {
+<a class="jxr_linenumber" name="L204" href="#L204">204</a> 
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>                         @Override
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>                         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> request(<strong class="jxr_keyword">long</strong> n) {
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>                             requestFromGroupedObservable(n, groupState);
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>                         }
+<a class="jxr_linenumber" name="L209" href="#L209">209</a> 
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>                     });
+<a class="jxr_linenumber" name="L211" href="#L211">211</a> 
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>                     <strong class="jxr_keyword">final</strong> AtomicBoolean once = <strong class="jxr_keyword">new</strong> AtomicBoolean();
+<a class="jxr_linenumber" name="L213" href="#L213">213</a> 
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>                     groupState.getObservable().doOnUnsubscribe(<strong class="jxr_keyword">new</strong> Action0() {
 <a class="jxr_linenumber" name="L215" href="#L215">215</a> 
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>                     }).unsafeSubscribe(<strong class="jxr_keyword">new</strong> Subscriber&lt;T&gt;(o) {
-<a class="jxr_linenumber" name="L217" href="#L217">217</a> 
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>                         @Override
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>                         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onCompleted() {
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>                             o.onCompleted();
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>                             <em class="jxr_comment">// eagerly cleanup instead of waiting for unsubscribe</em>
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>                             <strong class="jxr_keyword">if</strong> (once.compareAndSet(false, <strong class="jxr_keyword">true</strong>)) {
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>                                 <em class="jxr_comment">// done once per instance, either onComplete or onUnSubscribe</em>
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>                                 cleanupGroup(key);
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>                             }
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>                         }
-<a class="jxr_linenumber" name="L227" href="#L227">227</a> 
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>                         @Override
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>                         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onError(Throwable e) {
-<a class="jxr_linenumber" name="L230" href="#L230">230</a>                             o.onError(e);
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>                         }
-<a class="jxr_linenumber" name="L232" href="#L232">232</a> 
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>                         @Override
-<a class="jxr_linenumber" name="L234" href="#L234">234</a>                         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onNext(T t) {
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>                             <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>                                 o.onNext(elementSelector.call(t));
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>                             } <strong class="jxr_keyword">catch</strong> (Throwable e) {
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>                                 onError(OnErrorThrowable.addValueAsLastCause(e, t));
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>                             }
-<a class="jxr_linenumber" name="L240" href="#L240">240</a>                         }
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>                     });
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>                 }
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>             });
-<a class="jxr_linenumber" name="L244" href="#L244">244</a> 
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>             GroupState&lt;K, T&gt; putIfAbsent = groups.putIfAbsent(key, groupState);
-<a class="jxr_linenumber" name="L246" href="#L246">246</a>             <strong class="jxr_keyword">if</strong> (putIfAbsent != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>                 <em class="jxr_comment">// this shouldn't happen (because we receive onNext sequentially) and would mean we have a bug</em>
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalStateException(<span class="jxr_string">"Group already existed while creating a new one"</span>);
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>             }
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>             child.onNext(go);
-<a class="jxr_linenumber" name="L251" href="#L251">251</a> 
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>             <strong class="jxr_keyword">return</strong> groupState;
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>         }
-<a class="jxr_linenumber" name="L254" href="#L254">254</a> 
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> cleanupGroup(K key) {
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>             GroupState&lt;K, T&gt; removed;
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>             removed = groups.remove(key);
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>             <strong class="jxr_keyword">if</strong> (removed != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>                 <strong class="jxr_keyword">if</strong> (removed.buffer.size() &gt; 0) {
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>                     BUFFERED_COUNT.addAndGet(self, -removed.buffer.size());
-<a class="jxr_linenumber" name="L261" href="#L261">261</a>                 }
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>                 completeInner();
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>                 <em class="jxr_comment">// since we may have unsubscribed early with items in the buffer </em>
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>                 <em class="jxr_comment">// we remove those above and have freed up room to request more</em>
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>                 <em class="jxr_comment">// so give it a chance to request more now</em>
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>                 requestMoreIfNecessary();
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>             }
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>         }
-<a class="jxr_linenumber" name="L269" href="#L269">269</a> 
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> emitItem(GroupState&lt;K, T&gt; groupState, Object item) {
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>             Queue&lt;Object&gt; q = groupState.buffer;
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>             <a href="../../../java/util/concurrent/atomic/AtomicLong.html">AtomicLong</a> keyRequested = groupState.requested;
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>             REQUESTED.decrementAndGet(<strong class="jxr_keyword">this</strong>);
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>             <em class="jxr_comment">// short circuit buffering</em>
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>             <strong class="jxr_keyword">if</strong> (keyRequested != <strong class="jxr_keyword">null</strong> &amp;&amp; keyRequested.get() &gt; 0 &amp;&amp; (q == <strong class="jxr_keyword">null</strong> || q.isEmpty())) {
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>                 @SuppressWarnings(<span class="jxr_string">"unchecked"</span>)
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>                 Observer&lt;Object&gt; obs = (Observer&lt;Object&gt;)groupState.getObserver();
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>                 nl.accept(obs, item);
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>                 keyRequested.decrementAndGet();
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L281" href="#L281">281</a>                 q.add(item);
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>                 BUFFERED_COUNT.incrementAndGet(<strong class="jxr_keyword">this</strong>);
-<a class="jxr_linenumber" name="L283" href="#L283">283</a> 
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>                 <strong class="jxr_keyword">if</strong> (groupState.count.getAndIncrement() == 0) {
-<a class="jxr_linenumber" name="L285" href="#L285">285</a>                     pollQueue(groupState);
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>                 }
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>             }
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>             requestMoreIfNecessary();
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>         }
-<a class="jxr_linenumber" name="L290" href="#L290">290</a> 
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> pollQueue(GroupState&lt;K, T&gt; groupState) {
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>             <strong class="jxr_keyword">do</strong> {
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>                 drainIfPossible(groupState);
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>                 <strong class="jxr_keyword">long</strong> c = groupState.count.decrementAndGet();
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>                 <strong class="jxr_keyword">if</strong> (c &gt; 1) {
-<a class="jxr_linenumber" name="L296" href="#L296">296</a> 
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>                     <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L298" href="#L298">298</a> <em class="jxr_comment">                     * Set down to 1 and then iterate again.</em>
-<a class="jxr_linenumber" name="L299" href="#L299">299</a> <em class="jxr_comment">                     * we lower it to 1 otherwise it could have grown very large while in the last poll loop</em>
-<a class="jxr_linenumber" name="L300" href="#L300">300</a> <em class="jxr_comment">                     * and then we can end up looping all those times again here before existing even once we've drained</em>
-<a class="jxr_linenumber" name="L301" href="#L301">301</a> <em class="jxr_comment">                     */</em>
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>                     groupState.count.set(1);
-<a class="jxr_linenumber" name="L303" href="#L303">303</a>                     <em class="jxr_comment">// we now loop again, and if anything tries scheduling again after this it will increment and cause us to loop again after</em>
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>                 }
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>             } <strong class="jxr_keyword">while</strong> (groupState.count.get() &gt; 0);
-<a class="jxr_linenumber" name="L306" href="#L306">306</a>         }
-<a class="jxr_linenumber" name="L307" href="#L307">307</a> 
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> requestMoreIfNecessary() {
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>             <strong class="jxr_keyword">if</strong> (REQUESTED.get(<strong class="jxr_keyword">this</strong>) == 0 &amp;&amp; terminated == 0) {
-<a class="jxr_linenumber" name="L310" href="#L310">310</a>                 <strong class="jxr_keyword">long</strong> toRequest = MAX_QUEUE_SIZE - BUFFERED_COUNT.get(<strong class="jxr_keyword">this</strong>);
-<a class="jxr_linenumber" name="L311" href="#L311">311</a>                 <strong class="jxr_keyword">if</strong> (toRequest &gt; 0 &amp;&amp; REQUESTED.compareAndSet(<strong class="jxr_keyword">this</strong>, 0, toRequest)) {
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>                     request(toRequest);
-<a class="jxr_linenumber" name="L313" href="#L313">313</a>                 }
-<a class="jxr_linenumber" name="L314" href="#L314">314</a>             }
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>         }
-<a class="jxr_linenumber" name="L316" href="#L316">316</a> 
-<a class="jxr_linenumber" name="L317" href="#L317">317</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> drainIfPossible(GroupState&lt;K, T&gt; groupState) {
-<a class="jxr_linenumber" name="L318" href="#L318">318</a>             <strong class="jxr_keyword">while</strong> (groupState.requested.get() &gt; 0) {
-<a class="jxr_linenumber" name="L319" href="#L319">319</a>                 Object t = groupState.buffer.poll();
-<a class="jxr_linenumber" name="L320" href="#L320">320</a>                 <strong class="jxr_keyword">if</strong> (t != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L321" href="#L321">321</a>                     @SuppressWarnings(<span class="jxr_string">"unchecked"</span>)
-<a class="jxr_linenumber" name="L322" href="#L322">322</a>                     Observer&lt;Object&gt; obs = (Observer&lt;Object&gt;)groupState.getObserver();
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>                     nl.accept(obs, t);
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>                     groupState.requested.decrementAndGet();
-<a class="jxr_linenumber" name="L325" href="#L325">325</a>                     BUFFERED_COUNT.decrementAndGet(<strong class="jxr_keyword">this</strong>);
-<a class="jxr_linenumber" name="L326" href="#L326">326</a> 
-<a class="jxr_linenumber" name="L327" href="#L327">327</a>                     <em class="jxr_comment">// if we have used up all the events we requested from upstream then figure out what to ask for this time based on the empty space in the buffer</em>
-<a class="jxr_linenumber" name="L328" href="#L328">328</a>                     requestMoreIfNecessary();
-<a class="jxr_linenumber" name="L329" href="#L329">329</a>                 } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L330" href="#L330">330</a>                     <em class="jxr_comment">// queue is empty break</em>
-<a class="jxr_linenumber" name="L331" href="#L331">331</a>                     <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>                 }
-<a class="jxr_linenumber" name="L333" href="#L333">333</a>             }
-<a class="jxr_linenumber" name="L334" href="#L334">334</a>         }
-<a class="jxr_linenumber" name="L335" href="#L335">335</a> 
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> completeInner() {
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>             <em class="jxr_comment">// if we have no outstanding groups (all completed or unsubscribe) and terminated/unsubscribed on outer</em>
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>             <strong class="jxr_keyword">if</strong> (groups.size() == 0 &amp;&amp; (terminated == 1 || child.isUnsubscribed())) {
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>                 <em class="jxr_comment">// completionEmitted ensures we only emit onCompleted once</em>
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>                 <strong class="jxr_keyword">if</strong> (COMPLETION_EMITTED_UPDATER.compareAndSet(<strong class="jxr_keyword">this</strong>, 0, 1)) {
-<a class="jxr_linenumber" name="L341" href="#L341">341</a> 
-<a class="jxr_linenumber" name="L342" href="#L342">342</a>                     <strong class="jxr_keyword">if</strong> (child.isUnsubscribed()) {
-<a class="jxr_linenumber" name="L343" href="#L343">343</a>                         <em class="jxr_comment">// if the entire groupBy has been unsubscribed and children are completed we will propagate the unsubscribe up.</em>
-<a class="jxr_linenumber" name="L344" href="#L344">344</a>                         unsubscribe();
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>                     }
-<a class="jxr_linenumber" name="L346" href="#L346">346</a>                     child.onCompleted();
-<a class="jxr_linenumber" name="L347" href="#L347">347</a>                 }
-<a class="jxr_linenumber" name="L348" href="#L348">348</a>             }
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>         }
-<a class="jxr_linenumber" name="L350" href="#L350">350</a> 
-<a class="jxr_linenumber" name="L351" href="#L351">351</a>     }
-<a class="jxr_linenumber" name="L352" href="#L352">352</a> 
-<a class="jxr_linenumber" name="L353" href="#L353">353</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">static</strong> Func1&lt;Object, Object&gt; IDENTITY = <strong class="jxr_keyword">new</strong> Func1&lt;Object, Object&gt;() {
-<a class="jxr_linenumber" name="L354" href="#L354">354</a>         @Override
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>         <strong class="jxr_keyword">public</strong> Object call(Object t) {
-<a class="jxr_linenumber" name="L356" href="#L356">356</a>             <strong class="jxr_keyword">return</strong> t;
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>                         @Override
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>                         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> call() {
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>                             <strong class="jxr_keyword">if</strong> (once.compareAndSet(false, <strong class="jxr_keyword">true</strong>)) {
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>                                 <em class="jxr_comment">// done once per instance, either onComplete or onUnSubscribe</em>
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>                                 cleanupGroup(key);
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>                             }
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>                         }
+<a class="jxr_linenumber" name="L223" href="#L223">223</a> 
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>                     }).unsafeSubscribe(<strong class="jxr_keyword">new</strong> Subscriber&lt;T&gt;(o) {
+<a class="jxr_linenumber" name="L225" href="#L225">225</a> 
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>                         @Override
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>                         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onCompleted() {
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>                             o.onCompleted();
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>                             <em class="jxr_comment">// eagerly cleanup instead of waiting for unsubscribe</em>
+<a class="jxr_linenumber" name="L230" href="#L230">230</a>                             <strong class="jxr_keyword">if</strong> (once.compareAndSet(false, <strong class="jxr_keyword">true</strong>)) {
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>                                 <em class="jxr_comment">// done once per instance, either onComplete or onUnSubscribe</em>
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>                                 cleanupGroup(key);
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>                             }
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>                         }
+<a class="jxr_linenumber" name="L235" href="#L235">235</a> 
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>                         @Override
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>                         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onError(Throwable e) {
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>                             o.onError(e);
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>                         }
+<a class="jxr_linenumber" name="L240" href="#L240">240</a> 
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>                         @Override
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>                         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onNext(T t) {
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>                             <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>                                 o.onNext(elementSelector.call(t));
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>                             } <strong class="jxr_keyword">catch</strong> (Throwable e) {
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>                                 onError(OnErrorThrowable.addValueAsLastCause(e, t));
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>                             }
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>                         }
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>                     });
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>                 }
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>             });
+<a class="jxr_linenumber" name="L252" href="#L252">252</a> 
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>             GroupState&lt;K, T&gt; putIfAbsent = groups.putIfAbsent(key, groupState);
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>             <strong class="jxr_keyword">if</strong> (putIfAbsent != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>                 <em class="jxr_comment">// this shouldn't happen (because we receive onNext sequentially) and would mean we have a bug</em>
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalStateException(<span class="jxr_string">"Group already existed while creating a new one"</span>);
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>             }
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>             child.onNext(go);
+<a class="jxr_linenumber" name="L259" href="#L259">259</a> 
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>             <strong class="jxr_keyword">return</strong> groupState;
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>         }
+<a class="jxr_linenumber" name="L262" href="#L262">262</a> 
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> cleanupGroup(Object key) {
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>             GroupState&lt;K, T&gt; removed;
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>             removed = groups.remove(key);
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>             <strong class="jxr_keyword">if</strong> (removed != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>                 <strong class="jxr_keyword">if</strong> (removed.buffer.size() &gt; 0) {
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>                     BUFFERED_COUNT.addAndGet(self, -removed.buffer.size());
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>                 }
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>                 completeInner();
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>                 <em class="jxr_comment">// since we may have unsubscribed early with items in the buffer </em>
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>                 <em class="jxr_comment">// we remove those above and have freed up room to request more</em>
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>                 <em class="jxr_comment">// so give it a chance to request more now</em>
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>                 requestMoreIfNecessary();
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>             }
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>         }
+<a class="jxr_linenumber" name="L277" href="#L277">277</a> 
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> emitItem(GroupState&lt;K, T&gt; groupState, Object item) {
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>             Queue&lt;Object&gt; q = groupState.buffer;
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>             <a href="../../../java/util/concurrent/atomic/AtomicLong.html">AtomicLong</a> keyRequested = groupState.requested;
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>             REQUESTED.decrementAndGet(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>             <em class="jxr_comment">// short circuit buffering</em>
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>             <strong class="jxr_keyword">if</strong> (keyRequested != <strong class="jxr_keyword">null</strong> &amp;&amp; keyRequested.get() &gt; 0 &amp;&amp; (q == <strong class="jxr_keyword">null</strong> || q.isEmpty())) {
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>                 @SuppressWarnings(<span class="jxr_string">"unchecked"</span>)
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>                 Observer&lt;Object&gt; obs = (Observer&lt;Object&gt;)groupState.getObserver();
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>                 nl.accept(obs, item);
+<a class="jxr_linenumber" name="L287" href="#L287">287</a>                 keyRequested.decrementAndGet();
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>                 q.add(item);
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>                 BUFFERED_COUNT.incrementAndGet(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L291" href="#L291">291</a> 
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>                 <strong class="jxr_keyword">if</strong> (groupState.count.getAndIncrement() == 0) {
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>                     pollQueue(groupState);
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>                 }
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>             }
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>             requestMoreIfNecessary();
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>         }
+<a class="jxr_linenumber" name="L298" href="#L298">298</a> 
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> pollQueue(GroupState&lt;K, T&gt; groupState) {
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>             <strong class="jxr_keyword">do</strong> {
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>                 drainIfPossible(groupState);
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>                 <strong class="jxr_keyword">long</strong> c = groupState.count.decrementAndGet();
+<a class="jxr_linenumber" name="L303" href="#L303">303</a>                 <strong class="jxr_keyword">if</strong> (c &gt; 1) {
+<a class="jxr_linenumber" name="L304" href="#L304">304</a> 
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>                     <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L306" href="#L306">306</a> <em class="jxr_comment">                     * Set down to 1 and then iterate again.</em>
+<a class="jxr_linenumber" name="L307" href="#L307">307</a> <em class="jxr_comment">                     * we lower it to 1 otherwise it could have grown very large while in the last poll loop</em>
+<a class="jxr_linenumber" name="L308" href="#L308">308</a> <em class="jxr_comment">                     * and then we can end up looping all those times again here before existing even once we've drained</em>
+<a class="jxr_linenumber" name="L309" href="#L309">309</a> <em class="jxr_comment">                     */</em>
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>                     groupState.count.set(1);
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>                     <em class="jxr_comment">// we now loop again, and if anything tries scheduling again after this it will increment and cause us to loop again after</em>
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>                 }
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>             } <strong class="jxr_keyword">while</strong> (groupState.count.get() &gt; 0);
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>         }
+<a class="jxr_linenumber" name="L315" href="#L315">315</a> 
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> requestMoreIfNecessary() {
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>             <strong class="jxr_keyword">if</strong> (REQUESTED.get(<strong class="jxr_keyword">this</strong>) == 0 &amp;&amp; terminated == 0) {
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>                 <strong class="jxr_keyword">long</strong> toRequest = MAX_QUEUE_SIZE - BUFFERED_COUNT.get(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>                 <strong class="jxr_keyword">if</strong> (toRequest &gt; 0 &amp;&amp; REQUESTED.compareAndSet(<strong class="jxr_keyword">this</strong>, 0, toRequest)) {
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>                     request(toRequest);
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>                 }
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>             }
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>         }
+<a class="jxr_linenumber" name="L324" href="#L324">324</a> 
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> drainIfPossible(GroupState&lt;K, T&gt; groupState) {
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>             <strong class="jxr_keyword">while</strong> (groupState.requested.get() &gt; 0) {
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>                 Object t = groupState.buffer.poll();
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>                 <strong class="jxr_keyword">if</strong> (t != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>                     @SuppressWarnings(<span class="jxr_string">"unchecked"</span>)
+<a class="jxr_linenumber" name="L330" href="#L330">330</a>                     Observer&lt;Object&gt; obs = (Observer&lt;Object&gt;)groupState.getObserver();
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>                     nl.accept(obs, t);
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>                     groupState.requested.decrementAndGet();
+<a class="jxr_linenumber" name="L333" href="#L333">333</a>                     BUFFERED_COUNT.decrementAndGet(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L334" href="#L334">334</a> 
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>                     <em class="jxr_comment">// if we have used up all the events we requested from upstream then figure out what to ask for this time based on the empty space in the buffer</em>
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>                     requestMoreIfNecessary();
+<a class="jxr_linenumber" name="L337" href="#L337">337</a>                 } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>                     <em class="jxr_comment">// queue is empty break</em>
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>                     <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>                 }
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>             }
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>         }
+<a class="jxr_linenumber" name="L343" href="#L343">343</a> 
+<a class="jxr_linenumber" name="L344" href="#L344">344</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> completeInner() {
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>             <em class="jxr_comment">// if we have no outstanding groups (all completed or unsubscribe) and terminated/unsubscribed on outer</em>
+<a class="jxr_linenumber" name="L346" href="#L346">346</a>             <strong class="jxr_keyword">if</strong> (groups.size() == 0 &amp;&amp; (terminated == 1 || child.isUnsubscribed())) {
+<a class="jxr_linenumber" name="L347" href="#L347">347</a>                 <em class="jxr_comment">// completionEmitted ensures we only emit onCompleted once</em>
+<a class="jxr_linenumber" name="L348" href="#L348">348</a>                 <strong class="jxr_keyword">if</strong> (COMPLETION_EMITTED_UPDATER.compareAndSet(<strong class="jxr_keyword">this</strong>, 0, 1)) {
+<a class="jxr_linenumber" name="L349" href="#L349">349</a> 
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>                     <strong class="jxr_keyword">if</strong> (child.isUnsubscribed()) {
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>                         <em class="jxr_comment">// if the entire groupBy has been unsubscribed and children are completed we will propagate the unsubscribe up.</em>
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>                         unsubscribe();
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>                     }
+<a class="jxr_linenumber" name="L354" href="#L354">354</a>                     child.onCompleted();
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>                 }
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>             }
 <a class="jxr_linenumber" name="L357" href="#L357">357</a>         }
-<a class="jxr_linenumber" name="L358" href="#L358">358</a>     };
-<a class="jxr_linenumber" name="L359" href="#L359">359</a> 
-<a class="jxr_linenumber" name="L360" href="#L360">360</a> }
+<a class="jxr_linenumber" name="L358" href="#L358">358</a> 
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>     }
+<a class="jxr_linenumber" name="L360" href="#L360">360</a> 
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">static</strong> Func1&lt;Object, Object&gt; IDENTITY = <strong class="jxr_keyword">new</strong> Func1&lt;Object, Object&gt;() {
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>         @Override
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>         <strong class="jxr_keyword">public</strong> Object call(Object t) {
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>             <strong class="jxr_keyword">return</strong> t;
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>         }
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>     };
+<a class="jxr_linenumber" name="L367" href="#L367">367</a> 
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Object NULL_KEY = <strong class="jxr_keyword">new</strong> Object();
+<a class="jxr_linenumber" name="L369" href="#L369">369</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

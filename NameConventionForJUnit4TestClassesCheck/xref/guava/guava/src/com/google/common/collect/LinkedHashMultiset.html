@@ -111,14 +111,13 @@
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>       <strong class="jxr_keyword">throws</strong> IOException, ClassNotFoundException {
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>     stream.defaultReadObject();
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">int</strong> distinctElements = Serialization.readCount(stream);
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>     setBackingMap(<strong class="jxr_keyword">new</strong> LinkedHashMap&lt;E, Count&gt;(
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>         Maps.capacity(distinctElements)));
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>     Serialization.populateMultiset(<strong class="jxr_keyword">this</strong>, stream, distinctElements);
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>   }
-<a class="jxr_linenumber" name="L110" href="#L110">110</a> 
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>   @GwtIncompatible(<span class="jxr_string">"not needed in emulated source"</span>)
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 0;
-<a class="jxr_linenumber" name="L113" href="#L113">113</a> }
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>     setBackingMap(<strong class="jxr_keyword">new</strong> LinkedHashMap&lt;E, Count&gt;());
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>     Serialization.populateMultiset(<strong class="jxr_keyword">this</strong>, stream, distinctElements);
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>   }
+<a class="jxr_linenumber" name="L109" href="#L109">109</a> 
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>   @GwtIncompatible(<span class="jxr_string">"not needed in emulated source"</span>)
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 0;
+<a class="jxr_linenumber" name="L112" href="#L112">112</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

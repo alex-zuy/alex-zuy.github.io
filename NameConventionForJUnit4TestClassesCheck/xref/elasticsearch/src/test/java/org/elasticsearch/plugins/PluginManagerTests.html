@@ -394,7 +394,7 @@
 <a class="jxr_linenumber" name="L386" href="#L386">386</a> 
 <a class="jxr_linenumber" name="L387" href="#L387">387</a>         <em class="jxr_comment">// We want to check that Plugin Manager moves content to _site</em>
 <a class="jxr_linenumber" name="L388" href="#L388">388</a>         String pluginDir = PLUGIN_DIR.concat(<span class="jxr_string">"/plugin-site/_site"</span>);
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>         assertFileExists(<strong class="jxr_keyword">new</strong> File(pluginDir));
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>         assertFileExists(Paths.get(pluginDir));
 <a class="jxr_linenumber" name="L390" href="#L390">390</a>     }
 <a class="jxr_linenumber" name="L391" href="#L391">391</a> 
 <a class="jxr_linenumber" name="L392" href="#L392">392</a> 

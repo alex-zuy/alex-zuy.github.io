@@ -401,11 +401,11 @@
 <a class="jxr_linenumber" name="L393" href="#L393">393</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> InvalidObjectException(<span class="jxr_string">"Invalid value count "</span> + valueCount);
 <a class="jxr_linenumber" name="L394" href="#L394">394</a>       }
 <a class="jxr_linenumber" name="L395" href="#L395">395</a> 
-<a class="jxr_linenumber" name="L396" href="#L396">396</a>       Object[] array = <strong class="jxr_keyword">new</strong> Object[valueCount];
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>       ImmutableList.Builder&lt;Object&gt; valuesBuilder = ImmutableList.builder();
 <a class="jxr_linenumber" name="L397" href="#L397">397</a>       <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> j = 0; j &lt; valueCount; j++) {
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>         array[j] = stream.readObject();
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>         valuesBuilder.add(stream.readObject());
 <a class="jxr_linenumber" name="L399" href="#L399">399</a>       }
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>       builder.put(key, ImmutableList.copyOf(array));
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>       builder.put(key, valuesBuilder.build());
 <a class="jxr_linenumber" name="L401" href="#L401">401</a>       tmpSize += valueCount;
 <a class="jxr_linenumber" name="L402" href="#L402">402</a>     }
 <a class="jxr_linenumber" name="L403" href="#L403">403</a> 

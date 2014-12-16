@@ -167,27 +167,25 @@
 <a class="jxr_linenumber" name="L159" href="#L159">159</a> 
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         types = in.readStringArray();
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>         indicesOptions = IndicesOptions.readIndicesOptions(in);
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>         readLocal(in);
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>     }
-<a class="jxr_linenumber" name="L164" href="#L164">164</a> 
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>     @Override
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>         <strong class="jxr_keyword">super</strong>.writeTo(out);
-<a class="jxr_linenumber" name="L168" href="#L168">168</a> 
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>         out.writeVInt(indices.length);
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>         <strong class="jxr_keyword">for</strong> (String index : indices) {
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>             out.writeString(index);
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>         }
-<a class="jxr_linenumber" name="L173" href="#L173">173</a> 
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>         out.writeOptionalString(routing);
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>         out.writeOptionalString(preference);
-<a class="jxr_linenumber" name="L176" href="#L176">176</a> 
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>         out.writeStringArray(types);
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>         indicesOptions.writeIndicesOptions(out);
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>         writeLocal(out);
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>     }
-<a class="jxr_linenumber" name="L181" href="#L181">181</a> 
-<a class="jxr_linenumber" name="L182" href="#L182">182</a> }
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>     }
+<a class="jxr_linenumber" name="L163" href="#L163">163</a> 
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>     @Override
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>         <strong class="jxr_keyword">super</strong>.writeTo(out);
+<a class="jxr_linenumber" name="L167" href="#L167">167</a> 
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>         out.writeVInt(indices.length);
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>         <strong class="jxr_keyword">for</strong> (String index : indices) {
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>             out.writeString(index);
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>         }
+<a class="jxr_linenumber" name="L172" href="#L172">172</a> 
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>         out.writeOptionalString(routing);
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>         out.writeOptionalString(preference);
+<a class="jxr_linenumber" name="L175" href="#L175">175</a> 
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>         out.writeStringArray(types);
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>         indicesOptions.writeIndicesOptions(out);
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>     }
+<a class="jxr_linenumber" name="L179" href="#L179">179</a> 
+<a class="jxr_linenumber" name="L180" href="#L180">180</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

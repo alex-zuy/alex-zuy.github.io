@@ -60,8 +60,8 @@
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.xcontent.XContentType;
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.engine.DocumentAlreadyExistsException;
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.engine.VersionConflictEngineException;
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.service.IndexService;
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.service.IndexShard;
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.IndexShard;
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndexAlreadyExistsException;
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndicesService;
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.threadpool.ThreadPool;
@@ -179,8 +179,8 @@
 <a class="jxr_linenumber" name="L171" href="#L171">171</a>     }
 <a class="jxr_linenumber" name="L172" href="#L172">172</a> 
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> shardOperation(<strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/action/support/single/instance/TransportInstanceSingleOperationAction.html">InternalRequest</a> request, <strong class="jxr_keyword">final</strong> ActionListener&lt;UpdateResponse&gt; listener, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> retryCount) <strong class="jxr_keyword">throws</strong> ElasticsearchException {
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>         <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService = indicesService.indexServiceSafe(request.concreteIndex());
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>         <a href="../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard = indexService.shardSafe(request.request().shardId());
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>         <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService = indicesService.indexServiceSafe(request.concreteIndex());
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>         <a href="../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard = indexService.shardSafe(request.request().shardId());
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         <strong class="jxr_keyword">final</strong> UpdateHelper.Result result = updateHelper.prepare(request.request(), indexShard);
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>         <strong class="jxr_keyword">switch</strong> (result.operation()) {
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>             <strong class="jxr_keyword">case</strong> UPSERT:
@@ -278,9 +278,9 @@
 <a class="jxr_linenumber" name="L270" href="#L270">270</a>                 <strong class="jxr_keyword">break</strong>;
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>             <strong class="jxr_keyword">case</strong> NONE:
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>                 <a href="../../../../org/elasticsearch/action/update/UpdateResponse.html">UpdateResponse</a> update = result.action();
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>                 <a href="../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexServiceOrNull = indicesService.indexService(request.concreteIndex());
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>                 <a href="../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexServiceOrNull = indicesService.indexService(request.concreteIndex());
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>                 <strong class="jxr_keyword">if</strong> (indexServiceOrNull !=  <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>                     <a href="../../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> shard = indexService.shard(request.request().shardId());
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>                     <a href="../../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> shard = indexService.shard(request.request().shardId());
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>                     <strong class="jxr_keyword">if</strong> (shard != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L277" href="#L277">277</a>                         shard.indexingService().noopUpdate(request.request().type());
 <a class="jxr_linenumber" name="L278" href="#L278">278</a>                     }

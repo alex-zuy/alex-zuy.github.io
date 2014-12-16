@@ -46,42 +46,44 @@
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>              <span class="jxr_string">"10: Using the '.*' form of import should be avoided - java.lang.*."</span>,
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>              <span class="jxr_string">"25: Using the '.*' form of import should be avoided - javax.swing.WindowConstants.*."</span>,
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>              <span class="jxr_string">"26: Using the '.*' form of import should be avoided - javax.swing.WindowConstants.*."</span>,
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>              <span class="jxr_string">"28: Using the '.*' form of import should be avoided - sun.net.ftpclient.FtpClient.*."</span>,
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>              <span class="jxr_string">"28: Using the '.*' form of import should be avoided - java.io.File.*."</span>,
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>          };
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>          verify(checkConfig, getPath(<span class="jxr_string">"imports"</span> + File.separator + <span class="jxr_string">"InputImport.java"</span>), expected);
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      }
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      @Test
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testExcludes()
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">throws</strong> Exception
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>      {
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> checkConfig =
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>              createCheckConfig(AvoidStarImportCheck.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>          checkConfig.addAttribute(<span class="jxr_string">"excludes"</span>,
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>              <span class="jxr_string">"java.io,java.lang,javax.swing.WindowConstants.*, javax.swing.WindowConstants"</span>);
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>          <em class="jxr_comment">// allow the java.io/java.lang,javax.swing.WindowConstants star imports</em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>          <strong class="jxr_keyword">final</strong> String[] expected2 = <strong class="jxr_keyword">new</strong> String[] {
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>              <span class="jxr_string">"7: Using the '.*' form of import should be avoided - com.puppycrawl.tools.checkstyle.imports.*."</span>,
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>              <span class="jxr_string">"28: Using the '.*' form of import should be avoided - sun.net.ftpclient.FtpClient.*."</span>,
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>          };
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>          verify(checkConfig, getPath(<span class="jxr_string">"imports"</span> + File.separator + <span class="jxr_string">"InputImport.java"</span>), expected2);
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>      }
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      @Test
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testAllowClassImports() <strong class="jxr_keyword">throws</strong> Exception
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>      {
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> checkConfig = createCheckConfig(AvoidStarImportCheck.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>          checkConfig.addAttribute(<span class="jxr_string">"allowClassImports"</span>, <span class="jxr_string">"true"</span>);
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          <em class="jxr_comment">// allow all class star imports</em>
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">final</strong> String[] expected2 = <strong class="jxr_keyword">new</strong> String[] {
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>              <span class="jxr_string">"25: Using the '.*' form of import should be avoided - javax.swing.WindowConstants.*."</span>,
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>              <span class="jxr_string">"26: Using the '.*' form of import should be avoided - javax.swing.WindowConstants.*."</span>,
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>              <span class="jxr_string">"28: Using the '.*' form of import should be avoided - sun.net.ftpclient.FtpClient.*."</span>, };
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>          verify(checkConfig, getPath(<span class="jxr_string">"imports"</span> + File.separator
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>              + <span class="jxr_string">"InputImport.java"</span>), expected2);
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>      }
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>  }
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>          verify(checkConfig, getPath(<span class="jxr_string">"imports"</span> + File.separator + <span class="jxr_string">"InputAvoidStarImportCheck.java"</span>),
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>                  expected);
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      }
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      @Test
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testExcludes()
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      {
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> checkConfig =
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>              createCheckConfig(AvoidStarImportCheck.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>          checkConfig.addAttribute(<span class="jxr_string">"excludes"</span>,
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>              <span class="jxr_string">"java.io,java.lang,javax.swing.WindowConstants.*, javax.swing.WindowConstants"</span>);
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>          <em class="jxr_comment">// allow the java.io/java.lang,javax.swing.WindowConstants star imports</em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">final</strong> String[] expected2 = <strong class="jxr_keyword">new</strong> String[] {
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>              <span class="jxr_string">"7: Using the '.*' form of import should be avoided - com.puppycrawl.tools.checkstyle.imports.*."</span>,
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>              <span class="jxr_string">"28: Using the '.*' form of import should be avoided - java.io.File.*."</span>,
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          };
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>          verify(checkConfig, getPath(<span class="jxr_string">"imports"</span> + File.separator + <span class="jxr_string">"InputAvoidStarImportCheck.java"</span>),
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>                  expected2);
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      }
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      @Test
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testAllowClassImports() <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      {
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> checkConfig = createCheckConfig(AvoidStarImportCheck.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          checkConfig.addAttribute(<span class="jxr_string">"allowClassImports"</span>, <span class="jxr_string">"true"</span>);
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          <em class="jxr_comment">// allow all class star imports</em>
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          <strong class="jxr_keyword">final</strong> String[] expected2 = <strong class="jxr_keyword">new</strong> String[] {
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>              <span class="jxr_string">"25: Using the '.*' form of import should be avoided - javax.swing.WindowConstants.*."</span>,
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>              <span class="jxr_string">"26: Using the '.*' form of import should be avoided - javax.swing.WindowConstants.*."</span>,
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>              <span class="jxr_string">"28: Using the '.*' form of import should be avoided - java.io.File.*."</span>, };
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          verify(checkConfig, getPath(<span class="jxr_string">"imports"</span> + File.separator
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>              + <span class="jxr_string">"InputAvoidStarImportCheck.java"</span>), expected2);
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>      }
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

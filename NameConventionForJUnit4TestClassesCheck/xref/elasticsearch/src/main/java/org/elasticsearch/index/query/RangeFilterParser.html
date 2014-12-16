@@ -109,7 +109,7 @@
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>                             to = parser.objectBytes();
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>                             includeUpper = <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>                         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"time_zone"</span>.equals(currentFieldName) || <span class="jxr_string">"timeZone"</span>.equals(currentFieldName)) {
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>                             timeZone = DateMathParser.parseZone(parser.text());
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>                             timeZone = DateTimeZone.forID(parser.text());
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>                         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"format"</span>.equals(currentFieldName)) {
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>                             forcedDateParser = <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/common/joda/DateMathParser.html">DateMathParser</a>(Joda.forPattern(parser.text()), DateFieldMapper.Defaults.TIME_UNIT);
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>                         } <strong class="jxr_keyword">else</strong> {

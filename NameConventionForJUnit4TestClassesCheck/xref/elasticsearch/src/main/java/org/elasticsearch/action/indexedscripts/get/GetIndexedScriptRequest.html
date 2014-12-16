@@ -167,7 +167,7 @@
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>             in.readByte(); <em class="jxr_comment">//Realtime</em>
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         }
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>         <strong class="jxr_keyword">this</strong>.versionType = VersionType.fromValue(in.readByte());
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>         <strong class="jxr_keyword">this</strong>.version = Versions.readVersionWithVLongForBW(in);
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>         <strong class="jxr_keyword">this</strong>.version = in.readLong();
 <a class="jxr_linenumber" name="L163" href="#L163">163</a> 
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>         <strong class="jxr_keyword">if</strong> (in.getVersion().before(Version.V_1_5_0)) {
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>             FetchSourceContext.optionalReadFromStream(in);
@@ -190,7 +190,7 @@
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>         }
 <a class="jxr_linenumber" name="L183" href="#L183">183</a> 
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>         out.writeByte(versionType.getValue());
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>         Versions.writeVersionWithVLongForBW(version, out);
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>         out.writeLong(version);
 <a class="jxr_linenumber" name="L186" href="#L186">186</a> 
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>         <strong class="jxr_keyword">if</strong> (out.getVersion().before(Version.V_1_5_0)) {
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>             FetchSourceContext.optionalWriteToStream(<strong class="jxr_keyword">null</strong>, out);

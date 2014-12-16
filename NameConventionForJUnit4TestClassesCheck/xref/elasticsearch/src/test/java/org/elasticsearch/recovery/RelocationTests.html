@@ -59,7 +59,7 @@
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.env.NodeEnvironment;
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.IndexShardState;
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.ShardId;
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.service.IndexShard;
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.IndexShard;
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndicesLifecycle;
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.recovery.RecoveryFileChunkRequest;
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.recovery.RecoverySettings;
@@ -303,7 +303,7 @@
 <a class="jxr_linenumber" name="L295" href="#L295">295</a>         <strong class="jxr_keyword">for</strong> (IndicesLifecycle indicesLifecycle : internalCluster().getInstances(IndicesLifecycle.<strong class="jxr_keyword">class</strong>)) {
 <a class="jxr_linenumber" name="L296" href="#L296">296</a>             indicesLifecycle.addListener(<strong class="jxr_keyword">new</strong> IndicesLifecycle.Listener() {
 <a class="jxr_linenumber" name="L297" href="#L297">297</a>                 @Override
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>                 <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> indexShardStateChanged(<a href="../../../org/elasticsearch/index/shard/service/IndexShard.html">IndexShard</a> indexShard, @Nullable <a href="../../../org/elasticsearch/index/shard/IndexShardState.html">IndexShardState</a> previousState, <a href="../../../org/elasticsearch/index/shard/IndexShardState.html">IndexShardState</a> currentState, @Nullable String reason) {
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>                 <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> indexShardStateChanged(<a href="../../../org/elasticsearch/index/shard/IndexShard.html">IndexShard</a> indexShard, @Nullable <a href="../../../org/elasticsearch/index/shard/IndexShardState.html">IndexShardState</a> previousState, <a href="../../../org/elasticsearch/index/shard/IndexShardState.html">IndexShardState</a> currentState, @Nullable String reason) {
 <a class="jxr_linenumber" name="L299" href="#L299">299</a>                     <strong class="jxr_keyword">if</strong> (currentState == IndexShardState.POST_RECOVERY) {
 <a class="jxr_linenumber" name="L300" href="#L300">300</a>                         postRecoveryShards.release();
 <a class="jxr_linenumber" name="L301" href="#L301">301</a>                     }

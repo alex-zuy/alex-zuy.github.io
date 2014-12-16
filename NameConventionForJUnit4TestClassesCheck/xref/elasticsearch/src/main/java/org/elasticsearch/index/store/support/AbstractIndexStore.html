@@ -36,7 +36,7 @@
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.env.NodeEnvironment;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.AbstractIndexComponent;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.Index;
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.service.IndexService;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.settings.IndexSettings;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.settings.IndexSettingsService;
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.ShardId;
@@ -83,7 +83,7 @@
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Path[] locations;
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService;
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService;
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../org/elasticsearch/indices/store/IndicesStore.html">IndicesStore</a> indicesStore;
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  
@@ -95,7 +95,7 @@
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../org/elasticsearch/indices/store/IndicesStore.html">ApplySettings</a> applySettings = <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/indices/store/IndicesStore.html">ApplySettings</a>();
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>      <strong class="jxr_keyword">protected</strong> <a href="../../../../../org/elasticsearch/index/store/support/AbstractIndexStore.html">AbstractIndexStore</a>(<a href="../../../../../org/elasticsearch/index/Index.html">Index</a> index, @IndexSettings <a href="../../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> indexSettings, <a href="../../../../../org/elasticsearch/index/service/IndexService.html">IndexService</a> indexService, <a href="../../../../../org/elasticsearch/indices/store/IndicesStore.html">IndicesStore</a> indicesStore, <a href="../../../../../org/elasticsearch/env/NodeEnvironment.html">NodeEnvironment</a> nodeEnv) {
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>      <strong class="jxr_keyword">protected</strong> <a href="../../../../../org/elasticsearch/index/store/support/AbstractIndexStore.html">AbstractIndexStore</a>(<a href="../../../../../org/elasticsearch/index/Index.html">Index</a> index, @IndexSettings <a href="../../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> indexSettings, <a href="../../../../../org/elasticsearch/index/IndexService.html">IndexService</a> indexService, <a href="../../../../../org/elasticsearch/indices/store/IndicesStore.html">IndicesStore</a> indicesStore, <a href="../../../../../org/elasticsearch/env/NodeEnvironment.html">NodeEnvironment</a> nodeEnv) {
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          <strong class="jxr_keyword">super</strong>(index, indexSettings);
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          <strong class="jxr_keyword">this</strong>.indexService = indexService;
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>          <strong class="jxr_keyword">this</strong>.indicesStore = indicesStore;

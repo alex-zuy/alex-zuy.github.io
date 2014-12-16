@@ -204,31 +204,29 @@
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>         out.writeVLong(minDocCount);
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>         out.writeVLong(subsetSize);
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>         out.writeVLong(supersetSize);
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>         <strong class="jxr_keyword">if</strong> (out.getVersion().onOrAfter(Version.V_1_3_0)) {
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>             significanceHeuristic.writeTo(out);
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>         }
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>         out.writeVInt(buckets.size());
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>         <strong class="jxr_keyword">for</strong> (InternalSignificantTerms.Bucket bucket : buckets) {
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>             bucket.writeTo(out);
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>         }
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>     }
-<a class="jxr_linenumber" name="L207" href="#L207">207</a> 
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>     @Override
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/common/xcontent/XContentBuilder.html">XContentBuilder</a> doXContentBody(<a href="../../../../../../org/elasticsearch/common/xcontent/XContentBuilder.html">XContentBuilder</a> builder, <a href="../../../../../../org/elasticsearch/common/xcontent/ToXContent.html">Params</a> params) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>         builder.field(<span class="jxr_string">"doc_count"</span>, subsetSize);
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>         builder.startArray(CommonFields.BUCKETS);
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>         <strong class="jxr_keyword">for</strong> (InternalSignificantTerms.Bucket bucket : buckets) {
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>             <em class="jxr_comment">//There is a condition (presumably when only one shard has a bucket?) where reduce is not called</em>
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>             <em class="jxr_comment">// and I end up with buckets that contravene the user's min_doc_count criteria in my reducer</em>
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>             <strong class="jxr_keyword">if</strong> (bucket.subsetDf &gt;= minDocCount) {
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>                 bucket.toXContent(builder, params);
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>             }
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>         }
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>         builder.endArray();
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>         <strong class="jxr_keyword">return</strong> builder;
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>     }
-<a class="jxr_linenumber" name="L222" href="#L222">222</a> 
-<a class="jxr_linenumber" name="L223" href="#L223">223</a> }
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>         significanceHeuristic.writeTo(out);
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>         out.writeVInt(buckets.size());
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>         <strong class="jxr_keyword">for</strong> (InternalSignificantTerms.Bucket bucket : buckets) {
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>             bucket.writeTo(out);
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>         }
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>     }
+<a class="jxr_linenumber" name="L205" href="#L205">205</a> 
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>     @Override
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/common/xcontent/XContentBuilder.html">XContentBuilder</a> doXContentBody(<a href="../../../../../../org/elasticsearch/common/xcontent/XContentBuilder.html">XContentBuilder</a> builder, <a href="../../../../../../org/elasticsearch/common/xcontent/ToXContent.html">Params</a> params) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>         builder.field(<span class="jxr_string">"doc_count"</span>, subsetSize);
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>         builder.startArray(CommonFields.BUCKETS);
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>         <strong class="jxr_keyword">for</strong> (InternalSignificantTerms.Bucket bucket : buckets) {
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>             <em class="jxr_comment">//There is a condition (presumably when only one shard has a bucket?) where reduce is not called</em>
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>             <em class="jxr_comment">// and I end up with buckets that contravene the user's min_doc_count criteria in my reducer</em>
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>             <strong class="jxr_keyword">if</strong> (bucket.subsetDf &gt;= minDocCount) {
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>                 bucket.toXContent(builder, params);
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>             }
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>         }
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>         builder.endArray();
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>         <strong class="jxr_keyword">return</strong> builder;
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>     }
+<a class="jxr_linenumber" name="L220" href="#L220">220</a> 
+<a class="jxr_linenumber" name="L221" href="#L221">221</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>
