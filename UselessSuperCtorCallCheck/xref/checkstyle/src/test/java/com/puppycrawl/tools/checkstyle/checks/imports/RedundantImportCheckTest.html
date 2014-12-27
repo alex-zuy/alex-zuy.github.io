@@ -42,13 +42,13 @@
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>              createCheckConfig(RedundantImportCheck.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>          <strong class="jxr_keyword">final</strong> String[] expected = {
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>              <span class="jxr_string">"7:1: Redundant import from the same package - com.puppycrawl.tools.checkstyle.imports.*."</span>,
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>              <span class="jxr_string">"8:38: Redundant import from the same package - com.puppycrawl.tools.checkstyle.imports.GlobalProperties."</span>,
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>              <span class="jxr_string">"8:1: Redundant import from the same package - com.puppycrawl.tools.checkstyle.imports.InputImportBug."</span>,
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>              <span class="jxr_string">"10:1: Redundant import from the java.lang package - java.lang.*."</span>,
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>              <span class="jxr_string">"11:1: Redundant import from the java.lang package - java.lang.String."</span>,
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>              <span class="jxr_string">"14:1: Duplicate import to line 13 - java.util.List."</span>,
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>              <span class="jxr_string">"26:1: Duplicate import to line 25 - javax.swing.WindowConstants.*."</span>,
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>          };
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>          verify(checkConfig, getPath(<span class="jxr_string">"imports"</span> + File.separator + <span class="jxr_string">"InputImport.java"</span>), expected);
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>          verify(checkConfig, getPath(<span class="jxr_string">"imports"</span> + File.separator + <span class="jxr_string">"InputRedundantImportCheck.java"</span>), expected);
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      }
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  }
 </pre>

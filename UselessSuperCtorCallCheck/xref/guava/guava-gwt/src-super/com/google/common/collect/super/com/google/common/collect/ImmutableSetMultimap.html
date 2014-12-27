@@ -498,13 +498,20 @@
 <a class="jxr_linenumber" name="L490" href="#L490">490</a>         : ImmutableSortedSet.&lt;V&gt;emptySet(valueComparator);
 <a class="jxr_linenumber" name="L491" href="#L491">491</a>   }
 <a class="jxr_linenumber" name="L492" href="#L492">492</a> 
-<a class="jxr_linenumber" name="L493" href="#L493">493</a>   @Nullable Comparator&lt;? <strong class="jxr_keyword">super</strong> V&gt; valueComparator() {
-<a class="jxr_linenumber" name="L494" href="#L494">494</a>     <strong class="jxr_keyword">return</strong> emptySet instanceof <a href="../../../../com/google/common/collect/ImmutableSortedSet.html">ImmutableSortedSet</a>
-<a class="jxr_linenumber" name="L495" href="#L495">495</a>         ? ((ImmutableSortedSet&lt;V&gt;) emptySet).comparator()
-<a class="jxr_linenumber" name="L496" href="#L496">496</a>         : <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L497" href="#L497">497</a>   }
-<a class="jxr_linenumber" name="L498" href="#L498">498</a> }
+<a class="jxr_linenumber" name="L493" href="#L493">493</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> &lt;V&gt; ImmutableSet.Builder&lt;V&gt; valuesBuilder(
+<a class="jxr_linenumber" name="L494" href="#L494">494</a>       @Nullable Comparator&lt;? <strong class="jxr_keyword">super</strong> V&gt; valueComparator) {
+<a class="jxr_linenumber" name="L495" href="#L495">495</a>     <strong class="jxr_keyword">return</strong> (valueComparator == <strong class="jxr_keyword">null</strong>)
+<a class="jxr_linenumber" name="L496" href="#L496">496</a>         ? <strong class="jxr_keyword">new</strong> ImmutableSet.Builder&lt;V&gt;()
+<a class="jxr_linenumber" name="L497" href="#L497">497</a>         : <strong class="jxr_keyword">new</strong> ImmutableSortedSet.Builder&lt;V&gt;(valueComparator);
+<a class="jxr_linenumber" name="L498" href="#L498">498</a>   }
 <a class="jxr_linenumber" name="L499" href="#L499">499</a> 
+<a class="jxr_linenumber" name="L500" href="#L500">500</a>   @Nullable Comparator&lt;? <strong class="jxr_keyword">super</strong> V&gt; valueComparator() {
+<a class="jxr_linenumber" name="L501" href="#L501">501</a>     <strong class="jxr_keyword">return</strong> emptySet instanceof <a href="../../../../com/google/common/collect/ImmutableSortedSet.html">ImmutableSortedSet</a>
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>         ? ((ImmutableSortedSet&lt;V&gt;) emptySet).comparator()
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>         : <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>   }
+<a class="jxr_linenumber" name="L505" href="#L505">505</a> }
+<a class="jxr_linenumber" name="L506" href="#L506">506</a> 
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

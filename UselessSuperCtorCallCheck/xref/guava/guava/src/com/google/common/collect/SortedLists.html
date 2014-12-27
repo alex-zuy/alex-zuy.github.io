@@ -197,99 +197,98 @@
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;E <strong class="jxr_keyword">extends</strong> Comparable&gt; <strong class="jxr_keyword">int</strong> binarySearch(List&lt;? <strong class="jxr_keyword">extends</strong> E&gt; list, E e,
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>       <a href="../../../../com/google/common/collect/SortedLists.html">KeyPresentBehavior</a> presentBehavior, <a href="../../../../com/google/common/collect/SortedLists.html">KeyAbsentBehavior</a> absentBehavior) {
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>     checkNotNull(e);
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>     <strong class="jxr_keyword">return</strong> binarySearch(
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>         list, checkNotNull(e), Ordering.natural(), presentBehavior, absentBehavior);
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>   }
-<a class="jxr_linenumber" name="L195" href="#L195">195</a> 
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L197" href="#L197">197</a> <em class="jxr_javadoccomment">   * Binary searches the list for the specified key, using the specified key function.</em>
-<a class="jxr_linenumber" name="L198" href="#L198">198</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L199" href="#L199">199</a> <em class="jxr_javadoccomment">   * &lt;p&gt;Equivalent to {@link #binarySearch(List, Function, Object, Comparator, KeyPresentBehavior,</em>
-<a class="jxr_linenumber" name="L200" href="#L200">200</a> <em class="jxr_javadoccomment">   * KeyAbsentBehavior)} using {@link Ordering#natural}.</em>
-<a class="jxr_linenumber" name="L201" href="#L201">201</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;E, K <strong class="jxr_keyword">extends</strong> Comparable&gt; <strong class="jxr_keyword">int</strong> binarySearch(List&lt;E&gt; list,
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>       Function&lt;? <strong class="jxr_keyword">super</strong> E, K&gt; keyFunction, @Nullable K key, <a href="../../../../com/google/common/collect/SortedLists.html">KeyPresentBehavior</a> presentBehavior,
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>       <a href="../../../../com/google/common/collect/SortedLists.html">KeyAbsentBehavior</a> absentBehavior) {
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>     <strong class="jxr_keyword">return</strong> binarySearch(
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>         list,
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>         keyFunction,
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>         key,
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>         Ordering.natural(),
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>         presentBehavior,
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>         absentBehavior);
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>   }
-<a class="jxr_linenumber" name="L213" href="#L213">213</a> 
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L215" href="#L215">215</a> <em class="jxr_javadoccomment">   * Binary searches the list for the specified key, using the specified key function.</em>
-<a class="jxr_linenumber" name="L216" href="#L216">216</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L217" href="#L217">217</a> <em class="jxr_javadoccomment">   * &lt;p&gt;Equivalent to</em>
-<a class="jxr_linenumber" name="L218" href="#L218">218</a> <em class="jxr_javadoccomment">   * {@link #binarySearch(List, Object, Comparator, KeyPresentBehavior, KeyAbsentBehavior)} using</em>
-<a class="jxr_linenumber" name="L219" href="#L219">219</a> <em class="jxr_javadoccomment">   * {@link Lists#transform(List, Function) Lists.transform(list, keyFunction)}.</em>
-<a class="jxr_linenumber" name="L220" href="#L220">220</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;E, K&gt; <strong class="jxr_keyword">int</strong> binarySearch(
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>       List&lt;E&gt; list,
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>       Function&lt;? <strong class="jxr_keyword">super</strong> E, K&gt; keyFunction,
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>       @Nullable K key,
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>       Comparator&lt;? <strong class="jxr_keyword">super</strong> K&gt; keyComparator,
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>       <a href="../../../../com/google/common/collect/SortedLists.html">KeyPresentBehavior</a> presentBehavior,
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>       <a href="../../../../com/google/common/collect/SortedLists.html">KeyAbsentBehavior</a> absentBehavior) {
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>     <strong class="jxr_keyword">return</strong> binarySearch(
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>         Lists.transform(list, keyFunction), key, keyComparator, presentBehavior, absentBehavior);
-<a class="jxr_linenumber" name="L230" href="#L230">230</a>   }
-<a class="jxr_linenumber" name="L231" href="#L231">231</a> 
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L233" href="#L233">233</a> <em class="jxr_javadoccomment">   * Searches the specified list for the specified object using the binary search algorithm. The</em>
-<a class="jxr_linenumber" name="L234" href="#L234">234</a> <em class="jxr_javadoccomment">   * list must be sorted into ascending order according to the specified comparator (as by the</em>
-<a class="jxr_linenumber" name="L235" href="#L235">235</a> <em class="jxr_javadoccomment">   * {@link Collections#sort(List, Comparator) Collections.sort(List, Comparator)} method), prior</em>
-<a class="jxr_linenumber" name="L236" href="#L236">236</a> <em class="jxr_javadoccomment">   * to making this call. If it is not sorted, the results are undefined.</em>
-<a class="jxr_linenumber" name="L237" href="#L237">237</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L238" href="#L238">238</a> <em class="jxr_javadoccomment">   * &lt;p&gt;If there are elements in the list which compare as equal to the key, the choice of</em>
-<a class="jxr_linenumber" name="L239" href="#L239">239</a> <em class="jxr_javadoccomment">   * {@link KeyPresentBehavior} decides which index is returned. If no elements compare as equal to</em>
-<a class="jxr_linenumber" name="L240" href="#L240">240</a> <em class="jxr_javadoccomment">   * the key, the choice of {@link KeyAbsentBehavior} decides which index is returned.</em>
-<a class="jxr_linenumber" name="L241" href="#L241">241</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L242" href="#L242">242</a> <em class="jxr_javadoccomment">   * &lt;p&gt;This method runs in log(n) time on random-access lists, which offer near-constant-time</em>
-<a class="jxr_linenumber" name="L243" href="#L243">243</a> <em class="jxr_javadoccomment">   * access to each list element.</em>
-<a class="jxr_linenumber" name="L244" href="#L244">244</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L245" href="#L245">245</a> <em class="jxr_javadoccomment">   * @param list the list to be searched.</em>
-<a class="jxr_linenumber" name="L246" href="#L246">246</a> <em class="jxr_javadoccomment">   * @param key the value to be searched for.</em>
-<a class="jxr_linenumber" name="L247" href="#L247">247</a> <em class="jxr_javadoccomment">   * @param comparator the comparator by which the list is ordered.</em>
-<a class="jxr_linenumber" name="L248" href="#L248">248</a> <em class="jxr_javadoccomment">   * @param presentBehavior the specification for what to do if at least one element of the list</em>
-<a class="jxr_linenumber" name="L249" href="#L249">249</a> <em class="jxr_javadoccomment">   *        compares as equal to the key.</em>
-<a class="jxr_linenumber" name="L250" href="#L250">250</a> <em class="jxr_javadoccomment">   * @param absentBehavior the specification for what to do if no elements of the list compare as</em>
-<a class="jxr_linenumber" name="L251" href="#L251">251</a> <em class="jxr_javadoccomment">   *        equal to the key.</em>
-<a class="jxr_linenumber" name="L252" href="#L252">252</a> <em class="jxr_javadoccomment">   * @return the index determined by the {@code KeyPresentBehavior}, if the key is in the list;</em>
-<a class="jxr_linenumber" name="L253" href="#L253">253</a> <em class="jxr_javadoccomment">   *         otherwise the index determined by the {@code KeyAbsentBehavior}.</em>
-<a class="jxr_linenumber" name="L254" href="#L254">254</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;E&gt; <strong class="jxr_keyword">int</strong> binarySearch(List&lt;? <strong class="jxr_keyword">extends</strong> E&gt; list, @Nullable E key,
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>       Comparator&lt;? <strong class="jxr_keyword">super</strong> E&gt; comparator, <a href="../../../../com/google/common/collect/SortedLists.html">KeyPresentBehavior</a> presentBehavior,
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>       <a href="../../../../com/google/common/collect/SortedLists.html">KeyAbsentBehavior</a> absentBehavior) {
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>     checkNotNull(comparator);
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>     checkNotNull(list);
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>     checkNotNull(presentBehavior);
-<a class="jxr_linenumber" name="L261" href="#L261">261</a>     checkNotNull(absentBehavior);
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>     <strong class="jxr_keyword">if</strong> (!(list instanceof RandomAccess)) {
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>       list = Lists.newArrayList(list);
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>     }
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>     <em class="jxr_comment">// TODO(user): benchmark when it's best to do a linear search</em>
-<a class="jxr_linenumber" name="L266" href="#L266">266</a> 
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>     <strong class="jxr_keyword">int</strong> lower = 0;
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>     <strong class="jxr_keyword">int</strong> upper = list.size() - 1;
-<a class="jxr_linenumber" name="L269" href="#L269">269</a> 
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>     <strong class="jxr_keyword">while</strong> (lower &lt;= upper) {
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>       <strong class="jxr_keyword">int</strong> middle = (lower + upper) &gt;&gt;&gt; 1;
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>       <strong class="jxr_keyword">int</strong> c = comparator.compare(key, list.get(middle));
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>       <strong class="jxr_keyword">if</strong> (c &lt; 0) {
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>         upper = middle - 1;
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>       } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (c &gt; 0) {
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>         lower = middle + 1;
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>       } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>         <strong class="jxr_keyword">return</strong> lower + presentBehavior.resultIndex(
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>             comparator, key, list.subList(lower, upper + 1), middle - lower);
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>       }
-<a class="jxr_linenumber" name="L281" href="#L281">281</a>     }
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>     <strong class="jxr_keyword">return</strong> absentBehavior.resultIndex(lower);
-<a class="jxr_linenumber" name="L283" href="#L283">283</a>   }
-<a class="jxr_linenumber" name="L284" href="#L284">284</a> }
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>     <strong class="jxr_keyword">return</strong> binarySearch(list, e, Ordering.natural(), presentBehavior, absentBehavior);
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>   }
+<a class="jxr_linenumber" name="L194" href="#L194">194</a> 
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L196" href="#L196">196</a> <em class="jxr_javadoccomment">   * Binary searches the list for the specified key, using the specified key function.</em>
+<a class="jxr_linenumber" name="L197" href="#L197">197</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L198" href="#L198">198</a> <em class="jxr_javadoccomment">   * &lt;p&gt;Equivalent to {@link #binarySearch(List, Function, Object, Comparator, KeyPresentBehavior,</em>
+<a class="jxr_linenumber" name="L199" href="#L199">199</a> <em class="jxr_javadoccomment">   * KeyAbsentBehavior)} using {@link Ordering#natural}.</em>
+<a class="jxr_linenumber" name="L200" href="#L200">200</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;E, K <strong class="jxr_keyword">extends</strong> Comparable&gt; <strong class="jxr_keyword">int</strong> binarySearch(List&lt;E&gt; list,
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>       Function&lt;? <strong class="jxr_keyword">super</strong> E, K&gt; keyFunction, @Nullable K key, <a href="../../../../com/google/common/collect/SortedLists.html">KeyPresentBehavior</a> presentBehavior,
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>       <a href="../../../../com/google/common/collect/SortedLists.html">KeyAbsentBehavior</a> absentBehavior) {
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>     <strong class="jxr_keyword">return</strong> binarySearch(
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>         list,
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>         keyFunction,
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>         key,
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>         Ordering.natural(),
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>         presentBehavior,
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>         absentBehavior);
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>   }
+<a class="jxr_linenumber" name="L212" href="#L212">212</a> 
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L214" href="#L214">214</a> <em class="jxr_javadoccomment">   * Binary searches the list for the specified key, using the specified key function.</em>
+<a class="jxr_linenumber" name="L215" href="#L215">215</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L216" href="#L216">216</a> <em class="jxr_javadoccomment">   * &lt;p&gt;Equivalent to</em>
+<a class="jxr_linenumber" name="L217" href="#L217">217</a> <em class="jxr_javadoccomment">   * {@link #binarySearch(List, Object, Comparator, KeyPresentBehavior, KeyAbsentBehavior)} using</em>
+<a class="jxr_linenumber" name="L218" href="#L218">218</a> <em class="jxr_javadoccomment">   * {@link Lists#transform(List, Function) Lists.transform(list, keyFunction)}.</em>
+<a class="jxr_linenumber" name="L219" href="#L219">219</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;E, K&gt; <strong class="jxr_keyword">int</strong> binarySearch(
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>       List&lt;E&gt; list,
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>       Function&lt;? <strong class="jxr_keyword">super</strong> E, K&gt; keyFunction,
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>       @Nullable K key,
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>       Comparator&lt;? <strong class="jxr_keyword">super</strong> K&gt; keyComparator,
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>       <a href="../../../../com/google/common/collect/SortedLists.html">KeyPresentBehavior</a> presentBehavior,
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>       <a href="../../../../com/google/common/collect/SortedLists.html">KeyAbsentBehavior</a> absentBehavior) {
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>     <strong class="jxr_keyword">return</strong> binarySearch(
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>         Lists.transform(list, keyFunction), key, keyComparator, presentBehavior, absentBehavior);
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>   }
+<a class="jxr_linenumber" name="L230" href="#L230">230</a> 
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L232" href="#L232">232</a> <em class="jxr_javadoccomment">   * Searches the specified list for the specified object using the binary search algorithm. The</em>
+<a class="jxr_linenumber" name="L233" href="#L233">233</a> <em class="jxr_javadoccomment">   * list must be sorted into ascending order according to the specified comparator (as by the</em>
+<a class="jxr_linenumber" name="L234" href="#L234">234</a> <em class="jxr_javadoccomment">   * {@link Collections#sort(List, Comparator) Collections.sort(List, Comparator)} method), prior</em>
+<a class="jxr_linenumber" name="L235" href="#L235">235</a> <em class="jxr_javadoccomment">   * to making this call. If it is not sorted, the results are undefined.</em>
+<a class="jxr_linenumber" name="L236" href="#L236">236</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L237" href="#L237">237</a> <em class="jxr_javadoccomment">   * &lt;p&gt;If there are elements in the list which compare as equal to the key, the choice of</em>
+<a class="jxr_linenumber" name="L238" href="#L238">238</a> <em class="jxr_javadoccomment">   * {@link KeyPresentBehavior} decides which index is returned. If no elements compare as equal to</em>
+<a class="jxr_linenumber" name="L239" href="#L239">239</a> <em class="jxr_javadoccomment">   * the key, the choice of {@link KeyAbsentBehavior} decides which index is returned.</em>
+<a class="jxr_linenumber" name="L240" href="#L240">240</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L241" href="#L241">241</a> <em class="jxr_javadoccomment">   * &lt;p&gt;This method runs in log(n) time on random-access lists, which offer near-constant-time</em>
+<a class="jxr_linenumber" name="L242" href="#L242">242</a> <em class="jxr_javadoccomment">   * access to each list element.</em>
+<a class="jxr_linenumber" name="L243" href="#L243">243</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L244" href="#L244">244</a> <em class="jxr_javadoccomment">   * @param list the list to be searched.</em>
+<a class="jxr_linenumber" name="L245" href="#L245">245</a> <em class="jxr_javadoccomment">   * @param key the value to be searched for.</em>
+<a class="jxr_linenumber" name="L246" href="#L246">246</a> <em class="jxr_javadoccomment">   * @param comparator the comparator by which the list is ordered.</em>
+<a class="jxr_linenumber" name="L247" href="#L247">247</a> <em class="jxr_javadoccomment">   * @param presentBehavior the specification for what to do if at least one element of the list</em>
+<a class="jxr_linenumber" name="L248" href="#L248">248</a> <em class="jxr_javadoccomment">   *        compares as equal to the key.</em>
+<a class="jxr_linenumber" name="L249" href="#L249">249</a> <em class="jxr_javadoccomment">   * @param absentBehavior the specification for what to do if no elements of the list compare as</em>
+<a class="jxr_linenumber" name="L250" href="#L250">250</a> <em class="jxr_javadoccomment">   *        equal to the key.</em>
+<a class="jxr_linenumber" name="L251" href="#L251">251</a> <em class="jxr_javadoccomment">   * @return the index determined by the {@code KeyPresentBehavior}, if the key is in the list;</em>
+<a class="jxr_linenumber" name="L252" href="#L252">252</a> <em class="jxr_javadoccomment">   *         otherwise the index determined by the {@code KeyAbsentBehavior}.</em>
+<a class="jxr_linenumber" name="L253" href="#L253">253</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;E&gt; <strong class="jxr_keyword">int</strong> binarySearch(List&lt;? <strong class="jxr_keyword">extends</strong> E&gt; list, @Nullable E key,
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>       Comparator&lt;? <strong class="jxr_keyword">super</strong> E&gt; comparator, <a href="../../../../com/google/common/collect/SortedLists.html">KeyPresentBehavior</a> presentBehavior,
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>       <a href="../../../../com/google/common/collect/SortedLists.html">KeyAbsentBehavior</a> absentBehavior) {
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>     checkNotNull(comparator);
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>     checkNotNull(list);
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>     checkNotNull(presentBehavior);
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>     checkNotNull(absentBehavior);
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>     <strong class="jxr_keyword">if</strong> (!(list instanceof RandomAccess)) {
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>       list = Lists.newArrayList(list);
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>     }
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>     <em class="jxr_comment">// TODO(user): benchmark when it's best to do a linear search</em>
+<a class="jxr_linenumber" name="L265" href="#L265">265</a> 
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>     <strong class="jxr_keyword">int</strong> lower = 0;
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>     <strong class="jxr_keyword">int</strong> upper = list.size() - 1;
+<a class="jxr_linenumber" name="L268" href="#L268">268</a> 
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>     <strong class="jxr_keyword">while</strong> (lower &lt;= upper) {
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>       <strong class="jxr_keyword">int</strong> middle = (lower + upper) &gt;&gt;&gt; 1;
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>       <strong class="jxr_keyword">int</strong> c = comparator.compare(key, list.get(middle));
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>       <strong class="jxr_keyword">if</strong> (c &lt; 0) {
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>         upper = middle - 1;
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>       } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (c &gt; 0) {
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>         lower = middle + 1;
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>       } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>         <strong class="jxr_keyword">return</strong> lower + presentBehavior.resultIndex(
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>             comparator, key, list.subList(lower, upper + 1), middle - lower);
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>       }
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>     }
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>     <strong class="jxr_keyword">return</strong> absentBehavior.resultIndex(lower);
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>   }
+<a class="jxr_linenumber" name="L283" href="#L283">283</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

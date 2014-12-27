@@ -38,7 +38,7 @@
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      {
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> checkConfig = createCheckConfig(UnusedImportsCheck.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>          <strong class="jxr_keyword">final</strong> String[] expected = {
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>              <span class="jxr_string">"8:45: Unused import - com.puppycrawl.tools.checkstyle.imports.GlobalProperties."</span>,
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>              <span class="jxr_string">"8:45: Unused import - com.puppycrawl.tools.checkstyle.imports.InputImportBug."</span>,
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>              <span class="jxr_string">"11:8: Unused import - java.lang.String."</span>,
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>              <span class="jxr_string">"13:8: Unused import - java.util.List."</span>,
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>              <span class="jxr_string">"14:8: Unused import - java.util.List."</span>,
@@ -53,18 +53,18 @@
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>              <span class="jxr_string">"33:8: Unused import - java.util.Date."</span>,
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>              <span class="jxr_string">"34:8: Unused import - java.util.Calendar."</span>,
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>              <span class="jxr_string">"35:8: Unused import - java.util.BitSet."</span>,
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>              <span class="jxr_string">"37:8: Unused import - com.test.TestClass1."</span>,
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>              <span class="jxr_string">"38:8: Unused import - com.test.TestClass2."</span>,
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>              <span class="jxr_string">"39:8: Unused import - com.test.TestClass3."</span>,
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>              <span class="jxr_string">"40:8: Unused import - com.test.TestClass4."</span>,
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>              <span class="jxr_string">"41:8: Unused import - com.test.TestClass5."</span>,
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>              <span class="jxr_string">"42:8: Unused import - com.test.TestClass6."</span>,
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>              <span class="jxr_string">"43:8: Unused import - com.test.TestClass7."</span>,
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>              <span class="jxr_string">"44:8: Unused import - com.test.TestClass8."</span>,
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>              <span class="jxr_string">"45:8: Unused import - com.test.TestClass9."</span>,
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>              <span class="jxr_string">"37:8: Unused import - com.puppycrawl.tools.checkstyle.Checker."</span>,
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>              <span class="jxr_string">"38:8: Unused import - com.puppycrawl.tools.checkstyle.CheckerTest."</span>,
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>              <span class="jxr_string">"39:8: Unused import - com.puppycrawl.tools.checkstyle.BaseFileSetCheckTestSupport."</span>,
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>              <span class="jxr_string">"40:8: Unused import - com.puppycrawl.tools.checkstyle.Defn."</span>,
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>              <span class="jxr_string">"41:8: Unused import - com.puppycrawl.tools.checkstyle.Input15Extensions."</span>,
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>              <span class="jxr_string">"42:8: Unused import - com.puppycrawl.tools.checkstyle.ConfigurationLoaderTest."</span>,
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>              <span class="jxr_string">"43:8: Unused import - com.puppycrawl.tools.checkstyle.CheckStyleTask."</span>,
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>              <span class="jxr_string">"44:8: Unused import - com.puppycrawl.tools.checkstyle.DefaultConfiguration."</span>,
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>              <span class="jxr_string">"45:8: Unused import - com.puppycrawl.tools.checkstyle.DefaultLogger."</span>,
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          };
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          verify(checkConfig, getPath(<span class="jxr_string">"imports"</span> + File.separator
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>                  + <span class="jxr_string">"InputImport.java"</span>), expected);
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>                  + <span class="jxr_string">"InputUnusedImportsCheck.java"</span>), expected);
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      }
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      @Test
@@ -73,7 +73,7 @@
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> checkConfig = createCheckConfig(UnusedImportsCheck.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          checkConfig.addAttribute(<span class="jxr_string">"processJavadoc"</span>, <span class="jxr_string">"true"</span>);
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">final</strong> String[] expected = {
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>              <span class="jxr_string">"8:45: Unused import - com.puppycrawl.tools.checkstyle.imports.GlobalProperties."</span>,
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>              <span class="jxr_string">"8:45: Unused import - com.puppycrawl.tools.checkstyle.imports.InputImportBug."</span>,
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>              <span class="jxr_string">"11:8: Unused import - java.lang.String."</span>,
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>              <span class="jxr_string">"13:8: Unused import - java.util.List."</span>,
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>              <span class="jxr_string">"14:8: Unused import - java.util.List."</span>,
@@ -83,10 +83,10 @@
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>              <span class="jxr_string">"27:15: Unused import - java.io.File.createTempFile."</span>,
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>              <em class="jxr_comment">//"29:8: Unused import - java.awt.Component.", // Should be detected</em>
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>              <span class="jxr_string">"32:8: Unused import - java.awt.Label."</span>,
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>              <span class="jxr_string">"45:8: Unused import - com.test.TestClass9."</span>,
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>              <span class="jxr_string">"45:8: Unused import - com.puppycrawl.tools.checkstyle.DefaultLogger."</span>,
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>          };
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          verify(checkConfig, getPath(<span class="jxr_string">"imports"</span> + File.separator
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>                  + <span class="jxr_string">"InputImport.java"</span>), expected);
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>                  + <span class="jxr_string">"InputUnusedImportsCheck.java"</span>), expected);
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>      }
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      @Test

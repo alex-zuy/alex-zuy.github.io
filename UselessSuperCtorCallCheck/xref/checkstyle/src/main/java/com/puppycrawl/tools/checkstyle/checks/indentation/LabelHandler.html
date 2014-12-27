@@ -39,7 +39,7 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment">     * The types of expressions that are children of a label.</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong>[] mLabelChildren = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">int</strong>[] {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong>[] LABEL_CHILDREN = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">int</strong>[] {
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>          TokenTypes.IDENT,
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      };
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
@@ -70,7 +70,7 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkLabel()
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      {
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          checkChildren(getMainAst(), mLabelChildren, getLevel(), <strong class="jxr_keyword">true</strong>, false);
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          checkChildren(getMainAst(), LABEL_CHILDREN, getLevel(), <strong class="jxr_keyword">true</strong>, false);
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      }
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      @Override

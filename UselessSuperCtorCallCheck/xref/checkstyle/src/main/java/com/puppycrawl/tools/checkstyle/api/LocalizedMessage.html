@@ -377,18 +377,19 @@
 <a class="jxr_linenumber" name="L369" href="#L369">369</a>     <em class="jxr_comment">////////////////////////////////////////////////////////////////////////////</em>
 <a class="jxr_linenumber" name="L370" href="#L370">370</a> 
 <a class="jxr_linenumber" name="L371" href="#L371">371</a>     <em class="jxr_javadoccomment">/** {@inheritDoc} */</em>
-<a class="jxr_linenumber" name="L372" href="#L372">372</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> compareTo(<a href="../../../../../com/puppycrawl/tools/checkstyle/api/LocalizedMessage.html">LocalizedMessage</a> aOther)
-<a class="jxr_linenumber" name="L373" href="#L373">373</a>     {
-<a class="jxr_linenumber" name="L374" href="#L374">374</a>         <strong class="jxr_keyword">if</strong> (getLineNo() == aOther.getLineNo()) {
-<a class="jxr_linenumber" name="L375" href="#L375">375</a>             <strong class="jxr_keyword">if</strong> (getColumnNo() == aOther.getColumnNo()) {
-<a class="jxr_linenumber" name="L376" href="#L376">376</a>                 <strong class="jxr_keyword">return</strong> getMessage().compareTo(aOther.getMessage());
-<a class="jxr_linenumber" name="L377" href="#L377">377</a>             }
-<a class="jxr_linenumber" name="L378" href="#L378">378</a>             <strong class="jxr_keyword">return</strong> (getColumnNo() &lt; aOther.getColumnNo()) ? -1 : 1;
-<a class="jxr_linenumber" name="L379" href="#L379">379</a>         }
-<a class="jxr_linenumber" name="L380" href="#L380">380</a> 
-<a class="jxr_linenumber" name="L381" href="#L381">381</a>         <strong class="jxr_keyword">return</strong> (getLineNo() &lt; aOther.getLineNo()) ? -1 : 1;
-<a class="jxr_linenumber" name="L382" href="#L382">382</a>     }
-<a class="jxr_linenumber" name="L383" href="#L383">383</a> }
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>     @Override
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> compareTo(<a href="../../../../../com/puppycrawl/tools/checkstyle/api/LocalizedMessage.html">LocalizedMessage</a> aOther)
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>     {
+<a class="jxr_linenumber" name="L375" href="#L375">375</a>         <strong class="jxr_keyword">if</strong> (getLineNo() == aOther.getLineNo()) {
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>             <strong class="jxr_keyword">if</strong> (getColumnNo() == aOther.getColumnNo()) {
+<a class="jxr_linenumber" name="L377" href="#L377">377</a>                 <strong class="jxr_keyword">return</strong> getMessage().compareTo(aOther.getMessage());
+<a class="jxr_linenumber" name="L378" href="#L378">378</a>             }
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>             <strong class="jxr_keyword">return</strong> (getColumnNo() &lt; aOther.getColumnNo()) ? -1 : 1;
+<a class="jxr_linenumber" name="L380" href="#L380">380</a>         }
+<a class="jxr_linenumber" name="L381" href="#L381">381</a> 
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>         <strong class="jxr_keyword">return</strong> (getLineNo() &lt; aOther.getLineNo()) ? -1 : 1;
+<a class="jxr_linenumber" name="L383" href="#L383">383</a>     }
+<a class="jxr_linenumber" name="L384" href="#L384">384</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

@@ -131,12 +131,12 @@
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/google/common/util/concurrent/ServiceManager.html">ServiceManager</a> {
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger logger = Logger.getLogger(ServiceManager.<strong class="jxr_keyword">class</strong>.getName());
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Callback&lt;Listener&gt; HEALTHY_CALLBACK = <strong class="jxr_keyword">new</strong> Callback&lt;Listener&gt;(<span class="jxr_string">"healthy()"</span>) {
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>     @Override <strong class="jxr_keyword">void</strong> call(<a href="../../../../../com/google/common/util/concurrent/ServiceManager.html">Listener</a> listener) {
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>     @Override <strong class="jxr_keyword">void</strong> call(<a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a> listener) {
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>       listener.healthy();
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>     }
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>   };
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Callback&lt;Listener&gt; STOPPED_CALLBACK = <strong class="jxr_keyword">new</strong> Callback&lt;Listener&gt;(<span class="jxr_string">"stopped()"</span>) {
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>     @Override <strong class="jxr_keyword">void</strong> call(<a href="../../../../../com/google/common/util/concurrent/ServiceManager.html">Listener</a> listener) {
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>     @Override <strong class="jxr_keyword">void</strong> call(<a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a> listener) {
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>       listener.stopped();
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>     }
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>   };
@@ -151,7 +151,7 @@
 <a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">   * @since 15.0 (present as an interface in 14.0)</em>
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>   @Beta  <em class="jxr_comment">// Should come out of Beta when ServiceManager does</em>
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/google/common/util/concurrent/ServiceManager.html">Listener</a> {
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a> {
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> <em class="jxr_javadoccomment">     * Called when the service initially becomes healthy.</em>
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> <em class="jxr_javadoccomment">     *</em>
@@ -242,7 +242,7 @@
 <a class="jxr_linenumber" name="L234" href="#L234">234</a> <em class="jxr_javadoccomment">   * @param listener the listener to run when the manager changes state</em>
 <a class="jxr_linenumber" name="L235" href="#L235">235</a> <em class="jxr_javadoccomment">   * @param executor the executor in which the listeners callback methods will be run.</em>
 <a class="jxr_linenumber" name="L236" href="#L236">236</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addListener(<a href="../../../../../com/google/common/util/concurrent/ServiceManager.html">Listener</a> listener, Executor executor) {
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addListener(<a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a> listener, Executor executor) {
 <a class="jxr_linenumber" name="L238" href="#L238">238</a>     state.addListener(listener, executor);
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>   }
 <a class="jxr_linenumber" name="L240" href="#L240">240</a> 
@@ -262,7 +262,7 @@
 <a class="jxr_linenumber" name="L254" href="#L254">254</a> <em class="jxr_javadoccomment">   *</em>
 <a class="jxr_linenumber" name="L255" href="#L255">255</a> <em class="jxr_javadoccomment">   * @param listener the listener to run when the manager changes state</em>
 <a class="jxr_linenumber" name="L256" href="#L256">256</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addListener(<a href="../../../../../com/google/common/util/concurrent/ServiceManager.html">Listener</a> listener) {
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addListener(<a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a> listener) {
 <a class="jxr_linenumber" name="L258" href="#L258">258</a>     state.addListener(listener, directExecutor());
 <a class="jxr_linenumber" name="L259" href="#L259">259</a>   }
 <a class="jxr_linenumber" name="L260" href="#L260">260</a> 
@@ -515,7 +515,7 @@
 <a class="jxr_linenumber" name="L507" href="#L507">507</a>       }
 <a class="jxr_linenumber" name="L508" href="#L508">508</a>     }
 <a class="jxr_linenumber" name="L509" href="#L509">509</a> 
-<a class="jxr_linenumber" name="L510" href="#L510">510</a>     <strong class="jxr_keyword">void</strong> addListener(<a href="../../../../../com/google/common/util/concurrent/ServiceManager.html">Listener</a> listener, Executor executor) {
+<a class="jxr_linenumber" name="L510" href="#L510">510</a>     <strong class="jxr_keyword">void</strong> addListener(<a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a> listener, Executor executor) {
 <a class="jxr_linenumber" name="L511" href="#L511">511</a>       checkNotNull(listener, <span class="jxr_string">"listener"</span>);
 <a class="jxr_linenumber" name="L512" href="#L512">512</a>       checkNotNull(executor, <span class="jxr_string">"executor"</span>);
 <a class="jxr_linenumber" name="L513" href="#L513">513</a>       monitor.enter();
@@ -688,7 +688,7 @@
 <a class="jxr_linenumber" name="L680" href="#L680">680</a>     @GuardedBy(<span class="jxr_string">"monitor"</span>)
 <a class="jxr_linenumber" name="L681" href="#L681">681</a>     <strong class="jxr_keyword">void</strong> fireFailedListeners(<strong class="jxr_keyword">final</strong> <a href="../../../../../com/google/common/util/concurrent/Service.html">Service</a> service) {
 <a class="jxr_linenumber" name="L682" href="#L682">682</a>       <strong class="jxr_keyword">new</strong> Callback&lt;Listener&gt;(<span class="jxr_string">"failed({service="</span> + service + <span class="jxr_string">"})"</span>) {
-<a class="jxr_linenumber" name="L683" href="#L683">683</a>         @Override <strong class="jxr_keyword">void</strong> call(<a href="../../../../../com/google/common/util/concurrent/ServiceManager.html">Listener</a> listener) {
+<a class="jxr_linenumber" name="L683" href="#L683">683</a>         @Override <strong class="jxr_keyword">void</strong> call(<a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a> listener) {
 <a class="jxr_linenumber" name="L684" href="#L684">684</a>           listener.failure(service);
 <a class="jxr_linenumber" name="L685" href="#L685">685</a>         }
 <a class="jxr_linenumber" name="L686" href="#L686">686</a>       }.enqueueOn(listeners);

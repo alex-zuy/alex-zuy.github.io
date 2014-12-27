@@ -71,7 +71,21 @@
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          };
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          verify(checkConfig, getPath(<span class="jxr_string">"InputSimple.java"</span>), expected);
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      }
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  }
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      @Test
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> shouldIgnoreMethodsWithOverrideAnnotation()
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>              <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      {
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> checkConfig =
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>                  createCheckConfig(ParameterNumberCheck.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          checkConfig.addAttribute(<span class="jxr_string">"ignoreOverriddenMethods"</span>, <span class="jxr_string">"true"</span>);
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          <strong class="jxr_keyword">final</strong> String[] expected = {
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>              <span class="jxr_string">"6:10: More than 7 parameters (found 8)."</span>,
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>              <span class="jxr_string">"11:10: More than 7 parameters (found 8)."</span>,
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>          };
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>          verify(checkConfig, getPath(<span class="jxr_string">"InputParameterNumberCheck.java"</span>), expected);
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      }
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

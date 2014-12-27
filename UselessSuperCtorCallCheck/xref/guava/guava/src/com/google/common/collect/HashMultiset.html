@@ -99,14 +99,13 @@
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>        <strong class="jxr_keyword">throws</strong> IOException, ClassNotFoundException {
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>      stream.defaultReadObject();
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">int</strong> distinctElements = Serialization.readCount(stream);
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>      setBackingMap(
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>          Maps.&lt;E, Count&gt;newHashMapWithExpectedSize(distinctElements));
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>      Serialization.populateMultiset(<strong class="jxr_keyword">this</strong>, stream, distinctElements);
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>    }
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>  
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>    @GwtIncompatible(<span class="jxr_string">"Not needed in emulated source."</span>)
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 0;
-<a class="jxr_linenumber" name="L101" href="#L101">101</a> }
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>      setBackingMap(Maps.&lt;E, Count&gt;newHashMap());
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>      Serialization.populateMultiset(<strong class="jxr_keyword">this</strong>, stream, distinctElements);
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>    }
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>  
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>    @GwtIncompatible(<span class="jxr_string">"Not needed in emulated source."</span>)
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 0;
+<a class="jxr_linenumber" name="L100" href="#L100">100</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

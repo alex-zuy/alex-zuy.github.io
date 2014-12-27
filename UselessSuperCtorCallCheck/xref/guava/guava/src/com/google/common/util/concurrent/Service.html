@@ -80,7 +80,7 @@
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>    <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">   * Returns the lifecycle state of the service.</em>
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>    <a href="../../../../../com/google/common/util/concurrent/Service.html">State</a> state();
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>    <a href="../../../../../com/google/common/util/concurrent/AbstractFutureFootprintBenchmark.html">State</a> state();
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>    <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment">   * If the service is {@linkplain State#STARTING starting} or {@linkplain State#RUNNING running},</em>
@@ -176,7 +176,7 @@
 <a class="jxr_linenumber" name="L168" href="#L168">168</a> <em class="jxr_javadoccomment">   *     {@link MoreExecutors#directExecutor}.</em>
 <a class="jxr_linenumber" name="L169" href="#L169">169</a> <em class="jxr_javadoccomment">   * @since 13.0</em>
 <a class="jxr_linenumber" name="L170" href="#L170">170</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>   <strong class="jxr_keyword">void</strong> addListener(<a href="../../../../../com/google/common/util/concurrent/ServiceManager.html">Listener</a> listener, Executor executor);
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>   <strong class="jxr_keyword">void</strong> addListener(<a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a> listener, Executor executor);
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>   
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>   <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L174" href="#L174">174</a> <em class="jxr_javadoccomment">   * The lifecycle states of a service.</em>
@@ -189,7 +189,7 @@
 <a class="jxr_linenumber" name="L181" href="#L181">181</a> <em class="jxr_javadoccomment">   * @since 9.0 (in 1.0 as {@code com.google.common.base.Service.State})</em>
 <a class="jxr_linenumber" name="L182" href="#L182">182</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>   @Beta <em class="jxr_comment">// should come out of Beta when Service does</em>
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>   enum <a href="../../../../../com/google/common/util/concurrent/Service.html">State</a> {
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>   enum <a href="../../../../../com/google/common/util/concurrent/AbstractFutureFootprintBenchmark.html">State</a> {
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L186" href="#L186">186</a> <em class="jxr_javadoccomment">     * A service in this state is inactive. It does minimal work and consumes</em>
 <a class="jxr_linenumber" name="L187" href="#L187">187</a> <em class="jxr_javadoccomment">     * minimal resources.</em>
@@ -260,7 +260,7 @@
 <a class="jxr_linenumber" name="L252" href="#L252">252</a> <em class="jxr_javadoccomment">   * @since 15.0 (present as an interface in 13.0)</em>
 <a class="jxr_linenumber" name="L253" href="#L253">253</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>   @Beta <em class="jxr_comment">// should come out of Beta when Service does</em>
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>   <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/google/common/util/concurrent/ServiceManager.html">Listener</a> {
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>   <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a> {
 <a class="jxr_linenumber" name="L256" href="#L256">256</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L257" href="#L257">257</a> <em class="jxr_javadoccomment">     * Called when the service transitions from {@linkplain State#NEW NEW} to </em>
 <a class="jxr_linenumber" name="L258" href="#L258">258</a> <em class="jxr_javadoccomment">     * {@linkplain State#STARTING STARTING}. This occurs when {@link Service#startAsync} is called </em>
@@ -281,7 +281,7 @@
 <a class="jxr_linenumber" name="L273" href="#L273">273</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L274" href="#L274">274</a> <em class="jxr_javadoccomment">     * @param from The previous state that is being transitioned from.  </em>
 <a class="jxr_linenumber" name="L275" href="#L275">275</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> stopping(<a href="../../../../../com/google/common/util/concurrent/Service.html">State</a> from) {}
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> stopping(<a href="../../../../../com/google/common/util/concurrent/AbstractFutureFootprintBenchmark.html">State</a> from) {}
 <a class="jxr_linenumber" name="L277" href="#L277">277</a>     
 <a class="jxr_linenumber" name="L278" href="#L278">278</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L279" href="#L279">279</a> <em class="jxr_javadoccomment">     * Called when the service transitions to the {@linkplain State#TERMINATED TERMINATED} state. </em>
@@ -293,7 +293,7 @@
 <a class="jxr_linenumber" name="L285" href="#L285">285</a> <em class="jxr_javadoccomment">     *     this are {@linkplain State#NEW NEW}, {@linkplain State#RUNNING RUNNING} or </em>
 <a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">     *     {@linkplain State#STOPPING STOPPING}.</em>
 <a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> terminated(<a href="../../../../../com/google/common/util/concurrent/Service.html">State</a> from) {}
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> terminated(<a href="../../../../../com/google/common/util/concurrent/AbstractFutureFootprintBenchmark.html">State</a> from) {}
 <a class="jxr_linenumber" name="L289" href="#L289">289</a>     
 <a class="jxr_linenumber" name="L290" href="#L290">290</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L291" href="#L291">291</a> <em class="jxr_javadoccomment">     * Called when the service transitions to the {@linkplain State#FAILED FAILED} state. The </em>
@@ -305,7 +305,7 @@
 <a class="jxr_linenumber" name="L297" href="#L297">297</a> <em class="jxr_javadoccomment">     *     {@linkplain State#TERMINATED TERMINATED}.</em>
 <a class="jxr_linenumber" name="L298" href="#L298">298</a> <em class="jxr_javadoccomment">     * @param failure The exception that caused the failure.</em>
 <a class="jxr_linenumber" name="L299" href="#L299">299</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> failed(<a href="../../../../../com/google/common/util/concurrent/Service.html">State</a> from, Throwable failure) {}
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> failed(<a href="../../../../../com/google/common/util/concurrent/AbstractFutureFootprintBenchmark.html">State</a> from, Throwable failure) {}
 <a class="jxr_linenumber" name="L301" href="#L301">301</a>   }
 <a class="jxr_linenumber" name="L302" href="#L302">302</a> }
 </pre>
