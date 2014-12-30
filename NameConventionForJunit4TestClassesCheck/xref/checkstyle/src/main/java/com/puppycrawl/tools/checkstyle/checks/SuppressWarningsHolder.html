@@ -403,47 +403,51 @@
 <a class="jxr_linenumber" name="L395" href="#L395">395</a>     {
 <a class="jxr_linenumber" name="L396" href="#L396">396</a>         <strong class="jxr_keyword">if</strong> (aAST != <strong class="jxr_keyword">null</strong> &amp;&amp; aAST.getType() == TokenTypes.EXPR) {
 <a class="jxr_linenumber" name="L397" href="#L397">397</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> firstChild = aAST.getFirstChild();
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>             <strong class="jxr_keyword">if</strong> (firstChild.getType() == TokenTypes.STRING_LITERAL) {
-<a class="jxr_linenumber" name="L399" href="#L399">399</a>                 <em class="jxr_comment">// NOTE: escaped characters are not unescaped</em>
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>                 <strong class="jxr_keyword">final</strong> String quotedText = firstChild.getText();
-<a class="jxr_linenumber" name="L401" href="#L401">401</a>                 <strong class="jxr_keyword">return</strong> quotedText.substring(1, quotedText.length() - 1);
-<a class="jxr_linenumber" name="L402" href="#L402">402</a>             }
-<a class="jxr_linenumber" name="L403" href="#L403">403</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"String literal AST expected: "</span>
-<a class="jxr_linenumber" name="L404" href="#L404">404</a>                 + firstChild);
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>         }
-<a class="jxr_linenumber" name="L406" href="#L406">406</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"Expression AST expected: "</span> + aAST);
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>     }
-<a class="jxr_linenumber" name="L408" href="#L408">408</a> 
-<a class="jxr_linenumber" name="L409" href="#L409">409</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L410" href="#L410">410</a> <em class="jxr_javadoccomment">     * Returns the annotation values represented by an AST.</em>
-<a class="jxr_linenumber" name="L411" href="#L411">411</a> <em class="jxr_javadoccomment">     * @param aAST an AST node for an EXPR or ANNOTATION_ARRAY_INIT</em>
-<a class="jxr_linenumber" name="L412" href="#L412">412</a> <em class="jxr_javadoccomment">     * @return the list of Java string represented by the given AST for an</em>
-<a class="jxr_linenumber" name="L413" href="#L413">413</a> <em class="jxr_javadoccomment">     *         expression or annotation array initializer</em>
-<a class="jxr_linenumber" name="L414" href="#L414">414</a> <em class="jxr_javadoccomment">     * @throws IllegalArgumentException if the AST is invalid</em>
-<a class="jxr_linenumber" name="L415" href="#L415">415</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L416" href="#L416">416</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> List&lt;String&gt; getAnnotationValues(<a href="../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>     {
-<a class="jxr_linenumber" name="L418" href="#L418">418</a>         <strong class="jxr_keyword">switch</strong> (aAST.getType()) {
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>         <strong class="jxr_keyword">case</strong> TokenTypes.EXPR:
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>             <strong class="jxr_keyword">return</strong> ImmutableList.of(getStringExpr(aAST));
-<a class="jxr_linenumber" name="L421" href="#L421">421</a> 
-<a class="jxr_linenumber" name="L422" href="#L422">422</a>         <strong class="jxr_keyword">case</strong> TokenTypes.ANNOTATION_ARRAY_INIT:
-<a class="jxr_linenumber" name="L423" href="#L423">423</a>             <strong class="jxr_keyword">final</strong> List&lt;String&gt; valueList = Lists.newLinkedList();
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>             <a href="../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> childAST = aAST.getFirstChild();
-<a class="jxr_linenumber" name="L425" href="#L425">425</a>             <strong class="jxr_keyword">while</strong> (childAST != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L426" href="#L426">426</a>                 <strong class="jxr_keyword">if</strong> (childAST.getType() == TokenTypes.EXPR) {
-<a class="jxr_linenumber" name="L427" href="#L427">427</a>                     valueList.add(getStringExpr(childAST));
-<a class="jxr_linenumber" name="L428" href="#L428">428</a>                 }
-<a class="jxr_linenumber" name="L429" href="#L429">429</a>                 childAST = childAST.getNextSibling();
-<a class="jxr_linenumber" name="L430" href="#L430">430</a>             }
-<a class="jxr_linenumber" name="L431" href="#L431">431</a>             <strong class="jxr_keyword">return</strong> valueList;
-<a class="jxr_linenumber" name="L432" href="#L432">432</a> 
-<a class="jxr_linenumber" name="L433" href="#L433">433</a>         <strong class="jxr_keyword">default</strong>:
-<a class="jxr_linenumber" name="L434" href="#L434">434</a>         }
-<a class="jxr_linenumber" name="L435" href="#L435">435</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(
-<a class="jxr_linenumber" name="L436" href="#L436">436</a>             <span class="jxr_string">"Expression or annotation array initializer AST expected: "</span> + aAST);
-<a class="jxr_linenumber" name="L437" href="#L437">437</a>     }
-<a class="jxr_linenumber" name="L438" href="#L438">438</a> }
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>             <strong class="jxr_keyword">switch</strong> (firstChild.getType()) {
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>             <strong class="jxr_keyword">case</strong> TokenTypes.STRING_LITERAL:
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>                 <em class="jxr_comment">// NOTE: escaped characters are not unescaped</em>
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>                 <strong class="jxr_keyword">final</strong> String quotedText = firstChild.getText();
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>                 <strong class="jxr_keyword">return</strong> quotedText.substring(1, quotedText.length() - 1);
+<a class="jxr_linenumber" name="L403" href="#L403">403</a>             <strong class="jxr_keyword">case</strong> TokenTypes.IDENT:
+<a class="jxr_linenumber" name="L404" href="#L404">404</a>                 <strong class="jxr_keyword">return</strong> firstChild.getText();
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>             <strong class="jxr_keyword">default</strong>:
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"String literal AST expected: "</span>
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>                         + firstChild);
+<a class="jxr_linenumber" name="L408" href="#L408">408</a>             }
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>         }
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"Expression AST expected: "</span> + aAST);
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>     }
+<a class="jxr_linenumber" name="L412" href="#L412">412</a> 
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L414" href="#L414">414</a> <em class="jxr_javadoccomment">     * Returns the annotation values represented by an AST.</em>
+<a class="jxr_linenumber" name="L415" href="#L415">415</a> <em class="jxr_javadoccomment">     * @param aAST an AST node for an EXPR or ANNOTATION_ARRAY_INIT</em>
+<a class="jxr_linenumber" name="L416" href="#L416">416</a> <em class="jxr_javadoccomment">     * @return the list of Java string represented by the given AST for an</em>
+<a class="jxr_linenumber" name="L417" href="#L417">417</a> <em class="jxr_javadoccomment">     *         expression or annotation array initializer</em>
+<a class="jxr_linenumber" name="L418" href="#L418">418</a> <em class="jxr_javadoccomment">     * @throws IllegalArgumentException if the AST is invalid</em>
+<a class="jxr_linenumber" name="L419" href="#L419">419</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> List&lt;String&gt; getAnnotationValues(<a href="../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>     {
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>         <strong class="jxr_keyword">switch</strong> (aAST.getType()) {
+<a class="jxr_linenumber" name="L423" href="#L423">423</a>         <strong class="jxr_keyword">case</strong> TokenTypes.EXPR:
+<a class="jxr_linenumber" name="L424" href="#L424">424</a>             <strong class="jxr_keyword">return</strong> ImmutableList.of(getStringExpr(aAST));
+<a class="jxr_linenumber" name="L425" href="#L425">425</a> 
+<a class="jxr_linenumber" name="L426" href="#L426">426</a>         <strong class="jxr_keyword">case</strong> TokenTypes.ANNOTATION_ARRAY_INIT:
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>             <strong class="jxr_keyword">final</strong> List&lt;String&gt; valueList = Lists.newLinkedList();
+<a class="jxr_linenumber" name="L428" href="#L428">428</a>             <a href="../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> childAST = aAST.getFirstChild();
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>             <strong class="jxr_keyword">while</strong> (childAST != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>                 <strong class="jxr_keyword">if</strong> (childAST.getType() == TokenTypes.EXPR) {
+<a class="jxr_linenumber" name="L431" href="#L431">431</a>                     valueList.add(getStringExpr(childAST));
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>                 }
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>                 childAST = childAST.getNextSibling();
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>             }
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>             <strong class="jxr_keyword">return</strong> valueList;
+<a class="jxr_linenumber" name="L436" href="#L436">436</a> 
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>         <strong class="jxr_keyword">default</strong>:
+<a class="jxr_linenumber" name="L438" href="#L438">438</a>         }
+<a class="jxr_linenumber" name="L439" href="#L439">439</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>             <span class="jxr_string">"Expression or annotation array initializer AST expected: "</span> + aAST);
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>     }
+<a class="jxr_linenumber" name="L442" href="#L442">442</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

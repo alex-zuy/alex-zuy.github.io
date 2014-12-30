@@ -50,26 +50,26 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../org/springframework/http/HttpHeaders.html">HttpHeaders</a> headers;
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  	@Before
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setUp() {
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  		headers = <strong class="jxr_keyword">new</strong> <a href="../../../org/springframework/http/HttpHeaders.html">HttpHeaders</a>();
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  	}
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  	@Test
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> accept() {
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  		MediaType mediaType1 = <strong class="jxr_keyword">new</strong> <a href="../../../org/springframework/http/MediaType.html">MediaType</a>(<span class="jxr_string">"text"</span>, <span class="jxr_string">"html"</span>);
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  		MediaType mediaType2 = <strong class="jxr_keyword">new</strong> <a href="../../../org/springframework/http/MediaType.html">MediaType</a>(<span class="jxr_string">"text"</span>, <span class="jxr_string">"plain"</span>);
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  		List&lt;MediaType&gt; mediaTypes = <strong class="jxr_keyword">new</strong> ArrayList&lt;MediaType&gt;(2);
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  		mediaTypes.add(mediaType1);
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  		mediaTypes.add(mediaType2);
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  		headers.setAccept(mediaTypes);
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  		assertEquals(<span class="jxr_string">"Invalid Accept header"</span>, mediaTypes, headers.getAccept());
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  		assertEquals(<span class="jxr_string">"Invalid Accept header"</span>, <span class="jxr_string">"text/html, text/plain"</span>, headers.getFirst(<span class="jxr_string">"Accept"</span>));
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>  	}
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  	<em class="jxr_comment">// SPR-9655</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  	@Before
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setUp() {
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  		headers = <strong class="jxr_keyword">new</strong> <a href="../../../org/springframework/http/HttpHeaders.html">HttpHeaders</a>();
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  	}
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  	@Test
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> accept() {
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  		MediaType mediaType1 = <strong class="jxr_keyword">new</strong> <a href="../../../org/springframework/http/MediaType.html">MediaType</a>(<span class="jxr_string">"text"</span>, <span class="jxr_string">"html"</span>);
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  		MediaType mediaType2 = <strong class="jxr_keyword">new</strong> <a href="../../../org/springframework/http/MediaType.html">MediaType</a>(<span class="jxr_string">"text"</span>, <span class="jxr_string">"plain"</span>);
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  		List&lt;MediaType&gt; mediaTypes = <strong class="jxr_keyword">new</strong> ArrayList&lt;MediaType&gt;(2);
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  		mediaTypes.add(mediaType1);
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  		mediaTypes.add(mediaType2);
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  		headers.setAccept(mediaTypes);
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  		assertEquals(<span class="jxr_string">"Invalid Accept header"</span>, mediaTypes, headers.getAccept());
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  		assertEquals(<span class="jxr_string">"Invalid Accept header"</span>, <span class="jxr_string">"text/html, text/plain"</span>, headers.getFirst(<span class="jxr_string">"Accept"</span>));
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  	}
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  	@Test
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  	@Test  <em class="jxr_comment">// SPR-9655</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> acceptiPlanet() {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  		headers.add(<span class="jxr_string">"Accept"</span>, <span class="jxr_string">"text/html"</span>);
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  		headers.add(<span class="jxr_string">"Accept"</span>, <span class="jxr_string">"text/plain"</span>);
@@ -236,7 +236,7 @@
 <a class="jxr_linenumber" name="L228" href="#L228">228</a> 		calendar.setTimeZone(TimeZone.getTimeZone(<span class="jxr_string">"CET"</span>));
 <a class="jxr_linenumber" name="L229" href="#L229">229</a> 		<strong class="jxr_keyword">long</strong> date = calendar.getTimeInMillis();
 <a class="jxr_linenumber" name="L230" href="#L230">230</a> 		headers.setIfModifiedSince(date);
-<a class="jxr_linenumber" name="L231" href="#L231">231</a> 		assertEquals(<span class="jxr_string">"Invalid If-Modified-Since header"</span>, date, headers.getIfNotModifiedSince());
+<a class="jxr_linenumber" name="L231" href="#L231">231</a> 		assertEquals(<span class="jxr_string">"Invalid If-Modified-Since header"</span>, date, headers.getIfModifiedSince());
 <a class="jxr_linenumber" name="L232" href="#L232">232</a> 		assertEquals(<span class="jxr_string">"Invalid If-Modified-Since header"</span>, <span class="jxr_string">"Thu, 18 Dec 2008 10:20:00 GMT"</span>,
 <a class="jxr_linenumber" name="L233" href="#L233">233</a> 				headers.getFirst(<span class="jxr_string">"if-modified-since"</span>));
 <a class="jxr_linenumber" name="L234" href="#L234">234</a> 	}
@@ -268,16 +268,13 @@
 <a class="jxr_linenumber" name="L260" href="#L260">260</a> 				headers.getFirst(<span class="jxr_string">"Content-Disposition"</span>));
 <a class="jxr_linenumber" name="L261" href="#L261">261</a> 	}
 <a class="jxr_linenumber" name="L262" href="#L262">262</a> 
-<a class="jxr_linenumber" name="L263" href="#L263">263</a> 	<em class="jxr_comment">// SPR-11917</em>
-<a class="jxr_linenumber" name="L264" href="#L264">264</a> 
-<a class="jxr_linenumber" name="L265" href="#L265">265</a> 	@Test
-<a class="jxr_linenumber" name="L266" href="#L266">266</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> getAllowEmptySet() {
-<a class="jxr_linenumber" name="L267" href="#L267">267</a> 		headers.setAllow(Collections.&lt;HttpMethod&gt; emptySet());
+<a class="jxr_linenumber" name="L263" href="#L263">263</a> 	@Test  <em class="jxr_comment">// SPR-11917</em>
+<a class="jxr_linenumber" name="L264" href="#L264">264</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> getAllowEmptySet() {
+<a class="jxr_linenumber" name="L265" href="#L265">265</a> 		headers.setAllow(Collections.&lt;HttpMethod&gt; emptySet());
+<a class="jxr_linenumber" name="L266" href="#L266">266</a> 		assertThat(headers.getAllow(), Matchers.emptyCollectionOf(HttpMethod.<strong class="jxr_keyword">class</strong>));
+<a class="jxr_linenumber" name="L267" href="#L267">267</a> 	}
 <a class="jxr_linenumber" name="L268" href="#L268">268</a> 
-<a class="jxr_linenumber" name="L269" href="#L269">269</a> 		assertThat(headers.getAllow(), Matchers.emptyCollectionOf(HttpMethod.<strong class="jxr_keyword">class</strong>));
-<a class="jxr_linenumber" name="L270" href="#L270">270</a> 	}
-<a class="jxr_linenumber" name="L271" href="#L271">271</a> 
-<a class="jxr_linenumber" name="L272" href="#L272">272</a> }
+<a class="jxr_linenumber" name="L269" href="#L269">269</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

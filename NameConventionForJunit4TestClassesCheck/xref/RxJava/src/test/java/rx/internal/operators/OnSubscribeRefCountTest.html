@@ -162,7 +162,7 @@
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>         s2.unsubscribe(); <em class="jxr_comment">// unsubscribe s2 first as we're counting in 1 and there can be a race between unsubscribe and one subscriber getting a value but not the other</em>
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>         s1.unsubscribe();
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> 
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>         System.out.println(<span class="jxr_string">"onNext: "</span> + nextCount.get());
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>         System.out.println(<span class="jxr_string">"onNext Count: "</span> + nextCount.get());
 <a class="jxr_linenumber" name="L158" href="#L158">158</a> 
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>         <em class="jxr_comment">// it will emit twice because it is synchronous</em>
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         assertEquals(nextCount.get(), receivedCount.get() * 2);

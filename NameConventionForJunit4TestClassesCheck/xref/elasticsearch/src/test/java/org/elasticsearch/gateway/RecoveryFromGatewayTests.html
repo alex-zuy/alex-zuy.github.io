@@ -362,94 +362,99 @@
 <a class="jxr_linenumber" name="L354" href="#L354">354</a>         <em class="jxr_comment">// prevent any rebalance actions during the peer recovery</em>
 <a class="jxr_linenumber" name="L355" href="#L355">355</a>         <em class="jxr_comment">// if we run into a relocation the reuse count will be 0 and this fails the test. We are testing here if</em>
 <a class="jxr_linenumber" name="L356" href="#L356">356</a>         <em class="jxr_comment">// we reuse the files on disk after full restarts for replicas.</em>
-<a class="jxr_linenumber" name="L357" href="#L357">357</a>         assertAcked(prepareCreate(<span class="jxr_string">"test"</span>).setSettings(ImmutableSettings.builder().put(indexSettings()).put(EnableAllocationDecider.INDEX_ROUTING_REBALANCE_ENABLE, EnableAllocationDecider.Rebalance.NONE)));
-<a class="jxr_linenumber" name="L358" href="#L358">358</a>         logger.info(<span class="jxr_string">"--&gt; indexing docs"</span>);
-<a class="jxr_linenumber" name="L359" href="#L359">359</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 1000; i++) {
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>             client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type"</span>).setSource(<span class="jxr_string">"field"</span>, <span class="jxr_string">"value"</span>).execute().actionGet();
-<a class="jxr_linenumber" name="L361" href="#L361">361</a>             <strong class="jxr_keyword">if</strong> ((i % 200) == 0) {
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>                 client().admin().indices().prepareFlush().execute().actionGet();
-<a class="jxr_linenumber" name="L363" href="#L363">363</a>             }
-<a class="jxr_linenumber" name="L364" href="#L364">364</a>         }
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>         <strong class="jxr_keyword">if</strong> (randomBoolean()) {
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>             client().admin().indices().prepareFlush().execute().actionGet();
-<a class="jxr_linenumber" name="L367" href="#L367">367</a>         }
-<a class="jxr_linenumber" name="L368" href="#L368">368</a>         logger.info(<span class="jxr_string">"Running Cluster Health"</span>);
-<a class="jxr_linenumber" name="L369" href="#L369">369</a>         ensureGreen();
-<a class="jxr_linenumber" name="L370" href="#L370">370</a>         client().admin().indices().prepareOptimize(<span class="jxr_string">"test"</span>).setWaitForMerge(<strong class="jxr_keyword">true</strong>).setMaxNumSegments(100).get(); <em class="jxr_comment">// just wait for merges</em>
-<a class="jxr_linenumber" name="L371" href="#L371">371</a>         client().admin().indices().prepareFlush().setWaitIfOngoing(<strong class="jxr_keyword">true</strong>).setForce(<strong class="jxr_keyword">true</strong>).execute().actionGet();
-<a class="jxr_linenumber" name="L372" href="#L372">372</a> 
-<a class="jxr_linenumber" name="L373" href="#L373">373</a>         logger.info(<span class="jxr_string">"--&gt; shutting down the nodes"</span>);
-<a class="jxr_linenumber" name="L374" href="#L374">374</a> 
-<a class="jxr_linenumber" name="L375" href="#L375">375</a>         <em class="jxr_comment">// Disable allocations while we are closing nodes</em>
-<a class="jxr_linenumber" name="L376" href="#L376">376</a>         client().admin().cluster().prepareUpdateSettings()
-<a class="jxr_linenumber" name="L377" href="#L377">377</a>                 .setTransientSettings(settingsBuilder()
-<a class="jxr_linenumber" name="L378" href="#L378">378</a>                         .put(EnableAllocationDecider.CLUSTER_ROUTING_ALLOCATION_ENABLE, EnableAllocationDecider.Allocation.NONE))
-<a class="jxr_linenumber" name="L379" href="#L379">379</a>                 .get();
-<a class="jxr_linenumber" name="L380" href="#L380">380</a>         internalCluster().fullRestart();
-<a class="jxr_linenumber" name="L381" href="#L381">381</a> 
-<a class="jxr_linenumber" name="L382" href="#L382">382</a>         logger.info(<span class="jxr_string">"Running Cluster Health"</span>);
-<a class="jxr_linenumber" name="L383" href="#L383">383</a>         ensureGreen();
-<a class="jxr_linenumber" name="L384" href="#L384">384</a>         logger.info(<span class="jxr_string">"--&gt; shutting down the nodes"</span>);
-<a class="jxr_linenumber" name="L385" href="#L385">385</a>         <em class="jxr_comment">// Disable allocations while we are closing nodes</em>
-<a class="jxr_linenumber" name="L386" href="#L386">386</a>         client().admin().cluster().prepareUpdateSettings()
-<a class="jxr_linenumber" name="L387" href="#L387">387</a>                 .setTransientSettings(settingsBuilder()
-<a class="jxr_linenumber" name="L388" href="#L388">388</a>                         .put(EnableAllocationDecider.CLUSTER_ROUTING_ALLOCATION_ENABLE, EnableAllocationDecider.Allocation.NONE))
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>                 .get();
-<a class="jxr_linenumber" name="L390" href="#L390">390</a>         internalCluster().fullRestart();
-<a class="jxr_linenumber" name="L391" href="#L391">391</a> 
-<a class="jxr_linenumber" name="L392" href="#L392">392</a> 
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>         logger.info(<span class="jxr_string">"Running Cluster Health"</span>);
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>         ensureGreen();
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>         assertAcked(prepareCreate(<span class="jxr_string">"test"</span>).setSettings(ImmutableSettings.builder().put(indexSettings())));
+<a class="jxr_linenumber" name="L358" href="#L358">358</a>         ensureGreen();
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>         logger.info(<span class="jxr_string">"--&gt; indexing docs"</span>);
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 1000; i++) {
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>             client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type"</span>).setSource(<span class="jxr_string">"field"</span>, <span class="jxr_string">"value"</span>).execute().actionGet();
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>             <strong class="jxr_keyword">if</strong> ((i % 200) == 0) {
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>                 client().admin().indices().prepareFlush().execute().actionGet();
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>             }
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>         }
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>         <strong class="jxr_keyword">if</strong> (randomBoolean()) {
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>             client().admin().indices().prepareFlush().execute().actionGet();
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>         }
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>         logger.info(<span class="jxr_string">"Running Cluster Health"</span>);
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>         ensureGreen();
+<a class="jxr_linenumber" name="L371" href="#L371">371</a>         client().admin().indices().prepareOptimize(<span class="jxr_string">"test"</span>).setWaitForMerge(<strong class="jxr_keyword">true</strong>).setMaxNumSegments(100).get(); <em class="jxr_comment">// just wait for merges</em>
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>         client().admin().indices().prepareFlush().setWaitIfOngoing(<strong class="jxr_keyword">true</strong>).setForce(<strong class="jxr_keyword">true</strong>).get();
+<a class="jxr_linenumber" name="L373" href="#L373">373</a> 
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>         logger.info(<span class="jxr_string">"--&gt; disabling allocation while the cluster is shut down"</span>);
+<a class="jxr_linenumber" name="L375" href="#L375">375</a> 
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>         <em class="jxr_comment">// Disable allocations while we are closing nodes</em>
+<a class="jxr_linenumber" name="L377" href="#L377">377</a>         client().admin().cluster().prepareUpdateSettings()
+<a class="jxr_linenumber" name="L378" href="#L378">378</a>                 .setTransientSettings(settingsBuilder()
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>                         .put(EnableAllocationDecider.CLUSTER_ROUTING_ALLOCATION_ENABLE, EnableAllocationDecider.Allocation.NONE))
+<a class="jxr_linenumber" name="L380" href="#L380">380</a>                 .get();
+<a class="jxr_linenumber" name="L381" href="#L381">381</a>         logger.info(<span class="jxr_string">"--&gt; full cluster restart"</span>);
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>         internalCluster().fullRestart();
+<a class="jxr_linenumber" name="L383" href="#L383">383</a> 
+<a class="jxr_linenumber" name="L384" href="#L384">384</a>         logger.info(<span class="jxr_string">"--&gt; waiting for cluster to return to green after first shutdown"</span>);
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>         ensureGreen();
+<a class="jxr_linenumber" name="L386" href="#L386">386</a> 
+<a class="jxr_linenumber" name="L387" href="#L387">387</a>         logger.info(<span class="jxr_string">"--&gt; disabling allocation while the cluster is shut down second time"</span>);
+<a class="jxr_linenumber" name="L388" href="#L388">388</a>         <em class="jxr_comment">// Disable allocations while we are closing nodes</em>
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>         client().admin().cluster().prepareUpdateSettings()
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>                 .setTransientSettings(settingsBuilder()
+<a class="jxr_linenumber" name="L391" href="#L391">391</a>                         .put(EnableAllocationDecider.CLUSTER_ROUTING_ALLOCATION_ENABLE, EnableAllocationDecider.Allocation.NONE))
+<a class="jxr_linenumber" name="L392" href="#L392">392</a>                 .get();
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>         logger.info(<span class="jxr_string">"--&gt; full cluster restart"</span>);
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>         internalCluster().fullRestart();
 <a class="jxr_linenumber" name="L395" href="#L395">395</a> 
-<a class="jxr_linenumber" name="L396" href="#L396">396</a>         <a href="../../../org/elasticsearch/action/admin/indices/recovery/RecoveryResponse.html">RecoveryResponse</a> recoveryResponse = client().admin().indices().prepareRecoveries(<span class="jxr_string">"test"</span>).get();
-<a class="jxr_linenumber" name="L397" href="#L397">397</a> 
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>         <strong class="jxr_keyword">for</strong> (ShardRecoveryResponse response : recoveryResponse.shardResponses().get(<span class="jxr_string">"test"</span>)) {
-<a class="jxr_linenumber" name="L399" href="#L399">399</a>             <a href="../../../org/elasticsearch/indices/recovery/RecoveryState.html">RecoveryState</a> recoveryState = response.recoveryState();
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>             <strong class="jxr_keyword">if</strong> (!recoveryState.getPrimary()) {
-<a class="jxr_linenumber" name="L401" href="#L401">401</a>                 logger.info(<span class="jxr_string">"--&gt; shard {}, recovered {}, reuse {}"</span>, response.getShardId(), recoveryState.getIndex().recoveredTotalSize(), recoveryState.getIndex().reusedByteCount());
-<a class="jxr_linenumber" name="L402" href="#L402">402</a>                 assertThat(recoveryState.getIndex().recoveredByteCount(), equalTo(0l));
-<a class="jxr_linenumber" name="L403" href="#L403">403</a>                 assertThat(recoveryState.getIndex().reusedByteCount(), greaterThan(0l));
-<a class="jxr_linenumber" name="L404" href="#L404">404</a>                 assertThat(recoveryState.getIndex().reusedByteCount(), equalTo(recoveryState.getIndex().totalByteCount()));
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>                 assertThat(recoveryState.getIndex().recoveredFileCount(), equalTo(0));
-<a class="jxr_linenumber" name="L406" href="#L406">406</a>                 assertThat(recoveryState.getIndex().reusedFileCount(), equalTo(recoveryState.getIndex().totalFileCount()));
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>                 assertThat(recoveryState.getIndex().reusedFileCount(), greaterThan(0));
-<a class="jxr_linenumber" name="L408" href="#L408">408</a>                 assertThat(recoveryState.getIndex().reusedByteCount(), greaterThan(recoveryState.getIndex().numberOfRecoveredBytes()));
-<a class="jxr_linenumber" name="L409" href="#L409">409</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L410" href="#L410">410</a>                 assertThat(recoveryState.getIndex().recoveredByteCount(), equalTo(recoveryState.getIndex().reusedByteCount()));
-<a class="jxr_linenumber" name="L411" href="#L411">411</a>                 assertThat(recoveryState.getIndex().recoveredFileCount(), equalTo(recoveryState.getIndex().reusedFileCount()));
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>             }
-<a class="jxr_linenumber" name="L413" href="#L413">413</a>         }
-<a class="jxr_linenumber" name="L414" href="#L414">414</a> 
-<a class="jxr_linenumber" name="L415" href="#L415">415</a>     }
-<a class="jxr_linenumber" name="L416" href="#L416">416</a> 
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>     @Test
-<a class="jxr_linenumber" name="L418" href="#L418">418</a>     @Slow
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testRecoveryDifferentNodeOrderStartup() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>         <em class="jxr_comment">// we need different data paths so we make sure we start the second node fresh</em>
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>         logger.info(<span class="jxr_string">"--&gt; waiting for cluster to return to green after second shutdown"</span>);
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>         ensureGreen();
+<a class="jxr_linenumber" name="L398" href="#L398">398</a> 
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>         <a href="../../../org/elasticsearch/action/admin/indices/recovery/RecoveryResponse.html">RecoveryResponse</a> recoveryResponse = client().admin().indices().prepareRecoveries(<span class="jxr_string">"test"</span>).get();
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>         <strong class="jxr_keyword">for</strong> (ShardRecoveryResponse response : recoveryResponse.shardResponses().get(<span class="jxr_string">"test"</span>)) {
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>             <a href="../../../org/elasticsearch/indices/recovery/RecoveryState.html">RecoveryState</a> recoveryState = response.recoveryState();
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>             <strong class="jxr_keyword">if</strong> (!recoveryState.getPrimary()) {
+<a class="jxr_linenumber" name="L403" href="#L403">403</a>                 logger.info(<span class="jxr_string">"--&gt; replica shard {} recovered from {} to {}, recovered {}, reuse {}"</span>,
+<a class="jxr_linenumber" name="L404" href="#L404">404</a>                         response.getShardId(), recoveryState.getSourceNode().name(), recoveryState.getTargetNode().name(),
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>                         recoveryState.getIndex().recoveredTotalSize(), recoveryState.getIndex().reusedByteCount());
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>                 assertThat(<span class="jxr_string">"no bytes should be recovered"</span>, recoveryState.getIndex().recoveredByteCount(), equalTo(0l));
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>                 assertThat(<span class="jxr_string">"data should have been reused"</span>, recoveryState.getIndex().reusedByteCount(), greaterThan(0l));
+<a class="jxr_linenumber" name="L408" href="#L408">408</a>                 assertThat(<span class="jxr_string">"all bytes should be reused"</span>, recoveryState.getIndex().reusedByteCount(), equalTo(recoveryState.getIndex().totalByteCount()));
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>                 assertThat(<span class="jxr_string">"no files should be recovered"</span>, recoveryState.getIndex().recoveredFileCount(), equalTo(0));
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>                 assertThat(<span class="jxr_string">"all files should be reused"</span>, recoveryState.getIndex().reusedFileCount(), equalTo(recoveryState.getIndex().totalFileCount()));
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>                 assertThat(<span class="jxr_string">"&gt; 0 files should be reused"</span>, recoveryState.getIndex().reusedFileCount(), greaterThan(0));
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>                 assertThat(<span class="jxr_string">"all bytes should be reused bytes"</span>,
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>                         recoveryState.getIndex().reusedByteCount(), greaterThan(recoveryState.getIndex().numberOfRecoveredBytes()));
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L415" href="#L415">415</a>                 assertThat(recoveryState.getIndex().recoveredByteCount(), equalTo(recoveryState.getIndex().reusedByteCount()));
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>                 assertThat(recoveryState.getIndex().recoveredFileCount(), equalTo(recoveryState.getIndex().reusedFileCount()));
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>             }
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>         }
+<a class="jxr_linenumber" name="L419" href="#L419">419</a> 
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>     }
 <a class="jxr_linenumber" name="L421" href="#L421">421</a> 
-<a class="jxr_linenumber" name="L422" href="#L422">422</a>         <strong class="jxr_keyword">final</strong> String node_1 = internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"path.data"</span>, <span class="jxr_string">"data/data1"</span>).build());
-<a class="jxr_linenumber" name="L423" href="#L423">423</a> 
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).setSource(<span class="jxr_string">"field"</span>, <span class="jxr_string">"value"</span>).execute().actionGet();
-<a class="jxr_linenumber" name="L425" href="#L425">425</a> 
-<a class="jxr_linenumber" name="L426" href="#L426">426</a>         internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"path.data"</span>, <span class="jxr_string">"data/data2"</span>).build());
-<a class="jxr_linenumber" name="L427" href="#L427">427</a> 
-<a class="jxr_linenumber" name="L428" href="#L428">428</a>         ensureGreen();
-<a class="jxr_linenumber" name="L429" href="#L429">429</a> 
-<a class="jxr_linenumber" name="L430" href="#L430">430</a>         internalCluster().fullRestart(<strong class="jxr_keyword">new</strong> RestartCallback() {
-<a class="jxr_linenumber" name="L431" href="#L431">431</a> 
-<a class="jxr_linenumber" name="L432" href="#L432">432</a>             @Override
-<a class="jxr_linenumber" name="L433" href="#L433">433</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> doRestart(String nodeName) {
-<a class="jxr_linenumber" name="L434" href="#L434">434</a>                 <strong class="jxr_keyword">return</strong> !node_1.equals(nodeName);
-<a class="jxr_linenumber" name="L435" href="#L435">435</a>             }
-<a class="jxr_linenumber" name="L436" href="#L436">436</a>         });
-<a class="jxr_linenumber" name="L437" href="#L437">437</a> 
-<a class="jxr_linenumber" name="L438" href="#L438">438</a>         ensureYellow();
-<a class="jxr_linenumber" name="L439" href="#L439">439</a> 
-<a class="jxr_linenumber" name="L440" href="#L440">440</a>         assertThat(client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L441" href="#L441">441</a>         assertHitCount(client().prepareCount(<span class="jxr_string">"test"</span>).setQuery(QueryBuilders.matchAllQuery()).execute().actionGet(), 1);
-<a class="jxr_linenumber" name="L442" href="#L442">442</a>     }
-<a class="jxr_linenumber" name="L443" href="#L443">443</a> 
-<a class="jxr_linenumber" name="L444" href="#L444">444</a> }
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>     @Test
+<a class="jxr_linenumber" name="L423" href="#L423">423</a>     @Slow
+<a class="jxr_linenumber" name="L424" href="#L424">424</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testRecoveryDifferentNodeOrderStartup() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L425" href="#L425">425</a>         <em class="jxr_comment">// we need different data paths so we make sure we start the second node fresh</em>
+<a class="jxr_linenumber" name="L426" href="#L426">426</a> 
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>         <strong class="jxr_keyword">final</strong> String node_1 = internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"path.data"</span>, <span class="jxr_string">"data/data1"</span>).build());
+<a class="jxr_linenumber" name="L428" href="#L428">428</a> 
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).setSource(<span class="jxr_string">"field"</span>, <span class="jxr_string">"value"</span>).execute().actionGet();
+<a class="jxr_linenumber" name="L430" href="#L430">430</a> 
+<a class="jxr_linenumber" name="L431" href="#L431">431</a>         internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"path.data"</span>, <span class="jxr_string">"data/data2"</span>).build());
+<a class="jxr_linenumber" name="L432" href="#L432">432</a> 
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>         ensureGreen();
+<a class="jxr_linenumber" name="L434" href="#L434">434</a> 
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>         internalCluster().fullRestart(<strong class="jxr_keyword">new</strong> RestartCallback() {
+<a class="jxr_linenumber" name="L436" href="#L436">436</a> 
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>             @Override
+<a class="jxr_linenumber" name="L438" href="#L438">438</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> doRestart(String nodeName) {
+<a class="jxr_linenumber" name="L439" href="#L439">439</a>                 <strong class="jxr_keyword">return</strong> !node_1.equals(nodeName);
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>             }
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>         });
+<a class="jxr_linenumber" name="L442" href="#L442">442</a> 
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>         ensureYellow();
+<a class="jxr_linenumber" name="L444" href="#L444">444</a> 
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>         assertThat(client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>         assertHitCount(client().prepareCount(<span class="jxr_string">"test"</span>).setQuery(QueryBuilders.matchAllQuery()).execute().actionGet(), 1);
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>     }
+<a class="jxr_linenumber" name="L448" href="#L448">448</a> 
+<a class="jxr_linenumber" name="L449" href="#L449">449</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

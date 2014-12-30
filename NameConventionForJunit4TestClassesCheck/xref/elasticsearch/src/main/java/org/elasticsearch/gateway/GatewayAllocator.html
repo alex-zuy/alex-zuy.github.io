@@ -338,144 +338,148 @@
 <a class="jxr_linenumber" name="L330" href="#L330">330</a>                                         sizeMatched += storeFileMetaData.length();
 <a class="jxr_linenumber" name="L331" href="#L331">331</a>                                     }
 <a class="jxr_linenumber" name="L332" href="#L332">332</a>                                 }
-<a class="jxr_linenumber" name="L333" href="#L333">333</a>                                 <strong class="jxr_keyword">if</strong> (sizeMatched &gt; lastSizeMatched) {
-<a class="jxr_linenumber" name="L334" href="#L334">334</a>                                     lastSizeMatched = sizeMatched;
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>                                     lastDiscoNodeMatched = discoNode;
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>                                     lastNodeMatched = node;
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>                                 }
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>                             }
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>                         }
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>                     }
-<a class="jxr_linenumber" name="L341" href="#L341">341</a>                 }
-<a class="jxr_linenumber" name="L342" href="#L342">342</a>             }
-<a class="jxr_linenumber" name="L343" href="#L343">343</a> 
-<a class="jxr_linenumber" name="L344" href="#L344">344</a>             <strong class="jxr_keyword">if</strong> (lastNodeMatched != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>                 <em class="jxr_comment">// we only check on THROTTLE since we checked before before on NO</em>
-<a class="jxr_linenumber" name="L346" href="#L346">346</a>                 <a href="../../../org/elasticsearch/cluster/routing/allocation/decider/Decision.html">Decision</a> decision = allocation.deciders().canAllocate(shard, lastNodeMatched, allocation);
-<a class="jxr_linenumber" name="L347" href="#L347">347</a>                 <strong class="jxr_keyword">if</strong> (decision.type() == Decision.Type.THROTTLE) {
-<a class="jxr_linenumber" name="L348" href="#L348">348</a>                     <strong class="jxr_keyword">if</strong> (logger.isTraceEnabled()) {
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>                         logger.debug(<span class="jxr_string">"[{}][{}]: throttling allocation [{}] to [{}] in order to reuse its unallocated persistent store with total_size [{}]"</span>, shard.index(), shard.id(), shard, lastDiscoNodeMatched, <strong class="jxr_keyword">new</strong> ByteSizeValue(lastSizeMatched));
-<a class="jxr_linenumber" name="L350" href="#L350">350</a>                     }
-<a class="jxr_linenumber" name="L351" href="#L351">351</a>                     <em class="jxr_comment">// we are throttling this, but we have enough to allocate to this node, ignore it for now</em>
-<a class="jxr_linenumber" name="L352" href="#L352">352</a>                     unassignedIterator.remove();
-<a class="jxr_linenumber" name="L353" href="#L353">353</a>                     routingNodes.ignoredUnassigned().add(shard);
-<a class="jxr_linenumber" name="L354" href="#L354">354</a>                 } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>                     <strong class="jxr_keyword">if</strong> (logger.isDebugEnabled()) {
-<a class="jxr_linenumber" name="L356" href="#L356">356</a>                         logger.debug(<span class="jxr_string">"[{}][{}]: allocating [{}] to [{}] in order to reuse its unallocated persistent store with total_size [{}]"</span>, shard.index(), shard.id(), shard, lastDiscoNodeMatched, <strong class="jxr_keyword">new</strong> ByteSizeValue(lastSizeMatched));
-<a class="jxr_linenumber" name="L357" href="#L357">357</a>                     }
-<a class="jxr_linenumber" name="L358" href="#L358">358</a>                     <em class="jxr_comment">// we found a match</em>
-<a class="jxr_linenumber" name="L359" href="#L359">359</a>                     changed = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>                     allocation.routingNodes().assign(shard, lastNodeMatched.nodeId());
-<a class="jxr_linenumber" name="L361" href="#L361">361</a>                     unassignedIterator.remove();
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>                 }
-<a class="jxr_linenumber" name="L363" href="#L363">363</a>             }
-<a class="jxr_linenumber" name="L364" href="#L364">364</a>         }
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>         <strong class="jxr_keyword">return</strong> changed;
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>     }
-<a class="jxr_linenumber" name="L367" href="#L367">367</a> 
-<a class="jxr_linenumber" name="L368" href="#L368">368</a>     <strong class="jxr_keyword">private</strong> ObjectLongOpenHashMap&lt;DiscoveryNode&gt; buildShardStates(<strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/cluster/node/DiscoveryNodes.html">DiscoveryNodes</a> nodes, <a href="../../../org/elasticsearch/cluster/routing/MutableShardRouting.html">MutableShardRouting</a> shard) {
-<a class="jxr_linenumber" name="L369" href="#L369">369</a>         ObjectLongOpenHashMap&lt;DiscoveryNode&gt; shardStates = cachedShardsState.get(shard.shardId());
-<a class="jxr_linenumber" name="L370" href="#L370">370</a>         ObjectOpenHashSet&lt;String&gt; nodeIds;
-<a class="jxr_linenumber" name="L371" href="#L371">371</a>         <strong class="jxr_keyword">if</strong> (shardStates == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L372" href="#L372">372</a>             shardStates = <strong class="jxr_keyword">new</strong> ObjectLongOpenHashMap&lt;&gt;();
-<a class="jxr_linenumber" name="L373" href="#L373">373</a>             cachedShardsState.put(shard.shardId(), shardStates);
-<a class="jxr_linenumber" name="L374" href="#L374">374</a>             nodeIds = ObjectOpenHashSet.from(nodes.dataNodes().keys());
-<a class="jxr_linenumber" name="L375" href="#L375">375</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L376" href="#L376">376</a>             <em class="jxr_comment">// clean nodes that have failed</em>
-<a class="jxr_linenumber" name="L377" href="#L377">377</a>             shardStates.keys().removeAll(<strong class="jxr_keyword">new</strong> ObjectPredicate&lt;DiscoveryNode&gt;() {
-<a class="jxr_linenumber" name="L378" href="#L378">378</a>                 @Override
-<a class="jxr_linenumber" name="L379" href="#L379">379</a>                 <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> apply(<a href="../../../org/elasticsearch/cluster/node/DiscoveryNode.html">DiscoveryNode</a> node) {
-<a class="jxr_linenumber" name="L380" href="#L380">380</a>                     <strong class="jxr_keyword">return</strong> !nodes.nodeExists(node.id());
-<a class="jxr_linenumber" name="L381" href="#L381">381</a>                 }
-<a class="jxr_linenumber" name="L382" href="#L382">382</a>             });
-<a class="jxr_linenumber" name="L383" href="#L383">383</a>             nodeIds = ObjectOpenHashSet.newInstance();
-<a class="jxr_linenumber" name="L384" href="#L384">384</a>             <em class="jxr_comment">// we have stored cached from before, see if the nodes changed, if they have, go fetch again</em>
-<a class="jxr_linenumber" name="L385" href="#L385">385</a>             <strong class="jxr_keyword">for</strong> (ObjectCursor&lt;DiscoveryNode&gt; cursor : nodes.dataNodes().values()) {
-<a class="jxr_linenumber" name="L386" href="#L386">386</a>                 <a href="../../../org/elasticsearch/cluster/node/DiscoveryNode.html">DiscoveryNode</a> node = cursor.value;
-<a class="jxr_linenumber" name="L387" href="#L387">387</a>                 <strong class="jxr_keyword">if</strong> (!shardStates.containsKey(node)) {
-<a class="jxr_linenumber" name="L388" href="#L388">388</a>                     nodeIds.add(node.id());
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>                 }
-<a class="jxr_linenumber" name="L390" href="#L390">390</a>             }
-<a class="jxr_linenumber" name="L391" href="#L391">391</a>         }
-<a class="jxr_linenumber" name="L392" href="#L392">392</a>         <strong class="jxr_keyword">if</strong> (nodeIds.isEmpty()) {
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>             <strong class="jxr_keyword">return</strong> shardStates;
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>         }
-<a class="jxr_linenumber" name="L395" href="#L395">395</a> 
-<a class="jxr_linenumber" name="L396" href="#L396">396</a>         String[] nodesIdsArray = nodeIds.toArray(String.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L397" href="#L397">397</a>         TransportNodesListGatewayStartedShards.NodesGatewayStartedShards response = listGatewayStartedShards.list(shard.shardId(), nodesIdsArray, listTimeout).actionGet();
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>         <strong class="jxr_keyword">if</strong> (logger.isDebugEnabled()) {
-<a class="jxr_linenumber" name="L399" href="#L399">399</a>             <strong class="jxr_keyword">if</strong> (response.failures().length &gt; 0) {
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>                 StringBuilder sb = <strong class="jxr_keyword">new</strong> StringBuilder(shard + <span class="jxr_string">": failures when trying to list shards on nodes:"</span>);
-<a class="jxr_linenumber" name="L401" href="#L401">401</a>                 <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; response.failures().length; i++) {
-<a class="jxr_linenumber" name="L402" href="#L402">402</a>                     Throwable cause = ExceptionsHelper.unwrapCause(response.failures()[i]);
-<a class="jxr_linenumber" name="L403" href="#L403">403</a>                     <strong class="jxr_keyword">if</strong> (cause instanceof ConnectTransportException) {
-<a class="jxr_linenumber" name="L404" href="#L404">404</a>                         <strong class="jxr_keyword">continue</strong>;
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>                     }
-<a class="jxr_linenumber" name="L406" href="#L406">406</a>                     sb.append(<span class="jxr_string">"\n    -&gt; "</span>).append(response.failures()[i].getDetailedMessage());
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>                 }
-<a class="jxr_linenumber" name="L408" href="#L408">408</a>                 logger.debug(sb.toString());
-<a class="jxr_linenumber" name="L409" href="#L409">409</a>             }
-<a class="jxr_linenumber" name="L410" href="#L410">410</a>         }
-<a class="jxr_linenumber" name="L411" href="#L411">411</a> 
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>         <strong class="jxr_keyword">for</strong> (TransportNodesListGatewayStartedShards.NodeGatewayStartedShards nodeShardState : response) {
-<a class="jxr_linenumber" name="L413" href="#L413">413</a>             <em class="jxr_comment">// -1 version means it does not exists, which is what the API returns, and what we expect to</em>
-<a class="jxr_linenumber" name="L414" href="#L414">414</a>             shardStates.put(nodeShardState.getNode(), nodeShardState.version());
-<a class="jxr_linenumber" name="L415" href="#L415">415</a>         }
-<a class="jxr_linenumber" name="L416" href="#L416">416</a>         <strong class="jxr_keyword">return</strong> shardStates;
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>     }
-<a class="jxr_linenumber" name="L418" href="#L418">418</a> 
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>     <strong class="jxr_keyword">private</strong> Map&lt;DiscoveryNode, TransportNodesListShardStoreMetaData.StoreFilesMetaData&gt; buildShardStores(<a href="../../../org/elasticsearch/cluster/node/DiscoveryNodes.html">DiscoveryNodes</a> nodes, <a href="../../../org/elasticsearch/cluster/routing/MutableShardRouting.html">MutableShardRouting</a> shard) {
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>         Map&lt;DiscoveryNode, TransportNodesListShardStoreMetaData.StoreFilesMetaData&gt; shardStores = cachedStores.get(shard.shardId());
-<a class="jxr_linenumber" name="L421" href="#L421">421</a>         ObjectOpenHashSet&lt;String&gt; nodesIds;
-<a class="jxr_linenumber" name="L422" href="#L422">422</a>         <strong class="jxr_keyword">if</strong> (shardStores == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L423" href="#L423">423</a>             shardStores = Maps.newHashMap();
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>             cachedStores.put(shard.shardId(), shardStores);
-<a class="jxr_linenumber" name="L425" href="#L425">425</a>             nodesIds = ObjectOpenHashSet.from(nodes.dataNodes().keys());
-<a class="jxr_linenumber" name="L426" href="#L426">426</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L427" href="#L427">427</a>             nodesIds = ObjectOpenHashSet.newInstance();
-<a class="jxr_linenumber" name="L428" href="#L428">428</a>             <em class="jxr_comment">// clean nodes that have failed</em>
-<a class="jxr_linenumber" name="L429" href="#L429">429</a>             <strong class="jxr_keyword">for</strong> (Iterator&lt;DiscoveryNode&gt; it = shardStores.keySet().iterator(); it.hasNext(); ) {
-<a class="jxr_linenumber" name="L430" href="#L430">430</a>                 <a href="../../../org/elasticsearch/cluster/node/DiscoveryNode.html">DiscoveryNode</a> node = it.next();
-<a class="jxr_linenumber" name="L431" href="#L431">431</a>                 <strong class="jxr_keyword">if</strong> (!nodes.nodeExists(node.id())) {
-<a class="jxr_linenumber" name="L432" href="#L432">432</a>                     it.remove();
-<a class="jxr_linenumber" name="L433" href="#L433">433</a>                 }
-<a class="jxr_linenumber" name="L434" href="#L434">434</a>             }
-<a class="jxr_linenumber" name="L435" href="#L435">435</a> 
-<a class="jxr_linenumber" name="L436" href="#L436">436</a>             <strong class="jxr_keyword">for</strong> (ObjectCursor&lt;DiscoveryNode&gt; cursor : nodes.dataNodes().values()) {
-<a class="jxr_linenumber" name="L437" href="#L437">437</a>                 <a href="../../../org/elasticsearch/cluster/node/DiscoveryNode.html">DiscoveryNode</a> node = cursor.value;
-<a class="jxr_linenumber" name="L438" href="#L438">438</a>                 <strong class="jxr_keyword">if</strong> (!shardStores.containsKey(node)) {
-<a class="jxr_linenumber" name="L439" href="#L439">439</a>                     nodesIds.add(node.id());
-<a class="jxr_linenumber" name="L440" href="#L440">440</a>                 }
-<a class="jxr_linenumber" name="L441" href="#L441">441</a>             }
-<a class="jxr_linenumber" name="L442" href="#L442">442</a>         }
-<a class="jxr_linenumber" name="L443" href="#L443">443</a> 
-<a class="jxr_linenumber" name="L444" href="#L444">444</a>         <strong class="jxr_keyword">if</strong> (!nodesIds.isEmpty()) {
-<a class="jxr_linenumber" name="L445" href="#L445">445</a>             String[] nodesIdsArray = nodesIds.toArray(String.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>             TransportNodesListShardStoreMetaData.NodesStoreFilesMetaData nodesStoreFilesMetaData = listShardStoreMetaData.list(shard.shardId(), false, nodesIdsArray, listTimeout).actionGet();
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>             <strong class="jxr_keyword">if</strong> (logger.isTraceEnabled()) {
-<a class="jxr_linenumber" name="L448" href="#L448">448</a>                 <strong class="jxr_keyword">if</strong> (nodesStoreFilesMetaData.failures().length &gt; 0) {
-<a class="jxr_linenumber" name="L449" href="#L449">449</a>                     StringBuilder sb = <strong class="jxr_keyword">new</strong> StringBuilder(shard + <span class="jxr_string">": failures when trying to list stores on nodes:"</span>);
-<a class="jxr_linenumber" name="L450" href="#L450">450</a>                     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; nodesStoreFilesMetaData.failures().length; i++) {
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>                         Throwable cause = ExceptionsHelper.unwrapCause(nodesStoreFilesMetaData.failures()[i]);
-<a class="jxr_linenumber" name="L452" href="#L452">452</a>                         <strong class="jxr_keyword">if</strong> (cause instanceof ConnectTransportException) {
-<a class="jxr_linenumber" name="L453" href="#L453">453</a>                             <strong class="jxr_keyword">continue</strong>;
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>                         }
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>                         sb.append(<span class="jxr_string">"\n    -&gt; "</span>).append(nodesStoreFilesMetaData.failures()[i].getDetailedMessage());
-<a class="jxr_linenumber" name="L456" href="#L456">456</a>                     }
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>                     logger.trace(sb.toString());
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>                 }
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>             }
-<a class="jxr_linenumber" name="L460" href="#L460">460</a> 
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>             <strong class="jxr_keyword">for</strong> (TransportNodesListShardStoreMetaData.NodeStoreFilesMetaData nodeStoreFilesMetaData : nodesStoreFilesMetaData) {
-<a class="jxr_linenumber" name="L462" href="#L462">462</a>                 <strong class="jxr_keyword">if</strong> (nodeStoreFilesMetaData.storeFilesMetaData() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>                     shardStores.put(nodeStoreFilesMetaData.getNode(), nodeStoreFilesMetaData.storeFilesMetaData());
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>                 }
-<a class="jxr_linenumber" name="L465" href="#L465">465</a>             }
-<a class="jxr_linenumber" name="L466" href="#L466">466</a>         }
-<a class="jxr_linenumber" name="L467" href="#L467">467</a> 
-<a class="jxr_linenumber" name="L468" href="#L468">468</a>         <strong class="jxr_keyword">return</strong> shardStores;
-<a class="jxr_linenumber" name="L469" href="#L469">469</a>     }
-<a class="jxr_linenumber" name="L470" href="#L470">470</a> }
+<a class="jxr_linenumber" name="L333" href="#L333">333</a>                                 logger.trace(<span class="jxr_string">"{}: node [{}] has [{}/{}] bytes of re-usable data"</span>,
+<a class="jxr_linenumber" name="L334" href="#L334">334</a>                                         shard, discoNode.name(), <strong class="jxr_keyword">new</strong> ByteSizeValue(sizeMatched), sizeMatched);
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>                                 <strong class="jxr_keyword">if</strong> (sizeMatched &gt; lastSizeMatched) {
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>                                     lastSizeMatched = sizeMatched;
+<a class="jxr_linenumber" name="L337" href="#L337">337</a>                                     lastDiscoNodeMatched = discoNode;
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>                                     lastNodeMatched = node;
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>                                 }
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>                             }
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>                         }
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>                     }
+<a class="jxr_linenumber" name="L343" href="#L343">343</a>                 }
+<a class="jxr_linenumber" name="L344" href="#L344">344</a>             }
+<a class="jxr_linenumber" name="L345" href="#L345">345</a> 
+<a class="jxr_linenumber" name="L346" href="#L346">346</a>             <strong class="jxr_keyword">if</strong> (lastNodeMatched != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L347" href="#L347">347</a>                 <em class="jxr_comment">// we only check on THROTTLE since we checked before before on NO</em>
+<a class="jxr_linenumber" name="L348" href="#L348">348</a>                 <a href="../../../org/elasticsearch/cluster/routing/allocation/decider/Decision.html">Decision</a> decision = allocation.deciders().canAllocate(shard, lastNodeMatched, allocation);
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>                 <strong class="jxr_keyword">if</strong> (decision.type() == Decision.Type.THROTTLE) {
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>                     <strong class="jxr_keyword">if</strong> (logger.isDebugEnabled()) {
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>                         logger.debug(<span class="jxr_string">"[{}][{}]: throttling allocation [{}] to [{}] in order to reuse its unallocated persistent store with total_size [{}]"</span>, shard.index(), shard.id(), shard, lastDiscoNodeMatched, <strong class="jxr_keyword">new</strong> ByteSizeValue(lastSizeMatched));
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>                     }
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>                     <em class="jxr_comment">// we are throttling this, but we have enough to allocate to this node, ignore it for now</em>
+<a class="jxr_linenumber" name="L354" href="#L354">354</a>                     unassignedIterator.remove();
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>                     routingNodes.ignoredUnassigned().add(shard);
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>                 } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>                     <strong class="jxr_keyword">if</strong> (logger.isDebugEnabled()) {
+<a class="jxr_linenumber" name="L358" href="#L358">358</a>                         logger.debug(<span class="jxr_string">"[{}][{}]: allocating [{}] to [{}] in order to reuse its unallocated persistent store with total_size [{}]"</span>, shard.index(), shard.id(), shard, lastDiscoNodeMatched, <strong class="jxr_keyword">new</strong> ByteSizeValue(lastSizeMatched));
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>                     }
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>                     <em class="jxr_comment">// we found a match</em>
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>                     changed = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>                     allocation.routingNodes().assign(shard, lastNodeMatched.nodeId());
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>                     unassignedIterator.remove();
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>                 }
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>             }
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>         }
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>         <strong class="jxr_keyword">return</strong> changed;
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>     }
+<a class="jxr_linenumber" name="L369" href="#L369">369</a> 
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>     <strong class="jxr_keyword">private</strong> ObjectLongOpenHashMap&lt;DiscoveryNode&gt; buildShardStates(<strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/cluster/node/DiscoveryNodes.html">DiscoveryNodes</a> nodes, <a href="../../../org/elasticsearch/cluster/routing/MutableShardRouting.html">MutableShardRouting</a> shard) {
+<a class="jxr_linenumber" name="L371" href="#L371">371</a>         ObjectLongOpenHashMap&lt;DiscoveryNode&gt; shardStates = cachedShardsState.get(shard.shardId());
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>         ObjectOpenHashSet&lt;String&gt; nodeIds;
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>         <strong class="jxr_keyword">if</strong> (shardStates == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>             shardStates = <strong class="jxr_keyword">new</strong> ObjectLongOpenHashMap&lt;&gt;();
+<a class="jxr_linenumber" name="L375" href="#L375">375</a>             cachedShardsState.put(shard.shardId(), shardStates);
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>             nodeIds = ObjectOpenHashSet.from(nodes.dataNodes().keys());
+<a class="jxr_linenumber" name="L377" href="#L377">377</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L378" href="#L378">378</a>             <em class="jxr_comment">// clean nodes that have failed</em>
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>             shardStates.keys().removeAll(<strong class="jxr_keyword">new</strong> ObjectPredicate&lt;DiscoveryNode&gt;() {
+<a class="jxr_linenumber" name="L380" href="#L380">380</a>                 @Override
+<a class="jxr_linenumber" name="L381" href="#L381">381</a>                 <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> apply(<a href="../../../org/elasticsearch/cluster/node/DiscoveryNode.html">DiscoveryNode</a> node) {
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>                     <strong class="jxr_keyword">return</strong> !nodes.nodeExists(node.id());
+<a class="jxr_linenumber" name="L383" href="#L383">383</a>                 }
+<a class="jxr_linenumber" name="L384" href="#L384">384</a>             });
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>             nodeIds = ObjectOpenHashSet.newInstance();
+<a class="jxr_linenumber" name="L386" href="#L386">386</a>             <em class="jxr_comment">// we have stored cached from before, see if the nodes changed, if they have, go fetch again</em>
+<a class="jxr_linenumber" name="L387" href="#L387">387</a>             <strong class="jxr_keyword">for</strong> (ObjectCursor&lt;DiscoveryNode&gt; cursor : nodes.dataNodes().values()) {
+<a class="jxr_linenumber" name="L388" href="#L388">388</a>                 <a href="../../../org/elasticsearch/cluster/node/DiscoveryNode.html">DiscoveryNode</a> node = cursor.value;
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>                 <strong class="jxr_keyword">if</strong> (!shardStates.containsKey(node)) {
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>                     nodeIds.add(node.id());
+<a class="jxr_linenumber" name="L391" href="#L391">391</a>                 }
+<a class="jxr_linenumber" name="L392" href="#L392">392</a>             }
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>         }
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>         <strong class="jxr_keyword">if</strong> (nodeIds.isEmpty()) {
+<a class="jxr_linenumber" name="L395" href="#L395">395</a>             <strong class="jxr_keyword">return</strong> shardStates;
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>         }
+<a class="jxr_linenumber" name="L397" href="#L397">397</a> 
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>         String[] nodesIdsArray = nodeIds.toArray(String.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>         TransportNodesListGatewayStartedShards.NodesGatewayStartedShards response = listGatewayStartedShards.list(shard.shardId(), nodesIdsArray, listTimeout).actionGet();
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>         <strong class="jxr_keyword">if</strong> (logger.isDebugEnabled()) {
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>             <strong class="jxr_keyword">if</strong> (response.failures().length &gt; 0) {
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>                 StringBuilder sb = <strong class="jxr_keyword">new</strong> StringBuilder(shard + <span class="jxr_string">": failures when trying to list shards on nodes:"</span>);
+<a class="jxr_linenumber" name="L403" href="#L403">403</a>                 <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; response.failures().length; i++) {
+<a class="jxr_linenumber" name="L404" href="#L404">404</a>                     Throwable cause = ExceptionsHelper.unwrapCause(response.failures()[i]);
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>                     <strong class="jxr_keyword">if</strong> (cause instanceof ConnectTransportException) {
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>                         <strong class="jxr_keyword">continue</strong>;
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>                     }
+<a class="jxr_linenumber" name="L408" href="#L408">408</a>                     sb.append(<span class="jxr_string">"\n    -&gt; "</span>).append(response.failures()[i].getDetailedMessage());
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>                 }
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>                 logger.debug(sb.toString());
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>             }
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>         }
+<a class="jxr_linenumber" name="L413" href="#L413">413</a> 
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>         <strong class="jxr_keyword">for</strong> (TransportNodesListGatewayStartedShards.NodeGatewayStartedShards nodeShardState : response) {
+<a class="jxr_linenumber" name="L415" href="#L415">415</a>             <em class="jxr_comment">// -1 version means it does not exists, which is what the API returns, and what we expect to</em>
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>             logger.trace(<span class="jxr_string">"[{}] on node [{}] has version [{}] of shard"</span>,
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>                     shard, nodeShardState.getNode(), nodeShardState.version());
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>             shardStates.put(nodeShardState.getNode(), nodeShardState.version());
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>         }
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>         <strong class="jxr_keyword">return</strong> shardStates;
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>     }
+<a class="jxr_linenumber" name="L422" href="#L422">422</a> 
+<a class="jxr_linenumber" name="L423" href="#L423">423</a>     <strong class="jxr_keyword">private</strong> Map&lt;DiscoveryNode, TransportNodesListShardStoreMetaData.StoreFilesMetaData&gt; buildShardStores(<a href="../../../org/elasticsearch/cluster/node/DiscoveryNodes.html">DiscoveryNodes</a> nodes, <a href="../../../org/elasticsearch/cluster/routing/MutableShardRouting.html">MutableShardRouting</a> shard) {
+<a class="jxr_linenumber" name="L424" href="#L424">424</a>         Map&lt;DiscoveryNode, TransportNodesListShardStoreMetaData.StoreFilesMetaData&gt; shardStores = cachedStores.get(shard.shardId());
+<a class="jxr_linenumber" name="L425" href="#L425">425</a>         ObjectOpenHashSet&lt;String&gt; nodesIds;
+<a class="jxr_linenumber" name="L426" href="#L426">426</a>         <strong class="jxr_keyword">if</strong> (shardStores == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>             shardStores = Maps.newHashMap();
+<a class="jxr_linenumber" name="L428" href="#L428">428</a>             cachedStores.put(shard.shardId(), shardStores);
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>             nodesIds = ObjectOpenHashSet.from(nodes.dataNodes().keys());
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L431" href="#L431">431</a>             nodesIds = ObjectOpenHashSet.newInstance();
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>             <em class="jxr_comment">// clean nodes that have failed</em>
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>             <strong class="jxr_keyword">for</strong> (Iterator&lt;DiscoveryNode&gt; it = shardStores.keySet().iterator(); it.hasNext(); ) {
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>                 <a href="../../../org/elasticsearch/cluster/node/DiscoveryNode.html">DiscoveryNode</a> node = it.next();
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>                 <strong class="jxr_keyword">if</strong> (!nodes.nodeExists(node.id())) {
+<a class="jxr_linenumber" name="L436" href="#L436">436</a>                     it.remove();
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>                 }
+<a class="jxr_linenumber" name="L438" href="#L438">438</a>             }
+<a class="jxr_linenumber" name="L439" href="#L439">439</a> 
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>             <strong class="jxr_keyword">for</strong> (ObjectCursor&lt;DiscoveryNode&gt; cursor : nodes.dataNodes().values()) {
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>                 <a href="../../../org/elasticsearch/cluster/node/DiscoveryNode.html">DiscoveryNode</a> node = cursor.value;
+<a class="jxr_linenumber" name="L442" href="#L442">442</a>                 <strong class="jxr_keyword">if</strong> (!shardStores.containsKey(node)) {
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>                     nodesIds.add(node.id());
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>                 }
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>             }
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>         }
+<a class="jxr_linenumber" name="L447" href="#L447">447</a> 
+<a class="jxr_linenumber" name="L448" href="#L448">448</a>         <strong class="jxr_keyword">if</strong> (!nodesIds.isEmpty()) {
+<a class="jxr_linenumber" name="L449" href="#L449">449</a>             String[] nodesIdsArray = nodesIds.toArray(String.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>             TransportNodesListShardStoreMetaData.NodesStoreFilesMetaData nodesStoreFilesMetaData = listShardStoreMetaData.list(shard.shardId(), false, nodesIdsArray, listTimeout).actionGet();
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>             <strong class="jxr_keyword">if</strong> (logger.isTraceEnabled()) {
+<a class="jxr_linenumber" name="L452" href="#L452">452</a>                 <strong class="jxr_keyword">if</strong> (nodesStoreFilesMetaData.failures().length &gt; 0) {
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>                     StringBuilder sb = <strong class="jxr_keyword">new</strong> StringBuilder(shard + <span class="jxr_string">": failures when trying to list stores on nodes:"</span>);
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>                     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; nodesStoreFilesMetaData.failures().length; i++) {
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>                         Throwable cause = ExceptionsHelper.unwrapCause(nodesStoreFilesMetaData.failures()[i]);
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>                         <strong class="jxr_keyword">if</strong> (cause instanceof ConnectTransportException) {
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>                             <strong class="jxr_keyword">continue</strong>;
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>                         }
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>                         sb.append(<span class="jxr_string">"\n    -&gt; "</span>).append(nodesStoreFilesMetaData.failures()[i].getDetailedMessage());
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>                     }
+<a class="jxr_linenumber" name="L461" href="#L461">461</a>                     logger.trace(sb.toString());
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>                 }
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>             }
+<a class="jxr_linenumber" name="L464" href="#L464">464</a> 
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>             <strong class="jxr_keyword">for</strong> (TransportNodesListShardStoreMetaData.NodeStoreFilesMetaData nodeStoreFilesMetaData : nodesStoreFilesMetaData) {
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>                 <strong class="jxr_keyword">if</strong> (nodeStoreFilesMetaData.storeFilesMetaData() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L467" href="#L467">467</a>                     shardStores.put(nodeStoreFilesMetaData.getNode(), nodeStoreFilesMetaData.storeFilesMetaData());
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>                 }
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>             }
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>         }
+<a class="jxr_linenumber" name="L471" href="#L471">471</a> 
+<a class="jxr_linenumber" name="L472" href="#L472">472</a>         <strong class="jxr_keyword">return</strong> shardStores;
+<a class="jxr_linenumber" name="L473" href="#L473">473</a>     }
+<a class="jxr_linenumber" name="L474" href="#L474">474</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014. All rights reserved.</div>

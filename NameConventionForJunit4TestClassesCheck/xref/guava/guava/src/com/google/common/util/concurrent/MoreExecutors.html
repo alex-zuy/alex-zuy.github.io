@@ -572,8 +572,8 @@
 <a class="jxr_linenumber" name="L564" href="#L564">564</a>     @Override
 <a class="jxr_linenumber" name="L565" href="#L565">565</a>     <strong class="jxr_keyword">public</strong> ListenableScheduledFuture&lt;?&gt; schedule(
 <a class="jxr_linenumber" name="L566" href="#L566">566</a>         Runnable command, <strong class="jxr_keyword">long</strong> delay, <a href="../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit) {
-<a class="jxr_linenumber" name="L567" href="#L567">567</a>       ListenableFutureTask&lt;Void&gt; task =
-<a class="jxr_linenumber" name="L568" href="#L568">568</a>           ListenableFutureTask.create(command, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L567" href="#L567">567</a>       TrustedListenableFutureTask&lt;Void&gt; task =
+<a class="jxr_linenumber" name="L568" href="#L568">568</a>           TrustedListenableFutureTask.create(command, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L569" href="#L569">569</a>       ScheduledFuture&lt;?&gt; scheduled = delegate.schedule(task, delay, unit);
 <a class="jxr_linenumber" name="L570" href="#L570">570</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ListenableScheduledTask&lt;Void&gt;(task, scheduled);
 <a class="jxr_linenumber" name="L571" href="#L571">571</a>     }
@@ -581,7 +581,7 @@
 <a class="jxr_linenumber" name="L573" href="#L573">573</a>     @Override
 <a class="jxr_linenumber" name="L574" href="#L574">574</a>     <strong class="jxr_keyword">public</strong> &lt;V&gt; ListenableScheduledFuture&lt;V&gt; schedule(
 <a class="jxr_linenumber" name="L575" href="#L575">575</a>         Callable&lt;V&gt; callable, <strong class="jxr_keyword">long</strong> delay, <a href="../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit) {
-<a class="jxr_linenumber" name="L576" href="#L576">576</a>       ListenableFutureTask&lt;V&gt; task = ListenableFutureTask.create(callable);
+<a class="jxr_linenumber" name="L576" href="#L576">576</a>       TrustedListenableFutureTask&lt;V&gt; task = TrustedListenableFutureTask.create(callable);
 <a class="jxr_linenumber" name="L577" href="#L577">577</a>       ScheduledFuture&lt;?&gt; scheduled = delegate.schedule(task, delay, unit);
 <a class="jxr_linenumber" name="L578" href="#L578">578</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ListenableScheduledTask&lt;V&gt;(task, scheduled);
 <a class="jxr_linenumber" name="L579" href="#L579">579</a>     }
