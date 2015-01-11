@@ -726,16 +726,75 @@
 <a class="jxr_linenumber" name="L718" href="#L718">718</a>         assertThat(metaData.isPatternMatchingAllIndices(indicesOrAliases, concreteIndices), equalTo(false));
 <a class="jxr_linenumber" name="L719" href="#L719">719</a>     }
 <a class="jxr_linenumber" name="L720" href="#L720">720</a> 
-<a class="jxr_linenumber" name="L721" href="#L721">721</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> metaDataBuilder(String... indices) {
-<a class="jxr_linenumber" name="L722" href="#L722">722</a>         MetaData.Builder mdBuilder = MetaData.builder();
-<a class="jxr_linenumber" name="L723" href="#L723">723</a>         <strong class="jxr_keyword">for</strong> (String concreteIndex : indices) {
-<a class="jxr_linenumber" name="L724" href="#L724">724</a>             mdBuilder.put(indexBuilder(concreteIndex));
-<a class="jxr_linenumber" name="L725" href="#L725">725</a>         }
-<a class="jxr_linenumber" name="L726" href="#L726">726</a>         <strong class="jxr_keyword">return</strong> mdBuilder.build();
-<a class="jxr_linenumber" name="L727" href="#L727">727</a>     }
-<a class="jxr_linenumber" name="L728" href="#L728">728</a> }
+<a class="jxr_linenumber" name="L721" href="#L721">721</a>     @Test
+<a class="jxr_linenumber" name="L722" href="#L722">722</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testIndexOptions_failClosedIndicesAndAliases() {
+<a class="jxr_linenumber" name="L723" href="#L723">723</a>         MetaData.Builder mdBuilder = MetaData.builder()
+<a class="jxr_linenumber" name="L724" href="#L724">724</a>                 .put(indexBuilder(<span class="jxr_string">"foo1-closed"</span>).state(IndexMetaData.State.CLOSE).putAlias(AliasMetaData.builder(<span class="jxr_string">"foobar1-closed"</span>)).putAlias(AliasMetaData.builder(<span class="jxr_string">"foobar2-closed"</span>)))
+<a class="jxr_linenumber" name="L725" href="#L725">725</a>                 .put(indexBuilder(<span class="jxr_string">"foo2-closed"</span>).state(IndexMetaData.State.CLOSE).putAlias(AliasMetaData.builder(<span class="jxr_string">"foobar2-closed"</span>)))
+<a class="jxr_linenumber" name="L726" href="#L726">726</a>                 .put(indexBuilder(<span class="jxr_string">"foo3"</span>).putAlias(AliasMetaData.builder(<span class="jxr_string">"foobar2-closed"</span>)));
+<a class="jxr_linenumber" name="L727" href="#L727">727</a>         <a href="../../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> md = mdBuilder.build();
+<a class="jxr_linenumber" name="L728" href="#L728">728</a> 
+<a class="jxr_linenumber" name="L729" href="#L729">729</a>         <a href="../../../../org/elasticsearch/action/support/IndicesOptions.html">IndicesOptions</a> options = IndicesOptions.strictExpandOpenAndForbidClosed();
+<a class="jxr_linenumber" name="L730" href="#L730">730</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L731" href="#L731">731</a>             md.concreteIndices(options, <span class="jxr_string">"foo1-closed"</span>);
+<a class="jxr_linenumber" name="L732" href="#L732">732</a>             fail(<span class="jxr_string">"foo1-closed should be closed, but it is open"</span>);
+<a class="jxr_linenumber" name="L733" href="#L733">733</a>         } <strong class="jxr_keyword">catch</strong> (IndexClosedException e) {
+<a class="jxr_linenumber" name="L734" href="#L734">734</a>             <em class="jxr_comment">// expected</em>
+<a class="jxr_linenumber" name="L735" href="#L735">735</a>         }
+<a class="jxr_linenumber" name="L736" href="#L736">736</a> 
+<a class="jxr_linenumber" name="L737" href="#L737">737</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L738" href="#L738">738</a>             md.concreteIndices(options, <span class="jxr_string">"foobar1-closed"</span>);
+<a class="jxr_linenumber" name="L739" href="#L739">739</a>             fail(<span class="jxr_string">"foo1-closed should be closed, but it is open"</span>);
+<a class="jxr_linenumber" name="L740" href="#L740">740</a>         } <strong class="jxr_keyword">catch</strong> (IndexClosedException e) {
+<a class="jxr_linenumber" name="L741" href="#L741">741</a>             <em class="jxr_comment">// expected</em>
+<a class="jxr_linenumber" name="L742" href="#L742">742</a>         }
+<a class="jxr_linenumber" name="L743" href="#L743">743</a> 
+<a class="jxr_linenumber" name="L744" href="#L744">744</a>         options = IndicesOptions.fromOptions(<strong class="jxr_keyword">true</strong>, options.allowNoIndices(), options.expandWildcardsOpen(), options.expandWildcardsClosed(), options);
+<a class="jxr_linenumber" name="L745" href="#L745">745</a>         String[] results = md.concreteIndices(options, <span class="jxr_string">"foo1-closed"</span>);
+<a class="jxr_linenumber" name="L746" href="#L746">746</a>         assertThat(results, emptyArray());
+<a class="jxr_linenumber" name="L747" href="#L747">747</a> 
+<a class="jxr_linenumber" name="L748" href="#L748">748</a>         results = md.concreteIndices(options, <span class="jxr_string">"foobar1-closed"</span>);
+<a class="jxr_linenumber" name="L749" href="#L749">749</a>         assertThat(results, emptyArray());
+<a class="jxr_linenumber" name="L750" href="#L750">750</a> 
+<a class="jxr_linenumber" name="L751" href="#L751">751</a>         options = IndicesOptions.lenientExpandOpen();
+<a class="jxr_linenumber" name="L752" href="#L752">752</a>         results = md.concreteIndices(options, <span class="jxr_string">"foo1-closed"</span>);
+<a class="jxr_linenumber" name="L753" href="#L753">753</a>         assertThat(results, arrayWithSize(1));
+<a class="jxr_linenumber" name="L754" href="#L754">754</a>         assertThat(results, arrayContaining(<span class="jxr_string">"foo1-closed"</span>));
+<a class="jxr_linenumber" name="L755" href="#L755">755</a> 
+<a class="jxr_linenumber" name="L756" href="#L756">756</a>         results = md.concreteIndices(options, <span class="jxr_string">"foobar1-closed"</span>);
+<a class="jxr_linenumber" name="L757" href="#L757">757</a>         assertThat(results, arrayWithSize(1));
+<a class="jxr_linenumber" name="L758" href="#L758">758</a>         assertThat(results, arrayContaining(<span class="jxr_string">"foo1-closed"</span>));
+<a class="jxr_linenumber" name="L759" href="#L759">759</a> 
+<a class="jxr_linenumber" name="L760" href="#L760">760</a>         <em class="jxr_comment">// testing an alias pointing to three indices:</em>
+<a class="jxr_linenumber" name="L761" href="#L761">761</a>         options = IndicesOptions.strictExpandOpenAndForbidClosed();
+<a class="jxr_linenumber" name="L762" href="#L762">762</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L763" href="#L763">763</a>             md.concreteIndices(options, <span class="jxr_string">"foobar2-closed"</span>);
+<a class="jxr_linenumber" name="L764" href="#L764">764</a>             fail(<span class="jxr_string">"foo2-closed should be closed, but it is open"</span>);
+<a class="jxr_linenumber" name="L765" href="#L765">765</a>         } <strong class="jxr_keyword">catch</strong> (IndexClosedException e) {
+<a class="jxr_linenumber" name="L766" href="#L766">766</a>             <em class="jxr_comment">// expected</em>
+<a class="jxr_linenumber" name="L767" href="#L767">767</a>         }
+<a class="jxr_linenumber" name="L768" href="#L768">768</a> 
+<a class="jxr_linenumber" name="L769" href="#L769">769</a>         options = IndicesOptions.fromOptions(<strong class="jxr_keyword">true</strong>, options.allowNoIndices(), options.expandWildcardsOpen(), options.expandWildcardsClosed(), options);
+<a class="jxr_linenumber" name="L770" href="#L770">770</a>         results = md.concreteIndices(options, <span class="jxr_string">"foobar2-closed"</span>);
+<a class="jxr_linenumber" name="L771" href="#L771">771</a>         assertThat(results, arrayWithSize(1));
+<a class="jxr_linenumber" name="L772" href="#L772">772</a>         assertThat(results, arrayContaining(<span class="jxr_string">"foo3"</span>));
+<a class="jxr_linenumber" name="L773" href="#L773">773</a> 
+<a class="jxr_linenumber" name="L774" href="#L774">774</a>         options = IndicesOptions.lenientExpandOpen();
+<a class="jxr_linenumber" name="L775" href="#L775">775</a>         results = md.concreteIndices(options, <span class="jxr_string">"foobar2-closed"</span>);
+<a class="jxr_linenumber" name="L776" href="#L776">776</a>         assertThat(results, arrayWithSize(3));
+<a class="jxr_linenumber" name="L777" href="#L777">777</a>         assertThat(results, arrayContainingInAnyOrder(<span class="jxr_string">"foo1-closed"</span>, <span class="jxr_string">"foo2-closed"</span>, <span class="jxr_string">"foo3"</span>));
+<a class="jxr_linenumber" name="L778" href="#L778">778</a>     }
+<a class="jxr_linenumber" name="L779" href="#L779">779</a> 
+<a class="jxr_linenumber" name="L780" href="#L780">780</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> metaDataBuilder(String... indices) {
+<a class="jxr_linenumber" name="L781" href="#L781">781</a>         MetaData.Builder mdBuilder = MetaData.builder();
+<a class="jxr_linenumber" name="L782" href="#L782">782</a>         <strong class="jxr_keyword">for</strong> (String concreteIndex : indices) {
+<a class="jxr_linenumber" name="L783" href="#L783">783</a>             mdBuilder.put(indexBuilder(concreteIndex));
+<a class="jxr_linenumber" name="L784" href="#L784">784</a>         }
+<a class="jxr_linenumber" name="L785" href="#L785">785</a>         <strong class="jxr_keyword">return</strong> mdBuilder.build();
+<a class="jxr_linenumber" name="L786" href="#L786">786</a>     }
+<a class="jxr_linenumber" name="L787" href="#L787">787</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

@@ -283,10 +283,10 @@
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>     List&lt;Future&lt;String&gt;&gt; results;
 <a class="jxr_linenumber" name="L276" href="#L276">276</a> 
 <a class="jxr_linenumber" name="L277" href="#L277">277</a>     results = service.invokeAll(callables);
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>     assertThat(getOnlyElement(results)).isInstanceOf(ListenableFutureTask.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>     assertThat(getOnlyElement(results)).isInstanceOf(TrustedListenableFutureTask.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L279" href="#L279">279</a> 
 <a class="jxr_linenumber" name="L280" href="#L280">280</a>     results = service.invokeAll(callables, 1, SECONDS);
-<a class="jxr_linenumber" name="L281" href="#L281">281</a>     assertThat(getOnlyElement(results)).isInstanceOf(ListenableFutureTask.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>     assertThat(getOnlyElement(results)).isInstanceOf(TrustedListenableFutureTask.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L282" href="#L282">282</a> 
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>     <em class="jxr_comment">/*</em>
 <a class="jxr_linenumber" name="L284" href="#L284">284</a> <em class="jxr_comment">     * TODO(cpovirk): move ForwardingTestCase somewhere common, and use it to</em>
@@ -701,6 +701,6 @@
 <a class="jxr_linenumber" name="L693" href="#L693">693</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

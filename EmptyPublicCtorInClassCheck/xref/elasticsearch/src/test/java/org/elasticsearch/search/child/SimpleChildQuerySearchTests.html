@@ -1398,9 +1398,9 @@
 <a class="jxr_linenumber" name="L1390" href="#L1390">1390</a>         <em class="jxr_comment">// Delete by query doesn't support p/c queries. If the delete by query has a different execution mode</em>
 <a class="jxr_linenumber" name="L1391" href="#L1391">1391</a>         <em class="jxr_comment">// that doesn't rely on IW#deleteByQuery() then this test can be changed.</em>
 <a class="jxr_linenumber" name="L1392" href="#L1392">1392</a>         <a href="../../../../org/elasticsearch/action/deletebyquery/DeleteByQueryResponse.html">DeleteByQueryResponse</a> deleteByQueryResponse = client().prepareDeleteByQuery(<span class="jxr_string">"test"</span>).setQuery(randomHasChild(<span class="jxr_string">"child"</span>, <span class="jxr_string">"c_field"</span>, <span class="jxr_string">"blue"</span>)).get();
-<a class="jxr_linenumber" name="L1393" href="#L1393">1393</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getSuccessfulShards(), equalTo(0));
-<a class="jxr_linenumber" name="L1394" href="#L1394">1394</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getFailedShards(), equalTo(getNumShards(<span class="jxr_string">"test"</span>).numPrimaries));
-<a class="jxr_linenumber" name="L1395" href="#L1395">1395</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getFailures()[0].reason(), containsString(<span class="jxr_string">"[has_child] query and filter unsupported in delete_by_query api"</span>));
+<a class="jxr_linenumber" name="L1393" href="#L1393">1393</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getShardInfo().getSuccessful(), equalTo(0));
+<a class="jxr_linenumber" name="L1394" href="#L1394">1394</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getShardInfo().getFailures().length, equalTo(getNumShards(<span class="jxr_string">"test"</span>).numPrimaries));
+<a class="jxr_linenumber" name="L1395" href="#L1395">1395</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getShardInfo().getFailures()[0].reason(), containsString(<span class="jxr_string">"[has_child] query and filter unsupported in delete_by_query api"</span>));
 <a class="jxr_linenumber" name="L1396" href="#L1396">1396</a>         client().admin().indices().prepareRefresh(<span class="jxr_string">"test"</span>).get();
 <a class="jxr_linenumber" name="L1397" href="#L1397">1397</a> 
 <a class="jxr_linenumber" name="L1398" href="#L1398">1398</a>         searchResponse = client().prepareSearch(<span class="jxr_string">"test"</span>)
@@ -1443,9 +1443,9 @@
 <a class="jxr_linenumber" name="L1435" href="#L1435">1435</a>         assertHitCount(searchResponse, 3l);
 <a class="jxr_linenumber" name="L1436" href="#L1436">1436</a> 
 <a class="jxr_linenumber" name="L1437" href="#L1437">1437</a>         <a href="../../../../org/elasticsearch/action/deletebyquery/DeleteByQueryResponse.html">DeleteByQueryResponse</a> deleteByQueryResponse = client().prepareDeleteByQuery(<span class="jxr_string">"test"</span>).setQuery(randomHasChild(<span class="jxr_string">"child"</span>, <span class="jxr_string">"c_field"</span>, <span class="jxr_string">"blue"</span>)).get();
-<a class="jxr_linenumber" name="L1438" href="#L1438">1438</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getSuccessfulShards(), equalTo(0));
-<a class="jxr_linenumber" name="L1439" href="#L1439">1439</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getFailedShards(), equalTo(getNumShards(<span class="jxr_string">"test"</span>).numPrimaries));
-<a class="jxr_linenumber" name="L1440" href="#L1440">1440</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getFailures()[0].reason(), containsString(<span class="jxr_string">"[has_child] query and filter unsupported in delete_by_query api"</span>));
+<a class="jxr_linenumber" name="L1438" href="#L1438">1438</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getShardInfo().getSuccessful(), equalTo(0));
+<a class="jxr_linenumber" name="L1439" href="#L1439">1439</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getShardInfo().getFailures().length, equalTo(getNumShards(<span class="jxr_string">"test"</span>).numPrimaries));
+<a class="jxr_linenumber" name="L1440" href="#L1440">1440</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getShardInfo().getFailures()[0].reason(), containsString(<span class="jxr_string">"[has_child] query and filter unsupported in delete_by_query api"</span>));
 <a class="jxr_linenumber" name="L1441" href="#L1441">1441</a>         client().admin().indices().prepareRefresh(<span class="jxr_string">"test"</span>).get();
 <a class="jxr_linenumber" name="L1442" href="#L1442">1442</a> 
 <a class="jxr_linenumber" name="L1443" href="#L1443">1443</a>         searchResponse = client().prepareSearch(<span class="jxr_string">"test"</span>)
@@ -1496,9 +1496,9 @@
 <a class="jxr_linenumber" name="L1488" href="#L1488">1488</a>         <a href="../../../../org/elasticsearch/action/deletebyquery/DeleteByQueryResponse.html">DeleteByQueryResponse</a> deleteByQueryResponse = client().prepareDeleteByQuery(<span class="jxr_string">"test"</span>)
 <a class="jxr_linenumber" name="L1489" href="#L1489">1489</a>                 .setQuery(randomHasParent(<span class="jxr_string">"parent"</span>, <span class="jxr_string">"p_field"</span>, <span class="jxr_string">"p_value2"</span>))
 <a class="jxr_linenumber" name="L1490" href="#L1490">1490</a>                 .get();
-<a class="jxr_linenumber" name="L1491" href="#L1491">1491</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getSuccessfulShards(), equalTo(0));
-<a class="jxr_linenumber" name="L1492" href="#L1492">1492</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getFailedShards(), equalTo(getNumShards(<span class="jxr_string">"test"</span>).numPrimaries));
-<a class="jxr_linenumber" name="L1493" href="#L1493">1493</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getFailures()[0].reason(), containsString(<span class="jxr_string">"[has_parent] query and filter unsupported in delete_by_query api"</span>));
+<a class="jxr_linenumber" name="L1491" href="#L1491">1491</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getShardInfo().getSuccessful(), equalTo(0));
+<a class="jxr_linenumber" name="L1492" href="#L1492">1492</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getShardInfo().getFailures().length, equalTo(getNumShards(<span class="jxr_string">"test"</span>).numPrimaries));
+<a class="jxr_linenumber" name="L1493" href="#L1493">1493</a>         assertThat(deleteByQueryResponse.getIndex(<span class="jxr_string">"test"</span>).getShardInfo().getFailures()[0].reason(), containsString(<span class="jxr_string">"[has_parent] query and filter unsupported in delete_by_query api"</span>));
 <a class="jxr_linenumber" name="L1494" href="#L1494">1494</a>         client().admin().indices().prepareRefresh(<span class="jxr_string">"test"</span>).get();
 <a class="jxr_linenumber" name="L1495" href="#L1495">1495</a>         client().admin().indices().prepareRefresh(<span class="jxr_string">"test"</span>).get();
 <a class="jxr_linenumber" name="L1496" href="#L1496">1496</a>         client().admin().indices().prepareRefresh(<span class="jxr_string">"test"</span>).get();
@@ -2687,6 +2687,6 @@
 <a class="jxr_linenumber" name="L2679" href="#L2679">2679</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

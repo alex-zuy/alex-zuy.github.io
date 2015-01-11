@@ -41,7 +41,7 @@
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.node.DiscoveryNodeService;
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.node.DiscoveryNodes;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.routing.RoutingTable;
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.routing.operation.OperationRouting;
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.routing.OperationRouting;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.Nullable;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.Priority;
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.component.AbstractLifecycleComponent;
@@ -73,7 +73,7 @@
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/discovery/DiscoveryService.html">DiscoveryService</a> discoveryService;
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/cluster/routing/operation/OperationRouting.html">OperationRouting</a> operationRouting;
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/cluster/routing/OperationRouting.html">OperationRouting</a> operationRouting;
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/transport/TransportService.html">TransportService</a> transportService;
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  
@@ -109,7 +109,7 @@
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">volatile</strong> ScheduledFuture reconnectToNodes;
 <a class="jxr_linenumber" name="L102" href="#L102">102</a> 
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>     @Inject
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/cluster/service/InternalClusterService.html">InternalClusterService</a>(<a href="../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings, <a href="../../../../org/elasticsearch/discovery/DiscoveryService.html">DiscoveryService</a> discoveryService, <a href="../../../../org/elasticsearch/cluster/routing/operation/OperationRouting.html">OperationRouting</a> operationRouting, <a href="../../../../org/elasticsearch/transport/TransportService.html">TransportService</a> transportService,
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/cluster/service/InternalClusterService.html">InternalClusterService</a>(<a href="../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings, <a href="../../../../org/elasticsearch/discovery/DiscoveryService.html">DiscoveryService</a> discoveryService, <a href="../../../../org/elasticsearch/cluster/routing/OperationRouting.html">OperationRouting</a> operationRouting, <a href="../../../../org/elasticsearch/transport/TransportService.html">TransportService</a> transportService,
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>                                   <a href="../../../../org/elasticsearch/node/settings/NodeSettingsService.html">NodeSettingsService</a> nodeSettingsService, <a href="../../../../org/elasticsearch/threadpool/ThreadPool.html">ThreadPool</a> threadPool, <a href="../../../../org/elasticsearch/cluster/ClusterName.html">ClusterName</a> clusterName, <a href="../../../../org/elasticsearch/cluster/node/DiscoveryNodeService.html">DiscoveryNodeService</a> discoveryNodeService, <a href="../../../../org/elasticsearch/Version.html">Version</a> version) {
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>         <strong class="jxr_keyword">super</strong>(settings);
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">this</strong>.operationRouting = operationRouting;
@@ -192,7 +192,7 @@
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>     }
 <a class="jxr_linenumber" name="L185" href="#L185">185</a> 
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>     @Override
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/cluster/routing/operation/OperationRouting.html">OperationRouting</a> operationRouting() {
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/cluster/routing/OperationRouting.html">OperationRouting</a> operationRouting() {
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>         <strong class="jxr_keyword">return</strong> operationRouting;
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>     }
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> 
@@ -732,6 +732,6 @@
 <a class="jxr_linenumber" name="L724" href="#L724">724</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

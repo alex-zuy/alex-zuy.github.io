@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../../../../../../../apidocs/org/springframework/jmx/export/annotation/AnnotationJmxAttributeSource.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2002-2012 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2002-2014 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -78,7 +78,7 @@
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  	@Override
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  	<strong class="jxr_keyword">public</strong> <a href="../../../../../org/springframework/jmx/export/metadata/ManagedResource.html">ManagedResource</a> getManagedResource(Class&lt;?&gt; beanClass) <strong class="jxr_keyword">throws</strong> InvalidMetadataException {
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  		org.springframework.jmx.export.annotation.ManagedResource ann =
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>  				beanClass.getAnnotation(org.springframework.jmx.export.annotation.ManagedResource.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  				AnnotationUtils.getAnnotation(beanClass, org.springframework.jmx.export.annotation.ManagedResource.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  		<strong class="jxr_keyword">if</strong> (ann == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  		}
@@ -156,7 +156,7 @@
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> 	@Override
 <a class="jxr_linenumber" name="L150" href="#L150">150</a> 	<strong class="jxr_keyword">public</strong> <a href="../../../../../org/springframework/jmx/export/metadata/ManagedNotification.html">ManagedNotification</a>[] getManagedNotifications(Class&lt;?&gt; clazz) <strong class="jxr_keyword">throws</strong> InvalidMetadataException {
-<a class="jxr_linenumber" name="L151" href="#L151">151</a> 		ManagedNotifications notificationsAnn = clazz.getAnnotation(ManagedNotifications.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L151" href="#L151">151</a> 		ManagedNotifications notificationsAnn = AnnotationUtils.getAnnotation(clazz, ManagedNotifications.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L152" href="#L152">152</a> 		<strong class="jxr_keyword">if</strong> (notificationsAnn == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L153" href="#L153">153</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/springframework/jmx/export/metadata/ManagedNotification.html">ManagedNotification</a>[0];
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> 		}
@@ -174,6 +174,6 @@
 <a class="jxr_linenumber" name="L166" href="#L166">166</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

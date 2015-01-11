@@ -137,11 +137,21 @@
 <a class="jxr_linenumber" name="L129" href="#L129">129</a> 		em.close();
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> 	}
 <a class="jxr_linenumber" name="L131" href="#L131">131</a> 
-<a class="jxr_linenumber" name="L132" href="#L132">132</a> 
-<a class="jxr_linenumber" name="L133" href="#L133">133</a> 
-<a class="jxr_linenumber" name="L134" href="#L134">134</a> }
+<a class="jxr_linenumber" name="L132" href="#L132">132</a> 	@Test
+<a class="jxr_linenumber" name="L133" href="#L133">133</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> treatRoot() {
+<a class="jxr_linenumber" name="L134" href="#L134">134</a> 		EntityManager em = getOrCreateEntityManager();
+<a class="jxr_linenumber" name="L135" href="#L135">135</a> 		CriteriaBuilder builder = em.getCriteriaBuilder();
+<a class="jxr_linenumber" name="L136" href="#L136">136</a> 		CriteriaQuery&lt;Human&gt; criteria = builder.createQuery( Human.<strong class="jxr_keyword">class</strong> );
+<a class="jxr_linenumber" name="L137" href="#L137">137</a> 		Root&lt;Animal&gt; root = criteria.from( Animal.<strong class="jxr_keyword">class</strong> );
+<a class="jxr_linenumber" name="L138" href="#L138">138</a> 		criteria.select( builder.treat( root, Human.<strong class="jxr_keyword">class</strong> ) );
+<a class="jxr_linenumber" name="L139" href="#L139">139</a> 		em.createQuery( criteria ).getResultList();
+<a class="jxr_linenumber" name="L140" href="#L140">140</a> 		em.close();
+<a class="jxr_linenumber" name="L141" href="#L141">141</a> 	}
+<a class="jxr_linenumber" name="L142" href="#L142">142</a> 
+<a class="jxr_linenumber" name="L143" href="#L143">143</a> 
+<a class="jxr_linenumber" name="L144" href="#L144">144</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

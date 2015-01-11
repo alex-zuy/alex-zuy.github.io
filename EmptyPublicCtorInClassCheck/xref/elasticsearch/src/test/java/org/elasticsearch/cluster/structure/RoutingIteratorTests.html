@@ -39,7 +39,7 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.routing.allocation.AllocationService;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.routing.allocation.decider.AwarenessAllocationDecider;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.routing.allocation.decider.ClusterRebalanceAllocationDecider;
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.routing.operation.plain.PlainOperationRouting;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.routing.OperationRouting;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.settings.ImmutableSettings;
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.ShardId;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.test.ElasticsearchAllocationTestCase;
@@ -301,7 +301,7 @@
 <a class="jxr_linenumber" name="L293" href="#L293">293</a>         routingTable = strategy.applyStartedShards(clusterState, clusterState.routingNodes().shardsWithState(INITIALIZING)).routingTable();
 <a class="jxr_linenumber" name="L294" href="#L294">294</a>         clusterState = ClusterState.builder(clusterState).routingTable(routingTable).build();
 <a class="jxr_linenumber" name="L295" href="#L295">295</a> 
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>         <a href="../../../../org/elasticsearch/cluster/routing/operation/plain/PlainOperationRouting.html">PlainOperationRouting</a> operationRouting = <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/cluster/routing/operation/plain/PlainOperationRouting.html">PlainOperationRouting</a>(ImmutableSettings.Builder.EMPTY_SETTINGS, <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/cluster/routing/allocation/decider/AwarenessAllocationDecider.html">AwarenessAllocationDecider</a>());
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>         <a href="../../../../org/elasticsearch/cluster/routing/OperationRouting.html">OperationRouting</a> operationRouting = <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/cluster/routing/OperationRouting.html">OperationRouting</a>(ImmutableSettings.Builder.EMPTY_SETTINGS, <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/cluster/routing/allocation/decider/AwarenessAllocationDecider.html">AwarenessAllocationDecider</a>());
 <a class="jxr_linenumber" name="L297" href="#L297">297</a> 
 <a class="jxr_linenumber" name="L298" href="#L298">298</a>         <a href="../../../../org/elasticsearch/cluster/routing/GroupShardsIterator.html">GroupShardsIterator</a> shardIterators = operationRouting.searchShards(clusterState, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"test"</span>}, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"test"</span>}, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"_shards:0"</span>);
 <a class="jxr_linenumber" name="L299" href="#L299">299</a>         assertThat(shardIterators.size(), equalTo(1));
@@ -335,6 +335,6 @@
 <a class="jxr_linenumber" name="L327" href="#L327">327</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

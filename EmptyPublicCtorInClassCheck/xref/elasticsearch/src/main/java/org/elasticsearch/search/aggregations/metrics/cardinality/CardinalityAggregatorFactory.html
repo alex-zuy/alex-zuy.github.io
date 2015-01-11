@@ -54,39 +54,41 @@
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      @Override
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">protected</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> createUnmapped(<a href="../../../../../../org/elasticsearch/search/aggregations/support/AggregationContext.html">AggregationContext</a> context, <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> parent, Map&lt;String, Object&gt; metaData) {
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/metrics/cardinality/CardinalityAggregator.html">CardinalityAggregator</a>(name, parent == <strong class="jxr_keyword">null</strong> ? 1 : parent.estimatedBucketCount(), <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">true</strong>, precision(parent), context, parent, metaData);
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>      }
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      @Override
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">protected</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> create(<a href="../../../../../../org/elasticsearch/search/aggregations/support/ValuesSource.html">ValuesSource</a> valuesSource, <strong class="jxr_keyword">long</strong> expectedBucketsCount, <a href="../../../../../../org/elasticsearch/search/aggregations/support/AggregationContext.html">AggregationContext</a> context, <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> parent, Map&lt;String, Object&gt; metaData) {
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>          <strong class="jxr_keyword">if</strong> (!(valuesSource instanceof ValuesSource.Numeric) &amp;&amp; !rehash) {
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/AggregationExecutionException.html">AggregationExecutionException</a>(<span class="jxr_string">"Turning off rehashing for cardinality aggregation ["</span> + name + <span class="jxr_string">"] on non-numeric values in not allowed"</span>);
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>          }
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/metrics/cardinality/CardinalityAggregator.html">CardinalityAggregator</a>(name, parent == <strong class="jxr_keyword">null</strong> ? 1 : parent.estimatedBucketCount(), valuesSource, rehash, precision(parent), context, parent, metaData);
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>      }
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_comment">     * If one of the parent aggregators is a MULTI_BUCKET one, we might want to lower the precision</em>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_comment">     * because otherwise it might be memory-intensive. On the other hand, for top-level aggregators</em>
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_comment">     * we try to focus on accuracy.</em>
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_comment">     */</em>
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> defaultPrecision(<a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> parent) {
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">int</strong> precision = HyperLogLogPlusPlus.DEFAULT_PRECISION;
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">while</strong> (parent != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>              <strong class="jxr_keyword">if</strong> (parent.bucketAggregationMode() == BucketAggregationMode.PER_BUCKET) {
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>                  <em class="jxr_comment">// if the parent is a per-bucket aggregator, we substract 5 to the precision,</em>
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>                  <em class="jxr_comment">// which will effectively divide the memory usage of each counter by 32</em>
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>                  precision -= 5;
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>              }
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>              parent = parent.parent();
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>          }
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>  
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">return</strong> Math.max(precision, HyperLogLogPlusPlus.MIN_PRECISION);
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>      }
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>  
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>  }
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/metrics/cardinality/CardinalityAggregator.html">CardinalityAggregator</a>(name, parent == <strong class="jxr_keyword">null</strong> ? 1 : parent.estimatedBucketCount(), <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">true</strong>, precision(parent),
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>                  config.formatter(), context, parent, metaData);
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      }
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      @Override
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">protected</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> create(<a href="../../../../../../org/elasticsearch/search/aggregations/support/ValuesSource.html">ValuesSource</a> valuesSource, <strong class="jxr_keyword">long</strong> expectedBucketsCount, <a href="../../../../../../org/elasticsearch/search/aggregations/support/AggregationContext.html">AggregationContext</a> context, <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> parent, Map&lt;String, Object&gt; metaData) {
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          <strong class="jxr_keyword">if</strong> (!(valuesSource instanceof ValuesSource.Numeric) &amp;&amp; !rehash) {
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/AggregationExecutionException.html">AggregationExecutionException</a>(<span class="jxr_string">"Turning off rehashing for cardinality aggregation ["</span> + name + <span class="jxr_string">"] on non-numeric values in not allowed"</span>);
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          }
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/metrics/cardinality/CardinalityAggregator.html">CardinalityAggregator</a>(name, parent == <strong class="jxr_keyword">null</strong> ? 1 : parent.estimatedBucketCount(), valuesSource, rehash, precision(parent),
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>                  config.formatter(), context, parent, metaData);
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      }
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_comment">     * If one of the parent aggregators is a MULTI_BUCKET one, we might want to lower the precision</em>
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_comment">     * because otherwise it might be memory-intensive. On the other hand, for top-level aggregators</em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_comment">     * we try to focus on accuracy.</em>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_comment">     */</em>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> defaultPrecision(<a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> parent) {
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          <strong class="jxr_keyword">int</strong> precision = HyperLogLogPlusPlus.DEFAULT_PRECISION;
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">while</strong> (parent != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>              <strong class="jxr_keyword">if</strong> (parent.bucketAggregationMode() == BucketAggregationMode.PER_BUCKET) {
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>                  <em class="jxr_comment">// if the parent is a per-bucket aggregator, we substract 5 to the precision,</em>
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>                  <em class="jxr_comment">// which will effectively divide the memory usage of each counter by 32</em>
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>                  precision -= 5;
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>              }
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>              parent = parent.parent();
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          }
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>          <strong class="jxr_keyword">return</strong> Math.max(precision, HyperLogLogPlusPlus.MIN_PRECISION);
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      }
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

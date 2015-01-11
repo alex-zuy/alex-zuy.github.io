@@ -43,7 +43,7 @@
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.xcontent.XContentFactory;
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.query.QueryBuilders;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.test.ElasticsearchIntegrationTest;
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.test.engine.MockInternalEngineHolder;
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.test.engine.MockInternalEngine;
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.test.engine.ThrowingLeafReaderWrapper;
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.test.store.MockDirectoryHelper;
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.test.store.MockFSDirectoryService;
@@ -238,10 +238,10 @@
 <a class="jxr_linenumber" name="L230" href="#L230">230</a> 
 <a class="jxr_linenumber" name="L231" href="#L231">231</a>         <a href="../../../../org/elasticsearch/common/settings/ImmutableSettings.html">Builder</a> settings = settingsBuilder()
 <a class="jxr_linenumber" name="L232" href="#L232">232</a>                 .put(indexSettings())
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>                 .put(MockInternalEngineHolder.READER_WRAPPER_TYPE, RandomExceptionDirectoryReaderWrapper.<strong class="jxr_keyword">class</strong>.getName())
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>                 .put(MockInternalEngine.READER_WRAPPER_TYPE, RandomExceptionDirectoryReaderWrapper.<strong class="jxr_keyword">class</strong>.getName())
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>                 .put(EXCEPTION_TOP_LEVEL_RATIO_KEY, topLevelRate)
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>                 .put(EXCEPTION_LOW_LEVEL_RATIO_KEY, lowLevelRate)
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>                 .put(MockInternalEngineHolder.WRAP_READER_RATIO, 1.0d);
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>                 .put(MockInternalEngine.WRAP_READER_RATIO, 1.0d);
 <a class="jxr_linenumber" name="L237" href="#L237">237</a>         logger.info(<span class="jxr_string">"creating index: [test] using settings: [{}]"</span>, settings.build().getAsMap());
 <a class="jxr_linenumber" name="L238" href="#L238">238</a>         assertAcked(prepareCreate(<span class="jxr_string">"test"</span>)
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>                 .setSettings(settings)
@@ -296,7 +296,7 @@
 <a class="jxr_linenumber" name="L288" href="#L288">288</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String EXCEPTION_LOW_LEVEL_RATIO_KEY = <span class="jxr_string">"index.engine.exception.ratio.low"</span>;
 <a class="jxr_linenumber" name="L289" href="#L289">289</a> 
 <a class="jxr_linenumber" name="L290" href="#L290">290</a> 
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/elasticsearch/search/basic/SearchWithRandomExceptionsTests.html">RandomExceptionDirectoryReaderWrapper</a> <strong class="jxr_keyword">extends</strong> MockInternalEngineHolder.DirectoryReaderWrapper {
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/elasticsearch/search/basic/SearchWithRandomExceptionsTests.html">RandomExceptionDirectoryReaderWrapper</a> <strong class="jxr_keyword">extends</strong> MockInternalEngine.DirectoryReaderWrapper {
 <a class="jxr_linenumber" name="L292" href="#L292">292</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings;
 <a class="jxr_linenumber" name="L293" href="#L293">293</a> 
 <a class="jxr_linenumber" name="L294" href="#L294">294</a>         <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/elasticsearch/search/basic/SearchWithRandomExceptionsTests.html">ThrowingSubReaderWrapper</a> <strong class="jxr_keyword">extends</strong> SubReaderWrapper <strong class="jxr_keyword">implements</strong> ThrowingLeafReaderWrapper.Thrower {
@@ -362,6 +362,6 @@
 <a class="jxr_linenumber" name="L354" href="#L354">354</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

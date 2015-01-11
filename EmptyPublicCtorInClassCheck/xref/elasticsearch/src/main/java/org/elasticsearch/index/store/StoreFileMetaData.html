@@ -155,7 +155,7 @@
 <a class="jxr_linenumber" name="L147" href="#L147">147</a> <em class="jxr_javadoccomment">     * a Lucene version greater or equal to Lucene 4.8</em>
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> hasLegacyChecksum() {
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>         <strong class="jxr_keyword">return</strong> checksum != <strong class="jxr_keyword">null</strong> &amp;&amp; ((writtenBy != <strong class="jxr_keyword">null</strong>  &amp;&amp; writtenBy.onOrAfter(Version.LUCENE_4_8)) == false);
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>         <strong class="jxr_keyword">return</strong> checksum != <strong class="jxr_keyword">null</strong> &amp;&amp; (writtenBy == <strong class="jxr_keyword">null</strong> || writtenBy.onOrAfter(Version.LUCENE_4_8) == false);
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>     }
 <a class="jxr_linenumber" name="L152" href="#L152">152</a> 
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>     <em class="jxr_javadoccomment">/**</em>
@@ -168,6 +168,6 @@
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

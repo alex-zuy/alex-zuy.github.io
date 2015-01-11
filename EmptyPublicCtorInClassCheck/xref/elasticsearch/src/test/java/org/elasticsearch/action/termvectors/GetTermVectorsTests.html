@@ -219,7 +219,7 @@
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>             <a href="../../../../org/elasticsearch/action/termvectors/TermVectorsResponse.html">TermVectorsResponse</a> response = resp.execute().actionGet();
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>             assertThat(response.getIndex(), equalTo(<span class="jxr_string">"test"</span>));
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>             assertThat(<span class="jxr_string">"doc id: "</span> + i + <span class="jxr_string">" doesn't exists but should"</span>, response.isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>             <a href="../../../../org/elasticsearch/index/engine/SegmentsStats.html">Fields</a> fields = response.getFields();
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>             <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> fields = response.getFields();
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>             assertThat(fields.size(), equalTo(1));
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>             checkBrownFoxTermVector(fields, <span class="jxr_string">"field"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>         }
@@ -315,7 +315,7 @@
 <a class="jxr_linenumber" name="L307" href="#L307">307</a>                     .setPayloads(isPayloadRequested).setOffsets(isOffsetRequested).setPositions(isPositionsRequested).setSelectedFields();
 <a class="jxr_linenumber" name="L308" href="#L308">308</a>             <a href="../../../../org/elasticsearch/action/termvectors/TermVectorsResponse.html">TermVectorsResponse</a> response = resp.execute().actionGet();
 <a class="jxr_linenumber" name="L309" href="#L309">309</a>             assertThat(infoString + <span class="jxr_string">"doc id: "</span> + i + <span class="jxr_string">" doesn't exists but should"</span>, response.isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L310" href="#L310">310</a>             <a href="../../../../org/elasticsearch/index/engine/SegmentsStats.html">Fields</a> fields = response.getFields();
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>             <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> fields = response.getFields();
 <a class="jxr_linenumber" name="L311" href="#L311">311</a>             assertThat(fields.size(), equalTo(ft.storeTermVectors() ? 1 : 0));
 <a class="jxr_linenumber" name="L312" href="#L312">312</a>             <strong class="jxr_keyword">if</strong> (ft.storeTermVectors()) {
 <a class="jxr_linenumber" name="L313" href="#L313">313</a>                 Terms terms = fields.terms(<span class="jxr_string">"field"</span>);
@@ -405,7 +405,7 @@
 <a class="jxr_linenumber" name="L397" href="#L397">397</a>                 }
 <a class="jxr_linenumber" name="L398" href="#L398">398</a> 
 <a class="jxr_linenumber" name="L399" href="#L399">399</a>                 <a href="../../../../org/elasticsearch/action/termvectors/TermVectorsResponse.html">TermVectorsResponse</a> response = request.get();
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>                 <a href="../../../../org/elasticsearch/index/engine/SegmentsStats.html">Fields</a> luceneTermVectors = getTermVectorsFromLucene(directoryReader, test.doc);
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>                 <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> luceneTermVectors = getTermVectorsFromLucene(directoryReader, test.doc);
 <a class="jxr_linenumber" name="L401" href="#L401">401</a>                 validateResponse(response, luceneTermVectors, test);
 <a class="jxr_linenumber" name="L402" href="#L402">402</a>             } <strong class="jxr_keyword">catch</strong> (Throwable t) {
 <a class="jxr_linenumber" name="L403" href="#L403">403</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> Exception(<span class="jxr_string">"Test exception while running "</span> + test.toString(), t);
@@ -452,7 +452,7 @@
 <a class="jxr_linenumber" name="L444" href="#L444">444</a>                 .setPositions(<strong class="jxr_keyword">true</strong>).setSelectedFields();
 <a class="jxr_linenumber" name="L445" href="#L445">445</a>         <a href="../../../../org/elasticsearch/action/termvectors/TermVectorsResponse.html">TermVectorsResponse</a> response = resp.execute().actionGet();
 <a class="jxr_linenumber" name="L446" href="#L446">446</a>         assertThat(<span class="jxr_string">"doc id 1 doesn't exists but should"</span>, response.isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>         <a href="../../../../org/elasticsearch/index/engine/SegmentsStats.html">Fields</a> fields = response.getFields();
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>         <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> fields = response.getFields();
 <a class="jxr_linenumber" name="L448" href="#L448">448</a>         assertThat(fields.size(), equalTo(1));
 <a class="jxr_linenumber" name="L449" href="#L449">449</a>         Terms terms = fields.terms(<span class="jxr_string">"field"</span>);
 <a class="jxr_linenumber" name="L450" href="#L450">450</a>         TermsEnum iterator = terms.iterator(<strong class="jxr_keyword">null</strong>);
@@ -625,7 +625,7 @@
 <a class="jxr_linenumber" name="L617" href="#L617">617</a>                     .setSelectedFields(fieldNames)
 <a class="jxr_linenumber" name="L618" href="#L618">618</a>                     .execute().actionGet();
 <a class="jxr_linenumber" name="L619" href="#L619">619</a>             assertThat(<span class="jxr_string">"doc id: "</span> + i + <span class="jxr_string">" doesn't exists but should"</span>, response.isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L620" href="#L620">620</a>             <a href="../../../../org/elasticsearch/index/engine/SegmentsStats.html">Fields</a> fields = response.getFields();
+<a class="jxr_linenumber" name="L620" href="#L620">620</a>             <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> fields = response.getFields();
 <a class="jxr_linenumber" name="L621" href="#L621">621</a>             assertThat(fields.size(), equalTo(fieldNames.length));
 <a class="jxr_linenumber" name="L622" href="#L622">622</a>             <strong class="jxr_keyword">for</strong> (String fieldName : fieldNames) {
 <a class="jxr_linenumber" name="L623" href="#L623">623</a>                 <em class="jxr_comment">// MemoryIndex does not support payloads</em>
@@ -634,7 +634,7 @@
 <a class="jxr_linenumber" name="L626" href="#L626">626</a>         }
 <a class="jxr_linenumber" name="L627" href="#L627">627</a>     }
 <a class="jxr_linenumber" name="L628" href="#L628">628</a> 
-<a class="jxr_linenumber" name="L629" href="#L629">629</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkBrownFoxTermVector(<a href="../../../../org/elasticsearch/index/engine/SegmentsStats.html">Fields</a> fields, String fieldName, <strong class="jxr_keyword">boolean</strong> withPayloads) <strong class="jxr_keyword">throws</strong> ElasticsearchException, IOException {
+<a class="jxr_linenumber" name="L629" href="#L629">629</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkBrownFoxTermVector(<a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> fields, String fieldName, <strong class="jxr_keyword">boolean</strong> withPayloads) <strong class="jxr_keyword">throws</strong> ElasticsearchException, IOException {
 <a class="jxr_linenumber" name="L630" href="#L630">630</a>         String[] values = {<span class="jxr_string">"brown"</span>, <span class="jxr_string">"dog"</span>, <span class="jxr_string">"fox"</span>, <span class="jxr_string">"jumps"</span>, <span class="jxr_string">"lazy"</span>, <span class="jxr_string">"over"</span>, <span class="jxr_string">"quick"</span>, <span class="jxr_string">"the"</span>};
 <a class="jxr_linenumber" name="L631" href="#L631">631</a>         <strong class="jxr_keyword">int</strong>[] freq = {1, 1, 1, 1, 1, 1, 1, 2};
 <a class="jxr_linenumber" name="L632" href="#L632">632</a>         <strong class="jxr_keyword">int</strong>[][] pos = {{2}, {8}, {3}, {4}, {7}, {5}, {1}, {0, 6}};
@@ -708,7 +708,7 @@
 <a class="jxr_linenumber" name="L700" href="#L700">700</a> 
 <a class="jxr_linenumber" name="L701" href="#L701">701</a>         <em class="jxr_comment">// request tvs and compare from each index</em>
 <a class="jxr_linenumber" name="L702" href="#L702">702</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> id = 0; id &lt; content.length; id++) {
-<a class="jxr_linenumber" name="L703" href="#L703">703</a>             <a href="../../../../org/elasticsearch/index/engine/SegmentsStats.html">Fields</a>[] fields = <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/index/engine/SegmentsStats.html">Fields</a>[2];
+<a class="jxr_linenumber" name="L703" href="#L703">703</a>             <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a>[] fields = <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a>[2];
 <a class="jxr_linenumber" name="L704" href="#L704">704</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> j = 0; j &lt; indexNames.length; j++) {
 <a class="jxr_linenumber" name="L705" href="#L705">705</a>                 <a href="../../../../org/elasticsearch/action/termvectors/TermVectorsResponse.html">TermVectorsResponse</a> resp = client().prepareTermVector(indexNames[j], <span class="jxr_string">"type1"</span>, String.valueOf(id))
 <a class="jxr_linenumber" name="L706" href="#L706">706</a>                         .setOffsets(<strong class="jxr_keyword">true</strong>)
@@ -722,7 +722,7 @@
 <a class="jxr_linenumber" name="L714" href="#L714">714</a>         }
 <a class="jxr_linenumber" name="L715" href="#L715">715</a>     }
 <a class="jxr_linenumber" name="L716" href="#L716">716</a> 
-<a class="jxr_linenumber" name="L717" href="#L717">717</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> compareTermVectors(String fieldName, <a href="../../../../org/elasticsearch/index/engine/SegmentsStats.html">Fields</a> fields0, <a href="../../../../org/elasticsearch/index/engine/SegmentsStats.html">Fields</a> fields1) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L717" href="#L717">717</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> compareTermVectors(String fieldName, <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> fields0, <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> fields1) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L718" href="#L718">718</a>         Terms terms0 = fields0.terms(fieldName);
 <a class="jxr_linenumber" name="L719" href="#L719">719</a>         Terms terms1 = fields1.terms(fieldName);
 <a class="jxr_linenumber" name="L720" href="#L720">720</a>         assertThat(terms0, notNullValue());
@@ -999,7 +999,7 @@
 <a class="jxr_linenumber" name="L991" href="#L991">991</a>         checkAnalyzedFields(response.getFields(), selectedFields, perFieldAnalyzer);
 <a class="jxr_linenumber" name="L992" href="#L992">992</a>     }
 <a class="jxr_linenumber" name="L993" href="#L993">993</a> 
-<a class="jxr_linenumber" name="L994" href="#L994">994</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkAnalyzedFields(<a href="../../../../org/elasticsearch/index/engine/SegmentsStats.html">Fields</a> fieldsObject, Set&lt;String&gt; fieldNames, Map&lt;String, String&gt; perFieldAnalyzer) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L994" href="#L994">994</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkAnalyzedFields(<a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> fieldsObject, Set&lt;String&gt; fieldNames, Map&lt;String, String&gt; perFieldAnalyzer) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L995" href="#L995">995</a>         Set&lt;String&gt; validFields = <strong class="jxr_keyword">new</strong> HashSet&lt;&gt;();
 <a class="jxr_linenumber" name="L996" href="#L996">996</a>         <strong class="jxr_keyword">for</strong> (String fieldName : fieldNames){
 <a class="jxr_linenumber" name="L997" href="#L997">997</a>             <strong class="jxr_keyword">if</strong> (fieldName.startsWith(<span class="jxr_string">"non_existing"</span>)) {
@@ -1079,7 +1079,7 @@
 <a class="jxr_linenumber" name="L1071" href="#L1071">1071</a>         checkStats(response.getFields(), expectedStats, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L1072" href="#L1072">1072</a>     }
 <a class="jxr_linenumber" name="L1073" href="#L1073">1073</a> 
-<a class="jxr_linenumber" name="L1074" href="#L1074">1074</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkStats(<a href="../../../../org/elasticsearch/index/engine/SegmentsStats.html">Fields</a> fields, <a href="../../../../org/elasticsearch/common/xcontent/XContentBuilder.html">XContentBuilder</a> xContentBuilder, <strong class="jxr_keyword">boolean</strong> isEqual) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L1074" href="#L1074">1074</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkStats(<a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> fields, <a href="../../../../org/elasticsearch/common/xcontent/XContentBuilder.html">XContentBuilder</a> xContentBuilder, <strong class="jxr_keyword">boolean</strong> isEqual) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L1075" href="#L1075">1075</a>         Map&lt;String, Object&gt; stats = JsonXContent.jsonXContent.createParser(xContentBuilder.bytes()).map();
 <a class="jxr_linenumber" name="L1076" href="#L1076">1076</a>         assertThat(<span class="jxr_string">"number of fields expected:"</span>, fields.size(), equalTo(stats.size()));
 <a class="jxr_linenumber" name="L1077" href="#L1077">1077</a>         <strong class="jxr_keyword">for</strong> (String fieldName : fields) {
@@ -1235,6 +1235,6 @@
 <a class="jxr_linenumber" name="L1227" href="#L1227">1227</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

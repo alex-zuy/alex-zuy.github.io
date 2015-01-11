@@ -540,28 +540,25 @@
 <a class="jxr_linenumber" name="L532" href="#L532">532</a> 
 <a class="jxr_linenumber" name="L533" href="#L533">533</a>         @Override
 <a class="jxr_linenumber" name="L534" href="#L534">534</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> sendRequest(<a href="../../../org/elasticsearch/cluster/node/DiscoveryNode.html">DiscoveryNode</a> node, <strong class="jxr_keyword">long</strong> requestId, String action, <a href="../../../org/elasticsearch/transport/TransportRequest.html">TransportRequest</a> request, <a href="../../../org/elasticsearch/transport/TransportRequestOptions.html">TransportRequestOptions</a> options) <strong class="jxr_keyword">throws</strong> IOException, TransportException {
-<a class="jxr_linenumber" name="L535" href="#L535">535</a> <em class="jxr_comment">//            if (action.equals(RecoveryTarget.Actions.PREPARE_TRANSLOG)) {</em>
-<a class="jxr_linenumber" name="L536" href="#L536">536</a> <em class="jxr_comment">//                logger.debug("dropped [{}] to {}", action, node);</em>
-<a class="jxr_linenumber" name="L537" href="#L537">537</a>             <em class="jxr_comment">//} else</em>
-<a class="jxr_linenumber" name="L538" href="#L538">538</a>             <strong class="jxr_keyword">if</strong> (action.equals(RecoveryTarget.Actions.FILE_CHUNK)) {
-<a class="jxr_linenumber" name="L539" href="#L539">539</a>                 <a href="../../../org/elasticsearch/indices/recovery/RecoveryFileChunkRequest.html">RecoveryFileChunkRequest</a> chunkRequest = (RecoveryFileChunkRequest) request;
-<a class="jxr_linenumber" name="L540" href="#L540">540</a>                 <strong class="jxr_keyword">if</strong> (chunkRequest.name().startsWith(IndexFileNames.SEGMENTS)) {
-<a class="jxr_linenumber" name="L541" href="#L541">541</a>                     <em class="jxr_comment">// corrupting the segments_N files in order to make sure future recovery re-send files</em>
-<a class="jxr_linenumber" name="L542" href="#L542">542</a>                     logger.debug(<span class="jxr_string">"corrupting [{}] to {}. file name: [{}]"</span>, action, node, chunkRequest.name());
-<a class="jxr_linenumber" name="L543" href="#L543">543</a>                     byte[] array = chunkRequest.content().array();
-<a class="jxr_linenumber" name="L544" href="#L544">544</a>                     array[0] = (byte) ~array[0]; <em class="jxr_comment">// flip one byte in the content</em>
-<a class="jxr_linenumber" name="L545" href="#L545">545</a>                     corruptionCount.countDown();
-<a class="jxr_linenumber" name="L546" href="#L546">546</a>                 }
-<a class="jxr_linenumber" name="L547" href="#L547">547</a>                 transport.sendRequest(node, requestId, action, request, options);
-<a class="jxr_linenumber" name="L548" href="#L548">548</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L549" href="#L549">549</a>                 transport.sendRequest(node, requestId, action, request, options);
-<a class="jxr_linenumber" name="L550" href="#L550">550</a>             }
-<a class="jxr_linenumber" name="L551" href="#L551">551</a>         }
-<a class="jxr_linenumber" name="L552" href="#L552">552</a>     }
-<a class="jxr_linenumber" name="L553" href="#L553">553</a> 
-<a class="jxr_linenumber" name="L554" href="#L554">554</a> }
+<a class="jxr_linenumber" name="L535" href="#L535">535</a>             <strong class="jxr_keyword">if</strong> (action.equals(RecoveryTarget.Actions.FILE_CHUNK)) {
+<a class="jxr_linenumber" name="L536" href="#L536">536</a>                 <a href="../../../org/elasticsearch/indices/recovery/RecoveryFileChunkRequest.html">RecoveryFileChunkRequest</a> chunkRequest = (RecoveryFileChunkRequest) request;
+<a class="jxr_linenumber" name="L537" href="#L537">537</a>                 <strong class="jxr_keyword">if</strong> (chunkRequest.name().startsWith(IndexFileNames.SEGMENTS)) {
+<a class="jxr_linenumber" name="L538" href="#L538">538</a>                     <em class="jxr_comment">// corrupting the segments_N files in order to make sure future recovery re-send files</em>
+<a class="jxr_linenumber" name="L539" href="#L539">539</a>                     logger.debug(<span class="jxr_string">"corrupting [{}] to {}. file name: [{}]"</span>, action, node, chunkRequest.name());
+<a class="jxr_linenumber" name="L540" href="#L540">540</a>                     byte[] array = chunkRequest.content().array();
+<a class="jxr_linenumber" name="L541" href="#L541">541</a>                     array[0] = (byte) ~array[0]; <em class="jxr_comment">// flip one byte in the content</em>
+<a class="jxr_linenumber" name="L542" href="#L542">542</a>                     corruptionCount.countDown();
+<a class="jxr_linenumber" name="L543" href="#L543">543</a>                 }
+<a class="jxr_linenumber" name="L544" href="#L544">544</a>                 transport.sendRequest(node, requestId, action, request, options);
+<a class="jxr_linenumber" name="L545" href="#L545">545</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L546" href="#L546">546</a>                 transport.sendRequest(node, requestId, action, request, options);
+<a class="jxr_linenumber" name="L547" href="#L547">547</a>             }
+<a class="jxr_linenumber" name="L548" href="#L548">548</a>         }
+<a class="jxr_linenumber" name="L549" href="#L549">549</a>     }
+<a class="jxr_linenumber" name="L550" href="#L550">550</a> }
+<a class="jxr_linenumber" name="L551" href="#L551">551</a> 
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

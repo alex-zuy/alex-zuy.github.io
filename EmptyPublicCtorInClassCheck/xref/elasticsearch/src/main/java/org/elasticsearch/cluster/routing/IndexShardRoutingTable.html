@@ -484,106 +484,107 @@
 <a class="jxr_linenumber" name="L476" href="#L476">476</a>         <strong class="jxr_keyword">return</strong> shards;
 <a class="jxr_linenumber" name="L477" href="#L477">477</a>     }
 <a class="jxr_linenumber" name="L478" href="#L478">478</a> 
-<a class="jxr_linenumber" name="L479" href="#L479">479</a>     <strong class="jxr_keyword">public</strong> List&lt;ShardRouting&gt; shardsWithState(ShardRoutingState... states) {
-<a class="jxr_linenumber" name="L480" href="#L480">480</a>         List&lt;ShardRouting&gt; shards = newArrayList();
-<a class="jxr_linenumber" name="L481" href="#L481">481</a>         <strong class="jxr_keyword">for</strong> (ShardRouting shardEntry : <strong class="jxr_keyword">this</strong>) {
-<a class="jxr_linenumber" name="L482" href="#L482">482</a>             <strong class="jxr_keyword">for</strong> (ShardRoutingState state : states) {
-<a class="jxr_linenumber" name="L483" href="#L483">483</a>                 <strong class="jxr_keyword">if</strong> (shardEntry.state() == state) {
-<a class="jxr_linenumber" name="L484" href="#L484">484</a>                     shards.add(shardEntry);
-<a class="jxr_linenumber" name="L485" href="#L485">485</a>                 }
-<a class="jxr_linenumber" name="L486" href="#L486">486</a>             }
-<a class="jxr_linenumber" name="L487" href="#L487">487</a>         }
-<a class="jxr_linenumber" name="L488" href="#L488">488</a>         <strong class="jxr_keyword">return</strong> shards;
-<a class="jxr_linenumber" name="L489" href="#L489">489</a>     }
-<a class="jxr_linenumber" name="L490" href="#L490">490</a> 
-<a class="jxr_linenumber" name="L491" href="#L491">491</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a> {
-<a class="jxr_linenumber" name="L492" href="#L492">492</a> 
-<a class="jxr_linenumber" name="L493" href="#L493">493</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../org/elasticsearch/index/shard/ShardId.html">ShardId</a> shardId;
-<a class="jxr_linenumber" name="L494" href="#L494">494</a> 
-<a class="jxr_linenumber" name="L495" href="#L495">495</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> List&lt;ShardRouting&gt; shards;
-<a class="jxr_linenumber" name="L496" href="#L496">496</a> 
-<a class="jxr_linenumber" name="L497" href="#L497">497</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> primaryAllocatedPostApi;
-<a class="jxr_linenumber" name="L498" href="#L498">498</a> 
-<a class="jxr_linenumber" name="L499" href="#L499">499</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a>(<a href="../../../../org/elasticsearch/cluster/routing/IndexShardRoutingTable.html">IndexShardRoutingTable</a> indexShard) {
-<a class="jxr_linenumber" name="L500" href="#L500">500</a>             <strong class="jxr_keyword">this</strong>.shardId = indexShard.shardId;
-<a class="jxr_linenumber" name="L501" href="#L501">501</a>             <strong class="jxr_keyword">this</strong>.shards = newArrayList(indexShard.shards);
-<a class="jxr_linenumber" name="L502" href="#L502">502</a>             <strong class="jxr_keyword">this</strong>.primaryAllocatedPostApi = indexShard.primaryAllocatedPostApi();
-<a class="jxr_linenumber" name="L503" href="#L503">503</a>         }
-<a class="jxr_linenumber" name="L504" href="#L504">504</a> 
-<a class="jxr_linenumber" name="L505" href="#L505">505</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a>(<a href="../../../../org/elasticsearch/index/shard/ShardId.html">ShardId</a> shardId, <strong class="jxr_keyword">boolean</strong> primaryAllocatedPostApi) {
-<a class="jxr_linenumber" name="L506" href="#L506">506</a>             <strong class="jxr_keyword">this</strong>.shardId = shardId;
-<a class="jxr_linenumber" name="L507" href="#L507">507</a>             <strong class="jxr_keyword">this</strong>.shards = newArrayList();
-<a class="jxr_linenumber" name="L508" href="#L508">508</a>             <strong class="jxr_keyword">this</strong>.primaryAllocatedPostApi = primaryAllocatedPostApi;
-<a class="jxr_linenumber" name="L509" href="#L509">509</a>         }
-<a class="jxr_linenumber" name="L510" href="#L510">510</a> 
-<a class="jxr_linenumber" name="L511" href="#L511">511</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a> addShard(<a href="../../../../org/elasticsearch/cluster/routing/ImmutableShardRouting.html">ImmutableShardRouting</a> shardEntry) {
-<a class="jxr_linenumber" name="L512" href="#L512">512</a>             <strong class="jxr_keyword">for</strong> (ShardRouting shard : shards) {
-<a class="jxr_linenumber" name="L513" href="#L513">513</a>                 <em class="jxr_comment">// don't add two that map to the same node id</em>
-<a class="jxr_linenumber" name="L514" href="#L514">514</a>                 <em class="jxr_comment">// we rely on the fact that a node does not have primary and backup of the same shard</em>
-<a class="jxr_linenumber" name="L515" href="#L515">515</a>                 <strong class="jxr_keyword">if</strong> (shard.assignedToNode() &amp;&amp; shardEntry.assignedToNode()
-<a class="jxr_linenumber" name="L516" href="#L516">516</a>                         &amp;&amp; shard.currentNodeId().equals(shardEntry.currentNodeId())) {
-<a class="jxr_linenumber" name="L517" href="#L517">517</a>                     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
-<a class="jxr_linenumber" name="L518" href="#L518">518</a>                 }
-<a class="jxr_linenumber" name="L519" href="#L519">519</a>             }
-<a class="jxr_linenumber" name="L520" href="#L520">520</a>             shards.add(shardEntry);
-<a class="jxr_linenumber" name="L521" href="#L521">521</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
-<a class="jxr_linenumber" name="L522" href="#L522">522</a>         }
-<a class="jxr_linenumber" name="L523" href="#L523">523</a> 
-<a class="jxr_linenumber" name="L524" href="#L524">524</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a> removeShard(<a href="../../../../org/elasticsearch/cluster/routing/ShardRouting.html">ShardRouting</a> shardEntry) {
-<a class="jxr_linenumber" name="L525" href="#L525">525</a>             shards.remove(shardEntry);
-<a class="jxr_linenumber" name="L526" href="#L526">526</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
-<a class="jxr_linenumber" name="L527" href="#L527">527</a>         }
-<a class="jxr_linenumber" name="L528" href="#L528">528</a> 
-<a class="jxr_linenumber" name="L529" href="#L529">529</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/cluster/routing/IndexShardRoutingTable.html">IndexShardRoutingTable</a> build() {
-<a class="jxr_linenumber" name="L530" href="#L530">530</a>             <em class="jxr_comment">// we can automatically set allocatedPostApi to true if the primary is active</em>
-<a class="jxr_linenumber" name="L531" href="#L531">531</a>             <strong class="jxr_keyword">if</strong> (!primaryAllocatedPostApi) {
-<a class="jxr_linenumber" name="L532" href="#L532">532</a>                 <strong class="jxr_keyword">for</strong> (ShardRouting shardRouting : shards) {
-<a class="jxr_linenumber" name="L533" href="#L533">533</a>                     <strong class="jxr_keyword">if</strong> (shardRouting.primary() &amp;&amp; shardRouting.active()) {
-<a class="jxr_linenumber" name="L534" href="#L534">534</a>                         primaryAllocatedPostApi = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L535" href="#L535">535</a>                     }
-<a class="jxr_linenumber" name="L536" href="#L536">536</a>                 }
-<a class="jxr_linenumber" name="L537" href="#L537">537</a>             }
-<a class="jxr_linenumber" name="L538" href="#L538">538</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/cluster/routing/IndexShardRoutingTable.html">IndexShardRoutingTable</a>(shardId, ImmutableList.copyOf(shards), primaryAllocatedPostApi);
-<a class="jxr_linenumber" name="L539" href="#L539">539</a>         }
-<a class="jxr_linenumber" name="L540" href="#L540">540</a> 
-<a class="jxr_linenumber" name="L541" href="#L541">541</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/elasticsearch/cluster/routing/IndexShardRoutingTable.html">IndexShardRoutingTable</a> readFrom(<a href="../../../../org/elasticsearch/common/io/stream/StreamInput.html">StreamInput</a> in) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L542" href="#L542">542</a>             String index = in.readString();
-<a class="jxr_linenumber" name="L543" href="#L543">543</a>             <strong class="jxr_keyword">return</strong> readFromThin(in, index);
-<a class="jxr_linenumber" name="L544" href="#L544">544</a>         }
-<a class="jxr_linenumber" name="L545" href="#L545">545</a> 
-<a class="jxr_linenumber" name="L546" href="#L546">546</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/elasticsearch/cluster/routing/IndexShardRoutingTable.html">IndexShardRoutingTable</a> readFromThin(<a href="../../../../org/elasticsearch/common/io/stream/StreamInput.html">StreamInput</a> in, String index) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L547" href="#L547">547</a>             <strong class="jxr_keyword">int</strong> iShardId = in.readVInt();
-<a class="jxr_linenumber" name="L548" href="#L548">548</a>             <strong class="jxr_keyword">boolean</strong> allocatedPostApi = in.readBoolean();
-<a class="jxr_linenumber" name="L549" href="#L549">549</a>             <a href="../../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a> builder = <strong class="jxr_keyword">new</strong> <a href="../../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a>(<strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/index/shard/ShardId.html">ShardId</a>(index, iShardId), allocatedPostApi);
-<a class="jxr_linenumber" name="L550" href="#L550">550</a> 
-<a class="jxr_linenumber" name="L551" href="#L551">551</a>             <strong class="jxr_keyword">int</strong> size = in.readVInt();
-<a class="jxr_linenumber" name="L552" href="#L552">552</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; size; i++) {
-<a class="jxr_linenumber" name="L553" href="#L553">553</a>                 <a href="../../../../org/elasticsearch/cluster/routing/ImmutableShardRouting.html">ImmutableShardRouting</a> shard = ImmutableShardRouting.readShardRoutingEntry(in, index, iShardId);
-<a class="jxr_linenumber" name="L554" href="#L554">554</a>                 builder.addShard(shard);
-<a class="jxr_linenumber" name="L555" href="#L555">555</a>             }
-<a class="jxr_linenumber" name="L556" href="#L556">556</a> 
-<a class="jxr_linenumber" name="L557" href="#L557">557</a>             <strong class="jxr_keyword">return</strong> builder.build();
-<a class="jxr_linenumber" name="L558" href="#L558">558</a>         }
-<a class="jxr_linenumber" name="L559" href="#L559">559</a> 
-<a class="jxr_linenumber" name="L560" href="#L560">560</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../org/elasticsearch/cluster/routing/IndexShardRoutingTable.html">IndexShardRoutingTable</a> indexShard, <a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L561" href="#L561">561</a>             out.writeString(indexShard.shardId().index().name());
-<a class="jxr_linenumber" name="L562" href="#L562">562</a>             writeToThin(indexShard, out);
-<a class="jxr_linenumber" name="L563" href="#L563">563</a>         }
-<a class="jxr_linenumber" name="L564" href="#L564">564</a> 
-<a class="jxr_linenumber" name="L565" href="#L565">565</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> writeToThin(<a href="../../../../org/elasticsearch/cluster/routing/IndexShardRoutingTable.html">IndexShardRoutingTable</a> indexShard, <a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L566" href="#L566">566</a>             out.writeVInt(indexShard.shardId.id());
-<a class="jxr_linenumber" name="L567" href="#L567">567</a>             out.writeBoolean(indexShard.primaryAllocatedPostApi());
-<a class="jxr_linenumber" name="L568" href="#L568">568</a> 
-<a class="jxr_linenumber" name="L569" href="#L569">569</a>             out.writeVInt(indexShard.shards.size());
-<a class="jxr_linenumber" name="L570" href="#L570">570</a>             <strong class="jxr_keyword">for</strong> (ShardRouting entry : indexShard) {
-<a class="jxr_linenumber" name="L571" href="#L571">571</a>                 entry.writeToThin(out);
-<a class="jxr_linenumber" name="L572" href="#L572">572</a>             }
-<a class="jxr_linenumber" name="L573" href="#L573">573</a>         }
-<a class="jxr_linenumber" name="L574" href="#L574">574</a> 
-<a class="jxr_linenumber" name="L575" href="#L575">575</a>     }
-<a class="jxr_linenumber" name="L576" href="#L576">576</a> }
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>     <strong class="jxr_keyword">public</strong> List&lt;ShardRouting&gt; shardsWithState(<a href="../../../../org/elasticsearch/cluster/routing/ShardRoutingState.html">ShardRoutingState</a> state) {
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>         <strong class="jxr_keyword">if</strong> (state == ShardRoutingState.INITIALIZING) {
+<a class="jxr_linenumber" name="L481" href="#L481">481</a>             <strong class="jxr_keyword">return</strong> allInitializingShards;
+<a class="jxr_linenumber" name="L482" href="#L482">482</a>         }
+<a class="jxr_linenumber" name="L483" href="#L483">483</a>         List&lt;ShardRouting&gt; shards = newArrayList();
+<a class="jxr_linenumber" name="L484" href="#L484">484</a>         <strong class="jxr_keyword">for</strong> (ShardRouting shardEntry : <strong class="jxr_keyword">this</strong>) {
+<a class="jxr_linenumber" name="L485" href="#L485">485</a>             <strong class="jxr_keyword">if</strong> (shardEntry.state() == state) {
+<a class="jxr_linenumber" name="L486" href="#L486">486</a>                 shards.add(shardEntry);
+<a class="jxr_linenumber" name="L487" href="#L487">487</a>             }
+<a class="jxr_linenumber" name="L488" href="#L488">488</a>         }
+<a class="jxr_linenumber" name="L489" href="#L489">489</a>         <strong class="jxr_keyword">return</strong> shards;
+<a class="jxr_linenumber" name="L490" href="#L490">490</a>     }
+<a class="jxr_linenumber" name="L491" href="#L491">491</a> 
+<a class="jxr_linenumber" name="L492" href="#L492">492</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a> {
+<a class="jxr_linenumber" name="L493" href="#L493">493</a> 
+<a class="jxr_linenumber" name="L494" href="#L494">494</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../org/elasticsearch/index/shard/ShardId.html">ShardId</a> shardId;
+<a class="jxr_linenumber" name="L495" href="#L495">495</a> 
+<a class="jxr_linenumber" name="L496" href="#L496">496</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> List&lt;ShardRouting&gt; shards;
+<a class="jxr_linenumber" name="L497" href="#L497">497</a> 
+<a class="jxr_linenumber" name="L498" href="#L498">498</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> primaryAllocatedPostApi;
+<a class="jxr_linenumber" name="L499" href="#L499">499</a> 
+<a class="jxr_linenumber" name="L500" href="#L500">500</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a>(<a href="../../../../org/elasticsearch/cluster/routing/IndexShardRoutingTable.html">IndexShardRoutingTable</a> indexShard) {
+<a class="jxr_linenumber" name="L501" href="#L501">501</a>             <strong class="jxr_keyword">this</strong>.shardId = indexShard.shardId;
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>             <strong class="jxr_keyword">this</strong>.shards = newArrayList(indexShard.shards);
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>             <strong class="jxr_keyword">this</strong>.primaryAllocatedPostApi = indexShard.primaryAllocatedPostApi();
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>         }
+<a class="jxr_linenumber" name="L505" href="#L505">505</a> 
+<a class="jxr_linenumber" name="L506" href="#L506">506</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a>(<a href="../../../../org/elasticsearch/index/shard/ShardId.html">ShardId</a> shardId, <strong class="jxr_keyword">boolean</strong> primaryAllocatedPostApi) {
+<a class="jxr_linenumber" name="L507" href="#L507">507</a>             <strong class="jxr_keyword">this</strong>.shardId = shardId;
+<a class="jxr_linenumber" name="L508" href="#L508">508</a>             <strong class="jxr_keyword">this</strong>.shards = newArrayList();
+<a class="jxr_linenumber" name="L509" href="#L509">509</a>             <strong class="jxr_keyword">this</strong>.primaryAllocatedPostApi = primaryAllocatedPostApi;
+<a class="jxr_linenumber" name="L510" href="#L510">510</a>         }
+<a class="jxr_linenumber" name="L511" href="#L511">511</a> 
+<a class="jxr_linenumber" name="L512" href="#L512">512</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a> addShard(<a href="../../../../org/elasticsearch/cluster/routing/ImmutableShardRouting.html">ImmutableShardRouting</a> shardEntry) {
+<a class="jxr_linenumber" name="L513" href="#L513">513</a>             <strong class="jxr_keyword">for</strong> (ShardRouting shard : shards) {
+<a class="jxr_linenumber" name="L514" href="#L514">514</a>                 <em class="jxr_comment">// don't add two that map to the same node id</em>
+<a class="jxr_linenumber" name="L515" href="#L515">515</a>                 <em class="jxr_comment">// we rely on the fact that a node does not have primary and backup of the same shard</em>
+<a class="jxr_linenumber" name="L516" href="#L516">516</a>                 <strong class="jxr_keyword">if</strong> (shard.assignedToNode() &amp;&amp; shardEntry.assignedToNode()
+<a class="jxr_linenumber" name="L517" href="#L517">517</a>                         &amp;&amp; shard.currentNodeId().equals(shardEntry.currentNodeId())) {
+<a class="jxr_linenumber" name="L518" href="#L518">518</a>                     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
+<a class="jxr_linenumber" name="L519" href="#L519">519</a>                 }
+<a class="jxr_linenumber" name="L520" href="#L520">520</a>             }
+<a class="jxr_linenumber" name="L521" href="#L521">521</a>             shards.add(shardEntry);
+<a class="jxr_linenumber" name="L522" href="#L522">522</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
+<a class="jxr_linenumber" name="L523" href="#L523">523</a>         }
+<a class="jxr_linenumber" name="L524" href="#L524">524</a> 
+<a class="jxr_linenumber" name="L525" href="#L525">525</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a> removeShard(<a href="../../../../org/elasticsearch/cluster/routing/ShardRouting.html">ShardRouting</a> shardEntry) {
+<a class="jxr_linenumber" name="L526" href="#L526">526</a>             shards.remove(shardEntry);
+<a class="jxr_linenumber" name="L527" href="#L527">527</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
+<a class="jxr_linenumber" name="L528" href="#L528">528</a>         }
+<a class="jxr_linenumber" name="L529" href="#L529">529</a> 
+<a class="jxr_linenumber" name="L530" href="#L530">530</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/cluster/routing/IndexShardRoutingTable.html">IndexShardRoutingTable</a> build() {
+<a class="jxr_linenumber" name="L531" href="#L531">531</a>             <em class="jxr_comment">// we can automatically set allocatedPostApi to true if the primary is active</em>
+<a class="jxr_linenumber" name="L532" href="#L532">532</a>             <strong class="jxr_keyword">if</strong> (!primaryAllocatedPostApi) {
+<a class="jxr_linenumber" name="L533" href="#L533">533</a>                 <strong class="jxr_keyword">for</strong> (ShardRouting shardRouting : shards) {
+<a class="jxr_linenumber" name="L534" href="#L534">534</a>                     <strong class="jxr_keyword">if</strong> (shardRouting.primary() &amp;&amp; shardRouting.active()) {
+<a class="jxr_linenumber" name="L535" href="#L535">535</a>                         primaryAllocatedPostApi = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L536" href="#L536">536</a>                     }
+<a class="jxr_linenumber" name="L537" href="#L537">537</a>                 }
+<a class="jxr_linenumber" name="L538" href="#L538">538</a>             }
+<a class="jxr_linenumber" name="L539" href="#L539">539</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/cluster/routing/IndexShardRoutingTable.html">IndexShardRoutingTable</a>(shardId, ImmutableList.copyOf(shards), primaryAllocatedPostApi);
+<a class="jxr_linenumber" name="L540" href="#L540">540</a>         }
+<a class="jxr_linenumber" name="L541" href="#L541">541</a> 
+<a class="jxr_linenumber" name="L542" href="#L542">542</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/elasticsearch/cluster/routing/IndexShardRoutingTable.html">IndexShardRoutingTable</a> readFrom(<a href="../../../../org/elasticsearch/common/io/stream/StreamInput.html">StreamInput</a> in) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L543" href="#L543">543</a>             String index = in.readString();
+<a class="jxr_linenumber" name="L544" href="#L544">544</a>             <strong class="jxr_keyword">return</strong> readFromThin(in, index);
+<a class="jxr_linenumber" name="L545" href="#L545">545</a>         }
+<a class="jxr_linenumber" name="L546" href="#L546">546</a> 
+<a class="jxr_linenumber" name="L547" href="#L547">547</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/elasticsearch/cluster/routing/IndexShardRoutingTable.html">IndexShardRoutingTable</a> readFromThin(<a href="../../../../org/elasticsearch/common/io/stream/StreamInput.html">StreamInput</a> in, String index) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L548" href="#L548">548</a>             <strong class="jxr_keyword">int</strong> iShardId = in.readVInt();
+<a class="jxr_linenumber" name="L549" href="#L549">549</a>             <strong class="jxr_keyword">boolean</strong> allocatedPostApi = in.readBoolean();
+<a class="jxr_linenumber" name="L550" href="#L550">550</a>             <a href="../../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a> builder = <strong class="jxr_keyword">new</strong> <a href="../../../../com/google/common/collect/MinMaxPriorityQueue.html">Builder</a>(<strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/index/shard/ShardId.html">ShardId</a>(index, iShardId), allocatedPostApi);
+<a class="jxr_linenumber" name="L551" href="#L551">551</a> 
+<a class="jxr_linenumber" name="L552" href="#L552">552</a>             <strong class="jxr_keyword">int</strong> size = in.readVInt();
+<a class="jxr_linenumber" name="L553" href="#L553">553</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; size; i++) {
+<a class="jxr_linenumber" name="L554" href="#L554">554</a>                 <a href="../../../../org/elasticsearch/cluster/routing/ImmutableShardRouting.html">ImmutableShardRouting</a> shard = ImmutableShardRouting.readShardRoutingEntry(in, index, iShardId);
+<a class="jxr_linenumber" name="L555" href="#L555">555</a>                 builder.addShard(shard);
+<a class="jxr_linenumber" name="L556" href="#L556">556</a>             }
+<a class="jxr_linenumber" name="L557" href="#L557">557</a> 
+<a class="jxr_linenumber" name="L558" href="#L558">558</a>             <strong class="jxr_keyword">return</strong> builder.build();
+<a class="jxr_linenumber" name="L559" href="#L559">559</a>         }
+<a class="jxr_linenumber" name="L560" href="#L560">560</a> 
+<a class="jxr_linenumber" name="L561" href="#L561">561</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../org/elasticsearch/cluster/routing/IndexShardRoutingTable.html">IndexShardRoutingTable</a> indexShard, <a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L562" href="#L562">562</a>             out.writeString(indexShard.shardId().index().name());
+<a class="jxr_linenumber" name="L563" href="#L563">563</a>             writeToThin(indexShard, out);
+<a class="jxr_linenumber" name="L564" href="#L564">564</a>         }
+<a class="jxr_linenumber" name="L565" href="#L565">565</a> 
+<a class="jxr_linenumber" name="L566" href="#L566">566</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> writeToThin(<a href="../../../../org/elasticsearch/cluster/routing/IndexShardRoutingTable.html">IndexShardRoutingTable</a> indexShard, <a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L567" href="#L567">567</a>             out.writeVInt(indexShard.shardId.id());
+<a class="jxr_linenumber" name="L568" href="#L568">568</a>             out.writeBoolean(indexShard.primaryAllocatedPostApi());
+<a class="jxr_linenumber" name="L569" href="#L569">569</a> 
+<a class="jxr_linenumber" name="L570" href="#L570">570</a>             out.writeVInt(indexShard.shards.size());
+<a class="jxr_linenumber" name="L571" href="#L571">571</a>             <strong class="jxr_keyword">for</strong> (ShardRouting entry : indexShard) {
+<a class="jxr_linenumber" name="L572" href="#L572">572</a>                 entry.writeToThin(out);
+<a class="jxr_linenumber" name="L573" href="#L573">573</a>             }
+<a class="jxr_linenumber" name="L574" href="#L574">574</a>         }
+<a class="jxr_linenumber" name="L575" href="#L575">575</a> 
+<a class="jxr_linenumber" name="L576" href="#L576">576</a>     }
+<a class="jxr_linenumber" name="L577" href="#L577">577</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

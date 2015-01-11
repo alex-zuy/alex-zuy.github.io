@@ -141,19 +141,20 @@
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> checkConfig =
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>                 createCheckConfig(CustomDeclarationOrderCheck.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>         <strong class="jxr_keyword">final</strong> String[] expected = {
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>                        <span class="jxr_string">"10:5: "</span> + getCheckMessage(MSG_KEY_FIELD, <span class="jxr_string">"Field(private)"</span>, <span class="jxr_string">"Method(.*)"</span>),
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>                        <span class="jxr_string">"17:5: "</span> + getCheckMessage(MSG_KEY_FIELD, <span class="jxr_string">"Field(private)"</span>, <span class="jxr_string">"Method(.*)"</span>),
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>         };
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>         checkConfig.addAttribute(
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>                         <span class="jxr_string">"customDeclarationOrder"</span>,
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>                         <span class="jxr_string">"Field(private) ### Field(public) ### MainMethod() ### Method(.*)"</span>
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>                         );
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>         checkConfig.addAttribute(<span class="jxr_string">"caseSensitive"</span>, <span class="jxr_string">"false"</span>);
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>         verify(checkConfig, getPath(<span class="jxr_string">"InputCustomDeclarationOrderCheckMainMethod.java"</span>), expected);
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>     }
-<a class="jxr_linenumber" name="L146" href="#L146">146</a> }
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>                 <span class="jxr_string">"10:5: "</span> + getCheckMessage(MSG_KEY_FIELD, <span class="jxr_string">"Field(private)"</span>, <span class="jxr_string">"MainMethod(.*)"</span>),
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>                 <span class="jxr_string">"17:5: "</span> + getCheckMessage(MSG_KEY_FIELD, <span class="jxr_string">"Field(private)"</span>, <span class="jxr_string">"MainMethod(.*)"</span>),
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>                 <span class="jxr_string">"23:5: "</span> + getCheckMessage(MSG_KEY_METHOD, <span class="jxr_string">"MainMethod(.*)"</span>, <span class="jxr_string">"Method(.*)"</span>),
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>         };
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>         checkConfig.addAttribute(
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>                         <span class="jxr_string">"customDeclarationOrder"</span>,
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>                         <span class="jxr_string">"Field(private) ### Field(public) ### MainMethod(.*) ### Method(.*)"</span>
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>                         );
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>         checkConfig.addAttribute(<span class="jxr_string">"caseSensitive"</span>, <span class="jxr_string">"false"</span>);
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>         verify(checkConfig, getPath(<span class="jxr_string">"InputCustomDeclarationOrderCheckMainMethod.java"</span>), expected);
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>     }
+<a class="jxr_linenumber" name="L147" href="#L147">147</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

@@ -360,12 +360,12 @@
 <a class="jxr_linenumber" name="L352" href="#L352">352</a>                 FieldMapperListener.Aggregator fieldMappersAgg = <strong class="jxr_keyword">new</strong> FieldMapperListener.Aggregator();
 <a class="jxr_linenumber" name="L353" href="#L353">353</a>                 mapper.traverse(fieldMappersAgg);
 <a class="jxr_linenumber" name="L354" href="#L354">354</a>                 addFieldMappers(fieldMappersAgg.mappers);
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>                 mapper.addFieldMapperListener(fieldMapperListener, false);
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>                 mapper.addFieldMapperListener(fieldMapperListener);
 <a class="jxr_linenumber" name="L356" href="#L356">356</a> 
 <a class="jxr_linenumber" name="L357" href="#L357">357</a>                 ObjectMapperListener.Aggregator objectMappersAgg = <strong class="jxr_keyword">new</strong> ObjectMapperListener.Aggregator();
 <a class="jxr_linenumber" name="L358" href="#L358">358</a>                 mapper.traverse(objectMappersAgg);
 <a class="jxr_linenumber" name="L359" href="#L359">359</a>                 addObjectMappers(objectMappersAgg.mappers.toArray(<strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/index/mapper/object/ObjectMapper.html">ObjectMapper</a>[objectMappersAgg.mappers.size()]));
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>                 mapper.addObjectMapperListener(objectMapperListener, false);
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>                 mapper.addObjectMapperListener(objectMapperListener);
 <a class="jxr_linenumber" name="L361" href="#L361">361</a> 
 <a class="jxr_linenumber" name="L362" href="#L362">362</a>                 <strong class="jxr_keyword">for</strong> (DocumentTypeListener typeListener : typeListeners) {
 <a class="jxr_linenumber" name="L363" href="#L363">363</a>                     typeListener.beforeCreate(mapper);
@@ -1167,6 +1167,6 @@
 <a class="jxr_linenumber" name="L1159" href="#L1159">1159</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

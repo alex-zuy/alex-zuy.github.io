@@ -125,25 +125,40 @@
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"doc"</span>, <span class="jxr_string">"3"</span>).setSource(<span class="jxr_string">"foo"</span>, <span class="jxr_string">"dog spiders that can eat a dog"</span>, <span class="jxr_string">"bar"</span>, 3).get();
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>         refresh();
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> 
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>         <em class="jxr_comment">// _score access</em>
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>         <a href="../../../org/elasticsearch/action/search/SearchResponse.html">SearchResponse</a> resp = client().prepareSearch(<span class="jxr_string">"test"</span>).setQuery(functionScoreQuery(matchQuery(<span class="jxr_string">"foo"</span>, <span class="jxr_string">"dog"</span>))
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>                 .add(scriptFunction(<span class="jxr_string">"_score"</span>, <span class="jxr_string">"groovy"</span>))
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>                 .boostMode(CombineFunction.REPLACE)).get();
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>         <em class="jxr_comment">// doc[] access</em>
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>         <a href="../../../org/elasticsearch/action/search/SearchResponse.html">SearchResponse</a> resp = client().prepareSearch(<span class="jxr_string">"test"</span>).setQuery(functionScoreQuery(matchAllQuery())
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>             .add(scriptFunction(<span class="jxr_string">"doc['bar'].value"</span>, <span class="jxr_string">"groovy"</span>))
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>             .boostMode(CombineFunction.REPLACE)).get();
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> 
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         assertNoFailures(resp);
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>         assertSearchHits(resp, <span class="jxr_string">"3"</span>, <span class="jxr_string">"1"</span>);
-<a class="jxr_linenumber" name="L127" href="#L127">127</a> 
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>         <em class="jxr_comment">// doc[] access</em>
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>         resp = client().prepareSearch(<span class="jxr_string">"test"</span>).setQuery(functionScoreQuery(matchAllQuery())
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>                 .add(scriptFunction(<span class="jxr_string">"doc['bar'].value"</span>, <span class="jxr_string">"groovy"</span>))
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>                 .boostMode(CombineFunction.REPLACE)).get();
-<a class="jxr_linenumber" name="L132" href="#L132">132</a> 
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>         assertNoFailures(resp);
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>         assertOrderedSearchHits(resp, <span class="jxr_string">"3"</span>, <span class="jxr_string">"2"</span>, <span class="jxr_string">"1"</span>);
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>     }
-<a class="jxr_linenumber" name="L136" href="#L136">136</a> }
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>         assertOrderedSearchHits(resp, <span class="jxr_string">"3"</span>, <span class="jxr_string">"2"</span>, <span class="jxr_string">"1"</span>);
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>     }
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>     
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testScoreAccess() {
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"doc"</span>, <span class="jxr_string">"1"</span>).setSource(<span class="jxr_string">"foo"</span>, <span class="jxr_string">"quick brow fox jumped over the lazy dog"</span>, <span class="jxr_string">"bar"</span>, 1).get();
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"doc"</span>, <span class="jxr_string">"2"</span>).setSource(<span class="jxr_string">"foo"</span>, <span class="jxr_string">"fast jumping spiders"</span>, <span class="jxr_string">"bar"</span>, 2).get();
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"doc"</span>, <span class="jxr_string">"3"</span>).setSource(<span class="jxr_string">"foo"</span>, <span class="jxr_string">"dog spiders that can eat a dog"</span>, <span class="jxr_string">"bar"</span>, 3).get();
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>         refresh();
+<a class="jxr_linenumber" name="L134" href="#L134">134</a> 
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>         <em class="jxr_comment">// _score can be accessed</em>
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>         <a href="../../../org/elasticsearch/action/search/SearchResponse.html">SearchResponse</a> resp = client().prepareSearch(<span class="jxr_string">"test"</span>).setQuery(functionScoreQuery(matchQuery(<span class="jxr_string">"foo"</span>, <span class="jxr_string">"dog"</span>))
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>             .add(scriptFunction(<span class="jxr_string">"_score"</span>, <span class="jxr_string">"groovy"</span>))
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>             .boostMode(CombineFunction.REPLACE)).get();
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>         assertNoFailures(resp);
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>         assertSearchHits(resp, <span class="jxr_string">"3"</span>, <span class="jxr_string">"1"</span>);
+<a class="jxr_linenumber" name="L141" href="#L141">141</a> 
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>         <em class="jxr_comment">// _score is comparable</em>
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>         <em class="jxr_comment">// NOTE: it is important to use 0.0 instead of 0 instead Groovy will do an integer comparison</em>
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>         <em class="jxr_comment">// and if the score if between 0 and 1 it will be considered equal to 0 due to the cast</em>
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>         resp = client().prepareSearch(<span class="jxr_string">"test"</span>).setQuery(functionScoreQuery(matchQuery(<span class="jxr_string">"foo"</span>, <span class="jxr_string">"dog"</span>))
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>             .add(scriptFunction(<span class="jxr_string">"_score &gt; 0.0 ? _score : 0"</span>, <span class="jxr_string">"groovy"</span>))
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>             .boostMode(CombineFunction.REPLACE)).get();
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>         assertNoFailures(resp);
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>         assertSearchHits(resp, <span class="jxr_string">"3"</span>, <span class="jxr_string">"1"</span>);
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>     }
+<a class="jxr_linenumber" name="L151" href="#L151">151</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

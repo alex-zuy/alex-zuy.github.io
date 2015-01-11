@@ -207,152 +207,156 @@
 <a class="jxr_linenumber" name="L199" href="#L199">199</a> 		}
 <a class="jxr_linenumber" name="L200" href="#L200">200</a> 		<strong class="jxr_keyword">for</strong> (ApplicationListener&lt;?&gt; listener : listeners) {
 <a class="jxr_linenumber" name="L201" href="#L201">201</a> 			<strong class="jxr_keyword">if</strong> (supportsEvent(listener, event.getClass(), sourceType)) {
-<a class="jxr_linenumber" name="L202" href="#L202">202</a> 				retriever.applicationListeners.add(listener);
-<a class="jxr_linenumber" name="L203" href="#L203">203</a> 				allListeners.add(listener);
-<a class="jxr_linenumber" name="L204" href="#L204">204</a> 			}
-<a class="jxr_linenumber" name="L205" href="#L205">205</a> 		}
-<a class="jxr_linenumber" name="L206" href="#L206">206</a> 		<strong class="jxr_keyword">if</strong> (!listenerBeans.isEmpty()) {
-<a class="jxr_linenumber" name="L207" href="#L207">207</a> 			BeanFactory beanFactory = getBeanFactory();
-<a class="jxr_linenumber" name="L208" href="#L208">208</a> 			<strong class="jxr_keyword">for</strong> (String listenerBeanName : listenerBeans) {
-<a class="jxr_linenumber" name="L209" href="#L209">209</a> 				<strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L210" href="#L210">210</a> 					Class&lt;?&gt; listenerType = beanFactory.getType(listenerBeanName);
-<a class="jxr_linenumber" name="L211" href="#L211">211</a> 					<strong class="jxr_keyword">if</strong> (listenerType == <strong class="jxr_keyword">null</strong> || supportsEvent(listenerType, event)) {
-<a class="jxr_linenumber" name="L212" href="#L212">212</a> 						ApplicationListener&lt;?&gt; listener =
-<a class="jxr_linenumber" name="L213" href="#L213">213</a> 								beanFactory.getBean(listenerBeanName, ApplicationListener.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L214" href="#L214">214</a> 						<strong class="jxr_keyword">if</strong> (!allListeners.contains(listener) &amp;&amp; supportsEvent(listener, event.getClass(), sourceType)) {
-<a class="jxr_linenumber" name="L215" href="#L215">215</a> 							retriever.applicationListenerBeans.add(listenerBeanName);
-<a class="jxr_linenumber" name="L216" href="#L216">216</a> 							allListeners.add(listener);
-<a class="jxr_linenumber" name="L217" href="#L217">217</a> 						}
-<a class="jxr_linenumber" name="L218" href="#L218">218</a> 					}
-<a class="jxr_linenumber" name="L219" href="#L219">219</a> 				}
-<a class="jxr_linenumber" name="L220" href="#L220">220</a> 				<strong class="jxr_keyword">catch</strong> (NoSuchBeanDefinitionException ex) {
-<a class="jxr_linenumber" name="L221" href="#L221">221</a> 					<em class="jxr_comment">// Singleton listener instance (without backing bean definition) disappeared -</em>
-<a class="jxr_linenumber" name="L222" href="#L222">222</a> 					<em class="jxr_comment">// probably in the middle of the destruction phase</em>
+<a class="jxr_linenumber" name="L202" href="#L202">202</a> 				<strong class="jxr_keyword">if</strong> (retriever != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L203" href="#L203">203</a> 					retriever.applicationListeners.add(listener);
+<a class="jxr_linenumber" name="L204" href="#L204">204</a> 				}
+<a class="jxr_linenumber" name="L205" href="#L205">205</a> 				allListeners.add(listener);
+<a class="jxr_linenumber" name="L206" href="#L206">206</a> 			}
+<a class="jxr_linenumber" name="L207" href="#L207">207</a> 		}
+<a class="jxr_linenumber" name="L208" href="#L208">208</a> 		<strong class="jxr_keyword">if</strong> (!listenerBeans.isEmpty()) {
+<a class="jxr_linenumber" name="L209" href="#L209">209</a> 			BeanFactory beanFactory = getBeanFactory();
+<a class="jxr_linenumber" name="L210" href="#L210">210</a> 			<strong class="jxr_keyword">for</strong> (String listenerBeanName : listenerBeans) {
+<a class="jxr_linenumber" name="L211" href="#L211">211</a> 				<strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L212" href="#L212">212</a> 					Class&lt;?&gt; listenerType = beanFactory.getType(listenerBeanName);
+<a class="jxr_linenumber" name="L213" href="#L213">213</a> 					<strong class="jxr_keyword">if</strong> (listenerType == <strong class="jxr_keyword">null</strong> || supportsEvent(listenerType, event)) {
+<a class="jxr_linenumber" name="L214" href="#L214">214</a> 						ApplicationListener&lt;?&gt; listener =
+<a class="jxr_linenumber" name="L215" href="#L215">215</a> 								beanFactory.getBean(listenerBeanName, ApplicationListener.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L216" href="#L216">216</a> 						<strong class="jxr_keyword">if</strong> (!allListeners.contains(listener) &amp;&amp; supportsEvent(listener, event.getClass(), sourceType)) {
+<a class="jxr_linenumber" name="L217" href="#L217">217</a> 							<strong class="jxr_keyword">if</strong> (retriever != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L218" href="#L218">218</a> 								retriever.applicationListenerBeans.add(listenerBeanName);
+<a class="jxr_linenumber" name="L219" href="#L219">219</a> 							}
+<a class="jxr_linenumber" name="L220" href="#L220">220</a> 							allListeners.add(listener);
+<a class="jxr_linenumber" name="L221" href="#L221">221</a> 						}
+<a class="jxr_linenumber" name="L222" href="#L222">222</a> 					}
 <a class="jxr_linenumber" name="L223" href="#L223">223</a> 				}
-<a class="jxr_linenumber" name="L224" href="#L224">224</a> 			}
-<a class="jxr_linenumber" name="L225" href="#L225">225</a> 		}
-<a class="jxr_linenumber" name="L226" href="#L226">226</a> 		OrderComparator.sort(allListeners);
-<a class="jxr_linenumber" name="L227" href="#L227">227</a> 		<strong class="jxr_keyword">return</strong> allListeners;
-<a class="jxr_linenumber" name="L228" href="#L228">228</a> 	}
-<a class="jxr_linenumber" name="L229" href="#L229">229</a> 
-<a class="jxr_linenumber" name="L230" href="#L230">230</a> 	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L231" href="#L231">231</a> <em class="jxr_javadoccomment">	 * Filter a listener early through checking its generically declared event</em>
-<a class="jxr_linenumber" name="L232" href="#L232">232</a> <em class="jxr_javadoccomment">	 * type before trying to instantiate it.</em>
-<a class="jxr_linenumber" name="L233" href="#L233">233</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;If this method returns {@code true} for a given listener as a first pass,</em>
-<a class="jxr_linenumber" name="L234" href="#L234">234</a> <em class="jxr_javadoccomment">	 * the listener instance will get retrieved and fully evaluated through a</em>
-<a class="jxr_linenumber" name="L235" href="#L235">235</a> <em class="jxr_javadoccomment">	 * {@link #supportsEvent(ApplicationListener, Class, Class)} call afterwards.</em>
-<a class="jxr_linenumber" name="L236" href="#L236">236</a> <em class="jxr_javadoccomment">	 * @param listenerType the listener's type as determined by the BeanFactory</em>
-<a class="jxr_linenumber" name="L237" href="#L237">237</a> <em class="jxr_javadoccomment">	 * @param event the event to check</em>
-<a class="jxr_linenumber" name="L238" href="#L238">238</a> <em class="jxr_javadoccomment">	 * @return whether the given listener should be included in the candidates</em>
-<a class="jxr_linenumber" name="L239" href="#L239">239</a> <em class="jxr_javadoccomment">	 * for the given event type</em>
-<a class="jxr_linenumber" name="L240" href="#L240">240</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L241" href="#L241">241</a> 	<strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">boolean</strong> supportsEvent(Class&lt;?&gt; listenerType, <a href="../../../../org/springframework/context/ApplicationEvent.html">ApplicationEvent</a> event) {
-<a class="jxr_linenumber" name="L242" href="#L242">242</a> 		<strong class="jxr_keyword">if</strong> (SmartApplicationListener.<strong class="jxr_keyword">class</strong>.isAssignableFrom(listenerType)) {
-<a class="jxr_linenumber" name="L243" href="#L243">243</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L244" href="#L244">244</a> 		}
-<a class="jxr_linenumber" name="L245" href="#L245">245</a> 		Class&lt;?&gt; declaredEventType = GenericApplicationListenerAdapter.resolveDeclaredEventType(listenerType);
-<a class="jxr_linenumber" name="L246" href="#L246">246</a> 		<strong class="jxr_keyword">return</strong> (declaredEventType == <strong class="jxr_keyword">null</strong> || declaredEventType.isInstance(event));
-<a class="jxr_linenumber" name="L247" href="#L247">247</a> 	}
-<a class="jxr_linenumber" name="L248" href="#L248">248</a> 
-<a class="jxr_linenumber" name="L249" href="#L249">249</a> 	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L250" href="#L250">250</a> <em class="jxr_javadoccomment">	 * Determine whether the given listener supports the given event.</em>
-<a class="jxr_linenumber" name="L251" href="#L251">251</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;The default implementation detects the {@link SmartApplicationListener}</em>
-<a class="jxr_linenumber" name="L252" href="#L252">252</a> <em class="jxr_javadoccomment">	 * interface. In case of a standard {@link ApplicationListener}, a</em>
-<a class="jxr_linenumber" name="L253" href="#L253">253</a> <em class="jxr_javadoccomment">	 * {@link GenericApplicationListenerAdapter} will be used to introspect</em>
-<a class="jxr_linenumber" name="L254" href="#L254">254</a> <em class="jxr_javadoccomment">	 * the generically declared type of the target listener.</em>
-<a class="jxr_linenumber" name="L255" href="#L255">255</a> <em class="jxr_javadoccomment">	 * @param listener the target listener to check</em>
-<a class="jxr_linenumber" name="L256" href="#L256">256</a> <em class="jxr_javadoccomment">	 * @param eventType the event type to check against</em>
-<a class="jxr_linenumber" name="L257" href="#L257">257</a> <em class="jxr_javadoccomment">	 * @param sourceType the source type to check against</em>
-<a class="jxr_linenumber" name="L258" href="#L258">258</a> <em class="jxr_javadoccomment">	 * @return whether the given listener should be included in the candidates</em>
-<a class="jxr_linenumber" name="L259" href="#L259">259</a> <em class="jxr_javadoccomment">	 * for the given event type</em>
-<a class="jxr_linenumber" name="L260" href="#L260">260</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L261" href="#L261">261</a> 	<strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">boolean</strong> supportsEvent(ApplicationListener&lt;?&gt; listener,
-<a class="jxr_linenumber" name="L262" href="#L262">262</a> 			Class&lt;? <strong class="jxr_keyword">extends</strong> ApplicationEvent&gt; eventType, Class&lt;?&gt; sourceType) {
-<a class="jxr_linenumber" name="L263" href="#L263">263</a> 
-<a class="jxr_linenumber" name="L264" href="#L264">264</a> 		SmartApplicationListener smartListener = (listener instanceof SmartApplicationListener ?
-<a class="jxr_linenumber" name="L265" href="#L265">265</a> 				(<a href="../../../../org/springframework/context/event/SmartApplicationListener.html">SmartApplicationListener</a>) listener : <strong class="jxr_keyword">new</strong> GenericApplicationListenerAdapter(listener));
-<a class="jxr_linenumber" name="L266" href="#L266">266</a> 		<strong class="jxr_keyword">return</strong> (smartListener.supportsEventType(eventType) &amp;&amp; smartListener.supportsSourceType(sourceType));
-<a class="jxr_linenumber" name="L267" href="#L267">267</a> 	}
-<a class="jxr_linenumber" name="L268" href="#L268">268</a> 
-<a class="jxr_linenumber" name="L269" href="#L269">269</a> 
-<a class="jxr_linenumber" name="L270" href="#L270">270</a> 	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L271" href="#L271">271</a> <em class="jxr_javadoccomment">	 * Cache key for ListenerRetrievers, based on event type and source type.</em>
-<a class="jxr_linenumber" name="L272" href="#L272">272</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L273" href="#L273">273</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/springframework/context/event/AbstractApplicationEventMulticaster.html">ListenerCacheKey</a> {
-<a class="jxr_linenumber" name="L274" href="#L274">274</a> 
-<a class="jxr_linenumber" name="L275" href="#L275">275</a> 		<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Class&lt;?&gt; eventType;
-<a class="jxr_linenumber" name="L276" href="#L276">276</a> 
-<a class="jxr_linenumber" name="L277" href="#L277">277</a> 		<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Class&lt;?&gt; sourceType;
+<a class="jxr_linenumber" name="L224" href="#L224">224</a> 				<strong class="jxr_keyword">catch</strong> (NoSuchBeanDefinitionException ex) {
+<a class="jxr_linenumber" name="L225" href="#L225">225</a> 					<em class="jxr_comment">// Singleton listener instance (without backing bean definition) disappeared -</em>
+<a class="jxr_linenumber" name="L226" href="#L226">226</a> 					<em class="jxr_comment">// probably in the middle of the destruction phase</em>
+<a class="jxr_linenumber" name="L227" href="#L227">227</a> 				}
+<a class="jxr_linenumber" name="L228" href="#L228">228</a> 			}
+<a class="jxr_linenumber" name="L229" href="#L229">229</a> 		}
+<a class="jxr_linenumber" name="L230" href="#L230">230</a> 		OrderComparator.sort(allListeners);
+<a class="jxr_linenumber" name="L231" href="#L231">231</a> 		<strong class="jxr_keyword">return</strong> allListeners;
+<a class="jxr_linenumber" name="L232" href="#L232">232</a> 	}
+<a class="jxr_linenumber" name="L233" href="#L233">233</a> 
+<a class="jxr_linenumber" name="L234" href="#L234">234</a> 	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L235" href="#L235">235</a> <em class="jxr_javadoccomment">	 * Filter a listener early through checking its generically declared event</em>
+<a class="jxr_linenumber" name="L236" href="#L236">236</a> <em class="jxr_javadoccomment">	 * type before trying to instantiate it.</em>
+<a class="jxr_linenumber" name="L237" href="#L237">237</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;If this method returns {@code true} for a given listener as a first pass,</em>
+<a class="jxr_linenumber" name="L238" href="#L238">238</a> <em class="jxr_javadoccomment">	 * the listener instance will get retrieved and fully evaluated through a</em>
+<a class="jxr_linenumber" name="L239" href="#L239">239</a> <em class="jxr_javadoccomment">	 * {@link #supportsEvent(ApplicationListener, Class, Class)} call afterwards.</em>
+<a class="jxr_linenumber" name="L240" href="#L240">240</a> <em class="jxr_javadoccomment">	 * @param listenerType the listener's type as determined by the BeanFactory</em>
+<a class="jxr_linenumber" name="L241" href="#L241">241</a> <em class="jxr_javadoccomment">	 * @param event the event to check</em>
+<a class="jxr_linenumber" name="L242" href="#L242">242</a> <em class="jxr_javadoccomment">	 * @return whether the given listener should be included in the candidates</em>
+<a class="jxr_linenumber" name="L243" href="#L243">243</a> <em class="jxr_javadoccomment">	 * for the given event type</em>
+<a class="jxr_linenumber" name="L244" href="#L244">244</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L245" href="#L245">245</a> 	<strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">boolean</strong> supportsEvent(Class&lt;?&gt; listenerType, <a href="../../../../org/springframework/context/ApplicationEvent.html">ApplicationEvent</a> event) {
+<a class="jxr_linenumber" name="L246" href="#L246">246</a> 		<strong class="jxr_keyword">if</strong> (SmartApplicationListener.<strong class="jxr_keyword">class</strong>.isAssignableFrom(listenerType)) {
+<a class="jxr_linenumber" name="L247" href="#L247">247</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L248" href="#L248">248</a> 		}
+<a class="jxr_linenumber" name="L249" href="#L249">249</a> 		Class&lt;?&gt; declaredEventType = GenericApplicationListenerAdapter.resolveDeclaredEventType(listenerType);
+<a class="jxr_linenumber" name="L250" href="#L250">250</a> 		<strong class="jxr_keyword">return</strong> (declaredEventType == <strong class="jxr_keyword">null</strong> || declaredEventType.isInstance(event));
+<a class="jxr_linenumber" name="L251" href="#L251">251</a> 	}
+<a class="jxr_linenumber" name="L252" href="#L252">252</a> 
+<a class="jxr_linenumber" name="L253" href="#L253">253</a> 	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L254" href="#L254">254</a> <em class="jxr_javadoccomment">	 * Determine whether the given listener supports the given event.</em>
+<a class="jxr_linenumber" name="L255" href="#L255">255</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;The default implementation detects the {@link SmartApplicationListener}</em>
+<a class="jxr_linenumber" name="L256" href="#L256">256</a> <em class="jxr_javadoccomment">	 * interface. In case of a standard {@link ApplicationListener}, a</em>
+<a class="jxr_linenumber" name="L257" href="#L257">257</a> <em class="jxr_javadoccomment">	 * {@link GenericApplicationListenerAdapter} will be used to introspect</em>
+<a class="jxr_linenumber" name="L258" href="#L258">258</a> <em class="jxr_javadoccomment">	 * the generically declared type of the target listener.</em>
+<a class="jxr_linenumber" name="L259" href="#L259">259</a> <em class="jxr_javadoccomment">	 * @param listener the target listener to check</em>
+<a class="jxr_linenumber" name="L260" href="#L260">260</a> <em class="jxr_javadoccomment">	 * @param eventType the event type to check against</em>
+<a class="jxr_linenumber" name="L261" href="#L261">261</a> <em class="jxr_javadoccomment">	 * @param sourceType the source type to check against</em>
+<a class="jxr_linenumber" name="L262" href="#L262">262</a> <em class="jxr_javadoccomment">	 * @return whether the given listener should be included in the candidates</em>
+<a class="jxr_linenumber" name="L263" href="#L263">263</a> <em class="jxr_javadoccomment">	 * for the given event type</em>
+<a class="jxr_linenumber" name="L264" href="#L264">264</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L265" href="#L265">265</a> 	<strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">boolean</strong> supportsEvent(ApplicationListener&lt;?&gt; listener,
+<a class="jxr_linenumber" name="L266" href="#L266">266</a> 			Class&lt;? <strong class="jxr_keyword">extends</strong> ApplicationEvent&gt; eventType, Class&lt;?&gt; sourceType) {
+<a class="jxr_linenumber" name="L267" href="#L267">267</a> 
+<a class="jxr_linenumber" name="L268" href="#L268">268</a> 		SmartApplicationListener smartListener = (listener instanceof SmartApplicationListener ?
+<a class="jxr_linenumber" name="L269" href="#L269">269</a> 				(<a href="../../../../org/springframework/context/event/SmartApplicationListener.html">SmartApplicationListener</a>) listener : <strong class="jxr_keyword">new</strong> GenericApplicationListenerAdapter(listener));
+<a class="jxr_linenumber" name="L270" href="#L270">270</a> 		<strong class="jxr_keyword">return</strong> (smartListener.supportsEventType(eventType) &amp;&amp; smartListener.supportsSourceType(sourceType));
+<a class="jxr_linenumber" name="L271" href="#L271">271</a> 	}
+<a class="jxr_linenumber" name="L272" href="#L272">272</a> 
+<a class="jxr_linenumber" name="L273" href="#L273">273</a> 
+<a class="jxr_linenumber" name="L274" href="#L274">274</a> 	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L275" href="#L275">275</a> <em class="jxr_javadoccomment">	 * Cache key for ListenerRetrievers, based on event type and source type.</em>
+<a class="jxr_linenumber" name="L276" href="#L276">276</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L277" href="#L277">277</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/springframework/context/event/AbstractApplicationEventMulticaster.html">ListenerCacheKey</a> {
 <a class="jxr_linenumber" name="L278" href="#L278">278</a> 
-<a class="jxr_linenumber" name="L279" href="#L279">279</a> 		<strong class="jxr_keyword">public</strong> <a href="../../../../org/springframework/context/event/AbstractApplicationEventMulticaster.html">ListenerCacheKey</a>(Class&lt;?&gt; eventType, Class&lt;?&gt; sourceType) {
-<a class="jxr_linenumber" name="L280" href="#L280">280</a> 			<strong class="jxr_keyword">this</strong>.eventType = eventType;
-<a class="jxr_linenumber" name="L281" href="#L281">281</a> 			<strong class="jxr_keyword">this</strong>.sourceType = sourceType;
-<a class="jxr_linenumber" name="L282" href="#L282">282</a> 		}
-<a class="jxr_linenumber" name="L283" href="#L283">283</a> 
-<a class="jxr_linenumber" name="L284" href="#L284">284</a> 		@Override
-<a class="jxr_linenumber" name="L285" href="#L285">285</a> 		<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> equals(Object other) {
-<a class="jxr_linenumber" name="L286" href="#L286">286</a> 			<strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong> == other) {
-<a class="jxr_linenumber" name="L287" href="#L287">287</a> 				<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L288" href="#L288">288</a> 			}
-<a class="jxr_linenumber" name="L289" href="#L289">289</a> 			ListenerCacheKey otherKey = (ListenerCacheKey) other;
-<a class="jxr_linenumber" name="L290" href="#L290">290</a> 			<strong class="jxr_keyword">return</strong> ObjectUtils.nullSafeEquals(<strong class="jxr_keyword">this</strong>.eventType, otherKey.eventType) &amp;&amp;
-<a class="jxr_linenumber" name="L291" href="#L291">291</a> 					ObjectUtils.nullSafeEquals(<strong class="jxr_keyword">this</strong>.sourceType, otherKey.sourceType);
-<a class="jxr_linenumber" name="L292" href="#L292">292</a> 		}
-<a class="jxr_linenumber" name="L293" href="#L293">293</a> 
-<a class="jxr_linenumber" name="L294" href="#L294">294</a> 		@Override
-<a class="jxr_linenumber" name="L295" href="#L295">295</a> 		<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> hashCode() {
-<a class="jxr_linenumber" name="L296" href="#L296">296</a> 			<strong class="jxr_keyword">return</strong> ObjectUtils.nullSafeHashCode(<strong class="jxr_keyword">this</strong>.eventType) * 29 + ObjectUtils.nullSafeHashCode(<strong class="jxr_keyword">this</strong>.sourceType);
-<a class="jxr_linenumber" name="L297" href="#L297">297</a> 		}
-<a class="jxr_linenumber" name="L298" href="#L298">298</a> 	}
-<a class="jxr_linenumber" name="L299" href="#L299">299</a> 
-<a class="jxr_linenumber" name="L300" href="#L300">300</a> 
-<a class="jxr_linenumber" name="L301" href="#L301">301</a> 	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L302" href="#L302">302</a> <em class="jxr_javadoccomment">	 * Helper class that encapsulates a specific set of target listeners,</em>
-<a class="jxr_linenumber" name="L303" href="#L303">303</a> <em class="jxr_javadoccomment">	 * allowing for efficient retrieval of pre-filtered listeners.</em>
-<a class="jxr_linenumber" name="L304" href="#L304">304</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;An instance of this helper gets cached per event type and source type.</em>
-<a class="jxr_linenumber" name="L305" href="#L305">305</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L306" href="#L306">306</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/springframework/context/event/AbstractApplicationEventMulticaster.html">ListenerRetriever</a> {
-<a class="jxr_linenumber" name="L307" href="#L307">307</a> 
-<a class="jxr_linenumber" name="L308" href="#L308">308</a> 		<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> Set&lt;ApplicationListener&lt;?&gt;&gt; applicationListeners;
-<a class="jxr_linenumber" name="L309" href="#L309">309</a> 
-<a class="jxr_linenumber" name="L310" href="#L310">310</a> 		<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> Set&lt;String&gt; applicationListenerBeans;
+<a class="jxr_linenumber" name="L279" href="#L279">279</a> 		<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Class&lt;?&gt; eventType;
+<a class="jxr_linenumber" name="L280" href="#L280">280</a> 
+<a class="jxr_linenumber" name="L281" href="#L281">281</a> 		<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Class&lt;?&gt; sourceType;
+<a class="jxr_linenumber" name="L282" href="#L282">282</a> 
+<a class="jxr_linenumber" name="L283" href="#L283">283</a> 		<strong class="jxr_keyword">public</strong> <a href="../../../../org/springframework/context/event/AbstractApplicationEventMulticaster.html">ListenerCacheKey</a>(Class&lt;?&gt; eventType, Class&lt;?&gt; sourceType) {
+<a class="jxr_linenumber" name="L284" href="#L284">284</a> 			<strong class="jxr_keyword">this</strong>.eventType = eventType;
+<a class="jxr_linenumber" name="L285" href="#L285">285</a> 			<strong class="jxr_keyword">this</strong>.sourceType = sourceType;
+<a class="jxr_linenumber" name="L286" href="#L286">286</a> 		}
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> 
+<a class="jxr_linenumber" name="L288" href="#L288">288</a> 		@Override
+<a class="jxr_linenumber" name="L289" href="#L289">289</a> 		<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> equals(Object other) {
+<a class="jxr_linenumber" name="L290" href="#L290">290</a> 			<strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong> == other) {
+<a class="jxr_linenumber" name="L291" href="#L291">291</a> 				<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L292" href="#L292">292</a> 			}
+<a class="jxr_linenumber" name="L293" href="#L293">293</a> 			ListenerCacheKey otherKey = (ListenerCacheKey) other;
+<a class="jxr_linenumber" name="L294" href="#L294">294</a> 			<strong class="jxr_keyword">return</strong> ObjectUtils.nullSafeEquals(<strong class="jxr_keyword">this</strong>.eventType, otherKey.eventType) &amp;&amp;
+<a class="jxr_linenumber" name="L295" href="#L295">295</a> 					ObjectUtils.nullSafeEquals(<strong class="jxr_keyword">this</strong>.sourceType, otherKey.sourceType);
+<a class="jxr_linenumber" name="L296" href="#L296">296</a> 		}
+<a class="jxr_linenumber" name="L297" href="#L297">297</a> 
+<a class="jxr_linenumber" name="L298" href="#L298">298</a> 		@Override
+<a class="jxr_linenumber" name="L299" href="#L299">299</a> 		<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> hashCode() {
+<a class="jxr_linenumber" name="L300" href="#L300">300</a> 			<strong class="jxr_keyword">return</strong> ObjectUtils.nullSafeHashCode(<strong class="jxr_keyword">this</strong>.eventType) * 29 + ObjectUtils.nullSafeHashCode(<strong class="jxr_keyword">this</strong>.sourceType);
+<a class="jxr_linenumber" name="L301" href="#L301">301</a> 		}
+<a class="jxr_linenumber" name="L302" href="#L302">302</a> 	}
+<a class="jxr_linenumber" name="L303" href="#L303">303</a> 
+<a class="jxr_linenumber" name="L304" href="#L304">304</a> 
+<a class="jxr_linenumber" name="L305" href="#L305">305</a> 	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L306" href="#L306">306</a> <em class="jxr_javadoccomment">	 * Helper class that encapsulates a specific set of target listeners,</em>
+<a class="jxr_linenumber" name="L307" href="#L307">307</a> <em class="jxr_javadoccomment">	 * allowing for efficient retrieval of pre-filtered listeners.</em>
+<a class="jxr_linenumber" name="L308" href="#L308">308</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;An instance of this helper gets cached per event type and source type.</em>
+<a class="jxr_linenumber" name="L309" href="#L309">309</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L310" href="#L310">310</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/springframework/context/event/AbstractApplicationEventMulticaster.html">ListenerRetriever</a> {
 <a class="jxr_linenumber" name="L311" href="#L311">311</a> 
-<a class="jxr_linenumber" name="L312" href="#L312">312</a> 		<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> preFiltered;
+<a class="jxr_linenumber" name="L312" href="#L312">312</a> 		<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> Set&lt;ApplicationListener&lt;?&gt;&gt; applicationListeners;
 <a class="jxr_linenumber" name="L313" href="#L313">313</a> 
-<a class="jxr_linenumber" name="L314" href="#L314">314</a> 		<strong class="jxr_keyword">public</strong> <a href="../../../../org/springframework/context/event/AbstractApplicationEventMulticaster.html">ListenerRetriever</a>(<strong class="jxr_keyword">boolean</strong> preFiltered) {
-<a class="jxr_linenumber" name="L315" href="#L315">315</a> 			<strong class="jxr_keyword">this</strong>.applicationListeners = <strong class="jxr_keyword">new</strong> LinkedHashSet&lt;ApplicationListener&lt;?&gt;&gt;();
-<a class="jxr_linenumber" name="L316" href="#L316">316</a> 			<strong class="jxr_keyword">this</strong>.applicationListenerBeans = <strong class="jxr_keyword">new</strong> LinkedHashSet&lt;String&gt;();
-<a class="jxr_linenumber" name="L317" href="#L317">317</a> 			<strong class="jxr_keyword">this</strong>.preFiltered = preFiltered;
-<a class="jxr_linenumber" name="L318" href="#L318">318</a> 		}
-<a class="jxr_linenumber" name="L319" href="#L319">319</a> 
-<a class="jxr_linenumber" name="L320" href="#L320">320</a> 		<strong class="jxr_keyword">public</strong> Collection&lt;ApplicationListener&lt;?&gt;&gt; getApplicationListeners() {
-<a class="jxr_linenumber" name="L321" href="#L321">321</a> 			LinkedList&lt;ApplicationListener&lt;?&gt;&gt; allListeners = <strong class="jxr_keyword">new</strong> LinkedList&lt;ApplicationListener&lt;?&gt;&gt;();
-<a class="jxr_linenumber" name="L322" href="#L322">322</a> 			<strong class="jxr_keyword">for</strong> (ApplicationListener&lt;?&gt; listener : <strong class="jxr_keyword">this</strong>.applicationListeners) {
-<a class="jxr_linenumber" name="L323" href="#L323">323</a> 				allListeners.add(listener);
-<a class="jxr_linenumber" name="L324" href="#L324">324</a> 			}
-<a class="jxr_linenumber" name="L325" href="#L325">325</a> 			<strong class="jxr_keyword">if</strong> (!<strong class="jxr_keyword">this</strong>.applicationListenerBeans.isEmpty()) {
-<a class="jxr_linenumber" name="L326" href="#L326">326</a> 				BeanFactory beanFactory = getBeanFactory();
-<a class="jxr_linenumber" name="L327" href="#L327">327</a> 				<strong class="jxr_keyword">for</strong> (String listenerBeanName : <strong class="jxr_keyword">this</strong>.applicationListenerBeans) {
-<a class="jxr_linenumber" name="L328" href="#L328">328</a> 					<strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L329" href="#L329">329</a> 						ApplicationListener&lt;?&gt; listener = beanFactory.getBean(listenerBeanName, ApplicationListener.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L330" href="#L330">330</a> 						<strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.preFiltered || !allListeners.contains(listener)) {
-<a class="jxr_linenumber" name="L331" href="#L331">331</a> 							allListeners.add(listener);
-<a class="jxr_linenumber" name="L332" href="#L332">332</a> 						}
-<a class="jxr_linenumber" name="L333" href="#L333">333</a> 					}
-<a class="jxr_linenumber" name="L334" href="#L334">334</a> 					<strong class="jxr_keyword">catch</strong> (NoSuchBeanDefinitionException ex) {
-<a class="jxr_linenumber" name="L335" href="#L335">335</a> 						<em class="jxr_comment">// Singleton listener instance (without backing bean definition) disappeared -</em>
-<a class="jxr_linenumber" name="L336" href="#L336">336</a> 						<em class="jxr_comment">// probably in the middle of the destruction phase</em>
+<a class="jxr_linenumber" name="L314" href="#L314">314</a> 		<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> Set&lt;String&gt; applicationListenerBeans;
+<a class="jxr_linenumber" name="L315" href="#L315">315</a> 
+<a class="jxr_linenumber" name="L316" href="#L316">316</a> 		<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> preFiltered;
+<a class="jxr_linenumber" name="L317" href="#L317">317</a> 
+<a class="jxr_linenumber" name="L318" href="#L318">318</a> 		<strong class="jxr_keyword">public</strong> <a href="../../../../org/springframework/context/event/AbstractApplicationEventMulticaster.html">ListenerRetriever</a>(<strong class="jxr_keyword">boolean</strong> preFiltered) {
+<a class="jxr_linenumber" name="L319" href="#L319">319</a> 			<strong class="jxr_keyword">this</strong>.applicationListeners = <strong class="jxr_keyword">new</strong> LinkedHashSet&lt;ApplicationListener&lt;?&gt;&gt;();
+<a class="jxr_linenumber" name="L320" href="#L320">320</a> 			<strong class="jxr_keyword">this</strong>.applicationListenerBeans = <strong class="jxr_keyword">new</strong> LinkedHashSet&lt;String&gt;();
+<a class="jxr_linenumber" name="L321" href="#L321">321</a> 			<strong class="jxr_keyword">this</strong>.preFiltered = preFiltered;
+<a class="jxr_linenumber" name="L322" href="#L322">322</a> 		}
+<a class="jxr_linenumber" name="L323" href="#L323">323</a> 
+<a class="jxr_linenumber" name="L324" href="#L324">324</a> 		<strong class="jxr_keyword">public</strong> Collection&lt;ApplicationListener&lt;?&gt;&gt; getApplicationListeners() {
+<a class="jxr_linenumber" name="L325" href="#L325">325</a> 			LinkedList&lt;ApplicationListener&lt;?&gt;&gt; allListeners = <strong class="jxr_keyword">new</strong> LinkedList&lt;ApplicationListener&lt;?&gt;&gt;();
+<a class="jxr_linenumber" name="L326" href="#L326">326</a> 			<strong class="jxr_keyword">for</strong> (ApplicationListener&lt;?&gt; listener : <strong class="jxr_keyword">this</strong>.applicationListeners) {
+<a class="jxr_linenumber" name="L327" href="#L327">327</a> 				allListeners.add(listener);
+<a class="jxr_linenumber" name="L328" href="#L328">328</a> 			}
+<a class="jxr_linenumber" name="L329" href="#L329">329</a> 			<strong class="jxr_keyword">if</strong> (!<strong class="jxr_keyword">this</strong>.applicationListenerBeans.isEmpty()) {
+<a class="jxr_linenumber" name="L330" href="#L330">330</a> 				BeanFactory beanFactory = getBeanFactory();
+<a class="jxr_linenumber" name="L331" href="#L331">331</a> 				<strong class="jxr_keyword">for</strong> (String listenerBeanName : <strong class="jxr_keyword">this</strong>.applicationListenerBeans) {
+<a class="jxr_linenumber" name="L332" href="#L332">332</a> 					<strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L333" href="#L333">333</a> 						ApplicationListener&lt;?&gt; listener = beanFactory.getBean(listenerBeanName, ApplicationListener.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L334" href="#L334">334</a> 						<strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.preFiltered || !allListeners.contains(listener)) {
+<a class="jxr_linenumber" name="L335" href="#L335">335</a> 							allListeners.add(listener);
+<a class="jxr_linenumber" name="L336" href="#L336">336</a> 						}
 <a class="jxr_linenumber" name="L337" href="#L337">337</a> 					}
-<a class="jxr_linenumber" name="L338" href="#L338">338</a> 				}
-<a class="jxr_linenumber" name="L339" href="#L339">339</a> 			}
-<a class="jxr_linenumber" name="L340" href="#L340">340</a> 			OrderComparator.sort(allListeners);
-<a class="jxr_linenumber" name="L341" href="#L341">341</a> 			<strong class="jxr_keyword">return</strong> allListeners;
-<a class="jxr_linenumber" name="L342" href="#L342">342</a> 		}
-<a class="jxr_linenumber" name="L343" href="#L343">343</a> 	}
-<a class="jxr_linenumber" name="L344" href="#L344">344</a> 
-<a class="jxr_linenumber" name="L345" href="#L345">345</a> }
+<a class="jxr_linenumber" name="L338" href="#L338">338</a> 					<strong class="jxr_keyword">catch</strong> (NoSuchBeanDefinitionException ex) {
+<a class="jxr_linenumber" name="L339" href="#L339">339</a> 						<em class="jxr_comment">// Singleton listener instance (without backing bean definition) disappeared -</em>
+<a class="jxr_linenumber" name="L340" href="#L340">340</a> 						<em class="jxr_comment">// probably in the middle of the destruction phase</em>
+<a class="jxr_linenumber" name="L341" href="#L341">341</a> 					}
+<a class="jxr_linenumber" name="L342" href="#L342">342</a> 				}
+<a class="jxr_linenumber" name="L343" href="#L343">343</a> 			}
+<a class="jxr_linenumber" name="L344" href="#L344">344</a> 			OrderComparator.sort(allListeners);
+<a class="jxr_linenumber" name="L345" href="#L345">345</a> 			<strong class="jxr_keyword">return</strong> allListeners;
+<a class="jxr_linenumber" name="L346" href="#L346">346</a> 		}
+<a class="jxr_linenumber" name="L347" href="#L347">347</a> 	}
+<a class="jxr_linenumber" name="L348" href="#L348">348</a> 
+<a class="jxr_linenumber" name="L349" href="#L349">349</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>

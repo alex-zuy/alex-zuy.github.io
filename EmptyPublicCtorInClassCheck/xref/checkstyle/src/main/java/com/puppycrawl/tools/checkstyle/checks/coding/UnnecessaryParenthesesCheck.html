@@ -67,7 +67,7 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> MAX_QUOTED_LENGTH = 25;
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      <em class="jxr_javadoccomment">/** Token types for literals. */</em>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> [] LITERALS = {
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong>[] LITERALS = {
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          TokenTypes.NUM_DOUBLE,
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          TokenTypes.NUM_FLOAT,
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          TokenTypes.NUM_INT,
@@ -79,7 +79,7 @@
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>      };
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      <em class="jxr_javadoccomment">/** Token types for assignment operations. */</em>
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> [] ASSIGNMENTS = {
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong>[] ASSIGNMENTS = {
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          TokenTypes.ASSIGN,
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          TokenTypes.BAND_ASSIGN,
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          TokenTypes.BOR_ASSIGN,
@@ -105,7 +105,7 @@
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>      @Override
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong>[] getDefaultTokens()
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>      {
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">int</strong> [] {
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">int</strong>[] {
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>             TokenTypes.EXPR,
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>             TokenTypes.IDENT,
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>             TokenTypes.NUM_DOUBLE,
@@ -269,7 +269,7 @@
 <a class="jxr_linenumber" name="L261" href="#L261">261</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;aType&lt;/code&gt; was found in &lt;code&gt;</em>
 <a class="jxr_linenumber" name="L262" href="#L262">262</a> <em class="jxr_javadoccomment">     *         aTokens&lt;/code&gt;.</em>
 <a class="jxr_linenumber" name="L263" href="#L263">263</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> inTokenList(<strong class="jxr_keyword">int</strong> aType, <strong class="jxr_keyword">int</strong> [] aTokens)
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> inTokenList(<strong class="jxr_keyword">int</strong> aType, <strong class="jxr_keyword">int</strong>[] aTokens)
 <a class="jxr_linenumber" name="L265" href="#L265">265</a>     {
 <a class="jxr_linenumber" name="L266" href="#L266">266</a>         <em class="jxr_comment">// NOTE: Given the small size of the two arrays searched, I'm not sure</em>
 <a class="jxr_linenumber" name="L267" href="#L267">267</a>         <em class="jxr_comment">//       it's worth bothering with doing a binary search or using a</em>
@@ -300,6 +300,6 @@
 <a class="jxr_linenumber" name="L292" href="#L292">292</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015. All rights reserved.</div>
 </body>
 </html>
