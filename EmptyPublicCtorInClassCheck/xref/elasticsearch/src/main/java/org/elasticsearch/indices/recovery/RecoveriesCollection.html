@@ -176,7 +176,7 @@
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/elasticsearch/indices/recovery/RecoveriesCollection.html">StatusRef</a> <strong class="jxr_keyword">implements</strong> AutoCloseable {
 <a class="jxr_linenumber" name="L169" href="#L169">169</a> 
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/indices/recovery/RecoveryStatus.html">RecoveryStatus</a> status;
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> AtomicBoolean closed = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> closed = <strong class="jxr_keyword">new</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L172" href="#L172">172</a> 
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L174" href="#L174">174</a> <em class="jxr_javadoccomment">         * Important: {@link org.elasticsearch.indices.recovery.RecoveryStatus#tryIncRef()} should</em>

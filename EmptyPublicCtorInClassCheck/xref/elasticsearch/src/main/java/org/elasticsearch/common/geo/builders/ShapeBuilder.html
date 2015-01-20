@@ -869,62 +869,67 @@
 <a class="jxr_linenumber" name="L861" href="#L861">861</a> <em class="jxr_javadoccomment">             * are equivalent (they represent equivalent points). Though a LinearRing is not explicitly</em>
 <a class="jxr_linenumber" name="L862" href="#L862">862</a> <em class="jxr_javadoccomment">             * represented as a GeoJSON geometry type, it is referred to in the Polygon geometry type definition.</em>
 <a class="jxr_linenumber" name="L863" href="#L863">863</a> <em class="jxr_javadoccomment">             */</em>
-<a class="jxr_linenumber" name="L864" href="#L864">864</a>             <strong class="jxr_keyword">if</strong> (coordinates.children.size() &lt; 4) {
-<a class="jxr_linenumber" name="L865" href="#L865">865</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"Invalid number of points in LinearRing (found "</span> +
-<a class="jxr_linenumber" name="L866" href="#L866">866</a>                         coordinates.children.size() + <span class="jxr_string">" - must be &gt;= 4)"</span>);
-<a class="jxr_linenumber" name="L867" href="#L867">867</a>             } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (!coordinates.children.get(0).coordinate.equals(
-<a class="jxr_linenumber" name="L868" href="#L868">868</a>                         coordinates.children.get(coordinates.children.size() - 1).coordinate)) {
-<a class="jxr_linenumber" name="L869" href="#L869">869</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"Invalid LinearRing found (coordinates are not closed)"</span>);
-<a class="jxr_linenumber" name="L870" href="#L870">870</a>             }
-<a class="jxr_linenumber" name="L871" href="#L871">871</a>             <strong class="jxr_keyword">return</strong> parseLineString(coordinates);
-<a class="jxr_linenumber" name="L872" href="#L872">872</a>         }
-<a class="jxr_linenumber" name="L873" href="#L873">873</a> 
-<a class="jxr_linenumber" name="L874" href="#L874">874</a>         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../org/elasticsearch/common/geo/builders/PolygonBuilder.html">PolygonBuilder</a> parsePolygon(<a href="../../../../../org/elasticsearch/common/geo/builders/ShapeBuilder.html">CoordinateNode</a> coordinates, <a href="../../../../../org/elasticsearch/common/geo/builders/ShapeBuilder.html">Orientation</a> orientation) {
-<a class="jxr_linenumber" name="L875" href="#L875">875</a>             <strong class="jxr_keyword">if</strong> (coordinates.children == <strong class="jxr_keyword">null</strong> || coordinates.children.isEmpty()) {
-<a class="jxr_linenumber" name="L876" href="#L876">876</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"Invalid LinearRing provided for type polygon. Linear ring must be an array of "</span> +
-<a class="jxr_linenumber" name="L877" href="#L877">877</a>                         <span class="jxr_string">"coordinates"</span>);
-<a class="jxr_linenumber" name="L878" href="#L878">878</a>             }
-<a class="jxr_linenumber" name="L879" href="#L879">879</a> 
-<a class="jxr_linenumber" name="L880" href="#L880">880</a>             <a href="../../../../../org/elasticsearch/common/geo/builders/LineStringBuilder.html">LineStringBuilder</a> shell = parseLinearRing(coordinates.children.get(0));
-<a class="jxr_linenumber" name="L881" href="#L881">881</a>             <a href="../../../../../org/elasticsearch/common/geo/builders/PolygonBuilder.html">PolygonBuilder</a> polygon = <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/common/geo/builders/PolygonBuilder.html">PolygonBuilder</a>(shell.points, orientation);
-<a class="jxr_linenumber" name="L882" href="#L882">882</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 1; i &lt; coordinates.children.size(); i++) {
-<a class="jxr_linenumber" name="L883" href="#L883">883</a>                 polygon.hole(parseLinearRing(coordinates.children.get(i)));
-<a class="jxr_linenumber" name="L884" href="#L884">884</a>             }
-<a class="jxr_linenumber" name="L885" href="#L885">885</a>             <strong class="jxr_keyword">return</strong> polygon;
-<a class="jxr_linenumber" name="L886" href="#L886">886</a>         }
-<a class="jxr_linenumber" name="L887" href="#L887">887</a> 
-<a class="jxr_linenumber" name="L888" href="#L888">888</a>         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../org/elasticsearch/common/geo/builders/MultiPolygonBuilder.html">MultiPolygonBuilder</a> parseMultiPolygon(<a href="../../../../../org/elasticsearch/common/geo/builders/ShapeBuilder.html">CoordinateNode</a> coordinates, <a href="../../../../../org/elasticsearch/common/geo/builders/ShapeBuilder.html">Orientation</a> orientation) {
-<a class="jxr_linenumber" name="L889" href="#L889">889</a>             <a href="../../../../../org/elasticsearch/common/geo/builders/MultiPolygonBuilder.html">MultiPolygonBuilder</a> polygons = newMultiPolygon(orientation);
-<a class="jxr_linenumber" name="L890" href="#L890">890</a>             <strong class="jxr_keyword">for</strong> (CoordinateNode node : coordinates.children) {
-<a class="jxr_linenumber" name="L891" href="#L891">891</a>                 polygons.polygon(parsePolygon(node, orientation));
-<a class="jxr_linenumber" name="L892" href="#L892">892</a>             }
-<a class="jxr_linenumber" name="L893" href="#L893">893</a>             <strong class="jxr_keyword">return</strong> polygons;
-<a class="jxr_linenumber" name="L894" href="#L894">894</a>         }
-<a class="jxr_linenumber" name="L895" href="#L895">895</a>         
-<a class="jxr_linenumber" name="L896" href="#L896">896</a>         <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L897" href="#L897">897</a> <em class="jxr_javadoccomment">         * Parse the geometries array of a GeometryCollection</em>
-<a class="jxr_linenumber" name="L898" href="#L898">898</a> <em class="jxr_javadoccomment">         *</em>
-<a class="jxr_linenumber" name="L899" href="#L899">899</a> <em class="jxr_javadoccomment">         * @param parser Parser that will be read from</em>
-<a class="jxr_linenumber" name="L900" href="#L900">900</a> <em class="jxr_javadoccomment">         * @return Geometry[] geometries of the GeometryCollection</em>
-<a class="jxr_linenumber" name="L901" href="#L901">901</a> <em class="jxr_javadoccomment">         * @throws IOException Thrown if an error occurs while reading from the XContentParser</em>
-<a class="jxr_linenumber" name="L902" href="#L902">902</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L903" href="#L903">903</a>         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../org/elasticsearch/common/geo/builders/GeometryCollectionBuilder.html">GeometryCollectionBuilder</a> parseGeometries(<a href="../../../../../org/elasticsearch/common/xcontent/XContentParser.html">XContentParser</a> parser, <a href="../../../../../org/elasticsearch/common/geo/builders/ShapeBuilder.html">Orientation</a> orientation) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L904" href="#L904">904</a>             <strong class="jxr_keyword">if</strong> (parser.currentToken() != XContentParser.Token.START_ARRAY) {
-<a class="jxr_linenumber" name="L905" href="#L905">905</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"Geometries must be an array of geojson objects"</span>);
-<a class="jxr_linenumber" name="L906" href="#L906">906</a>             }
-<a class="jxr_linenumber" name="L907" href="#L907">907</a>         
-<a class="jxr_linenumber" name="L908" href="#L908">908</a>             XContentParser.Token token = parser.nextToken();
-<a class="jxr_linenumber" name="L909" href="#L909">909</a>             <a href="../../../../../org/elasticsearch/common/geo/builders/GeometryCollectionBuilder.html">GeometryCollectionBuilder</a> geometryCollection = newGeometryCollection(orientation);
-<a class="jxr_linenumber" name="L910" href="#L910">910</a>             <strong class="jxr_keyword">while</strong> (token != XContentParser.Token.END_ARRAY) {
-<a class="jxr_linenumber" name="L911" href="#L911">911</a>                 <a href="../../../../../org/elasticsearch/common/geo/builders/ShapeBuilder.html">ShapeBuilder</a> shapeBuilder = GeoShapeType.parse(parser);
-<a class="jxr_linenumber" name="L912" href="#L912">912</a>                 geometryCollection.shape(shapeBuilder);
-<a class="jxr_linenumber" name="L913" href="#L913">913</a>                 token = parser.nextToken();
-<a class="jxr_linenumber" name="L914" href="#L914">914</a>             }
-<a class="jxr_linenumber" name="L915" href="#L915">915</a>         
-<a class="jxr_linenumber" name="L916" href="#L916">916</a>             <strong class="jxr_keyword">return</strong> geometryCollection;
-<a class="jxr_linenumber" name="L917" href="#L917">917</a>         }
-<a class="jxr_linenumber" name="L918" href="#L918">918</a>     }
-<a class="jxr_linenumber" name="L919" href="#L919">919</a> }
+<a class="jxr_linenumber" name="L864" href="#L864">864</a>             <strong class="jxr_keyword">if</strong> (coordinates.children == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L865" href="#L865">865</a>                 String error = <span class="jxr_string">"Invalid LinearRing found."</span>;
+<a class="jxr_linenumber" name="L866" href="#L866">866</a>                 error += (coordinates.coordinate == <strong class="jxr_keyword">null</strong>) ?
+<a class="jxr_linenumber" name="L867" href="#L867">867</a>                         <span class="jxr_string">" No coordinate array provided"</span> : <span class="jxr_string">" Found a single coordinate when expecting a coordinate array"</span>;
+<a class="jxr_linenumber" name="L868" href="#L868">868</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(error);
+<a class="jxr_linenumber" name="L869" href="#L869">869</a>             } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (coordinates.children.size() &lt; 4) {
+<a class="jxr_linenumber" name="L870" href="#L870">870</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"Invalid number of points in LinearRing (found "</span> +
+<a class="jxr_linenumber" name="L871" href="#L871">871</a>                         coordinates.children.size() + <span class="jxr_string">" - must be &gt;= 4)"</span>);
+<a class="jxr_linenumber" name="L872" href="#L872">872</a>             } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (!coordinates.children.get(0).coordinate.equals(
+<a class="jxr_linenumber" name="L873" href="#L873">873</a>                         coordinates.children.get(coordinates.children.size() - 1).coordinate)) {
+<a class="jxr_linenumber" name="L874" href="#L874">874</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"Invalid LinearRing found (coordinates are not closed)"</span>);
+<a class="jxr_linenumber" name="L875" href="#L875">875</a>             }
+<a class="jxr_linenumber" name="L876" href="#L876">876</a>             <strong class="jxr_keyword">return</strong> parseLineString(coordinates);
+<a class="jxr_linenumber" name="L877" href="#L877">877</a>         }
+<a class="jxr_linenumber" name="L878" href="#L878">878</a> 
+<a class="jxr_linenumber" name="L879" href="#L879">879</a>         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../org/elasticsearch/common/geo/builders/PolygonBuilder.html">PolygonBuilder</a> parsePolygon(<a href="../../../../../org/elasticsearch/common/geo/builders/ShapeBuilder.html">CoordinateNode</a> coordinates, <a href="../../../../../org/elasticsearch/common/geo/builders/ShapeBuilder.html">Orientation</a> orientation) {
+<a class="jxr_linenumber" name="L880" href="#L880">880</a>             <strong class="jxr_keyword">if</strong> (coordinates.children == <strong class="jxr_keyword">null</strong> || coordinates.children.isEmpty()) {
+<a class="jxr_linenumber" name="L881" href="#L881">881</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"Invalid LinearRing provided for type polygon. Linear ring must be an array of "</span> +
+<a class="jxr_linenumber" name="L882" href="#L882">882</a>                         <span class="jxr_string">"coordinates"</span>);
+<a class="jxr_linenumber" name="L883" href="#L883">883</a>             }
+<a class="jxr_linenumber" name="L884" href="#L884">884</a> 
+<a class="jxr_linenumber" name="L885" href="#L885">885</a>             <a href="../../../../../org/elasticsearch/common/geo/builders/LineStringBuilder.html">LineStringBuilder</a> shell = parseLinearRing(coordinates.children.get(0));
+<a class="jxr_linenumber" name="L886" href="#L886">886</a>             <a href="../../../../../org/elasticsearch/common/geo/builders/PolygonBuilder.html">PolygonBuilder</a> polygon = <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/common/geo/builders/PolygonBuilder.html">PolygonBuilder</a>(shell.points, orientation);
+<a class="jxr_linenumber" name="L887" href="#L887">887</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 1; i &lt; coordinates.children.size(); i++) {
+<a class="jxr_linenumber" name="L888" href="#L888">888</a>                 polygon.hole(parseLinearRing(coordinates.children.get(i)));
+<a class="jxr_linenumber" name="L889" href="#L889">889</a>             }
+<a class="jxr_linenumber" name="L890" href="#L890">890</a>             <strong class="jxr_keyword">return</strong> polygon;
+<a class="jxr_linenumber" name="L891" href="#L891">891</a>         }
+<a class="jxr_linenumber" name="L892" href="#L892">892</a> 
+<a class="jxr_linenumber" name="L893" href="#L893">893</a>         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../org/elasticsearch/common/geo/builders/MultiPolygonBuilder.html">MultiPolygonBuilder</a> parseMultiPolygon(<a href="../../../../../org/elasticsearch/common/geo/builders/ShapeBuilder.html">CoordinateNode</a> coordinates, <a href="../../../../../org/elasticsearch/common/geo/builders/ShapeBuilder.html">Orientation</a> orientation) {
+<a class="jxr_linenumber" name="L894" href="#L894">894</a>             <a href="../../../../../org/elasticsearch/common/geo/builders/MultiPolygonBuilder.html">MultiPolygonBuilder</a> polygons = newMultiPolygon(orientation);
+<a class="jxr_linenumber" name="L895" href="#L895">895</a>             <strong class="jxr_keyword">for</strong> (CoordinateNode node : coordinates.children) {
+<a class="jxr_linenumber" name="L896" href="#L896">896</a>                 polygons.polygon(parsePolygon(node, orientation));
+<a class="jxr_linenumber" name="L897" href="#L897">897</a>             }
+<a class="jxr_linenumber" name="L898" href="#L898">898</a>             <strong class="jxr_keyword">return</strong> polygons;
+<a class="jxr_linenumber" name="L899" href="#L899">899</a>         }
+<a class="jxr_linenumber" name="L900" href="#L900">900</a>         
+<a class="jxr_linenumber" name="L901" href="#L901">901</a>         <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L902" href="#L902">902</a> <em class="jxr_javadoccomment">         * Parse the geometries array of a GeometryCollection</em>
+<a class="jxr_linenumber" name="L903" href="#L903">903</a> <em class="jxr_javadoccomment">         *</em>
+<a class="jxr_linenumber" name="L904" href="#L904">904</a> <em class="jxr_javadoccomment">         * @param parser Parser that will be read from</em>
+<a class="jxr_linenumber" name="L905" href="#L905">905</a> <em class="jxr_javadoccomment">         * @return Geometry[] geometries of the GeometryCollection</em>
+<a class="jxr_linenumber" name="L906" href="#L906">906</a> <em class="jxr_javadoccomment">         * @throws IOException Thrown if an error occurs while reading from the XContentParser</em>
+<a class="jxr_linenumber" name="L907" href="#L907">907</a> <em class="jxr_javadoccomment">         */</em>
+<a class="jxr_linenumber" name="L908" href="#L908">908</a>         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../org/elasticsearch/common/geo/builders/GeometryCollectionBuilder.html">GeometryCollectionBuilder</a> parseGeometries(<a href="../../../../../org/elasticsearch/common/xcontent/XContentParser.html">XContentParser</a> parser, <a href="../../../../../org/elasticsearch/common/geo/builders/ShapeBuilder.html">Orientation</a> orientation) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L909" href="#L909">909</a>             <strong class="jxr_keyword">if</strong> (parser.currentToken() != XContentParser.Token.START_ARRAY) {
+<a class="jxr_linenumber" name="L910" href="#L910">910</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"Geometries must be an array of geojson objects"</span>);
+<a class="jxr_linenumber" name="L911" href="#L911">911</a>             }
+<a class="jxr_linenumber" name="L912" href="#L912">912</a>         
+<a class="jxr_linenumber" name="L913" href="#L913">913</a>             XContentParser.Token token = parser.nextToken();
+<a class="jxr_linenumber" name="L914" href="#L914">914</a>             <a href="../../../../../org/elasticsearch/common/geo/builders/GeometryCollectionBuilder.html">GeometryCollectionBuilder</a> geometryCollection = newGeometryCollection(orientation);
+<a class="jxr_linenumber" name="L915" href="#L915">915</a>             <strong class="jxr_keyword">while</strong> (token != XContentParser.Token.END_ARRAY) {
+<a class="jxr_linenumber" name="L916" href="#L916">916</a>                 <a href="../../../../../org/elasticsearch/common/geo/builders/ShapeBuilder.html">ShapeBuilder</a> shapeBuilder = GeoShapeType.parse(parser);
+<a class="jxr_linenumber" name="L917" href="#L917">917</a>                 geometryCollection.shape(shapeBuilder);
+<a class="jxr_linenumber" name="L918" href="#L918">918</a>                 token = parser.nextToken();
+<a class="jxr_linenumber" name="L919" href="#L919">919</a>             }
+<a class="jxr_linenumber" name="L920" href="#L920">920</a>         
+<a class="jxr_linenumber" name="L921" href="#L921">921</a>             <strong class="jxr_keyword">return</strong> geometryCollection;
+<a class="jxr_linenumber" name="L922" href="#L922">922</a>         }
+<a class="jxr_linenumber" name="L923" href="#L923">923</a>     }
+<a class="jxr_linenumber" name="L924" href="#L924">924</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015. All rights reserved.</div>

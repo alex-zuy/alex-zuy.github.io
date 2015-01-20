@@ -146,9 +146,9 @@
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setProducer(<strong class="jxr_keyword">final</strong> <a href="../../../rx/Producer.html">Producer</a> producer) {
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>                 child.setProducer(<strong class="jxr_keyword">new</strong> <a href="../../../rx/Producer.html">Producer</a>() {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a> 
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>                     <strong class="jxr_keyword">final</strong> AtomicBoolean once = <strong class="jxr_keyword">new</strong> AtomicBoolean();
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>                     <strong class="jxr_keyword">final</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> once = <strong class="jxr_keyword">new</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>();
 <a class="jxr_linenumber" name="L142" href="#L142">142</a> 
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>                     <strong class="jxr_keyword">final</strong> AtomicBoolean excessive = <strong class="jxr_keyword">new</strong> AtomicBoolean();
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>                     <strong class="jxr_keyword">final</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> excessive = <strong class="jxr_keyword">new</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>();
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> 
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>                     @Override
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>                     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> request(<strong class="jxr_keyword">long</strong> n) {

@@ -87,7 +87,7 @@
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>    }
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testCancel_interrupted() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>      <strong class="jxr_keyword">final</strong> AtomicBoolean interruptedExceptionThrown = <strong class="jxr_keyword">new</strong> AtomicBoolean();
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>      <strong class="jxr_keyword">final</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> interruptedExceptionThrown = <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>();
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>      <strong class="jxr_keyword">final</strong> CountDownLatch enterLatch = <strong class="jxr_keyword">new</strong> CountDownLatch(1);
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      <strong class="jxr_keyword">final</strong> CountDownLatch exitLatch = <strong class="jxr_keyword">new</strong> CountDownLatch(1);
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      <strong class="jxr_keyword">final</strong> TrustedListenableFutureTask&lt;Integer&gt; task = TrustedListenableFutureTask.create(

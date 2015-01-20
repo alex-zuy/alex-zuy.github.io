@@ -100,7 +100,7 @@
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>          Map&lt;Version, BytesReference&gt; serializedStates = Maps.newHashMap();
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>          <strong class="jxr_keyword">final</strong> AtomicBoolean timedOutWaitingForNodes = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> timedOutWaitingForNodes = <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../org/elasticsearch/common/unit/TimeValue.html">TimeValue</a> publishTimeout = discoverySettings.getPublishTimeout();
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> DiscoveryNode node : clusterState.nodes()) {

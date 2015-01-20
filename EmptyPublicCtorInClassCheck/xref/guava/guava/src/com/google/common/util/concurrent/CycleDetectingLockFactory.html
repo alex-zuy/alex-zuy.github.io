@@ -852,7 +852,7 @@
 <a class="jxr_linenumber" name="L844" href="#L844">844</a> 
 <a class="jxr_linenumber" name="L845" href="#L845">845</a>     @Override
 <a class="jxr_linenumber" name="L846" href="#L846">846</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> tryLock(<strong class="jxr_keyword">long</strong> timeout, <a href="../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit)
-<a class="jxr_linenumber" name="L847" href="#L847">847</a>         <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L847" href="#L847">847</a>         <strong class="jxr_keyword">throws</strong> <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L848" href="#L848">848</a>       aboutToAcquire(<strong class="jxr_keyword">this</strong>);
 <a class="jxr_linenumber" name="L849" href="#L849">849</a>       <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L850" href="#L850">850</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">super</strong>.tryLock(timeout, unit);
@@ -959,7 +959,7 @@
 <a class="jxr_linenumber" name="L951" href="#L951">951</a> 
 <a class="jxr_linenumber" name="L952" href="#L952">952</a>     @Override
 <a class="jxr_linenumber" name="L953" href="#L953">953</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> tryLock(<strong class="jxr_keyword">long</strong> timeout, <a href="../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit)
-<a class="jxr_linenumber" name="L954" href="#L954">954</a>         <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L954" href="#L954">954</a>         <strong class="jxr_keyword">throws</strong> <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L955" href="#L955">955</a>       aboutToAcquire(readWriteLock);
 <a class="jxr_linenumber" name="L956" href="#L956">956</a>       <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L957" href="#L957">957</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">super</strong>.tryLock(timeout, unit);
@@ -1021,7 +1021,7 @@
 <a class="jxr_linenumber" name="L1013" href="#L1013">1013</a> 
 <a class="jxr_linenumber" name="L1014" href="#L1014">1014</a>     @Override
 <a class="jxr_linenumber" name="L1015" href="#L1015">1015</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> tryLock(<strong class="jxr_keyword">long</strong> timeout, <a href="../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit)
-<a class="jxr_linenumber" name="L1016" href="#L1016">1016</a>         <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L1016" href="#L1016">1016</a>         <strong class="jxr_keyword">throws</strong> <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L1017" href="#L1017">1017</a>       aboutToAcquire(readWriteLock);
 <a class="jxr_linenumber" name="L1018" href="#L1018">1018</a>       <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L1019" href="#L1019">1019</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">super</strong>.tryLock(timeout, unit);

@@ -145,7 +145,7 @@
 <a class="jxr_linenumber" name="L137" href="#L137">137</a> 
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>         <em class="jxr_comment">// Make sure that threads continue executing when executor is replaced</em>
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>         <strong class="jxr_keyword">final</strong> CyclicBarrier barrier = <strong class="jxr_keyword">new</strong> CyclicBarrier(2);
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>         Executor oldExecutor = threadPool.executor(Names.SEARCH);
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>         <a href="../../../java/util/concurrent/Executor.html">Executor</a> oldExecutor = threadPool.executor(Names.SEARCH);
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>         threadPool.executor(Names.SEARCH).execute(<strong class="jxr_keyword">new</strong> Runnable() {
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>             @Override
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> run() {

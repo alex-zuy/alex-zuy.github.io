@@ -50,7 +50,7 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>    <strong class="jxr_keyword">private</strong> Thread executionThread;
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>    <strong class="jxr_keyword">private</strong> Throwable thrownByExecutionThread;
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Executor exceptionCatchingExecutor = <strong class="jxr_keyword">new</strong> Executor() {
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> exceptionCatchingExecutor = <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a>() {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      @Override
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute(Runnable command) {
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>        executionThread = <strong class="jxr_keyword">new</strong> Thread(command);
@@ -162,7 +162,7 @@
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>       exitRun.countDown();
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>     }
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> 
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>     @Override <strong class="jxr_keyword">protected</strong> Executor executor() {
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>     @Override <strong class="jxr_keyword">protected</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor() {
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>       <strong class="jxr_keyword">return</strong> exceptionCatchingExecutor;
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>     }
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>   }
@@ -197,7 +197,7 @@
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> AssertionError(<span class="jxr_string">"run() should not be called"</span>);
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>     }
 <a class="jxr_linenumber" name="L191" href="#L191">191</a> 
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>     @Override <strong class="jxr_keyword">protected</strong> Executor executor() {
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>     @Override <strong class="jxr_keyword">protected</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor() {
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>       <strong class="jxr_keyword">return</strong> exceptionCatchingExecutor;
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>     }
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>   }
@@ -251,7 +251,7 @@
 <a class="jxr_linenumber" name="L243" href="#L243">243</a>       }
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>     }
 <a class="jxr_linenumber" name="L245" href="#L245">245</a> 
-<a class="jxr_linenumber" name="L246" href="#L246">246</a>     @Override <strong class="jxr_keyword">protected</strong> Executor executor() {
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>     @Override <strong class="jxr_keyword">protected</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor() {
 <a class="jxr_linenumber" name="L247" href="#L247">247</a>       <strong class="jxr_keyword">return</strong> exceptionCatchingExecutor;
 <a class="jxr_linenumber" name="L248" href="#L248">248</a>     }
 <a class="jxr_linenumber" name="L249" href="#L249">249</a>   }
@@ -283,7 +283,7 @@
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException(<span class="jxr_string">"kaboom!"</span>);
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>     }
 <a class="jxr_linenumber" name="L277" href="#L277">277</a> 
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>     @Override <strong class="jxr_keyword">protected</strong> Executor executor() {
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>     @Override <strong class="jxr_keyword">protected</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor() {
 <a class="jxr_linenumber" name="L279" href="#L279">279</a>       <strong class="jxr_keyword">return</strong> exceptionCatchingExecutor;
 <a class="jxr_linenumber" name="L280" href="#L280">280</a>     }
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>   }
@@ -300,8 +300,8 @@
 <a class="jxr_linenumber" name="L292" href="#L292">292</a>   }
 <a class="jxr_linenumber" name="L293" href="#L293">293</a> 
 <a class="jxr_linenumber" name="L294" href="#L294">294</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractExecutionThreadServiceTest.html">TimeoutOnStartUp</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractExecutionThreadService.html">AbstractExecutionThreadService</a> {
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>     @Override <strong class="jxr_keyword">protected</strong> Executor executor() {
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Executor() {
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>     @Override <strong class="jxr_keyword">protected</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor() {
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a>() {
 <a class="jxr_linenumber" name="L297" href="#L297">297</a>         @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute(Runnable command) {
 <a class="jxr_linenumber" name="L298" href="#L298">298</a>         }
 <a class="jxr_linenumber" name="L299" href="#L299">299</a>       };
@@ -379,7 +379,7 @@
 <a class="jxr_linenumber" name="L371" href="#L371">371</a>       shutdownCalled++;
 <a class="jxr_linenumber" name="L372" href="#L372">372</a>     }
 <a class="jxr_linenumber" name="L373" href="#L373">373</a> 
-<a class="jxr_linenumber" name="L374" href="#L374">374</a>     @Override <strong class="jxr_keyword">protected</strong> Executor executor() {
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>     @Override <strong class="jxr_keyword">protected</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor() {
 <a class="jxr_linenumber" name="L375" href="#L375">375</a>       <strong class="jxr_keyword">return</strong> executor;
 <a class="jxr_linenumber" name="L376" href="#L376">376</a>     }
 <a class="jxr_linenumber" name="L377" href="#L377">377</a> 

@@ -268,7 +268,7 @@
 <a class="jxr_linenumber" name="L260" href="#L260">260</a>                 warmUp.add(NonNestedDocsFilter.INSTANCE);
 <a class="jxr_linenumber" name="L261" href="#L261">261</a>             }
 <a class="jxr_linenumber" name="L262" href="#L262">262</a> 
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>             <strong class="jxr_keyword">final</strong> Executor executor = threadPool.executor(executor());
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor = threadPool.executor(executor());
 <a class="jxr_linenumber" name="L264" href="#L264">264</a>             <strong class="jxr_keyword">final</strong> CountDownLatch latch = <strong class="jxr_keyword">new</strong> CountDownLatch(context.searcher().reader().leaves().size() * warmUp.size());
 <a class="jxr_linenumber" name="L265" href="#L265">265</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> LeafReaderContext ctx : context.searcher().reader().leaves()) {
 <a class="jxr_linenumber" name="L266" href="#L266">266</a>                 <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Filter filterToWarm : warmUp) {

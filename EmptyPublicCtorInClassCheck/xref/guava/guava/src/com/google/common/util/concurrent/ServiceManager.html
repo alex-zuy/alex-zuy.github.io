@@ -242,7 +242,7 @@
 <a class="jxr_linenumber" name="L234" href="#L234">234</a> <em class="jxr_javadoccomment">   * @param listener the listener to run when the manager changes state</em>
 <a class="jxr_linenumber" name="L235" href="#L235">235</a> <em class="jxr_javadoccomment">   * @param executor the executor in which the listeners callback methods will be run.</em>
 <a class="jxr_linenumber" name="L236" href="#L236">236</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addListener(<a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a> listener, Executor executor) {
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addListener(<a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a> listener, <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor) {
 <a class="jxr_linenumber" name="L238" href="#L238">238</a>     state.addListener(listener, executor);
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>   }
 <a class="jxr_linenumber" name="L240" href="#L240">240</a> 
@@ -515,7 +515,7 @@
 <a class="jxr_linenumber" name="L507" href="#L507">507</a>       }
 <a class="jxr_linenumber" name="L508" href="#L508">508</a>     }
 <a class="jxr_linenumber" name="L509" href="#L509">509</a> 
-<a class="jxr_linenumber" name="L510" href="#L510">510</a>     <strong class="jxr_keyword">void</strong> addListener(<a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a> listener, Executor executor) {
+<a class="jxr_linenumber" name="L510" href="#L510">510</a>     <strong class="jxr_keyword">void</strong> addListener(<a href="../../../../../com/google/common/util/concurrent/AbstractFuture.html">Listener</a> listener, <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor) {
 <a class="jxr_linenumber" name="L511" href="#L511">511</a>       checkNotNull(listener, <span class="jxr_string">"listener"</span>);
 <a class="jxr_linenumber" name="L512" href="#L512">512</a>       checkNotNull(executor, <span class="jxr_string">"executor"</span>);
 <a class="jxr_linenumber" name="L513" href="#L513">513</a>       monitor.enter();
@@ -542,7 +542,7 @@
 <a class="jxr_linenumber" name="L534" href="#L534">534</a>       monitor.enter();
 <a class="jxr_linenumber" name="L535" href="#L535">535</a>       <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L536" href="#L536">536</a>         <strong class="jxr_keyword">if</strong> (!monitor.waitForUninterruptibly(awaitHealthGuard, timeout, unit)) {
-<a class="jxr_linenumber" name="L537" href="#L537">537</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> TimeoutException(<span class="jxr_string">"Timeout waiting for the services to become healthy. The "</span>
+<a class="jxr_linenumber" name="L537" href="#L537">537</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/TimeoutException.html">TimeoutException</a>(<span class="jxr_string">"Timeout waiting for the services to become healthy. The "</span>
 <a class="jxr_linenumber" name="L538" href="#L538">538</a>               + <span class="jxr_string">"following services have not started: "</span>
 <a class="jxr_linenumber" name="L539" href="#L539">539</a>               + Multimaps.filterKeys(servicesByState, in(ImmutableSet.of(NEW, STARTING))));
 <a class="jxr_linenumber" name="L540" href="#L540">540</a>         }
@@ -561,7 +561,7 @@
 <a class="jxr_linenumber" name="L553" href="#L553">553</a>       monitor.enter();
 <a class="jxr_linenumber" name="L554" href="#L554">554</a>       <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L555" href="#L555">555</a>         <strong class="jxr_keyword">if</strong> (!monitor.waitForUninterruptibly(stoppedGuard, timeout, unit)) {
-<a class="jxr_linenumber" name="L556" href="#L556">556</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> TimeoutException(<span class="jxr_string">"Timeout waiting for the services to stop. The following "</span>
+<a class="jxr_linenumber" name="L556" href="#L556">556</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/TimeoutException.html">TimeoutException</a>(<span class="jxr_string">"Timeout waiting for the services to stop. The following "</span>
 <a class="jxr_linenumber" name="L557" href="#L557">557</a>               + <span class="jxr_string">"services have not stopped: "</span>
 <a class="jxr_linenumber" name="L558" href="#L558">558</a>               + Multimaps.filterKeys(servicesByState,
 <a class="jxr_linenumber" name="L559" href="#L559">559</a>                   not(in(EnumSet.of(TERMINATED, FAILED)))));

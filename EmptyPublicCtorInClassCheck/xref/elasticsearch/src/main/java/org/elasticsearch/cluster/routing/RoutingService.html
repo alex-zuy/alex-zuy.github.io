@@ -70,7 +70,7 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">volatile</strong> <strong class="jxr_keyword">boolean</strong> routingTableDirty = false;
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">volatile</strong> Future scheduledRoutingTableFuture;
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">volatile</strong> <a href="../../../../java/util/concurrent/Future.html">Future</a> scheduledRoutingTableFuture;
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      @Inject
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/cluster/routing/RoutingService.html">RoutingService</a>(<a href="../../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings, <a href="../../../../org/elasticsearch/threadpool/ThreadPool.html">ThreadPool</a> threadPool, <a href="../../../../org/elasticsearch/cluster/ClusterService.html">ClusterService</a> clusterService, <a href="../../../../org/elasticsearch/cluster/routing/allocation/AllocationService.html">AllocationService</a> allocationService) {

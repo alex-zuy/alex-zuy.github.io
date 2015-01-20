@@ -390,7 +390,7 @@
 <a class="jxr_linenumber" name="L382" href="#L382">382</a>         ensureYellow();
 <a class="jxr_linenumber" name="L383" href="#L383">383</a> 
 <a class="jxr_linenumber" name="L384" href="#L384">384</a>         <strong class="jxr_keyword">final</strong> Throwable[] threadException = <strong class="jxr_keyword">new</strong> Throwable[1];
-<a class="jxr_linenumber" name="L385" href="#L385">385</a>         <strong class="jxr_keyword">final</strong> AtomicBoolean stop = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> stop = <strong class="jxr_keyword">new</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L386" href="#L386">386</a>         Thread[] threads = <strong class="jxr_keyword">new</strong> Thread[3];
 <a class="jxr_linenumber" name="L387" href="#L387">387</a>         <strong class="jxr_keyword">final</strong> CyclicBarrier barrier = <strong class="jxr_keyword">new</strong> CyclicBarrier(threads.length);
 <a class="jxr_linenumber" name="L388" href="#L388">388</a>         <strong class="jxr_keyword">final</strong> ArrayList&lt;Client&gt; clientArray = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();

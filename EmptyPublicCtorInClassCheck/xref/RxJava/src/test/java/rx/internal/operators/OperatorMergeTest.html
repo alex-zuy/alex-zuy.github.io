@@ -132,7 +132,7 @@
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>     @Test(timeout = 1000)
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testUnSubscribeObservableOfObservables() <strong class="jxr_keyword">throws</strong> InterruptedException {
 <a class="jxr_linenumber" name="L126" href="#L126">126</a> 
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>         <strong class="jxr_keyword">final</strong> AtomicBoolean unsubscribed = <strong class="jxr_keyword">new</strong> AtomicBoolean();
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>         <strong class="jxr_keyword">final</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> unsubscribed = <strong class="jxr_keyword">new</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>();
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>         <strong class="jxr_keyword">final</strong> CountDownLatch latch = <strong class="jxr_keyword">new</strong> CountDownLatch(1);
 <a class="jxr_linenumber" name="L129" href="#L129">129</a> 
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>         Observable&lt;Observable&lt;Long&gt;&gt; source = Observable.create(<strong class="jxr_keyword">new</strong> Observable.OnSubscribe&lt;Observable&lt;Long&gt;&gt;() {
@@ -410,11 +410,11 @@
 <a class="jxr_linenumber" name="L402" href="#L402">402</a>     @Test
 <a class="jxr_linenumber" name="L403" href="#L403">403</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testUnsubscribeAsObservablesComplete() {
 <a class="jxr_linenumber" name="L404" href="#L404">404</a>         <a href="../../../rx/schedulers/TestScheduler.html">TestScheduler</a> scheduler1 = Schedulers.test();
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>         AtomicBoolean os1 = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>         <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> os1 = <strong class="jxr_keyword">new</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L406" href="#L406">406</a>         Observable&lt;Long&gt; o1 = createObservableOf5IntervalsOf1SecondIncrementsWithSubscriptionHook(scheduler1, os1);
 <a class="jxr_linenumber" name="L407" href="#L407">407</a> 
 <a class="jxr_linenumber" name="L408" href="#L408">408</a>         <a href="../../../rx/schedulers/TestScheduler.html">TestScheduler</a> scheduler2 = Schedulers.test();
-<a class="jxr_linenumber" name="L409" href="#L409">409</a>         AtomicBoolean os2 = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>         <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> os2 = <strong class="jxr_keyword">new</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L410" href="#L410">410</a>         Observable&lt;Long&gt; o2 = createObservableOf5IntervalsOf1SecondIncrementsWithSubscriptionHook(scheduler2, os2);
 <a class="jxr_linenumber" name="L411" href="#L411">411</a> 
 <a class="jxr_linenumber" name="L412" href="#L412">412</a>         TestSubscriber&lt;Long&gt; ts = <strong class="jxr_keyword">new</strong> TestSubscriber&lt;Long&gt;();
@@ -452,11 +452,11 @@
 <a class="jxr_linenumber" name="L444" href="#L444">444</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testEarlyUnsubscribe() {
 <a class="jxr_linenumber" name="L445" href="#L445">445</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
 <a class="jxr_linenumber" name="L446" href="#L446">446</a>             <a href="../../../rx/schedulers/TestScheduler.html">TestScheduler</a> scheduler1 = Schedulers.test();
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>             AtomicBoolean os1 = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>             <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> os1 = <strong class="jxr_keyword">new</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L448" href="#L448">448</a>             Observable&lt;Long&gt; o1 = createObservableOf5IntervalsOf1SecondIncrementsWithSubscriptionHook(scheduler1, os1);
 <a class="jxr_linenumber" name="L449" href="#L449">449</a> 
 <a class="jxr_linenumber" name="L450" href="#L450">450</a>             <a href="../../../rx/schedulers/TestScheduler.html">TestScheduler</a> scheduler2 = Schedulers.test();
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>             AtomicBoolean os2 = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>             <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> os2 = <strong class="jxr_keyword">new</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L452" href="#L452">452</a>             Observable&lt;Long&gt; o2 = createObservableOf5IntervalsOf1SecondIncrementsWithSubscriptionHook(scheduler2, os2);
 <a class="jxr_linenumber" name="L453" href="#L453">453</a> 
 <a class="jxr_linenumber" name="L454" href="#L454">454</a>             TestSubscriber&lt;Long&gt; ts = <strong class="jxr_keyword">new</strong> TestSubscriber&lt;Long&gt;();
@@ -484,7 +484,7 @@
 <a class="jxr_linenumber" name="L476" href="#L476">476</a>         }
 <a class="jxr_linenumber" name="L477" href="#L477">477</a>     }
 <a class="jxr_linenumber" name="L478" href="#L478">478</a> 
-<a class="jxr_linenumber" name="L479" href="#L479">479</a>     <strong class="jxr_keyword">private</strong> Observable&lt;Long&gt; createObservableOf5IntervalsOf1SecondIncrementsWithSubscriptionHook(<strong class="jxr_keyword">final</strong> <a href="../../../rx/Scheduler.html">Scheduler</a> scheduler, <strong class="jxr_keyword">final</strong> AtomicBoolean unsubscribed) {
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>     <strong class="jxr_keyword">private</strong> Observable&lt;Long&gt; createObservableOf5IntervalsOf1SecondIncrementsWithSubscriptionHook(<strong class="jxr_keyword">final</strong> <a href="../../../rx/Scheduler.html">Scheduler</a> scheduler, <strong class="jxr_keyword">final</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> unsubscribed) {
 <a class="jxr_linenumber" name="L480" href="#L480">480</a>         <strong class="jxr_keyword">return</strong> Observable.create(<strong class="jxr_keyword">new</strong> OnSubscribe&lt;Long&gt;() {
 <a class="jxr_linenumber" name="L481" href="#L481">481</a> 
 <a class="jxr_linenumber" name="L482" href="#L482">482</a>             @Override

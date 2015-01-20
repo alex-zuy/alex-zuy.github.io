@@ -47,20 +47,20 @@
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/google/common/util/concurrent/MoreExecutorsDirectExecutorBenchmark.html">MoreExecutorsDirectExecutorBenchmark</a> {
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>    enum <a href="../../../../../com/google/common/util/concurrent/AbstractFutureBenchmarks.html">Impl</a> {
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      EXECUTOR_SERVICE {
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>        @Override Executor executor() {
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>        @Override <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor() {
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>          <strong class="jxr_keyword">return</strong> newDirectExecutorService();
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>        }
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      },
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      EXECUTOR {
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>        @Override Executor executor() {
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>        @Override <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor() {
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">return</strong> directExecutor();
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>        }
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      };
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">abstract</strong> Executor executor();
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">abstract</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor();
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>    }
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>    @Param <a href="../../../../../com/google/common/util/concurrent/AbstractFutureBenchmarks.html">Impl</a> impl;
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>    Executor executor;
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>    <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor;
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>    <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/google/common/util/concurrent/MoreExecutorsTest.html">CountingRunnable</a> <strong class="jxr_keyword">implements</strong> Runnable {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>      <a href="../../../../../java/util/concurrent/atomic/AtomicInteger.html">AtomicInteger</a> integer = <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicInteger.html">AtomicInteger</a>();
@@ -101,7 +101,7 @@
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>    }
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>    
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>    @Benchmark <strong class="jxr_keyword">int</strong> timeUncontendedExecute(<strong class="jxr_keyword">int</strong> reps) {
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">final</strong> Executor executor = <strong class="jxr_keyword">this</strong>.executor;
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">final</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor = <strong class="jxr_keyword">this</strong>.executor;
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>      <strong class="jxr_keyword">final</strong> <a href="../../../../../com/google/common/util/concurrent/MoreExecutorsTest.html">CountingRunnable</a> countingRunnable = <strong class="jxr_keyword">this</strong>.countingRunnable;
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; reps; i++) {
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>        executor.execute(countingRunnable);
@@ -110,7 +110,7 @@
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>   }
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>   
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>   @Benchmark <strong class="jxr_keyword">int</strong> timeContendedExecute(<strong class="jxr_keyword">int</strong> reps) {
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">final</strong> Executor executor = <strong class="jxr_keyword">this</strong>.executor;
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">final</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor = <strong class="jxr_keyword">this</strong>.executor;
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>     <strong class="jxr_keyword">for</strong> (Thread thread : threads) {
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>       <strong class="jxr_keyword">if</strong> (!thread.isAlive()) {
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         thread.start();

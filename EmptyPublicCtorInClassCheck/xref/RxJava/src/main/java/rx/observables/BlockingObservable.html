@@ -96,7 +96,7 @@
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment">     *            the {@link Action1} to invoke for each item emitted by the {@code BlockingObservable}</em>
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  <em class="jxr_javadoccomment">     * @throws RuntimeException</em>
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_javadoccomment">     *             if an error occurs</em>
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#foreach"&gt;RxJava wiki: forEach()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/subscribe.html" target="alexandria_uri">http://reactivex.io/documentation/operators/subscribe.html</a>"&gt;ReactiveX documentation: Subscribe&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> forEach(<strong class="jxr_keyword">final</strong> Action1&lt;? <strong class="jxr_keyword">super</strong> T&gt; onNext) {
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          <strong class="jxr_keyword">final</strong> CountDownLatch latch = <strong class="jxr_keyword">new</strong> CountDownLatch(1);
@@ -157,7 +157,7 @@
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> <em class="jxr_javadoccomment">     * &lt;img width="640" height="315" src="https://github.com/ReactiveX/RxJava/wiki/images/rx-operators/B.getIterator.png" alt=""&gt;</em>
 <a class="jxr_linenumber" name="L150" href="#L150">150</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L151" href="#L151">151</a> <em class="jxr_javadoccomment">     * @return an {@link Iterator} that can iterate over the items emitted by this {@code BlockingObservable}</em>
-<a class="jxr_linenumber" name="L152" href="#L152">152</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#transformations-tofuture-toiterable-and-toiteratorgetiterator"&gt;RxJava wiki: getIterator()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L152" href="#L152">152</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/to.html" target="alexandria_uri">http://reactivex.io/documentation/operators/to.html</a>"&gt;ReactiveX documentation: To&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L153" href="#L153">153</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>     <strong class="jxr_keyword">public</strong> Iterator&lt;T&gt; getIterator() {
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>         <strong class="jxr_keyword">return</strong> BlockingOperatorToIterator.toIterator(o);
@@ -170,7 +170,7 @@
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> <em class="jxr_javadoccomment">     * @return the first item emitted by this {@code BlockingObservable}</em>
 <a class="jxr_linenumber" name="L163" href="#L163">163</a> <em class="jxr_javadoccomment">     * @throws NoSuchElementException</em>
 <a class="jxr_linenumber" name="L164" href="#L164">164</a> <em class="jxr_javadoccomment">     *             if this {@code BlockingObservable} emits no items</em>
-<a class="jxr_linenumber" name="L165" href="#L165">165</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#first-and-firstordefault"&gt;RxJava wiki: first()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L165" href="#L165">165</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/first.html" target="alexandria_uri">http://reactivex.io/documentation/operators/first.html</a>"&gt;ReactiveX documentation: First&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L166" href="#L166">166</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>     <strong class="jxr_keyword">public</strong> T first() {
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>         <strong class="jxr_keyword">return</strong> blockForSingle(o.first());
@@ -185,7 +185,7 @@
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> <em class="jxr_javadoccomment">     * @return the first item emitted by this {@code BlockingObservable} that matches the predicate</em>
 <a class="jxr_linenumber" name="L178" href="#L178">178</a> <em class="jxr_javadoccomment">     * @throws NoSuchElementException</em>
 <a class="jxr_linenumber" name="L179" href="#L179">179</a> <em class="jxr_javadoccomment">     *             if this {@code BlockingObservable} emits no such items</em>
-<a class="jxr_linenumber" name="L180" href="#L180">180</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#first-and-firstordefault"&gt;RxJava wiki: first()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L180" href="#L180">180</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/first.html" target="alexandria_uri">http://reactivex.io/documentation/operators/first.html</a>"&gt;ReactiveX documentation: First&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L181" href="#L181">181</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>     <strong class="jxr_keyword">public</strong> T first(Func1&lt;? <strong class="jxr_keyword">super</strong> T, Boolean&gt; predicate) {
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>         <strong class="jxr_keyword">return</strong> blockForSingle(o.first(predicate));
@@ -199,7 +199,7 @@
 <a class="jxr_linenumber" name="L191" href="#L191">191</a> <em class="jxr_javadoccomment">     *            a default value to return if this {@code BlockingObservable} emits no items</em>
 <a class="jxr_linenumber" name="L192" href="#L192">192</a> <em class="jxr_javadoccomment">     * @return the first item emitted by this {@code BlockingObservable}, or the default value if it emits no</em>
 <a class="jxr_linenumber" name="L193" href="#L193">193</a> <em class="jxr_javadoccomment">     *         items</em>
-<a class="jxr_linenumber" name="L194" href="#L194">194</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#first-and-firstordefault"&gt;RxJava wiki: firstOrDefault()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L194" href="#L194">194</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/first.html" target="alexandria_uri">http://reactivex.io/documentation/operators/first.html</a>"&gt;ReactiveX documentation: First&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L195" href="#L195">195</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>     <strong class="jxr_keyword">public</strong> T firstOrDefault(T defaultValue) {
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>         <strong class="jxr_keyword">return</strong> blockForSingle(o.map(UtilityFunctions.&lt;T&gt;identity()).firstOrDefault(defaultValue));
@@ -215,7 +215,7 @@
 <a class="jxr_linenumber" name="L207" href="#L207">207</a> <em class="jxr_javadoccomment">     *            a predicate function to evaluate items emitted by this {@code BlockingObservable}</em>
 <a class="jxr_linenumber" name="L208" href="#L208">208</a> <em class="jxr_javadoccomment">     * @return the first item emitted by this {@code BlockingObservable} that matches the predicate, or the</em>
 <a class="jxr_linenumber" name="L209" href="#L209">209</a> <em class="jxr_javadoccomment">     *         default value if this {@code BlockingObservable} emits no matching items</em>
-<a class="jxr_linenumber" name="L210" href="#L210">210</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#first-and-firstordefault"&gt;RxJava wiki: firstOrDefault()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L210" href="#L210">210</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/first.html" target="alexandria_uri">http://reactivex.io/documentation/operators/first.html</a>"&gt;ReactiveX documentation: First&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L211" href="#L211">211</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>     <strong class="jxr_keyword">public</strong> T firstOrDefault(T defaultValue, Func1&lt;? <strong class="jxr_keyword">super</strong> T, Boolean&gt; predicate) {
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>         <strong class="jxr_keyword">return</strong> blockForSingle(o.filter(predicate).map(UtilityFunctions.&lt;T&gt;identity()).firstOrDefault(defaultValue));
@@ -230,7 +230,7 @@
 <a class="jxr_linenumber" name="L222" href="#L222">222</a> <em class="jxr_javadoccomment">     * @return the last item emitted by this {@code BlockingObservable}</em>
 <a class="jxr_linenumber" name="L223" href="#L223">223</a> <em class="jxr_javadoccomment">     * @throws NoSuchElementException</em>
 <a class="jxr_linenumber" name="L224" href="#L224">224</a> <em class="jxr_javadoccomment">     *             if this {@code BlockingObservable} emits no items</em>
-<a class="jxr_linenumber" name="L225" href="#L225">225</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#last-and-lastordefault"&gt;RxJava wiki: last()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L225" href="#L225">225</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/last.html" target="alexandria_uri">http://reactivex.io/documentation/operators/last.html</a>"&gt;ReactiveX documentation: Last&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L226" href="#L226">226</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L227" href="#L227">227</a>     <strong class="jxr_keyword">public</strong> T last() {
 <a class="jxr_linenumber" name="L228" href="#L228">228</a>         <strong class="jxr_keyword">return</strong> blockForSingle(o.last());
@@ -247,7 +247,7 @@
 <a class="jxr_linenumber" name="L239" href="#L239">239</a> <em class="jxr_javadoccomment">     * @return the last item emitted by the {@code BlockingObservable} that matches the predicate</em>
 <a class="jxr_linenumber" name="L240" href="#L240">240</a> <em class="jxr_javadoccomment">     * @throws NoSuchElementException</em>
 <a class="jxr_linenumber" name="L241" href="#L241">241</a> <em class="jxr_javadoccomment">     *             if this {@code BlockingObservable} emits no items</em>
-<a class="jxr_linenumber" name="L242" href="#L242">242</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#last-and-lastordefault"&gt;RxJava wiki: last()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L242" href="#L242">242</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/last.html" target="alexandria_uri">http://reactivex.io/documentation/operators/last.html</a>"&gt;ReactiveX documentation: Last&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L243" href="#L243">243</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>     <strong class="jxr_keyword">public</strong> T last(<strong class="jxr_keyword">final</strong> Func1&lt;? <strong class="jxr_keyword">super</strong> T, Boolean&gt; predicate) {
 <a class="jxr_linenumber" name="L245" href="#L245">245</a>         <strong class="jxr_keyword">return</strong> blockForSingle(o.last(predicate));
@@ -263,7 +263,7 @@
 <a class="jxr_linenumber" name="L255" href="#L255">255</a> <em class="jxr_javadoccomment">     *            a default value to return if this {@code BlockingObservable} emits no items</em>
 <a class="jxr_linenumber" name="L256" href="#L256">256</a> <em class="jxr_javadoccomment">     * @return the last item emitted by the {@code BlockingObservable}, or the default value if it emits no</em>
 <a class="jxr_linenumber" name="L257" href="#L257">257</a> <em class="jxr_javadoccomment">     *         items</em>
-<a class="jxr_linenumber" name="L258" href="#L258">258</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#last-and-lastordefault"&gt;RxJava wiki: lastOrDefault()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L258" href="#L258">258</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/last.html" target="alexandria_uri">http://reactivex.io/documentation/operators/last.html</a>"&gt;ReactiveX documentation: Last&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L259" href="#L259">259</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L260" href="#L260">260</a>     <strong class="jxr_keyword">public</strong> T lastOrDefault(T defaultValue) {
 <a class="jxr_linenumber" name="L261" href="#L261">261</a>         <strong class="jxr_keyword">return</strong> blockForSingle(o.map(UtilityFunctions.&lt;T&gt;identity()).lastOrDefault(defaultValue));
@@ -281,7 +281,7 @@
 <a class="jxr_linenumber" name="L273" href="#L273">273</a> <em class="jxr_javadoccomment">     *            a predicate function to evaluate items emitted by this {@code BlockingObservable}</em>
 <a class="jxr_linenumber" name="L274" href="#L274">274</a> <em class="jxr_javadoccomment">     * @return the last item emitted by this {@code BlockingObservable} that matches the predicate, or the</em>
 <a class="jxr_linenumber" name="L275" href="#L275">275</a> <em class="jxr_javadoccomment">     *         default value if it emits no matching items</em>
-<a class="jxr_linenumber" name="L276" href="#L276">276</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#last-and-lastordefault"&gt;RxJava wiki: lastOrDefault()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L276" href="#L276">276</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/last.html" target="alexandria_uri">http://reactivex.io/documentation/operators/last.html</a>"&gt;ReactiveX documentation: Last&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L277" href="#L277">277</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L278" href="#L278">278</a>     <strong class="jxr_keyword">public</strong> T lastOrDefault(T defaultValue, Func1&lt;? <strong class="jxr_keyword">super</strong> T, Boolean&gt; predicate) {
 <a class="jxr_linenumber" name="L279" href="#L279">279</a>         <strong class="jxr_keyword">return</strong> blockForSingle(o.filter(predicate).map(UtilityFunctions.&lt;T&gt;identity()).lastOrDefault(defaultValue));
@@ -298,7 +298,7 @@
 <a class="jxr_linenumber" name="L290" href="#L290">290</a> <em class="jxr_javadoccomment">     *            {@code BlockingObservable} has not yet emitted an item</em>
 <a class="jxr_linenumber" name="L291" href="#L291">291</a> <em class="jxr_javadoccomment">     * @return an {@link Iterable} that on each iteration returns the item that this {@code BlockingObservable}</em>
 <a class="jxr_linenumber" name="L292" href="#L292">292</a> <em class="jxr_javadoccomment">     *         has most recently emitted</em>
-<a class="jxr_linenumber" name="L293" href="#L293">293</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#mostrecent"&gt;RxJava wiki: mostRecent()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L293" href="#L293">293</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/first.html" target="alexandria_uri">http://reactivex.io/documentation/operators/first.html</a>"&gt;ReactiveX documentation: First&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L294" href="#L294">294</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L295" href="#L295">295</a>     <strong class="jxr_keyword">public</strong> Iterable&lt;T&gt; mostRecent(T initialValue) {
 <a class="jxr_linenumber" name="L296" href="#L296">296</a>         <strong class="jxr_keyword">return</strong> BlockingOperatorMostRecent.mostRecent(o, initialValue);
@@ -312,7 +312,7 @@
 <a class="jxr_linenumber" name="L304" href="#L304">304</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L305" href="#L305">305</a> <em class="jxr_javadoccomment">     * @return an {@link Iterable} that blocks upon each iteration until this {@code BlockingObservable} emits</em>
 <a class="jxr_linenumber" name="L306" href="#L306">306</a> <em class="jxr_javadoccomment">     *         a new item, whereupon the Iterable returns that item</em>
-<a class="jxr_linenumber" name="L307" href="#L307">307</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#next"&gt;RxJava wiki: next()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L307" href="#L307">307</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/takelast.html" target="alexandria_uri">http://reactivex.io/documentation/operators/takelast.html</a>"&gt;ReactiveX documentation: TakeLast&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L308" href="#L308">308</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L309" href="#L309">309</a>     <strong class="jxr_keyword">public</strong> Iterable&lt;T&gt; next() {
 <a class="jxr_linenumber" name="L310" href="#L310">310</a>         <strong class="jxr_keyword">return</strong> BlockingOperatorNext.next(o);
@@ -329,7 +329,7 @@
 <a class="jxr_linenumber" name="L321" href="#L321">321</a> <em class="jxr_javadoccomment">     * event.</em>
 <a class="jxr_linenumber" name="L322" href="#L322">322</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L323" href="#L323">323</a> <em class="jxr_javadoccomment">     * @return an Iterable that always returns the latest item emitted by this {@code BlockingObservable}</em>
-<a class="jxr_linenumber" name="L324" href="#L324">324</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#latest"&gt;RxJava wiki: latest()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L324" href="#L324">324</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/first.html" target="alexandria_uri">http://reactivex.io/documentation/operators/first.html</a>"&gt;ReactiveX documentation: First&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L325" href="#L325">325</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L326" href="#L326">326</a>     <strong class="jxr_keyword">public</strong> Iterable&lt;T&gt; latest() {
 <a class="jxr_linenumber" name="L327" href="#L327">327</a>         <strong class="jxr_keyword">return</strong> BlockingOperatorLatest.latest(o);
@@ -342,7 +342,7 @@
 <a class="jxr_linenumber" name="L334" href="#L334">334</a> <em class="jxr_javadoccomment">     * &lt;img width="640" height="315" src="https://github.com/ReactiveX/RxJava/wiki/images/rx-operators/B.single.png" alt=""&gt;</em>
 <a class="jxr_linenumber" name="L335" href="#L335">335</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L336" href="#L336">336</a> <em class="jxr_javadoccomment">     * @return the single item emitted by this {@code BlockingObservable}</em>
-<a class="jxr_linenumber" name="L337" href="#L337">337</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#single-and-singleordefault"&gt;RxJava wiki: single()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L337" href="#L337">337</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/first.html" target="alexandria_uri">http://reactivex.io/documentation/operators/first.html</a>"&gt;ReactiveX documentation: First&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L338" href="#L338">338</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L339" href="#L339">339</a>     <strong class="jxr_keyword">public</strong> T single() {
 <a class="jxr_linenumber" name="L340" href="#L340">340</a>         <strong class="jxr_keyword">return</strong> blockForSingle(o.single());
@@ -357,7 +357,7 @@
 <a class="jxr_linenumber" name="L349" href="#L349">349</a> <em class="jxr_javadoccomment">     * @param predicate</em>
 <a class="jxr_linenumber" name="L350" href="#L350">350</a> <em class="jxr_javadoccomment">     *            a predicate function to evaluate items emitted by this {@link BlockingObservable}</em>
 <a class="jxr_linenumber" name="L351" href="#L351">351</a> <em class="jxr_javadoccomment">     * @return the single item emitted by this {@code BlockingObservable} that matches the predicate</em>
-<a class="jxr_linenumber" name="L352" href="#L352">352</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#single-and-singleordefault"&gt;RxJava wiki: single()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L352" href="#L352">352</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/first.html" target="alexandria_uri">http://reactivex.io/documentation/operators/first.html</a>"&gt;ReactiveX documentation: First&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L353" href="#L353">353</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L354" href="#L354">354</a>     <strong class="jxr_keyword">public</strong> T single(Func1&lt;? <strong class="jxr_keyword">super</strong> T, Boolean&gt; predicate) {
 <a class="jxr_linenumber" name="L355" href="#L355">355</a>         <strong class="jxr_keyword">return</strong> blockForSingle(o.single(predicate));
@@ -374,7 +374,7 @@
 <a class="jxr_linenumber" name="L366" href="#L366">366</a> <em class="jxr_javadoccomment">     *            a default value to return if this {@code BlockingObservable} emits no items</em>
 <a class="jxr_linenumber" name="L367" href="#L367">367</a> <em class="jxr_javadoccomment">     * @return the single item emitted by this {@code BlockingObservable}, or the default value if it emits no</em>
 <a class="jxr_linenumber" name="L368" href="#L368">368</a> <em class="jxr_javadoccomment">     *         items</em>
-<a class="jxr_linenumber" name="L369" href="#L369">369</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#single-and-singleordefault"&gt;RxJava wiki: singleOrDefault()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L369" href="#L369">369</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/first.html" target="alexandria_uri">http://reactivex.io/documentation/operators/first.html</a>"&gt;ReactiveX documentation: First&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L370" href="#L370">370</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L371" href="#L371">371</a>     <strong class="jxr_keyword">public</strong> T singleOrDefault(T defaultValue) {
 <a class="jxr_linenumber" name="L372" href="#L372">372</a>         <strong class="jxr_keyword">return</strong> blockForSingle(o.map(UtilityFunctions.&lt;T&gt;identity()).singleOrDefault(defaultValue));
@@ -393,7 +393,7 @@
 <a class="jxr_linenumber" name="L385" href="#L385">385</a> <em class="jxr_javadoccomment">     *            a predicate function to evaluate items emitted by this {@code BlockingObservable}</em>
 <a class="jxr_linenumber" name="L386" href="#L386">386</a> <em class="jxr_javadoccomment">     * @return the single item emitted by the {@code BlockingObservable} that matches the predicate, or the</em>
 <a class="jxr_linenumber" name="L387" href="#L387">387</a> <em class="jxr_javadoccomment">     *         default value if no such items are emitted</em>
-<a class="jxr_linenumber" name="L388" href="#L388">388</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#single-and-singleordefault"&gt;RxJava wiki: singleOrDefault()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L388" href="#L388">388</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/first.html" target="alexandria_uri">http://reactivex.io/documentation/operators/first.html</a>"&gt;ReactiveX documentation: First&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L389" href="#L389">389</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L390" href="#L390">390</a>     <strong class="jxr_keyword">public</strong> T singleOrDefault(T defaultValue, Func1&lt;? <strong class="jxr_keyword">super</strong> T, Boolean&gt; predicate) {
 <a class="jxr_linenumber" name="L391" href="#L391">391</a>         <strong class="jxr_keyword">return</strong> blockForSingle(o.filter(predicate).map(UtilityFunctions.&lt;T&gt;identity()).singleOrDefault(defaultValue));
@@ -411,7 +411,7 @@
 <a class="jxr_linenumber" name="L403" href="#L403">403</a> <em class="jxr_javadoccomment">     * &lt;img width="640" height="395" src="https://github.com/ReactiveX/RxJava/wiki/images/rx-operators/B.toFuture.png" alt=""&gt;</em>
 <a class="jxr_linenumber" name="L404" href="#L404">404</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L405" href="#L405">405</a> <em class="jxr_javadoccomment">     * @return a {@link Future} that expects a single item to be emitted by this {@code BlockingObservable}</em>
-<a class="jxr_linenumber" name="L406" href="#L406">406</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#transformations-tofuture-toiterable-and-toiteratorgetiterator"&gt;RxJava wiki: toFuture()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L406" href="#L406">406</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/to.html" target="alexandria_uri">http://reactivex.io/documentation/operators/to.html</a>"&gt;ReactiveX documentation: To&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L407" href="#L407">407</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L408" href="#L408">408</a>     <strong class="jxr_keyword">public</strong> Future&lt;T&gt; toFuture() {
 <a class="jxr_linenumber" name="L409" href="#L409">409</a>         <strong class="jxr_keyword">return</strong> BlockingOperatorToFuture.toFuture(o);
@@ -423,7 +423,7 @@
 <a class="jxr_linenumber" name="L415" href="#L415">415</a> <em class="jxr_javadoccomment">     * &lt;img width="640" height="315" src="https://github.com/ReactiveX/RxJava/wiki/images/rx-operators/B.toIterable.png" alt=""&gt;</em>
 <a class="jxr_linenumber" name="L416" href="#L416">416</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L417" href="#L417">417</a> <em class="jxr_javadoccomment">     * @return an {@link Iterable} version of this {@code BlockingObservable}</em>
-<a class="jxr_linenumber" name="L418" href="#L418">418</a> <em class="jxr_javadoccomment">     * @see &lt;a href="https://github.com/ReactiveX/RxJava/wiki/Blocking-Observable-Operators#transformations-tofuture-toiterable-and-toiteratorgetiterator"&gt;RxJava wiki: toIterable()&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L418" href="#L418">418</a> <em class="jxr_javadoccomment">     * @see &lt;a href="<a href="http://reactivex.io/documentation/operators/to.html" target="alexandria_uri">http://reactivex.io/documentation/operators/to.html</a>"&gt;ReactiveX documentation: To&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L419" href="#L419">419</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L420" href="#L420">420</a>     <strong class="jxr_keyword">public</strong> Iterable&lt;T&gt; toIterable() {
 <a class="jxr_linenumber" name="L421" href="#L421">421</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Iterable&lt;T&gt;() {

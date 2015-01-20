@@ -90,7 +90,7 @@
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>    }
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> testMultipleProducers(BlockingQueue&lt;Object&gt; q)
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>        <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>        <strong class="jxr_keyword">throws</strong> <a href="../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">boolean</strong> interruptibly : <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">boolean</strong>[] { <strong class="jxr_keyword">true</strong>, false }) {
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>        threadPool.submit(<strong class="jxr_keyword">new</strong> <a href="../../../../com/google/common/collect/QueuesTest.html">Producer</a>(q, 20));
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>        threadPool.submit(<strong class="jxr_keyword">new</strong> <a href="../../../../com/google/common/collect/QueuesTest.html">Producer</a>(q, 20));

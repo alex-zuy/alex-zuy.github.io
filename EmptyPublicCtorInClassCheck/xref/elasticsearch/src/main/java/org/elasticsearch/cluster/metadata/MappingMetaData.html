@@ -362,7 +362,7 @@
 <a class="jxr_linenumber" name="L354" href="#L354">354</a>                     path = fieldNode.toString();
 <a class="jxr_linenumber" name="L355" href="#L355">355</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (fieldName.equals(<span class="jxr_string">"format"</span>)) {
 <a class="jxr_linenumber" name="L356" href="#L356">356</a>                     format = fieldNode.toString();
-<a class="jxr_linenumber" name="L357" href="#L357">357</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (fieldName.equals(<span class="jxr_string">"default"</span>)) {
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (fieldName.equals(<span class="jxr_string">"default"</span>) &amp;&amp; fieldNode != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L358" href="#L358">358</a>                     defaultTimestamp = fieldNode.toString();
 <a class="jxr_linenumber" name="L359" href="#L359">359</a>                 }
 <a class="jxr_linenumber" name="L360" href="#L360">360</a>             }

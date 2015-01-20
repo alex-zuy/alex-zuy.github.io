@@ -32,34 +32,34 @@
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> com.carrotsearch.hppc.cursors.ObjectCursor;
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> com.google.common.base.Charsets;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> com.google.common.collect.ImmutableMap;
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.apache.lucene.index.IndexOptions;
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.apache.lucene.index.LeafReaderContext;
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> org.apache.lucene.index.NumericDocValues;
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> org.apache.lucene.search.TopDocs;
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.ElasticsearchException;
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.ElasticsearchIllegalArgumentException;
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.ElasticsearchParseException;
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.ExceptionsHelper;
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.action.search.SearchType;
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cache.recycler.PageCacheRecycler;
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.ClusterService;
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.metadata.IndexMetaData;
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.Nullable;
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.bytes.BytesReference;
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.component.AbstractLifecycleComponent;
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.inject.Inject;
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.lease.Releasables;
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.settings.Settings;
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.unit.TimeValue;
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.util.BigArrays;
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.util.concurrent.ConcurrentCollections;
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.util.concurrent.ConcurrentMapLong;
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.util.concurrent.FutureUtils;
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.xcontent.XContentFactory;
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.xcontent.XContentHelper;
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.xcontent.XContentParser;
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.Index;
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.apache.lucene.index.IndexOptions;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.apache.lucene.index.LeafReaderContext;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.apache.lucene.index.NumericDocValues;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> org.apache.lucene.search.TopDocs;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.ElasticsearchException;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.ElasticsearchIllegalArgumentException;
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.ElasticsearchParseException;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.ExceptionsHelper;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.action.search.SearchType;
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cache.recycler.PageCacheRecycler;
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.ClusterService;
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.cluster.metadata.IndexMetaData;
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.Nullable;
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.bytes.BytesReference;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.component.AbstractLifecycleComponent;
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.inject.Inject;
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.lease.Releasables;
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.settings.Settings;
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.unit.TimeValue;
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.util.BigArrays;
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.util.concurrent.ConcurrentCollections;
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.util.concurrent.ConcurrentMapLong;
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.util.concurrent.FutureUtils;
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.xcontent.XContentFactory;
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.xcontent.XContentHelper;
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.xcontent.XContentParser;
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.Index;
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.engine.Engine;
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.fielddata.FieldDataType;
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.fielddata.IndexFieldData;
@@ -70,14 +70,14 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.mapper.MapperService;
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.query.TemplateQueryParser;
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.search.stats.StatsGroupsParseElement;
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.IndexService;
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.settings.IndexSettings;
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.index.shard.IndexShard;
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndicesLifecycle;
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndicesService;
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.cache.query.IndicesQueryCache;
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndicesWarmer;
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndicesWarmer;
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndicesWarmer.TerminationHandle;
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndicesWarmer.WarmerContext;
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.IndicesWarmer.TerminationHandle;
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.indices.cache.query.IndicesQueryCache;
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.script.ExecutableScript;
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.script.ScriptService;
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.search.dfs.CachedDfSource;
@@ -158,7 +158,7 @@
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>         indicesService.indicesLifecycle().addListener(<strong class="jxr_keyword">new</strong> IndicesLifecycle.Listener() {
 <a class="jxr_linenumber" name="L151" href="#L151">151</a> 
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>             @Override
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexDeleted(<a href="../../../org/elasticsearch/index/Index.html">Index</a> index) {
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterIndexDeleted(<a href="../../../org/elasticsearch/index/Index.html">Index</a> index, @IndexSettings <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> indexSettings) {
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>                 <em class="jxr_comment">// once an index is closed we can just clean up all the pending search context information</em>
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>                 <em class="jxr_comment">// to release memory and let references to the filesystem go etc.</em>
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>                 freeAllContextForIndex(index);
@@ -873,7 +873,7 @@
 <a class="jxr_linenumber" name="L865" href="#L865">865</a>                 }
 <a class="jxr_linenumber" name="L866" href="#L866">866</a>             }
 <a class="jxr_linenumber" name="L867" href="#L867">867</a>             <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/index/fielddata/IndexFieldDataService.html">IndexFieldDataService</a> indexFieldDataService = indexShard.indexFieldDataService();
-<a class="jxr_linenumber" name="L868" href="#L868">868</a>             <strong class="jxr_keyword">final</strong> Executor executor = threadPool.executor(executor());
+<a class="jxr_linenumber" name="L868" href="#L868">868</a>             <strong class="jxr_keyword">final</strong> <a href="../../../java/util/concurrent/Executor.html">Executor</a> executor = threadPool.executor(executor());
 <a class="jxr_linenumber" name="L869" href="#L869">869</a>             <strong class="jxr_keyword">final</strong> CountDownLatch latch = <strong class="jxr_keyword">new</strong> CountDownLatch(context.searcher().reader().leaves().size() * warmUp.size());
 <a class="jxr_linenumber" name="L870" href="#L870">870</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> LeafReaderContext ctx : context.searcher().reader().leaves()) {
 <a class="jxr_linenumber" name="L871" href="#L871">871</a>                 <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> FieldMapper&lt;?&gt; fieldMapper : warmUp.values()) {
@@ -926,7 +926,7 @@
 <a class="jxr_linenumber" name="L918" href="#L918">918</a>                 }
 <a class="jxr_linenumber" name="L919" href="#L919">919</a>             }
 <a class="jxr_linenumber" name="L920" href="#L920">920</a>             <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/index/fielddata/IndexFieldDataService.html">IndexFieldDataService</a> indexFieldDataService = indexShard.indexFieldDataService();
-<a class="jxr_linenumber" name="L921" href="#L921">921</a>             <strong class="jxr_keyword">final</strong> Executor executor = threadPool.executor(executor());
+<a class="jxr_linenumber" name="L921" href="#L921">921</a>             <strong class="jxr_keyword">final</strong> <a href="../../../java/util/concurrent/Executor.html">Executor</a> executor = threadPool.executor(executor());
 <a class="jxr_linenumber" name="L922" href="#L922">922</a>             <strong class="jxr_keyword">final</strong> CountDownLatch latch = <strong class="jxr_keyword">new</strong> CountDownLatch(warmUpGlobalOrdinals.size());
 <a class="jxr_linenumber" name="L923" href="#L923">923</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> FieldMapper&lt;?&gt; fieldMapper : warmUpGlobalOrdinals.values()) {
 <a class="jxr_linenumber" name="L924" href="#L924">924</a>                 executor.execute(<strong class="jxr_keyword">new</strong> Runnable() {
@@ -973,7 +973,7 @@
 <a class="jxr_linenumber" name="L965" href="#L965">965</a>             <strong class="jxr_keyword">if</strong> (custom == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L966" href="#L966">966</a>                 <strong class="jxr_keyword">return</strong> TerminationHandle.NO_WAIT;
 <a class="jxr_linenumber" name="L967" href="#L967">967</a>             }
-<a class="jxr_linenumber" name="L968" href="#L968">968</a>             <strong class="jxr_keyword">final</strong> Executor executor = threadPool.executor(executor());
+<a class="jxr_linenumber" name="L968" href="#L968">968</a>             <strong class="jxr_keyword">final</strong> <a href="../../../java/util/concurrent/Executor.html">Executor</a> executor = threadPool.executor(executor());
 <a class="jxr_linenumber" name="L969" href="#L969">969</a>             <strong class="jxr_keyword">final</strong> CountDownLatch latch = <strong class="jxr_keyword">new</strong> CountDownLatch(custom.entries().size());
 <a class="jxr_linenumber" name="L970" href="#L970">970</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> IndexWarmersMetaData.Entry entry : custom.entries()) {
 <a class="jxr_linenumber" name="L971" href="#L971">971</a>                 executor.execute(<strong class="jxr_keyword">new</strong> Runnable() {

@@ -73,7 +73,7 @@
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">return</strong> ImmutableSettings.builder()
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>                  <em class="jxr_comment">// we really need local GW here since this also checks for corruption etc.</em>
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>                  <em class="jxr_comment">// and we need to make sure primaries are not just trashed if we don't have replicas</em>
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>                  .put(<strong class="jxr_keyword">super</strong>.nodeSettings(nodeOrdinal)).put(<span class="jxr_string">"gateway.type"</span>, <span class="jxr_string">"local"</span>)
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>                  .put(<strong class="jxr_keyword">super</strong>.nodeSettings(nodeOrdinal))
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>                  .put(TransportModule.TRANSPORT_SERVICE_TYPE_KEY, MockTransportService.<strong class="jxr_keyword">class</strong>.getName()).build();
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      }
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  

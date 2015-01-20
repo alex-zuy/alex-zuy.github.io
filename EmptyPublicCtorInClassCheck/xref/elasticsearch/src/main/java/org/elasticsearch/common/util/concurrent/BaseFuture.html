@@ -264,11 +264,11 @@
 <a class="jxr_linenumber" name="L256" href="#L256">256</a> <em class="jxr_javadoccomment">         * {@link #get()}.</em>
 <a class="jxr_linenumber" name="L257" href="#L257">257</a> <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="L258" href="#L258">258</a>         V get(<strong class="jxr_keyword">long</strong> nanos) <strong class="jxr_keyword">throws</strong> TimeoutException, CancellationException,
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>                 ExecutionException, InterruptedException {
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>                 ExecutionException, <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L260" href="#L260">260</a> 
 <a class="jxr_linenumber" name="L261" href="#L261">261</a>             <em class="jxr_comment">// Attempt to acquire the shared lock with a timeout.</em>
 <a class="jxr_linenumber" name="L262" href="#L262">262</a>             <strong class="jxr_keyword">if</strong> (!tryAcquireSharedNanos(-1, nanos)) {
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> TimeoutException(<span class="jxr_string">"Timeout waiting for task."</span>);
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/TimeoutException.html">TimeoutException</a>(<span class="jxr_string">"Timeout waiting for task."</span>);
 <a class="jxr_linenumber" name="L264" href="#L264">264</a>             }
 <a class="jxr_linenumber" name="L265" href="#L265">265</a> 
 <a class="jxr_linenumber" name="L266" href="#L266">266</a>             <strong class="jxr_keyword">return</strong> getValue();
@@ -281,7 +281,7 @@
 <a class="jxr_linenumber" name="L273" href="#L273">273</a> <em class="jxr_javadoccomment">         * an error.</em>
 <a class="jxr_linenumber" name="L274" href="#L274">274</a> <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>         V get() <strong class="jxr_keyword">throws</strong> CancellationException, ExecutionException,
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>                 InterruptedException {
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>                 <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L277" href="#L277">277</a> 
 <a class="jxr_linenumber" name="L278" href="#L278">278</a>             <em class="jxr_comment">// Acquire the shared lock allowing interruption.</em>
 <a class="jxr_linenumber" name="L279" href="#L279">279</a>             acquireSharedInterruptibly(-1);
@@ -304,7 +304,7 @@
 <a class="jxr_linenumber" name="L296" href="#L296">296</a>                     }
 <a class="jxr_linenumber" name="L297" href="#L297">297</a> 
 <a class="jxr_linenumber" name="L298" href="#L298">298</a>                 <strong class="jxr_keyword">case</strong> CANCELLED:
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> CancellationException(<span class="jxr_string">"Task was cancelled."</span>);
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/CancellationException.html">CancellationException</a>(<span class="jxr_string">"Task was cancelled."</span>);
 <a class="jxr_linenumber" name="L300" href="#L300">300</a> 
 <a class="jxr_linenumber" name="L301" href="#L301">301</a>                 <strong class="jxr_keyword">default</strong>:
 <a class="jxr_linenumber" name="L302" href="#L302">302</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalStateException(

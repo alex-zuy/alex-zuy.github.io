@@ -183,8 +183,8 @@
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testTimeout() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>     <em class="jxr_comment">// Create a service whose executor will never run its commands</em>
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>     <a href="../../../../../com/google/common/util/concurrent/Service.html">Service</a> service = <strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/common/util/concurrent/AbstractIdleServiceTest.html">TestService</a>() {
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>       @Override <strong class="jxr_keyword">protected</strong> Executor executor() {
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Executor() {
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>       @Override <strong class="jxr_keyword">protected</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor() {
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a>() {
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>           @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute(Runnable command) {}
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>         };
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>       }
@@ -216,7 +216,7 @@
 <a class="jxr_linenumber" name="L208" href="#L208">208</a>       assertEquals(State.STOPPING, state());
 <a class="jxr_linenumber" name="L209" href="#L209">209</a>     }
 <a class="jxr_linenumber" name="L210" href="#L210">210</a> 
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>     @Override <strong class="jxr_keyword">protected</strong> Executor executor() {
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>     @Override <strong class="jxr_keyword">protected</strong> <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor() {
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>       transitionStates.add(state());
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>       <strong class="jxr_keyword">return</strong> directExecutor();
 <a class="jxr_linenumber" name="L214" href="#L214">214</a>     }

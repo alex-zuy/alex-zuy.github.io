@@ -80,7 +80,7 @@
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>    @Override
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> awaitTermination(<strong class="jxr_keyword">long</strong> timeout, <a href="../../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit)
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>        <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>        <strong class="jxr_keyword">throws</strong> <a href="../../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>      Preconditions.checkNotNull(unit, <span class="jxr_string">"unit must not be null!"</span>);
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      <strong class="jxr_keyword">return</strong> delegate.awaitTermination(timeout, unit);
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>    }
@@ -114,7 +114,7 @@
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>   @Override
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>   <strong class="jxr_keyword">public</strong> &lt;T&gt; List&lt;Future&lt;T&gt;&gt; invokeAll(
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>       Collection&lt;? <strong class="jxr_keyword">extends</strong> Callable&lt;T&gt;&gt; tasks, <strong class="jxr_keyword">long</strong> timeout, <a href="../../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit)
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>       <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>       <strong class="jxr_keyword">throws</strong> <a href="../../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>     Preconditions.checkNotNull(tasks, <span class="jxr_string">"tasks must not be null!"</span>);
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>     Preconditions.checkNotNull(unit, <span class="jxr_string">"unit must not be null!"</span>);
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>     <strong class="jxr_keyword">return</strong> delegate.invokeAll(tasks, timeout, unit);
@@ -130,7 +130,7 @@
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>   @Override
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>   <strong class="jxr_keyword">public</strong> &lt;T&gt; T invokeAny(Collection&lt;? <strong class="jxr_keyword">extends</strong> Callable&lt;T&gt;&gt; tasks,
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>       <strong class="jxr_keyword">long</strong> timeout, <a href="../../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit)
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>       <strong class="jxr_keyword">throws</strong> InterruptedException, ExecutionException, TimeoutException {
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>       <strong class="jxr_keyword">throws</strong> InterruptedException, ExecutionException, <a href="../../../../../../java/util/concurrent/TimeoutException.html">TimeoutException</a> {
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>     Preconditions.checkNotNull(tasks, <span class="jxr_string">"tasks must not be null!"</span>);
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>     Preconditions.checkNotNull(unit, <span class="jxr_string">"unit must not be null!"</span>);
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>     <strong class="jxr_keyword">return</strong> delegate.invokeAny(tasks, timeout, unit);
@@ -162,7 +162,7 @@
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> 
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>     @Override
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>     <strong class="jxr_keyword">public</strong> V get(<strong class="jxr_keyword">long</strong> timeout, <a href="../../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit)
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>         <strong class="jxr_keyword">throws</strong> InterruptedException, ExecutionException, TimeoutException {
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>         <strong class="jxr_keyword">throws</strong> InterruptedException, ExecutionException, <a href="../../../../../../java/util/concurrent/TimeoutException.html">TimeoutException</a> {
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>       Preconditions.checkNotNull(unit, <span class="jxr_string">"unit must not be null!"</span>);
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>       <strong class="jxr_keyword">return</strong> get();
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>     }

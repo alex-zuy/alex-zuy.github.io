@@ -508,7 +508,7 @@
 <a class="jxr_linenumber" name="L500" href="#L500">500</a>       <strong class="jxr_keyword">if</strong> (!fair) {
 <a class="jxr_linenumber" name="L501" href="#L501">501</a>         <em class="jxr_comment">// Check interrupt status to get behavior consistent with fair case.</em>
 <a class="jxr_linenumber" name="L502" href="#L502">502</a>         <strong class="jxr_keyword">if</strong> (Thread.interrupted()) {
-<a class="jxr_linenumber" name="L503" href="#L503">503</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> InterruptedException();
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a>();
 <a class="jxr_linenumber" name="L504" href="#L504">504</a>         }
 <a class="jxr_linenumber" name="L505" href="#L505">505</a>         <strong class="jxr_keyword">if</strong> (lock.tryLock()) {
 <a class="jxr_linenumber" name="L506" href="#L506">506</a>           <strong class="jxr_keyword">break</strong> locked;
@@ -689,7 +689,7 @@
 <a class="jxr_linenumber" name="L681" href="#L681">681</a> <em class="jxr_javadoccomment">   * @return whether the monitor was entered, which guarantees that the guard is now satisfied</em>
 <a class="jxr_linenumber" name="L682" href="#L682">682</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L683" href="#L683">683</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> enterIfInterruptibly(<a href="../../../../../com/google/common/util/concurrent/Monitor.html">Guard</a> guard, <strong class="jxr_keyword">long</strong> time, <a href="../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit)
-<a class="jxr_linenumber" name="L684" href="#L684">684</a>       <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L684" href="#L684">684</a>       <strong class="jxr_keyword">throws</strong> <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L685" href="#L685">685</a>     <strong class="jxr_keyword">if</strong> (guard.monitor != <strong class="jxr_keyword">this</strong>) {
 <a class="jxr_linenumber" name="L686" href="#L686">686</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalMonitorStateException();
 <a class="jxr_linenumber" name="L687" href="#L687">687</a>     }
@@ -779,7 +779,7 @@
 <a class="jxr_linenumber" name="L771" href="#L771">771</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L772" href="#L772">772</a>     }
 <a class="jxr_linenumber" name="L773" href="#L773">773</a>     <strong class="jxr_keyword">if</strong> (Thread.interrupted()) {
-<a class="jxr_linenumber" name="L774" href="#L774">774</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> InterruptedException();
+<a class="jxr_linenumber" name="L774" href="#L774">774</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a>();
 <a class="jxr_linenumber" name="L775" href="#L775">775</a>     }
 <a class="jxr_linenumber" name="L776" href="#L776">776</a>     <strong class="jxr_keyword">return</strong> awaitNanos(guard, timeoutNanos, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L777" href="#L777">777</a>   }
@@ -1084,7 +1084,7 @@
 <a class="jxr_linenumber" name="L1076" href="#L1076">1076</a> 
 <a class="jxr_linenumber" name="L1077" href="#L1077">1077</a>   @GuardedBy(<span class="jxr_string">"lock"</span>)
 <a class="jxr_linenumber" name="L1078" href="#L1078">1078</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> await(<a href="../../../../../com/google/common/util/concurrent/Monitor.html">Guard</a> guard, <strong class="jxr_keyword">boolean</strong> signalBeforeWaiting)
-<a class="jxr_linenumber" name="L1079" href="#L1079">1079</a>       <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L1079" href="#L1079">1079</a>       <strong class="jxr_keyword">throws</strong> <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L1080" href="#L1080">1080</a>     <strong class="jxr_keyword">if</strong> (signalBeforeWaiting) {
 <a class="jxr_linenumber" name="L1081" href="#L1081">1081</a>       signalNextWaiter();
 <a class="jxr_linenumber" name="L1082" href="#L1082">1082</a>     }
@@ -1118,7 +1118,7 @@
 <a class="jxr_linenumber" name="L1110" href="#L1110">1110</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L1111" href="#L1111">1111</a>   @GuardedBy(<span class="jxr_string">"lock"</span>)
 <a class="jxr_linenumber" name="L1112" href="#L1112">1112</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> awaitNanos(<a href="../../../../../com/google/common/util/concurrent/Monitor.html">Guard</a> guard, <strong class="jxr_keyword">long</strong> nanos, <strong class="jxr_keyword">boolean</strong> signalBeforeWaiting)
-<a class="jxr_linenumber" name="L1113" href="#L1113">1113</a>       <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L1113" href="#L1113">1113</a>       <strong class="jxr_keyword">throws</strong> <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L1114" href="#L1114">1114</a>     <strong class="jxr_keyword">boolean</strong> firstTime = <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L1115" href="#L1115">1115</a>     <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L1116" href="#L1116">1116</a>       <strong class="jxr_keyword">do</strong> {

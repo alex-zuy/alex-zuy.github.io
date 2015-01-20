@@ -76,7 +76,7 @@
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  		ApplicationEvent evt = <strong class="jxr_keyword">new</strong> <a href="../../../../org/springframework/context/event/ContextClosedEvent.html">ContextClosedEvent</a>(<strong class="jxr_keyword">new</strong> <a href="../../../../org/springframework/context/support/StaticApplicationContext.html">StaticApplicationContext</a>());
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  		SimpleApplicationEventMulticaster smc = <strong class="jxr_keyword">new</strong> <a href="../../../../org/springframework/context/event/SimpleApplicationEventMulticaster.html">SimpleApplicationEventMulticaster</a>();
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>  		smc.setTaskExecutor(<strong class="jxr_keyword">new</strong> Executor() {
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  		smc.setTaskExecutor(<strong class="jxr_keyword">new</strong> <a href="../../../../java/util/concurrent/Executor.html">Executor</a>() {
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  			@Override
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  			<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute(Runnable command) {
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  				command.run();

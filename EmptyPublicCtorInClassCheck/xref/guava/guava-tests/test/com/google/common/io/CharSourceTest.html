@@ -237,7 +237,7 @@
 <a class="jxr_linenumber" name="L229" href="#L229">229</a>     String expected = <span class="jxr_string">"abcdabcd"</span>;
 <a class="jxr_linenumber" name="L230" href="#L230">230</a> 
 <a class="jxr_linenumber" name="L231" href="#L231">231</a>     <em class="jxr_comment">// read the first 8 chars manually, since there's no equivalent to ByteSource.slice</em>
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>     <em class="jxr_comment">// TODO(user): Add CharSource.slice?</em>
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>     <em class="jxr_comment">// TODO(cgdecker): Add CharSource.slice?</em>
 <a class="jxr_linenumber" name="L233" href="#L233">233</a>     StringBuilder builder = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>     Reader reader = concatenated.openStream(); <em class="jxr_comment">// no need to worry about closing</em>
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 8; i++) {

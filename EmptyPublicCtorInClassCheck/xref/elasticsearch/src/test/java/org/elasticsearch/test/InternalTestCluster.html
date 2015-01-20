@@ -181,7 +181,7 @@
 <a class="jxr_linenumber" name="L173" href="#L173">173</a> 
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String clusterName;
 <a class="jxr_linenumber" name="L175" href="#L175">175</a> 
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> AtomicBoolean open = <strong class="jxr_keyword">new</strong> AtomicBoolean(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> open = <strong class="jxr_keyword">new</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> 
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> defaultSettings;
 <a class="jxr_linenumber" name="L179" href="#L179">179</a> 
@@ -741,7 +741,7 @@
 <a class="jxr_linenumber" name="L733" href="#L733">733</a>         <strong class="jxr_keyword">private</strong> <a href="../../../org/elasticsearch/node/internal/InternalNode.html">InternalNode</a> node;
 <a class="jxr_linenumber" name="L734" href="#L734">734</a>         <strong class="jxr_keyword">private</strong> <a href="../../../org/elasticsearch/client/Client.html">Client</a> nodeClient;
 <a class="jxr_linenumber" name="L735" href="#L735">735</a>         <strong class="jxr_keyword">private</strong> <a href="../../../org/elasticsearch/client/Client.html">Client</a> transportClient;
-<a class="jxr_linenumber" name="L736" href="#L736">736</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> AtomicBoolean closed = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L736" href="#L736">736</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> closed = <strong class="jxr_keyword">new</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L737" href="#L737">737</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String name;
 <a class="jxr_linenumber" name="L738" href="#L738">738</a> 
 <a class="jxr_linenumber" name="L739" href="#L739">739</a>         <a href="../../../org/elasticsearch/test/InternalTestCluster.html">NodeAndClient</a>(String name, <a href="../../../com/google/common/collect/LinkedListMultimap.html">Node</a> node) {

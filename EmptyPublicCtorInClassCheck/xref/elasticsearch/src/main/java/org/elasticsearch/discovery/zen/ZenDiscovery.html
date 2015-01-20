@@ -141,7 +141,7 @@
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> 
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/discovery/zen/ZenDiscovery.html">JoinThreadControl</a> joinThreadControl;
 <a class="jxr_linenumber" name="L135" href="#L135">135</a> 
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> AtomicBoolean initialStateSent = <strong class="jxr_keyword">new</strong> AtomicBoolean();
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> initialStateSent = <strong class="jxr_keyword">new</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>();
 <a class="jxr_linenumber" name="L137" href="#L137">137</a> 
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">volatile</strong> <strong class="jxr_keyword">boolean</strong> rejoinOnMasterGone;
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> 
@@ -1289,7 +1289,7 @@
 <a class="jxr_linenumber" name="L1281" href="#L1281">1281</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/elasticsearch/discovery/zen/ZenDiscovery.html">JoinThreadControl</a> {
 <a class="jxr_linenumber" name="L1282" href="#L1282">1282</a> 
 <a class="jxr_linenumber" name="L1283" href="#L1283">1283</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/threadpool/ThreadPool.html">ThreadPool</a> threadPool;
-<a class="jxr_linenumber" name="L1284" href="#L1284">1284</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> AtomicBoolean running = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L1284" href="#L1284">1284</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> running = <strong class="jxr_keyword">new</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L1285" href="#L1285">1285</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> AtomicReference&lt;Thread&gt; currentJoinThread = <strong class="jxr_keyword">new</strong> AtomicReference&lt;&gt;();
 <a class="jxr_linenumber" name="L1286" href="#L1286">1286</a> 
 <a class="jxr_linenumber" name="L1287" href="#L1287">1287</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/discovery/zen/ZenDiscovery.html">JoinThreadControl</a>(<a href="../../../../org/elasticsearch/threadpool/ThreadPool.html">ThreadPool</a> threadPool) {

@@ -194,7 +194,7 @@
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>     <strong class="jxr_keyword">for</strong> (Class&lt;?&gt; supertype : supertypes) {
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>       <strong class="jxr_keyword">for</strong> (Method method : supertype.getDeclaredMethods()) {
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>         <strong class="jxr_keyword">if</strong> (method.isAnnotationPresent(Subscribe.<strong class="jxr_keyword">class</strong>) &amp;&amp; !method.isSynthetic()) {
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>           <em class="jxr_comment">// TODO(user): Should check for a generic parameter type and error out</em>
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>           <em class="jxr_comment">// TODO(cgdecker): Should check for a generic parameter type and error out</em>
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>           Class&lt;?&gt;[] parameterTypes = method.getParameterTypes();
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>           checkArgument(parameterTypes.length == 1,
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>               <span class="jxr_string">"Method %s has @Subscribe annotation but has %s parameters."</span>
