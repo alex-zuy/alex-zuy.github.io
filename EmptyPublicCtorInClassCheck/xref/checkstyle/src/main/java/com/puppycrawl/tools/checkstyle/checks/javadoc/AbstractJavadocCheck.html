@@ -82,14 +82,14 @@
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment">     * Custom error listener.</em>
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">DescriptiveErrorListener</a> mErrorListener =
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">DescriptiveErrorListener</a> errorListener =
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>              <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">DescriptiveErrorListener</a>();
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">     * DetailAST node of considered Javadoc comment that is just a block comment</em>
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">     * in Java language syntax tree.</em>
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> mBlockCommentAst;
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> blockCommentAst;
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment">     * Returns the default token types a check is interested in.</em>
@@ -100,37 +100,37 @@
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  <em class="jxr_javadoccomment">     * Called before the starting to process a tree.</em>
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">     * @param aRootAst</em>
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">     * @param rootAst</em>
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  <em class="jxr_javadoccomment">     *        the root of the tree</em>
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beginJavadocTree(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> aRootAst)
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beginJavadocTree(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> rootAst)
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>      {
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>     }
 <a class="jxr_linenumber" name="L101" href="#L101">101</a> 
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_javadoccomment">     * Called after finished processing a tree.</em>
-<a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">     * @param aRootAst</em>
+<a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">     * @param rootAst</em>
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_javadoccomment">     *        the root of the tree</em>
 <a class="jxr_linenumber" name="L106" href="#L106">106</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> finishJavadocTree(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> aRootAst)
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> finishJavadocTree(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> rootAst)
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>     {
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     }
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L112" href="#L112">112</a> <em class="jxr_javadoccomment">     * Called to process a Javadoc token.</em>
-<a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_javadoccomment">     * @param aAst</em>
+<a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_javadoccomment">     * @param ast</em>
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> <em class="jxr_javadoccomment">     *        the token to process</em>
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitJavadocToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> aAst)
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitJavadocToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> ast)
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>     {
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>     }
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> 
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">     * Called after all the child nodes have been process.</em>
-<a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">     * @param aAst</em>
+<a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">     * @param ast</em>
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> <em class="jxr_javadoccomment">     *        the token leaving</em>
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> leaveJavadocToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> aAst)
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> leaveJavadocToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> ast)
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>     {
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>     }
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> 
@@ -175,30 +175,30 @@
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>     }
 <a class="jxr_linenumber" name="L168" href="#L168">168</a> 
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>     @Override
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> beginTree(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aRootAST)
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> beginTree(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> rootAST)
 <a class="jxr_linenumber" name="L171" href="#L171">171</a>     {
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>         TREE_CACHE.clear();
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>     }
 <a class="jxr_linenumber" name="L174" href="#L174">174</a> 
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>     @Override
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> finishTree(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aRootAST)
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> finishTree(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> rootAST)
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>     {
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>         TREE_CACHE.clear();
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>     }
 <a class="jxr_linenumber" name="L180" href="#L180">180</a> 
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>     @Override
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> leaveToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> leaveToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>     {
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>     }
 <a class="jxr_linenumber" name="L185" href="#L185">185</a> 
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>     @Override
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aBlockCommentAst)
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> blockCommentAst)
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>     {
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>         <strong class="jxr_keyword">if</strong> (JavadocUtils.isJavadocComment(aBlockCommentAst)) {
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>             mBlockCommentAst = aBlockCommentAst;
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>         <strong class="jxr_keyword">if</strong> (JavadocUtils.isJavadocComment(blockCommentAst)) {
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>             <strong class="jxr_keyword">this</strong>.blockCommentAst = blockCommentAst;
 <a class="jxr_linenumber" name="L191" href="#L191">191</a> 
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>             <strong class="jxr_keyword">final</strong> String treeCacheKey = aBlockCommentAst.getLineNo() + <span class="jxr_string">":"</span>
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>                     + aBlockCommentAst.getColumnNo();
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>             <strong class="jxr_keyword">final</strong> String treeCacheKey = blockCommentAst.getLineNo() + <span class="jxr_string">":"</span>
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>                     + blockCommentAst.getColumnNo();
 <a class="jxr_linenumber" name="L194" href="#L194">194</a> 
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>             <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseStatus</a> ps;
 <a class="jxr_linenumber" name="L196" href="#L196">196</a> 
@@ -206,7 +206,7 @@
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>                 ps = TREE_CACHE.get(treeCacheKey);
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>             }
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>             <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>                 ps = parseJavadocAsDetailNode(aBlockCommentAst);
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>                 ps = parseJavadocAsDetailNode(blockCommentAst);
 <a class="jxr_linenumber" name="L202" href="#L202">202</a>                 TREE_CACHE.put(treeCacheKey, ps);
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>             }
 <a class="jxr_linenumber" name="L204" href="#L204">204</a> 
@@ -225,23 +225,23 @@
 <a class="jxr_linenumber" name="L217" href="#L217">217</a> 
 <a class="jxr_linenumber" name="L218" href="#L218">218</a>     <strong class="jxr_keyword">protected</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> getBlockCommentAst()
 <a class="jxr_linenumber" name="L219" href="#L219">219</a>     {
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>         <strong class="jxr_keyword">return</strong> mBlockCommentAst;
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>         <strong class="jxr_keyword">return</strong> blockCommentAst;
 <a class="jxr_linenumber" name="L221" href="#L221">221</a>     }
 <a class="jxr_linenumber" name="L222" href="#L222">222</a> 
 <a class="jxr_linenumber" name="L223" href="#L223">223</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L224" href="#L224">224</a> <em class="jxr_javadoccomment">     * Parses Javadoc comment as DetailNode tree.</em>
-<a class="jxr_linenumber" name="L225" href="#L225">225</a> <em class="jxr_javadoccomment">     * @param aJavadocCommentAst</em>
+<a class="jxr_linenumber" name="L225" href="#L225">225</a> <em class="jxr_javadoccomment">     * @param javadocCommentAst</em>
 <a class="jxr_linenumber" name="L226" href="#L226">226</a> <em class="jxr_javadoccomment">     *        DetailAST of Javadoc comment</em>
 <a class="jxr_linenumber" name="L227" href="#L227">227</a> <em class="jxr_javadoccomment">     * @return DetailNode tree of Javadoc comment</em>
 <a class="jxr_linenumber" name="L228" href="#L228">228</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseStatus</a> parseJavadocAsDetailNode(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aJavadocCommentAst)
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseStatus</a> parseJavadocAsDetailNode(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> javadocCommentAst)
 <a class="jxr_linenumber" name="L230" href="#L230">230</a>     {
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>         <strong class="jxr_keyword">final</strong> String javadocComment = JavadocUtils.getJavadocCommentContent(aJavadocCommentAst);
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>         <strong class="jxr_keyword">final</strong> String javadocComment = JavadocUtils.getJavadocCommentContent(javadocCommentAst);
 <a class="jxr_linenumber" name="L232" href="#L232">232</a> 
 <a class="jxr_linenumber" name="L233" href="#L233">233</a>         <em class="jxr_comment">// Log messages should have line number in scope of file,</em>
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>         <em class="jxr_comment">// not in scope of Javadoc comment.</em>
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>         <em class="jxr_comment">// Offset is line number of beginning of Javadoc comment.</em>
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>         mErrorListener.setOffset(aJavadocCommentAst.getLineNo() - 1);
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>         errorListener.setOffset(javadocCommentAst.getLineNo() - 1);
 <a class="jxr_linenumber" name="L237" href="#L237">237</a> 
 <a class="jxr_linenumber" name="L238" href="#L238">238</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseStatus</a> result = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseStatus</a>();
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>         ParseTree parseTree = <strong class="jxr_keyword">null</strong>;
@@ -252,21 +252,21 @@
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>         }
 <a class="jxr_linenumber" name="L245" href="#L245">245</a>         <strong class="jxr_keyword">catch</strong> (IOException e) {
 <a class="jxr_linenumber" name="L246" href="#L246">246</a>             <em class="jxr_comment">// Antlr can not initiate its ANTLRInputStream</em>
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>             parseErrorMessage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a>(aJavadocCommentAst.getLineNo(),
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>             parseErrorMessage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a>(javadocCommentAst.getLineNo(),
 <a class="jxr_linenumber" name="L248" href="#L248">248</a>                     PARSE_ERROR_MESSAGE_KEY,
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>                     aJavadocCommentAst.getColumnNo(), e.getMessage());
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>                     javadocCommentAst.getColumnNo(), e.getMessage());
 <a class="jxr_linenumber" name="L250" href="#L250">250</a>         }
 <a class="jxr_linenumber" name="L251" href="#L251">251</a>         <strong class="jxr_keyword">catch</strong> (ParseCancellationException e) {
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>             <em class="jxr_comment">// If syntax error occurs then message is printed by error listener</em>
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>             <em class="jxr_comment">// and parser throws this runtime exception to stop parsing.</em>
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>             <em class="jxr_comment">// Just stop processing current Javadoc comment.</em>
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>             parseErrorMessage = mErrorListener.getErrorMessage();
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>             parseErrorMessage = errorListener.getErrorMessage();
 <a class="jxr_linenumber" name="L256" href="#L256">256</a> 
 <a class="jxr_linenumber" name="L257" href="#L257">257</a>             <em class="jxr_comment">// There are cases when antlr error listener does not handle syntax error</em>
 <a class="jxr_linenumber" name="L258" href="#L258">258</a>             <strong class="jxr_keyword">if</strong> (parseErrorMessage == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>                 parseErrorMessage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a>(aJavadocCommentAst.getLineNo(),
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>                 parseErrorMessage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a>(javadocCommentAst.getLineNo(),
 <a class="jxr_linenumber" name="L260" href="#L260">260</a>                         UNRECOGNIZED_ANTLR_ERROR_MESSAGE_KEY,
-<a class="jxr_linenumber" name="L261" href="#L261">261</a>                         aJavadocCommentAst.getColumnNo(), e.getMessage());
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>                         javadocCommentAst.getColumnNo(), e.getMessage());
 <a class="jxr_linenumber" name="L262" href="#L262">262</a>             }
 <a class="jxr_linenumber" name="L263" href="#L263">263</a>         }
 <a class="jxr_linenumber" name="L264" href="#L264">264</a> 
@@ -284,12 +284,12 @@
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L277" href="#L277">277</a> <em class="jxr_javadoccomment">     * Converts ParseTree (that is generated by ANTLRv4) to DetailNode tree.</em>
 <a class="jxr_linenumber" name="L278" href="#L278">278</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L279" href="#L279">279</a> <em class="jxr_javadoccomment">     * @param aRootParseTree root node of ParseTree</em>
+<a class="jxr_linenumber" name="L279" href="#L279">279</a> <em class="jxr_javadoccomment">     * @param rootParseTree root node of ParseTree</em>
 <a class="jxr_linenumber" name="L280" href="#L280">280</a> <em class="jxr_javadoccomment">     * @return root of DetailNode tree</em>
 <a class="jxr_linenumber" name="L281" href="#L281">281</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> convertParseTree2DetailNode(ParseTree aRootParseTree)
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> convertParseTree2DetailNode(ParseTree rootParseTree)
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>     {
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>         <strong class="jxr_keyword">final</strong> ParseTree currentParseTreeNode = aRootParseTree;
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>         <strong class="jxr_keyword">final</strong> ParseTree currentParseTreeNode = rootParseTree;
 <a class="jxr_linenumber" name="L285" href="#L285">285</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/JavadocNodeImpl.html">JavadocNodeImpl</a> rootJavadocNode = createJavadocNode(currentParseTreeNode, <strong class="jxr_keyword">null</strong>, -1);
 <a class="jxr_linenumber" name="L286" href="#L286">286</a> 
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>         <strong class="jxr_keyword">int</strong> childCount = currentParseTreeNode.getChildCount();
@@ -362,41 +362,41 @@
 <a class="jxr_linenumber" name="L354" href="#L354">354</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L355" href="#L355">355</a> <em class="jxr_javadoccomment">     * Creates JavadocNodeImpl node on base of ParseTree node.</em>
 <a class="jxr_linenumber" name="L356" href="#L356">356</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L357" href="#L357">357</a> <em class="jxr_javadoccomment">     * @param aParseTree ParseTree node</em>
-<a class="jxr_linenumber" name="L358" href="#L358">358</a> <em class="jxr_javadoccomment">     * @param aParent DetailNode that will be parent of new node</em>
-<a class="jxr_linenumber" name="L359" href="#L359">359</a> <em class="jxr_javadoccomment">     * @param aIndex child index that has new node</em>
+<a class="jxr_linenumber" name="L357" href="#L357">357</a> <em class="jxr_javadoccomment">     * @param parseTree ParseTree node</em>
+<a class="jxr_linenumber" name="L358" href="#L358">358</a> <em class="jxr_javadoccomment">     * @param parent DetailNode that will be parent of new node</em>
+<a class="jxr_linenumber" name="L359" href="#L359">359</a> <em class="jxr_javadoccomment">     * @param index child index that has new node</em>
 <a class="jxr_linenumber" name="L360" href="#L360">360</a> <em class="jxr_javadoccomment">     * @return JavadocNodeImpl node on base of ParseTree node.</em>
 <a class="jxr_linenumber" name="L361" href="#L361">361</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/JavadocNodeImpl.html">JavadocNodeImpl</a> createJavadocNode(ParseTree aParseTree, <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> aParent, <strong class="jxr_keyword">int</strong> aIndex)
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/JavadocNodeImpl.html">JavadocNodeImpl</a> createJavadocNode(ParseTree parseTree, <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> parent, <strong class="jxr_keyword">int</strong> index)
 <a class="jxr_linenumber" name="L363" href="#L363">363</a>     {
 <a class="jxr_linenumber" name="L364" href="#L364">364</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/JavadocNodeImpl.html">JavadocNodeImpl</a> node = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/JavadocNodeImpl.html">JavadocNodeImpl</a>();
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>         node.setText(aParseTree.getText());
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>         node.setColumnNumber(getColumn(aParseTree));
-<a class="jxr_linenumber" name="L367" href="#L367">367</a>         node.setLineNumber(getLine(aParseTree) + mBlockCommentAst.getLineNo());
-<a class="jxr_linenumber" name="L368" href="#L368">368</a>         node.setIndex(aIndex);
-<a class="jxr_linenumber" name="L369" href="#L369">369</a>         node.setType(getTokenType(aParseTree));
-<a class="jxr_linenumber" name="L370" href="#L370">370</a>         node.setParent(aParent);
-<a class="jxr_linenumber" name="L371" href="#L371">371</a>         node.setChildren(<strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/JavadocNodeImpl.html">JavadocNodeImpl</a>[aParseTree.getChildCount()]);
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>         node.setText(parseTree.getText());
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>         node.setColumnNumber(getColumn(parseTree));
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>         node.setLineNumber(getLine(parseTree) + blockCommentAst.getLineNo());
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>         node.setIndex(index);
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>         node.setType(getTokenType(parseTree));
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>         node.setParent(parent);
+<a class="jxr_linenumber" name="L371" href="#L371">371</a>         node.setChildren(<strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/JavadocNodeImpl.html">JavadocNodeImpl</a>[parseTree.getChildCount()]);
 <a class="jxr_linenumber" name="L372" href="#L372">372</a>         <strong class="jxr_keyword">return</strong> node;
 <a class="jxr_linenumber" name="L373" href="#L373">373</a>     }
 <a class="jxr_linenumber" name="L374" href="#L374">374</a> 
 <a class="jxr_linenumber" name="L375" href="#L375">375</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L376" href="#L376">376</a> <em class="jxr_javadoccomment">     * Gets next sibling of ParseTree node.</em>
-<a class="jxr_linenumber" name="L377" href="#L377">377</a> <em class="jxr_javadoccomment">     * @param aNode ParseTree node</em>
+<a class="jxr_linenumber" name="L377" href="#L377">377</a> <em class="jxr_javadoccomment">     * @param node ParseTree node</em>
 <a class="jxr_linenumber" name="L378" href="#L378">378</a> <em class="jxr_javadoccomment">     * @return next sibling of ParseTree node.</em>
 <a class="jxr_linenumber" name="L379" href="#L379">379</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L380" href="#L380">380</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> ParseTree getNextSibling(ParseTree aNode)
+<a class="jxr_linenumber" name="L380" href="#L380">380</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> ParseTree getNextSibling(ParseTree node)
 <a class="jxr_linenumber" name="L381" href="#L381">381</a>     {
-<a class="jxr_linenumber" name="L382" href="#L382">382</a>         <strong class="jxr_keyword">if</strong> (aNode.getParent() == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>         <strong class="jxr_keyword">if</strong> (node.getParent() == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L383" href="#L383">383</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L384" href="#L384">384</a>         }
 <a class="jxr_linenumber" name="L385" href="#L385">385</a> 
-<a class="jxr_linenumber" name="L386" href="#L386">386</a>         <strong class="jxr_keyword">final</strong> ParseTree parent = aNode.getParent();
+<a class="jxr_linenumber" name="L386" href="#L386">386</a>         <strong class="jxr_keyword">final</strong> ParseTree parent = node.getParent();
 <a class="jxr_linenumber" name="L387" href="#L387">387</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> childCount = parent.getChildCount();
 <a class="jxr_linenumber" name="L388" href="#L388">388</a> 
 <a class="jxr_linenumber" name="L389" href="#L389">389</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; childCount; i++) {
 <a class="jxr_linenumber" name="L390" href="#L390">390</a>             <strong class="jxr_keyword">final</strong> ParseTree currentNode = parent.getChild(i);
-<a class="jxr_linenumber" name="L391" href="#L391">391</a>             <strong class="jxr_keyword">if</strong> (currentNode.equals(aNode)) {
+<a class="jxr_linenumber" name="L391" href="#L391">391</a>             <strong class="jxr_keyword">if</strong> (currentNode.equals(node)) {
 <a class="jxr_linenumber" name="L392" href="#L392">392</a>                 <strong class="jxr_keyword">if</strong> (i == childCount - 1) {
 <a class="jxr_linenumber" name="L393" href="#L393">393</a>                     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L394" href="#L394">394</a>                 }
@@ -408,18 +408,18 @@
 <a class="jxr_linenumber" name="L400" href="#L400">400</a> 
 <a class="jxr_linenumber" name="L401" href="#L401">401</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L402" href="#L402">402</a> <em class="jxr_javadoccomment">     * Gets token type of ParseTree node from JavadocTokenTypes class.</em>
-<a class="jxr_linenumber" name="L403" href="#L403">403</a> <em class="jxr_javadoccomment">     * @param aNode ParseTree node.</em>
+<a class="jxr_linenumber" name="L403" href="#L403">403</a> <em class="jxr_javadoccomment">     * @param node ParseTree node.</em>
 <a class="jxr_linenumber" name="L404" href="#L404">404</a> <em class="jxr_javadoccomment">     * @return token type from JavadocTokenTypes</em>
 <a class="jxr_linenumber" name="L405" href="#L405">405</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L406" href="#L406">406</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> getTokenType(ParseTree aNode)
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> getTokenType(ParseTree node)
 <a class="jxr_linenumber" name="L407" href="#L407">407</a>     {
 <a class="jxr_linenumber" name="L408" href="#L408">408</a>         <strong class="jxr_keyword">int</strong> tokenType = Integer.MIN_VALUE;
 <a class="jxr_linenumber" name="L409" href="#L409">409</a> 
-<a class="jxr_linenumber" name="L410" href="#L410">410</a>         <strong class="jxr_keyword">if</strong> (aNode.getChildCount() == 0) {
-<a class="jxr_linenumber" name="L411" href="#L411">411</a>             tokenType = ((TerminalNode) aNode).getSymbol().getType();
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>         <strong class="jxr_keyword">if</strong> (node.getChildCount() == 0) {
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>             tokenType = ((TerminalNode) node).getSymbol().getType();
 <a class="jxr_linenumber" name="L412" href="#L412">412</a>         }
 <a class="jxr_linenumber" name="L413" href="#L413">413</a>         <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L414" href="#L414">414</a>             <strong class="jxr_keyword">final</strong> String className = getNodeClassNameWithoutContext(aNode);
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>             <strong class="jxr_keyword">final</strong> String className = getNodeClassNameWithoutContext(node);
 <a class="jxr_linenumber" name="L415" href="#L415">415</a>             <strong class="jxr_keyword">final</strong> String typeName =
 <a class="jxr_linenumber" name="L416" href="#L416">416</a>                     CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, className);
 <a class="jxr_linenumber" name="L417" href="#L417">417</a>             tokenType = JavadocUtils.getTokenId(typeName);
@@ -431,13 +431,13 @@
 <a class="jxr_linenumber" name="L423" href="#L423">423</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L424" href="#L424">424</a> <em class="jxr_javadoccomment">     * Gets class name of ParseTree node and removes 'Context' postfix at the</em>
 <a class="jxr_linenumber" name="L425" href="#L425">425</a> <em class="jxr_javadoccomment">     * end.</em>
-<a class="jxr_linenumber" name="L426" href="#L426">426</a> <em class="jxr_javadoccomment">     * @param aNode</em>
+<a class="jxr_linenumber" name="L426" href="#L426">426</a> <em class="jxr_javadoccomment">     * @param node</em>
 <a class="jxr_linenumber" name="L427" href="#L427">427</a> <em class="jxr_javadoccomment">     *        ParseTree node.</em>
 <a class="jxr_linenumber" name="L428" href="#L428">428</a> <em class="jxr_javadoccomment">     * @return class name without 'Context'</em>
 <a class="jxr_linenumber" name="L429" href="#L429">429</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L430" href="#L430">430</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getNodeClassNameWithoutContext(ParseTree aNode)
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getNodeClassNameWithoutContext(ParseTree node)
 <a class="jxr_linenumber" name="L431" href="#L431">431</a>     {
-<a class="jxr_linenumber" name="L432" href="#L432">432</a>         <strong class="jxr_keyword">final</strong> String className = aNode.getClass().getSimpleName();
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>         <strong class="jxr_keyword">final</strong> String className = node.getClass().getSimpleName();
 <a class="jxr_linenumber" name="L433" href="#L433">433</a>         <em class="jxr_comment">// remove 'Context' at the end</em>
 <a class="jxr_linenumber" name="L434" href="#L434">434</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> contextLength = 7;
 <a class="jxr_linenumber" name="L435" href="#L435">435</a>         <strong class="jxr_keyword">return</strong> className.substring(0, className.length() - contextLength);
@@ -445,51 +445,51 @@
 <a class="jxr_linenumber" name="L437" href="#L437">437</a> 
 <a class="jxr_linenumber" name="L438" href="#L438">438</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L439" href="#L439">439</a> <em class="jxr_javadoccomment">     * Gets line number from ParseTree node.</em>
-<a class="jxr_linenumber" name="L440" href="#L440">440</a> <em class="jxr_javadoccomment">     * @param aTree</em>
+<a class="jxr_linenumber" name="L440" href="#L440">440</a> <em class="jxr_javadoccomment">     * @param tree</em>
 <a class="jxr_linenumber" name="L441" href="#L441">441</a> <em class="jxr_javadoccomment">     *        ParseTree node</em>
 <a class="jxr_linenumber" name="L442" href="#L442">442</a> <em class="jxr_javadoccomment">     * @return line number</em>
 <a class="jxr_linenumber" name="L443" href="#L443">443</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L444" href="#L444">444</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> getLine(ParseTree aTree)
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> getLine(ParseTree tree)
 <a class="jxr_linenumber" name="L445" href="#L445">445</a>     {
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>         <strong class="jxr_keyword">if</strong> (aTree instanceof TerminalNode) {
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>             <strong class="jxr_keyword">return</strong> ((TerminalNode) aTree).getSymbol().getLine() - 1;
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>         <strong class="jxr_keyword">if</strong> (tree instanceof TerminalNode) {
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>             <strong class="jxr_keyword">return</strong> ((TerminalNode) tree).getSymbol().getLine() - 1;
 <a class="jxr_linenumber" name="L448" href="#L448">448</a>         }
 <a class="jxr_linenumber" name="L449" href="#L449">449</a>         <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L450" href="#L450">450</a>             <strong class="jxr_keyword">final</strong> ParserRuleContext rule = (ParserRuleContext) aTree;
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>             <strong class="jxr_keyword">final</strong> ParserRuleContext rule = (ParserRuleContext) tree;
 <a class="jxr_linenumber" name="L451" href="#L451">451</a>             <strong class="jxr_keyword">return</strong> rule.start.getLine() - 1;
 <a class="jxr_linenumber" name="L452" href="#L452">452</a>         }
 <a class="jxr_linenumber" name="L453" href="#L453">453</a>     }
 <a class="jxr_linenumber" name="L454" href="#L454">454</a> 
 <a class="jxr_linenumber" name="L455" href="#L455">455</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L456" href="#L456">456</a> <em class="jxr_javadoccomment">     * Gets column number from ParseTree node.</em>
-<a class="jxr_linenumber" name="L457" href="#L457">457</a> <em class="jxr_javadoccomment">     * @param aTree</em>
+<a class="jxr_linenumber" name="L457" href="#L457">457</a> <em class="jxr_javadoccomment">     * @param tree</em>
 <a class="jxr_linenumber" name="L458" href="#L458">458</a> <em class="jxr_javadoccomment">     *        ParseTree node</em>
 <a class="jxr_linenumber" name="L459" href="#L459">459</a> <em class="jxr_javadoccomment">     * @return column number</em>
 <a class="jxr_linenumber" name="L460" href="#L460">460</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> getColumn(ParseTree aTree)
+<a class="jxr_linenumber" name="L461" href="#L461">461</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> getColumn(ParseTree tree)
 <a class="jxr_linenumber" name="L462" href="#L462">462</a>     {
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>         <strong class="jxr_keyword">if</strong> (aTree instanceof TerminalNode) {
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>             <strong class="jxr_keyword">return</strong> ((TerminalNode) aTree).getSymbol().getCharPositionInLine();
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>         <strong class="jxr_keyword">if</strong> (tree instanceof TerminalNode) {
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>             <strong class="jxr_keyword">return</strong> ((TerminalNode) tree).getSymbol().getCharPositionInLine();
 <a class="jxr_linenumber" name="L465" href="#L465">465</a>         }
 <a class="jxr_linenumber" name="L466" href="#L466">466</a>         <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L467" href="#L467">467</a>             <strong class="jxr_keyword">final</strong> ParserRuleContext rule = (ParserRuleContext) aTree;
+<a class="jxr_linenumber" name="L467" href="#L467">467</a>             <strong class="jxr_keyword">final</strong> ParserRuleContext rule = (ParserRuleContext) tree;
 <a class="jxr_linenumber" name="L468" href="#L468">468</a>             <strong class="jxr_keyword">return</strong> rule.start.getCharPositionInLine();
 <a class="jxr_linenumber" name="L469" href="#L469">469</a>         }
 <a class="jxr_linenumber" name="L470" href="#L470">470</a>     }
 <a class="jxr_linenumber" name="L471" href="#L471">471</a> 
 <a class="jxr_linenumber" name="L472" href="#L472">472</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L473" href="#L473">473</a> <em class="jxr_javadoccomment">     * Parses block comment content as javadoc comment.</em>
-<a class="jxr_linenumber" name="L474" href="#L474">474</a> <em class="jxr_javadoccomment">     * @param aBlockComment</em>
+<a class="jxr_linenumber" name="L474" href="#L474">474</a> <em class="jxr_javadoccomment">     * @param blockComment</em>
 <a class="jxr_linenumber" name="L475" href="#L475">475</a> <em class="jxr_javadoccomment">     *        block comment content.</em>
 <a class="jxr_linenumber" name="L476" href="#L476">476</a> <em class="jxr_javadoccomment">     * @return parse tree</em>
 <a class="jxr_linenumber" name="L477" href="#L477">477</a> <em class="jxr_javadoccomment">     * @throws IOException</em>
 <a class="jxr_linenumber" name="L478" href="#L478">478</a> <em class="jxr_javadoccomment">     *         errors in ANTLRInputStream</em>
 <a class="jxr_linenumber" name="L479" href="#L479">479</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L480" href="#L480">480</a>     <strong class="jxr_keyword">private</strong> ParseTree parseJavadocAsParseTree(String aBlockComment)
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>     <strong class="jxr_keyword">private</strong> ParseTree parseJavadocAsParseTree(String blockComment)
 <a class="jxr_linenumber" name="L481" href="#L481">481</a>         <strong class="jxr_keyword">throws</strong> IOException
 <a class="jxr_linenumber" name="L482" href="#L482">482</a>     {
 <a class="jxr_linenumber" name="L483" href="#L483">483</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../java/nio/charset/Charset.html">Charset</a> utf8Charset = Charset.forName(<span class="jxr_string">"UTF-8"</span>);
-<a class="jxr_linenumber" name="L484" href="#L484">484</a>         <strong class="jxr_keyword">final</strong> InputStream in = <strong class="jxr_keyword">new</strong> ByteArrayInputStream(aBlockComment.getBytes(utf8Charset));
+<a class="jxr_linenumber" name="L484" href="#L484">484</a>         <strong class="jxr_keyword">final</strong> InputStream in = <strong class="jxr_keyword">new</strong> ByteArrayInputStream(blockComment.getBytes(utf8Charset));
 <a class="jxr_linenumber" name="L485" href="#L485">485</a> 
 <a class="jxr_linenumber" name="L486" href="#L486">486</a>         <strong class="jxr_keyword">final</strong> ANTLRInputStream input = <strong class="jxr_keyword">new</strong> ANTLRInputStream(in);
 <a class="jxr_linenumber" name="L487" href="#L487">487</a> 
@@ -499,7 +499,7 @@
 <a class="jxr_linenumber" name="L491" href="#L491">491</a>         lexer.removeErrorListeners();
 <a class="jxr_linenumber" name="L492" href="#L492">492</a> 
 <a class="jxr_linenumber" name="L493" href="#L493">493</a>         <em class="jxr_comment">// add custom error listener that logs parsing errors</em>
-<a class="jxr_linenumber" name="L494" href="#L494">494</a>         lexer.addErrorListener(mErrorListener);
+<a class="jxr_linenumber" name="L494" href="#L494">494</a>         lexer.addErrorListener(errorListener);
 <a class="jxr_linenumber" name="L495" href="#L495">495</a> 
 <a class="jxr_linenumber" name="L496" href="#L496">496</a>         <strong class="jxr_keyword">final</strong> CommonTokenStream tokens = <strong class="jxr_keyword">new</strong> CommonTokenStream(lexer);
 <a class="jxr_linenumber" name="L497" href="#L497">497</a> 
@@ -509,7 +509,7 @@
 <a class="jxr_linenumber" name="L501" href="#L501">501</a>         parser.removeErrorListeners();
 <a class="jxr_linenumber" name="L502" href="#L502">502</a> 
 <a class="jxr_linenumber" name="L503" href="#L503">503</a>         <em class="jxr_comment">// add custom error listener that logs syntax errors</em>
-<a class="jxr_linenumber" name="L504" href="#L504">504</a>         parser.addErrorListener(mErrorListener);
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>         parser.addErrorListener(errorListener);
 <a class="jxr_linenumber" name="L505" href="#L505">505</a> 
 <a class="jxr_linenumber" name="L506" href="#L506">506</a>         <em class="jxr_comment">// This strategy stops parsing when parser error occurs.</em>
 <a class="jxr_linenumber" name="L507" href="#L507">507</a>         <em class="jxr_comment">// By default it uses Error Recover Strategy which is slow and useless.</em>
@@ -520,22 +520,22 @@
 <a class="jxr_linenumber" name="L512" href="#L512">512</a> 
 <a class="jxr_linenumber" name="L513" href="#L513">513</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L514" href="#L514">514</a> <em class="jxr_javadoccomment">     * Processes JavadocAST tree notifying Check.</em>
-<a class="jxr_linenumber" name="L515" href="#L515">515</a> <em class="jxr_javadoccomment">     * @param aRoot</em>
+<a class="jxr_linenumber" name="L515" href="#L515">515</a> <em class="jxr_javadoccomment">     * @param root</em>
 <a class="jxr_linenumber" name="L516" href="#L516">516</a> <em class="jxr_javadoccomment">     *        root of JavadocAST tree.</em>
 <a class="jxr_linenumber" name="L517" href="#L517">517</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L518" href="#L518">518</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> processTree(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> aRoot)
+<a class="jxr_linenumber" name="L518" href="#L518">518</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> processTree(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> root)
 <a class="jxr_linenumber" name="L519" href="#L519">519</a>     {
-<a class="jxr_linenumber" name="L520" href="#L520">520</a>         beginJavadocTree(aRoot);
-<a class="jxr_linenumber" name="L521" href="#L521">521</a>         walk(aRoot);
-<a class="jxr_linenumber" name="L522" href="#L522">522</a>         finishJavadocTree(aRoot);
+<a class="jxr_linenumber" name="L520" href="#L520">520</a>         beginJavadocTree(root);
+<a class="jxr_linenumber" name="L521" href="#L521">521</a>         walk(root);
+<a class="jxr_linenumber" name="L522" href="#L522">522</a>         finishJavadocTree(root);
 <a class="jxr_linenumber" name="L523" href="#L523">523</a>     }
 <a class="jxr_linenumber" name="L524" href="#L524">524</a> 
 <a class="jxr_linenumber" name="L525" href="#L525">525</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L526" href="#L526">526</a> <em class="jxr_javadoccomment">     * Processes a node calling Check at interested nodes.</em>
-<a class="jxr_linenumber" name="L527" href="#L527">527</a> <em class="jxr_javadoccomment">     * @param aRoot</em>
+<a class="jxr_linenumber" name="L527" href="#L527">527</a> <em class="jxr_javadoccomment">     * @param root</em>
 <a class="jxr_linenumber" name="L528" href="#L528">528</a> <em class="jxr_javadoccomment">     *        the root of tree for process</em>
 <a class="jxr_linenumber" name="L529" href="#L529">529</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L530" href="#L530">530</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> walk(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> aRoot)
+<a class="jxr_linenumber" name="L530" href="#L530">530</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> walk(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> root)
 <a class="jxr_linenumber" name="L531" href="#L531">531</a>     {
 <a class="jxr_linenumber" name="L532" href="#L532">532</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong>[] defaultTokenTypes = getDefaultJavadocTokens();
 <a class="jxr_linenumber" name="L533" href="#L533">533</a> 
@@ -543,7 +543,7 @@
 <a class="jxr_linenumber" name="L535" href="#L535">535</a>             <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L536" href="#L536">536</a>         }
 <a class="jxr_linenumber" name="L537" href="#L537">537</a> 
-<a class="jxr_linenumber" name="L538" href="#L538">538</a>         <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> curNode = aRoot;
+<a class="jxr_linenumber" name="L538" href="#L538">538</a>         <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> curNode = root;
 <a class="jxr_linenumber" name="L539" href="#L539">539</a>         <strong class="jxr_keyword">while</strong> (curNode != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L540" href="#L540">540</a>             <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> waitsFor = Ints.contains(defaultTokenTypes, curNode.getType());
 <a class="jxr_linenumber" name="L541" href="#L541">541</a> 
@@ -601,28 +601,28 @@
 <a class="jxr_linenumber" name="L593" href="#L593">593</a> <em class="jxr_javadoccomment">         * messages should have line number in scope of file, not in scope of</em>
 <a class="jxr_linenumber" name="L594" href="#L594">594</a> <em class="jxr_javadoccomment">         * Javadoc comment.</em>
 <a class="jxr_linenumber" name="L595" href="#L595">595</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L596" href="#L596">596</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> mOffset;
+<a class="jxr_linenumber" name="L596" href="#L596">596</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> offset;
 <a class="jxr_linenumber" name="L597" href="#L597">597</a> 
 <a class="jxr_linenumber" name="L598" href="#L598">598</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L599" href="#L599">599</a> <em class="jxr_javadoccomment">         * Error message that appeared while parsing.</em>
 <a class="jxr_linenumber" name="L600" href="#L600">600</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L601" href="#L601">601</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a> mErrorMessage;
+<a class="jxr_linenumber" name="L601" href="#L601">601</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a> errorMessage;
 <a class="jxr_linenumber" name="L602" href="#L602">602</a> 
 <a class="jxr_linenumber" name="L603" href="#L603">603</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a> getErrorMessage()
 <a class="jxr_linenumber" name="L604" href="#L604">604</a>         {
-<a class="jxr_linenumber" name="L605" href="#L605">605</a>             <strong class="jxr_keyword">return</strong> mErrorMessage;
+<a class="jxr_linenumber" name="L605" href="#L605">605</a>             <strong class="jxr_keyword">return</strong> errorMessage;
 <a class="jxr_linenumber" name="L606" href="#L606">606</a>         }
 <a class="jxr_linenumber" name="L607" href="#L607">607</a> 
 <a class="jxr_linenumber" name="L608" href="#L608">608</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L609" href="#L609">609</a> <em class="jxr_javadoccomment">         * Sets offset. Offset is line number of beginning of the Javadoc</em>
 <a class="jxr_linenumber" name="L610" href="#L610">610</a> <em class="jxr_javadoccomment">         * comment. Log messages should have line number in scope of file, not</em>
 <a class="jxr_linenumber" name="L611" href="#L611">611</a> <em class="jxr_javadoccomment">         * in scope of Javadoc comment.</em>
-<a class="jxr_linenumber" name="L612" href="#L612">612</a> <em class="jxr_javadoccomment">         * @param aOffset</em>
+<a class="jxr_linenumber" name="L612" href="#L612">612</a> <em class="jxr_javadoccomment">         * @param offset</em>
 <a class="jxr_linenumber" name="L613" href="#L613">613</a> <em class="jxr_javadoccomment">         *        offset line number</em>
 <a class="jxr_linenumber" name="L614" href="#L614">614</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L615" href="#L615">615</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setOffset(<strong class="jxr_keyword">int</strong> aOffset)
+<a class="jxr_linenumber" name="L615" href="#L615">615</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setOffset(<strong class="jxr_keyword">int</strong> offset)
 <a class="jxr_linenumber" name="L616" href="#L616">616</a>         {
-<a class="jxr_linenumber" name="L617" href="#L617">617</a>             mOffset = aOffset;
+<a class="jxr_linenumber" name="L617" href="#L617">617</a>             <strong class="jxr_keyword">this</strong>.offset = offset;
 <a class="jxr_linenumber" name="L618" href="#L618">618</a>         }
 <a class="jxr_linenumber" name="L619" href="#L619">619</a> 
 <a class="jxr_linenumber" name="L620" href="#L620">620</a>         <em class="jxr_javadoccomment">/**</em>
@@ -637,39 +637,39 @@
 <a class="jxr_linenumber" name="L629" href="#L629">629</a> <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="L630" href="#L630">630</a>         @Override
 <a class="jxr_linenumber" name="L631" href="#L631">631</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> syntaxError(
-<a class="jxr_linenumber" name="L632" href="#L632">632</a>                 Recognizer&lt;?, ?&gt; aRecognizer, Object aOffendingSymbol,
-<a class="jxr_linenumber" name="L633" href="#L633">633</a>                 <strong class="jxr_keyword">int</strong> aLine, <strong class="jxr_keyword">int</strong> aCharPositionInLine,
-<a class="jxr_linenumber" name="L634" href="#L634">634</a>                 String aMsg, RecognitionException aEx)
+<a class="jxr_linenumber" name="L632" href="#L632">632</a>                 Recognizer&lt;?, ?&gt; recognizer, Object offendingSymbol,
+<a class="jxr_linenumber" name="L633" href="#L633">633</a>                 <strong class="jxr_keyword">int</strong> line, <strong class="jxr_keyword">int</strong> charPositionInLine,
+<a class="jxr_linenumber" name="L634" href="#L634">634</a>                 String msg, RecognitionException ex)
 <a class="jxr_linenumber" name="L635" href="#L635">635</a>         {
-<a class="jxr_linenumber" name="L636" href="#L636">636</a>             <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> lineNumber = mOffset + aLine;
-<a class="jxr_linenumber" name="L637" href="#L637">637</a>             <strong class="jxr_keyword">final</strong> Token token = (Token) aOffendingSymbol;
+<a class="jxr_linenumber" name="L636" href="#L636">636</a>             <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> lineNumber = offset + line;
+<a class="jxr_linenumber" name="L637" href="#L637">637</a>             <strong class="jxr_keyword">final</strong> Token token = (Token) offendingSymbol;
 <a class="jxr_linenumber" name="L638" href="#L638">638</a> 
-<a class="jxr_linenumber" name="L639" href="#L639">639</a>             <strong class="jxr_keyword">if</strong> (JAVADOC_MISSED_HTML_CLOSE.equals(aMsg)) {
-<a class="jxr_linenumber" name="L640" href="#L640">640</a>                 mErrorMessage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a>(lineNumber,
-<a class="jxr_linenumber" name="L641" href="#L641">641</a>                         JAVADOC_MISSED_HTML_CLOSE, aCharPositionInLine, token.getText());
+<a class="jxr_linenumber" name="L639" href="#L639">639</a>             <strong class="jxr_keyword">if</strong> (JAVADOC_MISSED_HTML_CLOSE.equals(msg)) {
+<a class="jxr_linenumber" name="L640" href="#L640">640</a>                 errorMessage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a>(lineNumber,
+<a class="jxr_linenumber" name="L641" href="#L641">641</a>                         JAVADOC_MISSED_HTML_CLOSE, charPositionInLine, token.getText());
 <a class="jxr_linenumber" name="L642" href="#L642">642</a> 
 <a class="jxr_linenumber" name="L643" href="#L643">643</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ParseCancellationException();
 <a class="jxr_linenumber" name="L644" href="#L644">644</a>             }
-<a class="jxr_linenumber" name="L645" href="#L645">645</a>             <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (JAVADOC_WRONG_SINGLETON_TAG.equals(aMsg)) {
-<a class="jxr_linenumber" name="L646" href="#L646">646</a>                 mErrorMessage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a>(lineNumber,
-<a class="jxr_linenumber" name="L647" href="#L647">647</a>                         JAVADOC_WRONG_SINGLETON_TAG, aCharPositionInLine, token.getText());
+<a class="jxr_linenumber" name="L645" href="#L645">645</a>             <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (JAVADOC_WRONG_SINGLETON_TAG.equals(msg)) {
+<a class="jxr_linenumber" name="L646" href="#L646">646</a>                 errorMessage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a>(lineNumber,
+<a class="jxr_linenumber" name="L647" href="#L647">647</a>                         JAVADOC_WRONG_SINGLETON_TAG, charPositionInLine, token.getText());
 <a class="jxr_linenumber" name="L648" href="#L648">648</a> 
 <a class="jxr_linenumber" name="L649" href="#L649">649</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ParseCancellationException();
 <a class="jxr_linenumber" name="L650" href="#L650">650</a>             }
 <a class="jxr_linenumber" name="L651" href="#L651">651</a>             <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L652" href="#L652">652</a>                 <strong class="jxr_keyword">final</strong> RuleContext ruleContext = aEx.getCtx();
+<a class="jxr_linenumber" name="L652" href="#L652">652</a>                 <strong class="jxr_keyword">final</strong> RuleContext ruleContext = ex.getCtx();
 <a class="jxr_linenumber" name="L653" href="#L653">653</a>                 <strong class="jxr_keyword">if</strong> (ruleContext != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L654" href="#L654">654</a>                     <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> ruleIndex = aEx.getCtx().getRuleIndex();
-<a class="jxr_linenumber" name="L655" href="#L655">655</a>                     <strong class="jxr_keyword">final</strong> String ruleName = aRecognizer.getRuleNames()[ruleIndex];
+<a class="jxr_linenumber" name="L654" href="#L654">654</a>                     <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> ruleIndex = ex.getCtx().getRuleIndex();
+<a class="jxr_linenumber" name="L655" href="#L655">655</a>                     <strong class="jxr_keyword">final</strong> String ruleName = recognizer.getRuleNames()[ruleIndex];
 <a class="jxr_linenumber" name="L656" href="#L656">656</a>                     <strong class="jxr_keyword">final</strong> String upperCaseRuleName = CaseFormat.UPPER_CAMEL.to(
 <a class="jxr_linenumber" name="L657" href="#L657">657</a>                             CaseFormat.UPPER_UNDERSCORE, ruleName);
 <a class="jxr_linenumber" name="L658" href="#L658">658</a> 
-<a class="jxr_linenumber" name="L659" href="#L659">659</a>                     mErrorMessage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a>(lineNumber,
-<a class="jxr_linenumber" name="L660" href="#L660">660</a>                             JAVADOC_PARSE_RULE_ERROR, aCharPositionInLine, aMsg, upperCaseRuleName);
+<a class="jxr_linenumber" name="L659" href="#L659">659</a>                     errorMessage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a>(lineNumber,
+<a class="jxr_linenumber" name="L660" href="#L660">660</a>                             JAVADOC_PARSE_RULE_ERROR, charPositionInLine, msg, upperCaseRuleName);
 <a class="jxr_linenumber" name="L661" href="#L661">661</a>                 }
 <a class="jxr_linenumber" name="L662" href="#L662">662</a>                 <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L663" href="#L663">663</a>                     mErrorMessage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a>(lineNumber, JAVADOC_PARSE_TOKEN_ERROR,
-<a class="jxr_linenumber" name="L664" href="#L664">664</a>                             aCharPositionInLine, aMsg, aCharPositionInLine);
+<a class="jxr_linenumber" name="L663" href="#L663">663</a>                     errorMessage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a>(lineNumber, JAVADOC_PARSE_TOKEN_ERROR,
+<a class="jxr_linenumber" name="L664" href="#L664">664</a>                             charPositionInLine, msg, charPositionInLine);
 <a class="jxr_linenumber" name="L665" href="#L665">665</a>                 }
 <a class="jxr_linenumber" name="L666" href="#L666">666</a>             }
 <a class="jxr_linenumber" name="L667" href="#L667">667</a>         }
@@ -684,31 +684,31 @@
 <a class="jxr_linenumber" name="L676" href="#L676">676</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L677" href="#L677">677</a> <em class="jxr_javadoccomment">         * DetailNode tree (is null if parsing fails)</em>
 <a class="jxr_linenumber" name="L678" href="#L678">678</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L679" href="#L679">679</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> mTree;
+<a class="jxr_linenumber" name="L679" href="#L679">679</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> tree;
 <a class="jxr_linenumber" name="L680" href="#L680">680</a> 
 <a class="jxr_linenumber" name="L681" href="#L681">681</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L682" href="#L682">682</a> <em class="jxr_javadoccomment">         * Parse error message (is null if parsing is successful)</em>
 <a class="jxr_linenumber" name="L683" href="#L683">683</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L684" href="#L684">684</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a> mParseErrorMessage;
+<a class="jxr_linenumber" name="L684" href="#L684">684</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a> parseErrorMessage;
 <a class="jxr_linenumber" name="L685" href="#L685">685</a> 
 <a class="jxr_linenumber" name="L686" href="#L686">686</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> getTree()
 <a class="jxr_linenumber" name="L687" href="#L687">687</a>         {
-<a class="jxr_linenumber" name="L688" href="#L688">688</a>             <strong class="jxr_keyword">return</strong> mTree;
+<a class="jxr_linenumber" name="L688" href="#L688">688</a>             <strong class="jxr_keyword">return</strong> tree;
 <a class="jxr_linenumber" name="L689" href="#L689">689</a>         }
 <a class="jxr_linenumber" name="L690" href="#L690">690</a> 
-<a class="jxr_linenumber" name="L691" href="#L691">691</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setTree(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> aTree)
+<a class="jxr_linenumber" name="L691" href="#L691">691</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setTree(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> tree)
 <a class="jxr_linenumber" name="L692" href="#L692">692</a>         {
-<a class="jxr_linenumber" name="L693" href="#L693">693</a>             <strong class="jxr_keyword">this</strong>.mTree = aTree;
+<a class="jxr_linenumber" name="L693" href="#L693">693</a>             <strong class="jxr_keyword">this</strong>.tree = tree;
 <a class="jxr_linenumber" name="L694" href="#L694">694</a>         }
 <a class="jxr_linenumber" name="L695" href="#L695">695</a> 
 <a class="jxr_linenumber" name="L696" href="#L696">696</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a> getParseErrorMessage()
 <a class="jxr_linenumber" name="L697" href="#L697">697</a>         {
-<a class="jxr_linenumber" name="L698" href="#L698">698</a>             <strong class="jxr_keyword">return</strong> mParseErrorMessage;
+<a class="jxr_linenumber" name="L698" href="#L698">698</a>             <strong class="jxr_keyword">return</strong> parseErrorMessage;
 <a class="jxr_linenumber" name="L699" href="#L699">699</a>         }
 <a class="jxr_linenumber" name="L700" href="#L700">700</a> 
-<a class="jxr_linenumber" name="L701" href="#L701">701</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setParseErrorMessage(<a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a> aParseErrorMessage)
+<a class="jxr_linenumber" name="L701" href="#L701">701</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setParseErrorMessage(<a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a> parseErrorMessage)
 <a class="jxr_linenumber" name="L702" href="#L702">702</a>         {
-<a class="jxr_linenumber" name="L703" href="#L703">703</a>             <strong class="jxr_keyword">this</strong>.mParseErrorMessage = aParseErrorMessage;
+<a class="jxr_linenumber" name="L703" href="#L703">703</a>             <strong class="jxr_keyword">this</strong>.parseErrorMessage = parseErrorMessage;
 <a class="jxr_linenumber" name="L704" href="#L704">704</a>         }
 <a class="jxr_linenumber" name="L705" href="#L705">705</a> 
 <a class="jxr_linenumber" name="L706" href="#L706">706</a>     }
@@ -721,45 +721,45 @@
 <a class="jxr_linenumber" name="L713" href="#L713">713</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L714" href="#L714">714</a> <em class="jxr_javadoccomment">         * Line number where parse error occurred.</em>
 <a class="jxr_linenumber" name="L715" href="#L715">715</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L716" href="#L716">716</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> mLineNumber;
+<a class="jxr_linenumber" name="L716" href="#L716">716</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> lineNumber;
 <a class="jxr_linenumber" name="L717" href="#L717">717</a> 
 <a class="jxr_linenumber" name="L718" href="#L718">718</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L719" href="#L719">719</a> <em class="jxr_javadoccomment">         * Key for error message.</em>
 <a class="jxr_linenumber" name="L720" href="#L720">720</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L721" href="#L721">721</a>         <strong class="jxr_keyword">private</strong> String mMessageKey;
+<a class="jxr_linenumber" name="L721" href="#L721">721</a>         <strong class="jxr_keyword">private</strong> String messageKey;
 <a class="jxr_linenumber" name="L722" href="#L722">722</a> 
 <a class="jxr_linenumber" name="L723" href="#L723">723</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L724" href="#L724">724</a> <em class="jxr_javadoccomment">         * Error message arguments.</em>
 <a class="jxr_linenumber" name="L725" href="#L725">725</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L726" href="#L726">726</a>         <strong class="jxr_keyword">private</strong> Object[] mMessageArguments;
+<a class="jxr_linenumber" name="L726" href="#L726">726</a>         <strong class="jxr_keyword">private</strong> Object[] messageArguments;
 <a class="jxr_linenumber" name="L727" href="#L727">727</a> 
 <a class="jxr_linenumber" name="L728" href="#L728">728</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L729" href="#L729">729</a> <em class="jxr_javadoccomment">         * Initializes parse error message.</em>
 <a class="jxr_linenumber" name="L730" href="#L730">730</a> <em class="jxr_javadoccomment">         *</em>
-<a class="jxr_linenumber" name="L731" href="#L731">731</a> <em class="jxr_javadoccomment">         * @param aLineNumber line number</em>
-<a class="jxr_linenumber" name="L732" href="#L732">732</a> <em class="jxr_javadoccomment">         * @param aMessageKey message key</em>
-<a class="jxr_linenumber" name="L733" href="#L733">733</a> <em class="jxr_javadoccomment">         * @param aMessageArguments message arguments</em>
+<a class="jxr_linenumber" name="L731" href="#L731">731</a> <em class="jxr_javadoccomment">         * @param lineNumber line number</em>
+<a class="jxr_linenumber" name="L732" href="#L732">732</a> <em class="jxr_javadoccomment">         * @param messageKey message key</em>
+<a class="jxr_linenumber" name="L733" href="#L733">733</a> <em class="jxr_javadoccomment">         * @param messageArguments message arguments</em>
 <a class="jxr_linenumber" name="L734" href="#L734">734</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L735" href="#L735">735</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a>(<strong class="jxr_keyword">int</strong> aLineNumber, String aMessageKey, Object ... aMessageArguments)
+<a class="jxr_linenumber" name="L735" href="#L735">735</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractJavadocCheck.html">ParseErrorMessage</a>(<strong class="jxr_keyword">int</strong> lineNumber, String messageKey, Object ... messageArguments)
 <a class="jxr_linenumber" name="L736" href="#L736">736</a>         {
-<a class="jxr_linenumber" name="L737" href="#L737">737</a>             mLineNumber = aLineNumber;
-<a class="jxr_linenumber" name="L738" href="#L738">738</a>             mMessageKey = aMessageKey;
-<a class="jxr_linenumber" name="L739" href="#L739">739</a>             mMessageArguments = aMessageArguments;
+<a class="jxr_linenumber" name="L737" href="#L737">737</a>             <strong class="jxr_keyword">this</strong>.lineNumber = lineNumber;
+<a class="jxr_linenumber" name="L738" href="#L738">738</a>             <strong class="jxr_keyword">this</strong>.messageKey = messageKey;
+<a class="jxr_linenumber" name="L739" href="#L739">739</a>             <strong class="jxr_keyword">this</strong>.messageArguments = messageArguments;
 <a class="jxr_linenumber" name="L740" href="#L740">740</a>         }
 <a class="jxr_linenumber" name="L741" href="#L741">741</a> 
 <a class="jxr_linenumber" name="L742" href="#L742">742</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getLineNumber()
 <a class="jxr_linenumber" name="L743" href="#L743">743</a>         {
-<a class="jxr_linenumber" name="L744" href="#L744">744</a>             <strong class="jxr_keyword">return</strong> mLineNumber;
+<a class="jxr_linenumber" name="L744" href="#L744">744</a>             <strong class="jxr_keyword">return</strong> lineNumber;
 <a class="jxr_linenumber" name="L745" href="#L745">745</a>         }
 <a class="jxr_linenumber" name="L746" href="#L746">746</a> 
 <a class="jxr_linenumber" name="L747" href="#L747">747</a>         <strong class="jxr_keyword">public</strong> String getMessageKey()
 <a class="jxr_linenumber" name="L748" href="#L748">748</a>         {
-<a class="jxr_linenumber" name="L749" href="#L749">749</a>             <strong class="jxr_keyword">return</strong> mMessageKey;
+<a class="jxr_linenumber" name="L749" href="#L749">749</a>             <strong class="jxr_keyword">return</strong> messageKey;
 <a class="jxr_linenumber" name="L750" href="#L750">750</a>         }
 <a class="jxr_linenumber" name="L751" href="#L751">751</a> 
 <a class="jxr_linenumber" name="L752" href="#L752">752</a>         <strong class="jxr_keyword">public</strong> Object[] getMessageArguments()
 <a class="jxr_linenumber" name="L753" href="#L753">753</a>         {
-<a class="jxr_linenumber" name="L754" href="#L754">754</a>             <strong class="jxr_keyword">return</strong> mMessageArguments;
+<a class="jxr_linenumber" name="L754" href="#L754">754</a>             <strong class="jxr_keyword">return</strong> messageArguments;
 <a class="jxr_linenumber" name="L755" href="#L755">755</a>         }
 <a class="jxr_linenumber" name="L756" href="#L756">756</a> 
 <a class="jxr_linenumber" name="L757" href="#L757">757</a>     }

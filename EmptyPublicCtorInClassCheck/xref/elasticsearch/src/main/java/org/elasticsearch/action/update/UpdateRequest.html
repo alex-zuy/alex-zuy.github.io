@@ -639,7 +639,7 @@
 <a class="jxr_linenumber" name="L631" href="#L631">631</a>         <strong class="jxr_keyword">super</strong>.readFrom(in);
 <a class="jxr_linenumber" name="L632" href="#L632">632</a>         replicationType = ReplicationType.fromId(in.readByte());
 <a class="jxr_linenumber" name="L633" href="#L633">633</a>         consistencyLevel = WriteConsistencyLevel.fromId(in.readByte());
-<a class="jxr_linenumber" name="L634" href="#L634">634</a>         type = in.readSharedString();
+<a class="jxr_linenumber" name="L634" href="#L634">634</a>         type = in.readString();
 <a class="jxr_linenumber" name="L635" href="#L635">635</a>         id = in.readString();
 <a class="jxr_linenumber" name="L636" href="#L636">636</a>         routing = in.readOptionalString();
 <a class="jxr_linenumber" name="L637" href="#L637">637</a>         script = in.readOptionalString();
@@ -677,7 +677,7 @@
 <a class="jxr_linenumber" name="L669" href="#L669">669</a>         <strong class="jxr_keyword">super</strong>.writeTo(out);
 <a class="jxr_linenumber" name="L670" href="#L670">670</a>         out.writeByte(replicationType.id());
 <a class="jxr_linenumber" name="L671" href="#L671">671</a>         out.writeByte(consistencyLevel.id());
-<a class="jxr_linenumber" name="L672" href="#L672">672</a>         out.writeSharedString(type);
+<a class="jxr_linenumber" name="L672" href="#L672">672</a>         out.writeString(type);
 <a class="jxr_linenumber" name="L673" href="#L673">673</a>         out.writeString(id);
 <a class="jxr_linenumber" name="L674" href="#L674">674</a>         out.writeOptionalString(routing);
 <a class="jxr_linenumber" name="L675" href="#L675">675</a>         out.writeOptionalString(script);

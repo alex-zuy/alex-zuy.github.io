@@ -30,7 +30,7 @@
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> checkConfig =
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>              createCheckConfig(MemberNameCheck.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>          <strong class="jxr_keyword">final</strong> String[] expected = {
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>              <span class="jxr_string">"8:9: Name 'é' must match pattern '^[a-z][a-zA-Z0-9]*$'."</span>,
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>              <span class="jxr_string">"7:9: Name 'ÃЯ' must match pattern '^[a-z][a-zA-Z0-9]*$'."</span>,
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>          };
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>          verify(checkConfig, getPath(<span class="jxr_string">"grammars/InputGrammar.java"</span>), expected);
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      }

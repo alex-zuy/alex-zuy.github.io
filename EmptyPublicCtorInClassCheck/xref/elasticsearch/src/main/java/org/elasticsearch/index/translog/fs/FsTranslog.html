@@ -31,7 +31,7 @@
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> org.apache.lucene.util.IOUtils;
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.ElasticsearchException;
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.bytes.BytesArray;
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.bytes.ReleasableBytesReference;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.bytes.ReleasablePagedBytesReference;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.inject.Inject;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.io.stream.BytesStreamInput;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.elasticsearch.common.io.stream.ReleasableBytesStreamOutput;
@@ -360,7 +360,7 @@
 <a class="jxr_linenumber" name="L352" href="#L352">352</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L353" href="#L353">353</a>             out = <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/common/io/stream/ReleasableBytesStreamOutput.html">ReleasableBytesStreamOutput</a>(bigArrays);
 <a class="jxr_linenumber" name="L354" href="#L354">354</a>             TranslogStreams.writeTranslogOperation(out, operation);
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>             <a href="../../../../../org/elasticsearch/common/bytes/ReleasableBytesReference.html">ReleasableBytesReference</a> bytes = out.bytes();
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>             <a href="../../../../../org/elasticsearch/common/bytes/ReleasablePagedBytesReference.html">ReleasablePagedBytesReference</a> bytes = out.bytes();
 <a class="jxr_linenumber" name="L356" href="#L356">356</a>             <a href="../../../../../org/elasticsearch/index/translog/Translog.html">Location</a> location = current.add(bytes);
 <a class="jxr_linenumber" name="L357" href="#L357">357</a>             <strong class="jxr_keyword">if</strong> (syncOnEachOperation) {
 <a class="jxr_linenumber" name="L358" href="#L358">358</a>                 current.sync();

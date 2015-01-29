@@ -40,18 +40,18 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment">     * Construct an instance of this handler with the given indentation check,</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment">     * abstract syntax tree, and parent handler.</em>
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment">     * @param aIndentCheck   the indentation check</em>
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment">     * @param aAST           the abstract syntax tree</em>
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment">     * @param aParent        the parent handler</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment">     * @param indentCheck   the indentation check</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment">     * @param ast           the abstract syntax tree</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment">     * @param parent        the parent handler</em>
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/MethodCallHandler.html">MethodCallHandler</a>(<a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/IndentationCheck.html">IndentationCheck</a> aIndentCheck,
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>          <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST, <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/ExpressionHandler.html">ExpressionHandler</a> aParent)
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/MethodCallHandler.html">MethodCallHandler</a>(<a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/IndentationCheck.html">IndentationCheck</a> indentCheck,
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>          <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast, <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/ExpressionHandler.html">ExpressionHandler</a> parent)
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      {
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>          <strong class="jxr_keyword">super</strong>(aIndentCheck,
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>              aAST.getType() == TokenTypes.METHOD_CALL
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>          <strong class="jxr_keyword">super</strong>(indentCheck,
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>              ast.getType() == TokenTypes.METHOD_CALL
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>                  ? <span class="jxr_string">"method call"</span> : <span class="jxr_string">"ctor call"</span>,
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>              aAST,
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>              aParent);
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>              ast,
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>              parent);
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      }
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      @Override
@@ -114,30 +114,30 @@
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">     * Get the first AST of the specified method call.</em>
 <a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L109" href="#L109">109</a> <em class="jxr_javadoccomment">     * @param aAst</em>
+<a class="jxr_linenumber" name="L109" href="#L109">109</a> <em class="jxr_javadoccomment">     * @param ast</em>
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> <em class="jxr_javadoccomment">     *            the method call</em>
 <a class="jxr_linenumber" name="L111" href="#L111">111</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L112" href="#L112">112</a> <em class="jxr_javadoccomment">     * @return the first AST of the specified method call</em>
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> getFirstAst(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAst)
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> getFirstAst(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>     {
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>         <em class="jxr_comment">// walk down the first child part of the dots that make up a method</em>
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>         <em class="jxr_comment">// call name</em>
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> 
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>         <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast = aAst.getFirstChild();
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>         <strong class="jxr_keyword">while</strong> ((ast != <strong class="jxr_keyword">null</strong>) &amp;&amp; (ast.getType() == TokenTypes.DOT)) {
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>             ast = ast.getFirstChild();
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>         <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> astNode = ast.getFirstChild();
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>         <strong class="jxr_keyword">while</strong> ((astNode != <strong class="jxr_keyword">null</strong>) &amp;&amp; (astNode.getType() == TokenTypes.DOT)) {
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>             astNode = astNode.getFirstChild();
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>         }
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> 
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>         <strong class="jxr_keyword">if</strong> (ast == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>             ast = aAst;
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>         <strong class="jxr_keyword">if</strong> (astNode == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>             astNode = ast;
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>         }
 <a class="jxr_linenumber" name="L127" href="#L127">127</a> 
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>         <strong class="jxr_keyword">return</strong> ast;
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>         <strong class="jxr_keyword">return</strong> astNode;
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>     }
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> 
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>     @Override
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/IndentLevel.html">IndentLevel</a> suggestedChildLevel(<a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/ExpressionHandler.html">ExpressionHandler</a> aChild)
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/IndentLevel.html">IndentLevel</a> suggestedChildLevel(<a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/ExpressionHandler.html">ExpressionHandler</a> child)
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>     {
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>         <em class="jxr_comment">// for whatever reason a method that crosses lines, like asList</em>
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>         <em class="jxr_comment">// here:</em>
@@ -147,7 +147,7 @@
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> 
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> first = getMainAst().getFirstChild();
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>         <strong class="jxr_keyword">int</strong> indentLevel = getLineStart(first);
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>         <strong class="jxr_keyword">if</strong> (!areOnSameLine(aChild.getMainAst().getFirstChild(),
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>         <strong class="jxr_keyword">if</strong> (!areOnSameLine(child.getMainAst().getFirstChild(),
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>                            getMainAst().getFirstChild()))
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>         {
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>             indentLevel += getBasicOffset();
@@ -184,7 +184,7 @@
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/LineWrappingHandler.html">LineWrappingHandler</a> lineWrap =
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>             <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/LineWrappingHandler.html">LineWrappingHandler</a>(getIndentCheck(), getMainAst()) {
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>                 @Override
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>                 <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> findLastNode(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aFirstNode)
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>                 <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> findLastNode(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> firstNode)
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>                 {
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>                     <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> lastNode;
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>                     <strong class="jxr_keyword">if</strong> (getFirstNode().getNextSibling() == <strong class="jxr_keyword">null</strong>) {

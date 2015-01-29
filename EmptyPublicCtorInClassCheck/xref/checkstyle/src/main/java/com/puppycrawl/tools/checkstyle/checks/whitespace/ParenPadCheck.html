@@ -84,9 +84,9 @@
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>      }
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      @Override
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      {
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>          <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> theAst = aAST;
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> theAst = ast;
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          <em class="jxr_comment">// Strange logic in this method to guard against checking RPAREN tokens</em>
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          <em class="jxr_comment">// that are associated with a TYPECAST token.</em>
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          <strong class="jxr_keyword">if</strong> (theAst.getType() != TokenTypes.RPAREN) {
@@ -110,13 +110,13 @@
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>     }
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> 
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_javadoccomment">     * @param aAST the token to check</em>
+<a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_javadoccomment">     * @param ast the token to check</em>
 <a class="jxr_linenumber" name="L106" href="#L106">106</a> <em class="jxr_javadoccomment">     * @return whether a token follows an empty for iterator</em>
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isFollowsEmptyForIterator(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isFollowsEmptyForIterator(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     {
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>         <strong class="jxr_keyword">boolean</strong> followsEmptyForIterator = false;
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> parent = aAST.getParent();
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> parent = ast.getParent();
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>         <em class="jxr_comment">//Only traditional for statements are examined, not for-each statements</em>
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         <strong class="jxr_keyword">if</strong> ((parent != <strong class="jxr_keyword">null</strong>)
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>             &amp;&amp; (parent.getType() == TokenTypes.LITERAL_FOR)
@@ -125,19 +125,19 @@
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> forIterator =
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>                 parent.findFirstToken(TokenTypes.FOR_ITERATOR);
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>             followsEmptyForIterator = (forIterator.getChildCount() == 0)
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>                 &amp;&amp; (aAST == forIterator.getNextSibling());
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>                 &amp;&amp; (ast == forIterator.getNextSibling());
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>         }
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>         <strong class="jxr_keyword">return</strong> followsEmptyForIterator;
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>     }
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> 
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L126" href="#L126">126</a> <em class="jxr_javadoccomment">     * @param aAST the token to check</em>
+<a class="jxr_linenumber" name="L126" href="#L126">126</a> <em class="jxr_javadoccomment">     * @param ast the token to check</em>
 <a class="jxr_linenumber" name="L127" href="#L127">127</a> <em class="jxr_javadoccomment">     * @return whether a token preceeds an empty for initializer</em>
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isPreceedsEmptyForInit(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isPreceedsEmptyForInit(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>     {
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">boolean</strong> preceedsEmptyForInintializer = false;
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> parent = aAST.getParent();
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> parent = ast.getParent();
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>         <em class="jxr_comment">//Only traditional for statements are examined, not for-each statements</em>
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>         <strong class="jxr_keyword">if</strong> ((parent != <strong class="jxr_keyword">null</strong>)
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>             &amp;&amp; (parent.getType() == TokenTypes.LITERAL_FOR)
@@ -146,7 +146,7 @@
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> forIterator =
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>                     parent.findFirstToken(TokenTypes.FOR_INIT);
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>             preceedsEmptyForInintializer = (forIterator.getChildCount() == 0)
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>                     &amp;&amp; (aAST == forIterator.getPreviousSibling());
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>                     &amp;&amp; (ast == forIterator.getPreviousSibling());
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         }
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>         <strong class="jxr_keyword">return</strong> preceedsEmptyForInintializer;
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>     }

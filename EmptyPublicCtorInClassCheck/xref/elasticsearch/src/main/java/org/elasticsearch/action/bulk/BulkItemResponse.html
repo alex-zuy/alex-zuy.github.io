@@ -255,7 +255,7 @@
 <a class="jxr_linenumber" name="L247" href="#L247">247</a>     @Override
 <a class="jxr_linenumber" name="L248" href="#L248">248</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> readFrom(<a href="../../../../org/elasticsearch/common/io/stream/StreamInput.html">StreamInput</a> in) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L249" href="#L249">249</a>         id = in.readVInt();
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>         opType = in.readSharedString();
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>         opType = in.readString();
 <a class="jxr_linenumber" name="L251" href="#L251">251</a> 
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>         byte type = in.readByte();
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>         <strong class="jxr_keyword">if</strong> (type == 0) {
@@ -270,8 +270,8 @@
 <a class="jxr_linenumber" name="L262" href="#L262">262</a>         }
 <a class="jxr_linenumber" name="L263" href="#L263">263</a> 
 <a class="jxr_linenumber" name="L264" href="#L264">264</a>         <strong class="jxr_keyword">if</strong> (in.readBoolean()) {
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>             String fIndex = in.readSharedString();
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>             String fType = in.readSharedString();
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>             String fIndex = in.readString();
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>             String fType = in.readString();
 <a class="jxr_linenumber" name="L267" href="#L267">267</a>             String fId = in.readOptionalString();
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>             String fMessage = in.readString();
 <a class="jxr_linenumber" name="L269" href="#L269">269</a>             <a href="../../../../org/elasticsearch/rest/RestStatus.html">RestStatus</a> status = RestStatus.readFrom(in);
@@ -282,7 +282,7 @@
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>     @Override
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>         out.writeVInt(id);
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>         out.writeSharedString(opType);
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>         out.writeString(opType);
 <a class="jxr_linenumber" name="L278" href="#L278">278</a> 
 <a class="jxr_linenumber" name="L279" href="#L279">279</a>         <strong class="jxr_keyword">if</strong> (response == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L280" href="#L280">280</a>             out.writeByte((byte) 2);
@@ -300,8 +300,8 @@
 <a class="jxr_linenumber" name="L292" href="#L292">292</a>             out.writeBoolean(false);
 <a class="jxr_linenumber" name="L293" href="#L293">293</a>         } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L294" href="#L294">294</a>             out.writeBoolean(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>             out.writeSharedString(failure.getIndex());
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>             out.writeSharedString(failure.getType());
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>             out.writeString(failure.getIndex());
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>             out.writeString(failure.getType());
 <a class="jxr_linenumber" name="L297" href="#L297">297</a>             out.writeOptionalString(failure.getId());
 <a class="jxr_linenumber" name="L298" href="#L298">298</a>             out.writeString(failure.getMessage());
 <a class="jxr_linenumber" name="L299" href="#L299">299</a>             RestStatus.writeTo(out, failure.getStatus());

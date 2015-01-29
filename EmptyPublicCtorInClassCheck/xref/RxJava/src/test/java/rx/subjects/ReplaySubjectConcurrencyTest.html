@@ -415,7 +415,56 @@
 <a class="jxr_linenumber" name="L407" href="#L407">407</a>             worker.unsubscribe();
 <a class="jxr_linenumber" name="L408" href="#L408">408</a>         }
 <a class="jxr_linenumber" name="L409" href="#L409">409</a>     }
-<a class="jxr_linenumber" name="L410" href="#L410">410</a> }
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>     @Test(timeout = 5000)
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConcurrentSizeAndHasAnyValue() <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>         <strong class="jxr_keyword">final</strong> ReplaySubject&lt;Object&gt; rs = ReplaySubject.create();
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>         <strong class="jxr_keyword">final</strong> CyclicBarrier cb = <strong class="jxr_keyword">new</strong> CyclicBarrier(2);
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>         
+<a class="jxr_linenumber" name="L415" href="#L415">415</a>         Thread t = <strong class="jxr_keyword">new</strong> Thread(<strong class="jxr_keyword">new</strong> Runnable() {
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>             @Override
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> run() {
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>                 <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>                     cb.await();
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>                 } <strong class="jxr_keyword">catch</strong> (InterruptedException e) {
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>                     <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>                 } <strong class="jxr_keyword">catch</strong> (BrokenBarrierException e) {
+<a class="jxr_linenumber" name="L423" href="#L423">423</a>                     <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="L424" href="#L424">424</a>                 }
+<a class="jxr_linenumber" name="L425" href="#L425">425</a>                 <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 1000000; i++) {
+<a class="jxr_linenumber" name="L426" href="#L426">426</a>                     rs.onNext(i);
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>                 }
+<a class="jxr_linenumber" name="L428" href="#L428">428</a>                 rs.onCompleted();
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>                 System.out.println(<span class="jxr_string">"Replay fill Thread finished!"</span>);
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>             }
+<a class="jxr_linenumber" name="L431" href="#L431">431</a>         });
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>         t.start();
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>             cb.await();
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>         } <strong class="jxr_keyword">catch</strong> (InterruptedException e) {
+<a class="jxr_linenumber" name="L436" href="#L436">436</a>             <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>         } <strong class="jxr_keyword">catch</strong> (BrokenBarrierException e) {
+<a class="jxr_linenumber" name="L438" href="#L438">438</a>             <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="L439" href="#L439">439</a>         }
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>         <strong class="jxr_keyword">int</strong> lastSize = 0;
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>         <strong class="jxr_keyword">for</strong> (; !rs.hasThrowable() &amp;&amp; !rs.hasCompleted();) {
+<a class="jxr_linenumber" name="L442" href="#L442">442</a>             <strong class="jxr_keyword">int</strong> size = rs.size();
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>             <strong class="jxr_keyword">boolean</strong> hasAny = rs.hasAnyValue();
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>             Object[] values = rs.getValues();
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>             <strong class="jxr_keyword">if</strong> (size &lt; lastSize) {
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>                 Assert.fail(<span class="jxr_string">"Size decreased! "</span> + lastSize + <span class="jxr_string">" -&gt; "</span> + size);
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>             }
+<a class="jxr_linenumber" name="L448" href="#L448">448</a>             <strong class="jxr_keyword">if</strong> ((size &gt; 0) &amp;&amp; !hasAny) {
+<a class="jxr_linenumber" name="L449" href="#L449">449</a>                 Assert.fail(<span class="jxr_string">"hasAnyValue reports emptyness but size doesn't"</span>);
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>             }
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>             <strong class="jxr_keyword">if</strong> (size &gt; values.length) {
+<a class="jxr_linenumber" name="L452" href="#L452">452</a>                 Assert.fail(<span class="jxr_string">"Got fewer values than size! "</span> + size + <span class="jxr_string">" -&gt; "</span> + values.length);
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>             }
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>             lastSize = size;
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>         }
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>         
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>         t.join();
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>     }
+<a class="jxr_linenumber" name="L459" href="#L459">459</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015. All rights reserved.</div>

@@ -55,7 +55,7 @@
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>          assertThat(searchResponse.getHits().getTotalHits(), equalTo(2l));
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          <a href="../../../../../org/elasticsearch/search/aggregations/bucket/histogram/Histogram.html">Histogram</a> histo = searchResponse.getAggregations().get(<span class="jxr_string">"histo"</span>);
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          assertThat(histo, notNullValue());
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          Histogram.Bucket bucket = histo.getBucketByKey(1l);
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          Histogram.Bucket bucket = histo.getBuckets().get(1);
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          assertThat(bucket, notNullValue());
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>          <a href="../../../../../org/elasticsearch/search/aggregations/metrics/max/Max.html">Max</a> max = bucket.getAggregations().get(<span class="jxr_string">"max"</span>);

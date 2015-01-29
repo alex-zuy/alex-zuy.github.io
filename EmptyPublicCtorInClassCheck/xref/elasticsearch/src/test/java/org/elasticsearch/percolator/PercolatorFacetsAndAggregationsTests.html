@@ -114,7 +114,7 @@
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>             assertThat(aggregations.get(0).getName(), equalTo(<span class="jxr_string">"a"</span>));
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>             List&lt;Terms.Bucket&gt; buckets = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(((Terms) aggregations.get(0)).getBuckets());
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>             assertThat(buckets.size(), equalTo(1));
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>             assertThat(buckets.get(0).getKeyAsText().string(), equalTo(<span class="jxr_string">"b"</span>));
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>             assertThat(buckets.get(0).getKeyAsString(), equalTo(<span class="jxr_string">"b"</span>));
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>             assertThat(buckets.get(0).getDocCount(), equalTo((<strong class="jxr_keyword">long</strong>) expectedCount[i % values.length]));
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>         }
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>     }

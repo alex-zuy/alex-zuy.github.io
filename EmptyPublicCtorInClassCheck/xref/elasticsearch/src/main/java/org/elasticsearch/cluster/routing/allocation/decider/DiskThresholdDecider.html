@@ -527,69 +527,74 @@
 <a class="jxr_linenumber" name="L519" href="#L519">519</a> <em class="jxr_javadoccomment">     * @return DiskUsage representing given node using the average disk usage</em>
 <a class="jxr_linenumber" name="L520" href="#L520">520</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L521" href="#L521">521</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/cluster/DiskUsage.html">DiskUsage</a> averageUsage(<a href="../../../../../../org/elasticsearch/cluster/routing/RoutingNode.html">RoutingNode</a> node, Map&lt;String, DiskUsage&gt; usages) {
-<a class="jxr_linenumber" name="L522" href="#L522">522</a>         <strong class="jxr_keyword">long</strong> totalBytes = 0;
-<a class="jxr_linenumber" name="L523" href="#L523">523</a>         <strong class="jxr_keyword">long</strong> freeBytes = 0;
-<a class="jxr_linenumber" name="L524" href="#L524">524</a>         <strong class="jxr_keyword">for</strong> (DiskUsage du : usages.values()) {
-<a class="jxr_linenumber" name="L525" href="#L525">525</a>             totalBytes += du.getTotalBytes();
-<a class="jxr_linenumber" name="L526" href="#L526">526</a>             freeBytes += du.getFreeBytes();
-<a class="jxr_linenumber" name="L527" href="#L527">527</a>         }
-<a class="jxr_linenumber" name="L528" href="#L528">528</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/cluster/DiskUsage.html">DiskUsage</a>(node.nodeId(), node.node().name(), totalBytes / usages.size(), freeBytes / usages.size());
-<a class="jxr_linenumber" name="L529" href="#L529">529</a>     }
-<a class="jxr_linenumber" name="L530" href="#L530">530</a> 
-<a class="jxr_linenumber" name="L531" href="#L531">531</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L532" href="#L532">532</a> <em class="jxr_javadoccomment">     * Given the DiskUsage for a node and the size of the shard, return the</em>
-<a class="jxr_linenumber" name="L533" href="#L533">533</a> <em class="jxr_javadoccomment">     * percentage of free disk if the shard were to be allocated to the node.</em>
-<a class="jxr_linenumber" name="L534" href="#L534">534</a> <em class="jxr_javadoccomment">     * @param usage A DiskUsage for the node to have space computed for</em>
-<a class="jxr_linenumber" name="L535" href="#L535">535</a> <em class="jxr_javadoccomment">     * @param shardSize Size in bytes of the shard</em>
-<a class="jxr_linenumber" name="L536" href="#L536">536</a> <em class="jxr_javadoccomment">     * @return Percentage of free space after the shard is assigned to the node</em>
-<a class="jxr_linenumber" name="L537" href="#L537">537</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L538" href="#L538">538</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">double</strong> freeDiskPercentageAfterShardAssigned(<a href="../../../../../../org/elasticsearch/cluster/DiskUsage.html">DiskUsage</a> usage, Long shardSize) {
-<a class="jxr_linenumber" name="L539" href="#L539">539</a>         shardSize = (shardSize == <strong class="jxr_keyword">null</strong>) ? 0 : shardSize;
-<a class="jxr_linenumber" name="L540" href="#L540">540</a>         <strong class="jxr_keyword">return</strong> 100.0 - (((<strong class="jxr_keyword">double</strong>)(usage.getUsedBytes() + shardSize) / usage.getTotalBytes()) * 100.0);
-<a class="jxr_linenumber" name="L541" href="#L541">541</a>     }
-<a class="jxr_linenumber" name="L542" href="#L542">542</a> 
-<a class="jxr_linenumber" name="L543" href="#L543">543</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L544" href="#L544">544</a> <em class="jxr_javadoccomment">     * Attempts to parse the watermark into a percentage, returning 100.0% if</em>
-<a class="jxr_linenumber" name="L545" href="#L545">545</a> <em class="jxr_javadoccomment">     * it cannot be parsed.</em>
-<a class="jxr_linenumber" name="L546" href="#L546">546</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L547" href="#L547">547</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">double</strong> thresholdPercentageFromWatermark(String watermark) {
-<a class="jxr_linenumber" name="L548" href="#L548">548</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L549" href="#L549">549</a>             <strong class="jxr_keyword">return</strong> RatioValue.parseRatioValue(watermark).getAsPercent();
-<a class="jxr_linenumber" name="L550" href="#L550">550</a>         } <strong class="jxr_keyword">catch</strong> (ElasticsearchParseException ex) {
-<a class="jxr_linenumber" name="L551" href="#L551">551</a>             <strong class="jxr_keyword">return</strong> 100.0;
-<a class="jxr_linenumber" name="L552" href="#L552">552</a>         }
-<a class="jxr_linenumber" name="L553" href="#L553">553</a>     }
-<a class="jxr_linenumber" name="L554" href="#L554">554</a> 
-<a class="jxr_linenumber" name="L555" href="#L555">555</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L556" href="#L556">556</a> <em class="jxr_javadoccomment">     * Attempts to parse the watermark into a {@link ByteSizeValue}, returning</em>
-<a class="jxr_linenumber" name="L557" href="#L557">557</a> <em class="jxr_javadoccomment">     * a ByteSizeValue of 0 bytes if the value cannot be parsed.</em>
-<a class="jxr_linenumber" name="L558" href="#L558">558</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L559" href="#L559">559</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/common/unit/ByteSizeValue.html">ByteSizeValue</a> thresholdBytesFromWatermark(String watermark) {
-<a class="jxr_linenumber" name="L560" href="#L560">560</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L561" href="#L561">561</a>             <strong class="jxr_keyword">return</strong> ByteSizeValue.parseBytesSizeValue(watermark);
-<a class="jxr_linenumber" name="L562" href="#L562">562</a>         } <strong class="jxr_keyword">catch</strong> (ElasticsearchParseException ex) {
-<a class="jxr_linenumber" name="L563" href="#L563">563</a>             <strong class="jxr_keyword">return</strong> ByteSizeValue.parseBytesSizeValue(<span class="jxr_string">"0b"</span>);
-<a class="jxr_linenumber" name="L564" href="#L564">564</a>         }
-<a class="jxr_linenumber" name="L565" href="#L565">565</a>     }
-<a class="jxr_linenumber" name="L566" href="#L566">566</a> 
-<a class="jxr_linenumber" name="L567" href="#L567">567</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L568" href="#L568">568</a> <em class="jxr_javadoccomment">     * Checks if a watermark string is a valid percentage or byte size value,</em>
-<a class="jxr_linenumber" name="L569" href="#L569">569</a> <em class="jxr_javadoccomment">     * returning true if valid, false if invalid.</em>
-<a class="jxr_linenumber" name="L570" href="#L570">570</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L571" href="#L571">571</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> validWatermarkSetting(String watermark) {
-<a class="jxr_linenumber" name="L572" href="#L572">572</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L573" href="#L573">573</a>             RatioValue.parseRatioValue(watermark);
-<a class="jxr_linenumber" name="L574" href="#L574">574</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L575" href="#L575">575</a>         } <strong class="jxr_keyword">catch</strong> (ElasticsearchParseException e) {
-<a class="jxr_linenumber" name="L576" href="#L576">576</a>             <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L577" href="#L577">577</a>                 ByteSizeValue.parseBytesSizeValue(watermark);
-<a class="jxr_linenumber" name="L578" href="#L578">578</a>                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L579" href="#L579">579</a>             } <strong class="jxr_keyword">catch</strong> (ElasticsearchParseException ex) {
-<a class="jxr_linenumber" name="L580" href="#L580">580</a>                 <strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L581" href="#L581">581</a>             }
-<a class="jxr_linenumber" name="L582" href="#L582">582</a>         }
-<a class="jxr_linenumber" name="L583" href="#L583">583</a>     }
-<a class="jxr_linenumber" name="L584" href="#L584">584</a> }
+<a class="jxr_linenumber" name="L522" href="#L522">522</a>         <strong class="jxr_keyword">if</strong> (usages.size() == 0) {
+<a class="jxr_linenumber" name="L523" href="#L523">523</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/cluster/DiskUsage.html">DiskUsage</a>(node.nodeId(), node.node().name(), 0, 0);
+<a class="jxr_linenumber" name="L524" href="#L524">524</a>         }
+<a class="jxr_linenumber" name="L525" href="#L525">525</a>         <strong class="jxr_keyword">long</strong> totalBytes = 0;
+<a class="jxr_linenumber" name="L526" href="#L526">526</a>         <strong class="jxr_keyword">long</strong> freeBytes = 0;
+<a class="jxr_linenumber" name="L527" href="#L527">527</a>         <strong class="jxr_keyword">for</strong> (DiskUsage du : usages.values()) {
+<a class="jxr_linenumber" name="L528" href="#L528">528</a>             totalBytes += du.getTotalBytes();
+<a class="jxr_linenumber" name="L529" href="#L529">529</a>             freeBytes += du.getFreeBytes();
+<a class="jxr_linenumber" name="L530" href="#L530">530</a>         }
+<a class="jxr_linenumber" name="L531" href="#L531">531</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/cluster/DiskUsage.html">DiskUsage</a>(node.nodeId(), node.node().name(), totalBytes / usages.size(), freeBytes / usages.size());
+<a class="jxr_linenumber" name="L532" href="#L532">532</a>     }
+<a class="jxr_linenumber" name="L533" href="#L533">533</a> 
+<a class="jxr_linenumber" name="L534" href="#L534">534</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L535" href="#L535">535</a> <em class="jxr_javadoccomment">     * Given the DiskUsage for a node and the size of the shard, return the</em>
+<a class="jxr_linenumber" name="L536" href="#L536">536</a> <em class="jxr_javadoccomment">     * percentage of free disk if the shard were to be allocated to the node.</em>
+<a class="jxr_linenumber" name="L537" href="#L537">537</a> <em class="jxr_javadoccomment">     * @param usage A DiskUsage for the node to have space computed for</em>
+<a class="jxr_linenumber" name="L538" href="#L538">538</a> <em class="jxr_javadoccomment">     * @param shardSize Size in bytes of the shard</em>
+<a class="jxr_linenumber" name="L539" href="#L539">539</a> <em class="jxr_javadoccomment">     * @return Percentage of free space after the shard is assigned to the node</em>
+<a class="jxr_linenumber" name="L540" href="#L540">540</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L541" href="#L541">541</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">double</strong> freeDiskPercentageAfterShardAssigned(<a href="../../../../../../org/elasticsearch/cluster/DiskUsage.html">DiskUsage</a> usage, Long shardSize) {
+<a class="jxr_linenumber" name="L542" href="#L542">542</a>         shardSize = (shardSize == <strong class="jxr_keyword">null</strong>) ? 0 : shardSize;
+<a class="jxr_linenumber" name="L543" href="#L543">543</a>         <a href="../../../../../../org/elasticsearch/cluster/DiskUsage.html">DiskUsage</a> newUsage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/cluster/DiskUsage.html">DiskUsage</a>(usage.getNodeId(), usage.getNodeName(),
+<a class="jxr_linenumber" name="L544" href="#L544">544</a>                 usage.getTotalBytes(), usage.getFreeBytes() - shardSize);
+<a class="jxr_linenumber" name="L545" href="#L545">545</a>         <strong class="jxr_keyword">return</strong> newUsage.getFreeDiskAsPercentage();
+<a class="jxr_linenumber" name="L546" href="#L546">546</a>     }
+<a class="jxr_linenumber" name="L547" href="#L547">547</a> 
+<a class="jxr_linenumber" name="L548" href="#L548">548</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L549" href="#L549">549</a> <em class="jxr_javadoccomment">     * Attempts to parse the watermark into a percentage, returning 100.0% if</em>
+<a class="jxr_linenumber" name="L550" href="#L550">550</a> <em class="jxr_javadoccomment">     * it cannot be parsed.</em>
+<a class="jxr_linenumber" name="L551" href="#L551">551</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L552" href="#L552">552</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">double</strong> thresholdPercentageFromWatermark(String watermark) {
+<a class="jxr_linenumber" name="L553" href="#L553">553</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L554" href="#L554">554</a>             <strong class="jxr_keyword">return</strong> RatioValue.parseRatioValue(watermark).getAsPercent();
+<a class="jxr_linenumber" name="L555" href="#L555">555</a>         } <strong class="jxr_keyword">catch</strong> (ElasticsearchParseException ex) {
+<a class="jxr_linenumber" name="L556" href="#L556">556</a>             <strong class="jxr_keyword">return</strong> 100.0;
+<a class="jxr_linenumber" name="L557" href="#L557">557</a>         }
+<a class="jxr_linenumber" name="L558" href="#L558">558</a>     }
+<a class="jxr_linenumber" name="L559" href="#L559">559</a> 
+<a class="jxr_linenumber" name="L560" href="#L560">560</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L561" href="#L561">561</a> <em class="jxr_javadoccomment">     * Attempts to parse the watermark into a {@link ByteSizeValue}, returning</em>
+<a class="jxr_linenumber" name="L562" href="#L562">562</a> <em class="jxr_javadoccomment">     * a ByteSizeValue of 0 bytes if the value cannot be parsed.</em>
+<a class="jxr_linenumber" name="L563" href="#L563">563</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L564" href="#L564">564</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/common/unit/ByteSizeValue.html">ByteSizeValue</a> thresholdBytesFromWatermark(String watermark) {
+<a class="jxr_linenumber" name="L565" href="#L565">565</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L566" href="#L566">566</a>             <strong class="jxr_keyword">return</strong> ByteSizeValue.parseBytesSizeValue(watermark);
+<a class="jxr_linenumber" name="L567" href="#L567">567</a>         } <strong class="jxr_keyword">catch</strong> (ElasticsearchParseException ex) {
+<a class="jxr_linenumber" name="L568" href="#L568">568</a>             <strong class="jxr_keyword">return</strong> ByteSizeValue.parseBytesSizeValue(<span class="jxr_string">"0b"</span>);
+<a class="jxr_linenumber" name="L569" href="#L569">569</a>         }
+<a class="jxr_linenumber" name="L570" href="#L570">570</a>     }
+<a class="jxr_linenumber" name="L571" href="#L571">571</a> 
+<a class="jxr_linenumber" name="L572" href="#L572">572</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L573" href="#L573">573</a> <em class="jxr_javadoccomment">     * Checks if a watermark string is a valid percentage or byte size value,</em>
+<a class="jxr_linenumber" name="L574" href="#L574">574</a> <em class="jxr_javadoccomment">     * returning true if valid, false if invalid.</em>
+<a class="jxr_linenumber" name="L575" href="#L575">575</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L576" href="#L576">576</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> validWatermarkSetting(String watermark) {
+<a class="jxr_linenumber" name="L577" href="#L577">577</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L578" href="#L578">578</a>             RatioValue.parseRatioValue(watermark);
+<a class="jxr_linenumber" name="L579" href="#L579">579</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L580" href="#L580">580</a>         } <strong class="jxr_keyword">catch</strong> (ElasticsearchParseException e) {
+<a class="jxr_linenumber" name="L581" href="#L581">581</a>             <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L582" href="#L582">582</a>                 ByteSizeValue.parseBytesSizeValue(watermark);
+<a class="jxr_linenumber" name="L583" href="#L583">583</a>                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L584" href="#L584">584</a>             } <strong class="jxr_keyword">catch</strong> (ElasticsearchParseException ex) {
+<a class="jxr_linenumber" name="L585" href="#L585">585</a>                 <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L586" href="#L586">586</a>             }
+<a class="jxr_linenumber" name="L587" href="#L587">587</a>         }
+<a class="jxr_linenumber" name="L588" href="#L588">588</a>     }
+<a class="jxr_linenumber" name="L589" href="#L589">589</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015. All rights reserved.</div>

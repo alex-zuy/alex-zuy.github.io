@@ -120,7 +120,7 @@
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>         assertThat(searchResponse.getHits().getTotalHits(), equalTo(2l));
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         <a href="../../../../../org/elasticsearch/search/aggregations/bucket/histogram/Histogram.html">Histogram</a> histo = searchResponse.getAggregations().get(<span class="jxr_string">"histo"</span>);
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         assertThat(histo, notNullValue());
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>         Histogram.Bucket bucket = histo.getBucketByKey(1l);
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>         Histogram.Bucket bucket = histo.getBuckets().get(1);
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>         assertThat(bucket, notNullValue());
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> 
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>         <a href="../../../../../org/elasticsearch/search/aggregations/metrics/percentiles/Percentiles.html">Percentiles</a> percentiles = bucket.getAggregations().get(<span class="jxr_string">"percentiles"</span>);

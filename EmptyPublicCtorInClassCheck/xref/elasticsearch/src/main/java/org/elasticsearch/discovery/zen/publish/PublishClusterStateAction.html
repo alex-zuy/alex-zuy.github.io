@@ -113,7 +113,7 @@
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>             <strong class="jxr_keyword">if</strong> (bytes == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>                 <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>                     <a href="../../../../../org/elasticsearch/common/io/stream/BytesStreamOutput.html">BytesStreamOutput</a> bStream = <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/common/io/stream/BytesStreamOutput.html">BytesStreamOutput</a>();
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>                     <a href="../../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> stream = <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/common/io/stream/HandlesStreamOutput.html">HandlesStreamOutput</a>(CompressorFactory.defaultCompressor().streamOutput(bStream));
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>                     <a href="../../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> stream = CompressorFactory.defaultCompressor().streamOutput(bStream);
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>                     stream.setVersion(node.version());
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>                     ClusterState.Builder.writeTo(clusterState, stream);
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>                     stream.close();
@@ -181,9 +181,9 @@
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>             <a href="../../../../../org/elasticsearch/common/compress/Compressor.html">Compressor</a> compressor = CompressorFactory.compressor(request.bytes());
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>             <a href="../../../../../org/elasticsearch/common/io/stream/StreamInput.html">StreamInput</a> in;
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>             <strong class="jxr_keyword">if</strong> (compressor != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>                 in = CachedStreamInput.cachedHandlesCompressed(compressor, request.bytes().streamInput());
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>                 in = compressor.streamInput(request.bytes().streamInput());
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>                 in = CachedStreamInput.cachedHandles(request.bytes().streamInput());
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>                 in = request.bytes().streamInput();
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>             }
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>             in.setVersion(request.version());
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>             <a href="../../../../../org/elasticsearch/cluster/ClusterState.html">ClusterState</a> clusterState = ClusterState.Builder.readFrom(in, nodesProvider.nodes().localNode(), clusterName);
