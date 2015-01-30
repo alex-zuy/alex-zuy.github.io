@@ -50,7 +50,7 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/springframework/context/event/SimpleApplicationEventMulticaster.html">SimpleApplicationEventMulticaster</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../org/springframework/context/event/AbstractApplicationEventMulticaster.html">AbstractApplicationEventMulticaster</a> {
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  	<strong class="jxr_keyword">private</strong> Executor taskExecutor;
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../../java/util/concurrent/Executor.html">Executor</a> taskExecutor;
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../../org/springframework/util/ErrorHandler.html">ErrorHandler</a> errorHandler;
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
@@ -81,14 +81,14 @@
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">	 * @see org.springframework.core.task.SyncTaskExecutor</em>
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_javadoccomment">	 * @see org.springframework.core.task.SimpleAsyncTaskExecutor</em>
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setTaskExecutor(Executor taskExecutor) {
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setTaskExecutor(<a href="../../../../java/util/concurrent/Executor.html">Executor</a> taskExecutor) {
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  		<strong class="jxr_keyword">this</strong>.taskExecutor = taskExecutor;
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  	}
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">	 * Return the current task executor for this multicaster.</em>
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  	<strong class="jxr_keyword">protected</strong> Executor getTaskExecutor() {
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  	<strong class="jxr_keyword">protected</strong> <a href="../../../../java/util/concurrent/Executor.html">Executor</a> getTaskExecutor() {
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.taskExecutor;
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  	}
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  

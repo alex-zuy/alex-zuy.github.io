@@ -135,7 +135,7 @@
 <a class="jxr_linenumber" name="L127" href="#L127">127</a> <em class="jxr_javadoccomment">	 * @see #setTaskExecutor</em>
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> <em class="jxr_javadoccomment">	 * @see LocalTaskExecutorThreadPool</em>
 <a class="jxr_linenumber" name="L129" href="#L129">129</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L130" href="#L130">130</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Executor getConfigTimeTaskExecutor() {
+<a class="jxr_linenumber" name="L130" href="#L130">130</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../java/util/concurrent/Executor.html">Executor</a> getConfigTimeTaskExecutor() {
 <a class="jxr_linenumber" name="L131" href="#L131">131</a> 		<strong class="jxr_keyword">return</strong> configTimeTaskExecutorHolder.get();
 <a class="jxr_linenumber" name="L132" href="#L132">132</a> 	}
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> 
@@ -175,7 +175,7 @@
 <a class="jxr_linenumber" name="L167" href="#L167">167</a> 	<strong class="jxr_keyword">private</strong> Properties quartzProperties;
 <a class="jxr_linenumber" name="L168" href="#L168">168</a> 
 <a class="jxr_linenumber" name="L169" href="#L169">169</a> 
-<a class="jxr_linenumber" name="L170" href="#L170">170</a> 	<strong class="jxr_keyword">private</strong> Executor taskExecutor;
+<a class="jxr_linenumber" name="L170" href="#L170">170</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../java/util/concurrent/Executor.html">Executor</a> taskExecutor;
 <a class="jxr_linenumber" name="L171" href="#L171">171</a> 
 <a class="jxr_linenumber" name="L172" href="#L172">172</a> 	<strong class="jxr_keyword">private</strong> DataSource dataSource;
 <a class="jxr_linenumber" name="L173" href="#L173">173</a> 
@@ -267,7 +267,7 @@
 <a class="jxr_linenumber" name="L259" href="#L259">259</a> <em class="jxr_javadoccomment">	 * @see org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor</em>
 <a class="jxr_linenumber" name="L260" href="#L260">260</a> <em class="jxr_javadoccomment">	 * @see org.springframework.scheduling.commonj.WorkManagerTaskExecutor</em>
 <a class="jxr_linenumber" name="L261" href="#L261">261</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L262" href="#L262">262</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setTaskExecutor(Executor taskExecutor) {
+<a class="jxr_linenumber" name="L262" href="#L262">262</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setTaskExecutor(<a href="../../../../java/util/concurrent/Executor.html">Executor</a> taskExecutor) {
 <a class="jxr_linenumber" name="L263" href="#L263">263</a> 		<strong class="jxr_keyword">this</strong>.taskExecutor = taskExecutor;
 <a class="jxr_linenumber" name="L264" href="#L264">264</a> 	}
 <a class="jxr_linenumber" name="L265" href="#L265">265</a> 

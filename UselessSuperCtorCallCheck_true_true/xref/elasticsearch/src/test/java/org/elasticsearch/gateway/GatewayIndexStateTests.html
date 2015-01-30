@@ -68,7 +68,7 @@
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testMappingMetaDataParsed() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>          logger.info(<span class="jxr_string">"--&gt; starting 1 nodes"</span>);
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>          internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"gateway.type"</span>, <span class="jxr_string">"local"</span>));
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          internalCluster().startNode();
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          logger.info(<span class="jxr_string">"--&gt; creating test index, with meta routing"</span>);
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          client().admin().indices().prepareCreate(<span class="jxr_string">"test"</span>)
@@ -97,7 +97,7 @@
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testSimpleOpenClose() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          logger.info(<span class="jxr_string">"--&gt; starting 2 nodes"</span>);
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>          internalCluster().startNodesAsync(2, settingsBuilder().put(<span class="jxr_string">"gateway.type"</span>, <span class="jxr_string">"local"</span>).build()).get();
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>          internalCluster().startNodesAsync(2).get();
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          logger.info(<span class="jxr_string">"--&gt; creating test index"</span>);
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>          createIndex(<span class="jxr_string">"test"</span>);
@@ -200,7 +200,7 @@
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>         logger.info(<span class="jxr_string">"--&gt; cleaning nodes"</span>);
 <a class="jxr_linenumber" name="L193" href="#L193">193</a> 
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>         logger.info(<span class="jxr_string">"--&gt; starting 1 master node non data"</span>);
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>         internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"node.data"</span>, false).put(<span class="jxr_string">"gateway.type"</span>, <span class="jxr_string">"local"</span>).build());
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>         internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"node.data"</span>, false).build());
 <a class="jxr_linenumber" name="L196" href="#L196">196</a> 
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>         logger.info(<span class="jxr_string">"--&gt; create an index"</span>);
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>         client().admin().indices().prepareCreate(<span class="jxr_string">"test"</span>).execute().actionGet();
@@ -209,7 +209,7 @@
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>         internalCluster().closeNonSharedNodes(false);
 <a class="jxr_linenumber" name="L202" href="#L202">202</a> 
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>         logger.info(<span class="jxr_string">"--&gt; starting 1 master node non data again"</span>);
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>         internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"node.data"</span>, false).put(<span class="jxr_string">"gateway.type"</span>, <span class="jxr_string">"local"</span>).build());
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>         internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"node.data"</span>, false).build());
 <a class="jxr_linenumber" name="L205" href="#L205">205</a> 
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>         logger.info(<span class="jxr_string">"--&gt; waiting for test index to be created"</span>);
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>         <a href="../../../org/elasticsearch/action/admin/cluster/health/ClusterHealthResponse.html">ClusterHealthResponse</a> health = client().admin().cluster().prepareHealth().setWaitForEvents(Priority.LANGUID).setIndices(<span class="jxr_string">"test"</span>).execute().actionGet();
@@ -225,8 +225,8 @@
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>         logger.info(<span class="jxr_string">"--&gt; cleaning nodes"</span>);
 <a class="jxr_linenumber" name="L218" href="#L218">218</a> 
 <a class="jxr_linenumber" name="L219" href="#L219">219</a>         logger.info(<span class="jxr_string">"--&gt; starting 1 master node non data"</span>);
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>         internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"node.data"</span>, false).put(<span class="jxr_string">"gateway.type"</span>, <span class="jxr_string">"local"</span>).build());
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>         internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"node.master"</span>, false).put(<span class="jxr_string">"gateway.type"</span>, <span class="jxr_string">"local"</span>).build());
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>         internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"node.data"</span>, false).build());
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>         internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"node.master"</span>, false).build());
 <a class="jxr_linenumber" name="L222" href="#L222">222</a> 
 <a class="jxr_linenumber" name="L223" href="#L223">223</a>         logger.info(<span class="jxr_string">"--&gt; create an index"</span>);
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>         client().admin().indices().prepareCreate(<span class="jxr_string">"test"</span>).execute().actionGet();
@@ -242,8 +242,8 @@
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>         logger.info(<span class="jxr_string">"--&gt; cleaning nodes"</span>);
 <a class="jxr_linenumber" name="L235" href="#L235">235</a> 
 <a class="jxr_linenumber" name="L236" href="#L236">236</a>         logger.info(<span class="jxr_string">"--&gt; starting 2 nodes"</span>);
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>         internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"gateway.type"</span>, <span class="jxr_string">"local"</span>).build());
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>         internalCluster().startNode(settingsBuilder().put(<span class="jxr_string">"gateway.type"</span>, <span class="jxr_string">"local"</span>).build());
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>         internalCluster().startNode();
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>         internalCluster().startNode();
 <a class="jxr_linenumber" name="L239" href="#L239">239</a> 
 <a class="jxr_linenumber" name="L240" href="#L240">240</a>         logger.info(<span class="jxr_string">"--&gt; indexing a simple document"</span>);
 <a class="jxr_linenumber" name="L241" href="#L241">241</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).setSource(<span class="jxr_string">"field1"</span>, <span class="jxr_string">"value1"</span>).setRefresh(<strong class="jxr_keyword">true</strong>).execute().actionGet();
@@ -280,305 +280,304 @@
 <a class="jxr_linenumber" name="L272" href="#L272">272</a> 
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>     @Test
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testDanglingIndicesConflictWithAlias() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>         <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = settingsBuilder().put(<span class="jxr_string">"gateway.type"</span>, <span class="jxr_string">"local"</span>).build();
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>         logger.info(<span class="jxr_string">"--&gt; starting two nodes"</span>);
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>         internalCluster().startNodesAsync(2, settings).get();
-<a class="jxr_linenumber" name="L278" href="#L278">278</a> 
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>         logger.info(<span class="jxr_string">"--&gt; indexing a simple document"</span>);
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).setSource(<span class="jxr_string">"field1"</span>, <span class="jxr_string">"value1"</span>).setRefresh(<strong class="jxr_keyword">true</strong>).execute().actionGet();
-<a class="jxr_linenumber" name="L281" href="#L281">281</a> 
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
-<a class="jxr_linenumber" name="L283" href="#L283">283</a>         ensureGreen();
-<a class="jxr_linenumber" name="L284" href="#L284">284</a> 
-<a class="jxr_linenumber" name="L285" href="#L285">285</a>         logger.info(<span class="jxr_string">"--&gt; verify 1 doc in the index"</span>);
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>             assertHitCount(client().prepareSearch().setQuery(matchAllQuery()).get(), 1l);
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>         }
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L290" href="#L290">290</a> 
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>         internalCluster().stopRandomNonMasterNode();
-<a class="jxr_linenumber" name="L292" href="#L292">292</a> 
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>         <em class="jxr_comment">// wait for master to processed node left (so delete won't timeout waiting for it)</em>
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>         assertFalse(client().admin().cluster().prepareHealth().setWaitForNodes(<span class="jxr_string">"1"</span>).get().isTimedOut());
-<a class="jxr_linenumber" name="L295" href="#L295">295</a> 
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>         logger.info(<span class="jxr_string">"--&gt; deleting index"</span>);
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>         assertAcked(client().admin().indices().prepareDelete(<span class="jxr_string">"test"</span>));
-<a class="jxr_linenumber" name="L298" href="#L298">298</a> 
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>         index(<span class="jxr_string">"test2"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"2"</span>, <span class="jxr_string">"{}"</span>);
-<a class="jxr_linenumber" name="L300" href="#L300">300</a> 
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>         logger.info(<span class="jxr_string">"--&gt; creating index with an alias"</span>);
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>         assertAcked(client().admin().indices().prepareAliases().addAlias(<span class="jxr_string">"test2"</span>, <span class="jxr_string">"test"</span>));
-<a class="jxr_linenumber" name="L303" href="#L303">303</a> 
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>         logger.info(<span class="jxr_string">"--&gt; starting node back up"</span>);
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>         internalCluster().startNode(settings);
-<a class="jxr_linenumber" name="L306" href="#L306">306</a> 
-<a class="jxr_linenumber" name="L307" href="#L307">307</a>         ensureGreen();
-<a class="jxr_linenumber" name="L308" href="#L308">308</a> 
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>         <em class="jxr_comment">// make sure that any other events were processed</em>
-<a class="jxr_linenumber" name="L310" href="#L310">310</a>         assertFalse(client().admin().cluster().prepareHealth().setWaitForRelocatingShards(0).setWaitForEvents(Priority.LANGUID).get().isTimedOut());
-<a class="jxr_linenumber" name="L311" href="#L311">311</a> 
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>         logger.info(<span class="jxr_string">"--&gt; verify we read the right thing through alias"</span>);
-<a class="jxr_linenumber" name="L313" href="#L313">313</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"2"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L314" href="#L314">314</a> 
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>         logger.info(<span class="jxr_string">"--&gt; deleting alias"</span>);
-<a class="jxr_linenumber" name="L316" href="#L316">316</a>         assertAcked(client().admin().indices().prepareAliases().removeAlias(<span class="jxr_string">"test2"</span>, <span class="jxr_string">"test"</span>));
-<a class="jxr_linenumber" name="L317" href="#L317">317</a> 
-<a class="jxr_linenumber" name="L318" href="#L318">318</a>         logger.info(<span class="jxr_string">"--&gt; waiting for dangling index to be imported"</span>);
-<a class="jxr_linenumber" name="L319" href="#L319">319</a> 
-<a class="jxr_linenumber" name="L320" href="#L320">320</a>         assertBusy(<strong class="jxr_keyword">new</strong> Runnable() {
-<a class="jxr_linenumber" name="L321" href="#L321">321</a>             @Override
-<a class="jxr_linenumber" name="L322" href="#L322">322</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> run() {
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>                 assertTrue(client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists());
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>             }
-<a class="jxr_linenumber" name="L325" href="#L325">325</a>         });
-<a class="jxr_linenumber" name="L326" href="#L326">326</a> 
-<a class="jxr_linenumber" name="L327" href="#L327">327</a>         ensureGreen();
-<a class="jxr_linenumber" name="L328" href="#L328">328</a> 
-<a class="jxr_linenumber" name="L329" href="#L329">329</a>         logger.info(<span class="jxr_string">"--&gt; verifying dangling index contains doc"</span>);
-<a class="jxr_linenumber" name="L330" href="#L330">330</a> 
-<a class="jxr_linenumber" name="L331" href="#L331">331</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L332" href="#L332">332</a> 
-<a class="jxr_linenumber" name="L333" href="#L333">333</a>     }
-<a class="jxr_linenumber" name="L334" href="#L334">334</a> 
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>     @Test
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testDanglingIndicesAutoImportYes() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>         <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = settingsBuilder()
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>                 .put(GatewayMetaState.GATEWAY_AUTO_IMPORT_DANGLED, <span class="jxr_string">"yes"</span>)
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>                 .put(GatewayMetaState.GATEWAY_DANGLING_TIMEOUT, randomIntBetween(0, 120))
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>                 .build();
-<a class="jxr_linenumber" name="L341" href="#L341">341</a>         logger.info(<span class="jxr_string">"--&gt; starting two nodes"</span>);
-<a class="jxr_linenumber" name="L342" href="#L342">342</a> 
-<a class="jxr_linenumber" name="L343" href="#L343">343</a>         <strong class="jxr_keyword">final</strong> String node_1 = internalCluster().startNode(settings);
-<a class="jxr_linenumber" name="L344" href="#L344">344</a>         internalCluster().startNode(settings);
-<a class="jxr_linenumber" name="L345" href="#L345">345</a> 
-<a class="jxr_linenumber" name="L346" href="#L346">346</a>         logger.info(<span class="jxr_string">"--&gt; indexing a simple document"</span>);
-<a class="jxr_linenumber" name="L347" href="#L347">347</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).setSource(<span class="jxr_string">"field1"</span>, <span class="jxr_string">"value1"</span>).setRefresh(<strong class="jxr_keyword">true</strong>).execute().actionGet();
-<a class="jxr_linenumber" name="L348" href="#L348">348</a> 
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
-<a class="jxr_linenumber" name="L350" href="#L350">350</a>         ensureGreen();
-<a class="jxr_linenumber" name="L351" href="#L351">351</a> 
-<a class="jxr_linenumber" name="L352" href="#L352">352</a>         logger.info(<span class="jxr_string">"--&gt; verify 1 doc in the index"</span>);
-<a class="jxr_linenumber" name="L353" href="#L353">353</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
-<a class="jxr_linenumber" name="L354" href="#L354">354</a>             assertHitCount(client().prepareSearch().setQuery(matchAllQuery()).get(), 1l);
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>         }
-<a class="jxr_linenumber" name="L356" href="#L356">356</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L357" href="#L357">357</a> 
-<a class="jxr_linenumber" name="L358" href="#L358">358</a>         logger.info(<span class="jxr_string">"--&gt; restarting the nodes"</span>);
-<a class="jxr_linenumber" name="L359" href="#L359">359</a>         <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/gateway/Gateway.html">Gateway</a> gateway1 = internalCluster().getInstance(Gateway.<strong class="jxr_keyword">class</strong>, node_1);
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>         internalCluster().fullRestart(<strong class="jxr_keyword">new</strong> RestartCallback() {
-<a class="jxr_linenumber" name="L361" href="#L361">361</a>             @Override
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>             <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> onNodeStopped(String nodeName) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L363" href="#L363">363</a>                 <strong class="jxr_keyword">if</strong> (node_1.equals(nodeName)) {
-<a class="jxr_linenumber" name="L364" href="#L364">364</a>                     logger.info(<span class="jxr_string">"--&gt; deleting the data for the first node"</span>);
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>                     gateway1.reset();
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>                 }
-<a class="jxr_linenumber" name="L367" href="#L367">367</a>                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L368" href="#L368">368</a>             }
-<a class="jxr_linenumber" name="L369" href="#L369">369</a>         });
-<a class="jxr_linenumber" name="L370" href="#L370">370</a> 
-<a class="jxr_linenumber" name="L371" href="#L371">371</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
-<a class="jxr_linenumber" name="L372" href="#L372">372</a>         ensureGreen();
-<a class="jxr_linenumber" name="L373" href="#L373">373</a> 
-<a class="jxr_linenumber" name="L374" href="#L374">374</a>         <em class="jxr_comment">// spin a bit waiting for the index to exists</em>
-<a class="jxr_linenumber" name="L375" href="#L375">375</a>         <strong class="jxr_keyword">long</strong> time = System.currentTimeMillis();
-<a class="jxr_linenumber" name="L376" href="#L376">376</a>         <strong class="jxr_keyword">while</strong> ((System.currentTimeMillis() - time) &lt; TimeValue.timeValueSeconds(10).millis()) {
-<a class="jxr_linenumber" name="L377" href="#L377">377</a>             <strong class="jxr_keyword">if</strong> (client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists()) {
-<a class="jxr_linenumber" name="L378" href="#L378">378</a>                 <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L379" href="#L379">379</a>             }
-<a class="jxr_linenumber" name="L380" href="#L380">380</a>         }
-<a class="jxr_linenumber" name="L381" href="#L381">381</a> 
-<a class="jxr_linenumber" name="L382" href="#L382">382</a>         logger.info(<span class="jxr_string">"--&gt; verify that the dangling index exists"</span>);
-<a class="jxr_linenumber" name="L383" href="#L383">383</a>         assertThat(client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L384" href="#L384">384</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
-<a class="jxr_linenumber" name="L385" href="#L385">385</a>         ensureGreen();
-<a class="jxr_linenumber" name="L386" href="#L386">386</a> 
-<a class="jxr_linenumber" name="L387" href="#L387">387</a>         logger.info(<span class="jxr_string">"--&gt; verify the doc is there"</span>);
-<a class="jxr_linenumber" name="L388" href="#L388">388</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>     }
-<a class="jxr_linenumber" name="L390" href="#L390">390</a> 
-<a class="jxr_linenumber" name="L391" href="#L391">391</a>     @Test
-<a class="jxr_linenumber" name="L392" href="#L392">392</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testDanglingIndicesAutoImportClose() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>         <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = settingsBuilder()
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>                 .put(<span class="jxr_string">"gateway.type"</span>, <span class="jxr_string">"local"</span>).put(<span class="jxr_string">"gateway.local.auto_import_dangled"</span>, <span class="jxr_string">"closed"</span>)
-<a class="jxr_linenumber" name="L395" href="#L395">395</a>                 .build();
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>         logger.info(<span class="jxr_string">"--&gt; starting two nodes"</span>);
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>         internalCluster().startNodesAsync(2).get();
+<a class="jxr_linenumber" name="L277" href="#L277">277</a> 
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>         logger.info(<span class="jxr_string">"--&gt; indexing a simple document"</span>);
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).setSource(<span class="jxr_string">"field1"</span>, <span class="jxr_string">"value1"</span>).setRefresh(<strong class="jxr_keyword">true</strong>).execute().actionGet();
+<a class="jxr_linenumber" name="L280" href="#L280">280</a> 
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>         ensureGreen();
+<a class="jxr_linenumber" name="L283" href="#L283">283</a> 
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>         logger.info(<span class="jxr_string">"--&gt; verify 1 doc in the index"</span>);
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>             assertHitCount(client().prepareSearch().setQuery(matchAllQuery()).get(), 1l);
+<a class="jxr_linenumber" name="L287" href="#L287">287</a>         }
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L289" href="#L289">289</a> 
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>         internalCluster().stopRandomNonMasterNode();
+<a class="jxr_linenumber" name="L291" href="#L291">291</a> 
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>         <em class="jxr_comment">// wait for master to processed node left (so delete won't timeout waiting for it)</em>
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>         assertFalse(client().admin().cluster().prepareHealth().setWaitForNodes(<span class="jxr_string">"1"</span>).get().isTimedOut());
+<a class="jxr_linenumber" name="L294" href="#L294">294</a> 
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>         logger.info(<span class="jxr_string">"--&gt; deleting index"</span>);
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>         assertAcked(client().admin().indices().prepareDelete(<span class="jxr_string">"test"</span>));
+<a class="jxr_linenumber" name="L297" href="#L297">297</a> 
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>         index(<span class="jxr_string">"test2"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"2"</span>, <span class="jxr_string">"{}"</span>);
+<a class="jxr_linenumber" name="L299" href="#L299">299</a> 
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>         logger.info(<span class="jxr_string">"--&gt; creating index with an alias"</span>);
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>         assertAcked(client().admin().indices().prepareAliases().addAlias(<span class="jxr_string">"test2"</span>, <span class="jxr_string">"test"</span>));
+<a class="jxr_linenumber" name="L302" href="#L302">302</a> 
+<a class="jxr_linenumber" name="L303" href="#L303">303</a>         logger.info(<span class="jxr_string">"--&gt; starting node back up"</span>);
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>         internalCluster().startNode();
+<a class="jxr_linenumber" name="L305" href="#L305">305</a> 
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>         ensureGreen();
+<a class="jxr_linenumber" name="L307" href="#L307">307</a> 
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>         <em class="jxr_comment">// make sure that any other events were processed</em>
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>         assertFalse(client().admin().cluster().prepareHealth().setWaitForRelocatingShards(0).setWaitForEvents(Priority.LANGUID).get().isTimedOut());
+<a class="jxr_linenumber" name="L310" href="#L310">310</a> 
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>         logger.info(<span class="jxr_string">"--&gt; verify we read the right thing through alias"</span>);
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"2"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L313" href="#L313">313</a> 
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>         logger.info(<span class="jxr_string">"--&gt; deleting alias"</span>);
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>         assertAcked(client().admin().indices().prepareAliases().removeAlias(<span class="jxr_string">"test2"</span>, <span class="jxr_string">"test"</span>));
+<a class="jxr_linenumber" name="L316" href="#L316">316</a> 
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>         logger.info(<span class="jxr_string">"--&gt; waiting for dangling index to be imported"</span>);
+<a class="jxr_linenumber" name="L318" href="#L318">318</a> 
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>         assertBusy(<strong class="jxr_keyword">new</strong> Runnable() {
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>             @Override
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> run() {
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>                 assertTrue(client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists());
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>             }
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>         });
+<a class="jxr_linenumber" name="L325" href="#L325">325</a> 
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>         ensureGreen();
+<a class="jxr_linenumber" name="L327" href="#L327">327</a> 
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>         logger.info(<span class="jxr_string">"--&gt; verifying dangling index contains doc"</span>);
+<a class="jxr_linenumber" name="L329" href="#L329">329</a> 
+<a class="jxr_linenumber" name="L330" href="#L330">330</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L331" href="#L331">331</a> 
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>     }
+<a class="jxr_linenumber" name="L333" href="#L333">333</a> 
+<a class="jxr_linenumber" name="L334" href="#L334">334</a>     @Test
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testDanglingIndicesAutoImportYes() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>         <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = settingsBuilder()
+<a class="jxr_linenumber" name="L337" href="#L337">337</a>                 .put(GatewayMetaState.GATEWAY_AUTO_IMPORT_DANGLED, <span class="jxr_string">"yes"</span>)
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>                 .put(GatewayMetaState.GATEWAY_DANGLING_TIMEOUT, randomIntBetween(0, 120))
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>                 .build();
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>         logger.info(<span class="jxr_string">"--&gt; starting two nodes"</span>);
+<a class="jxr_linenumber" name="L341" href="#L341">341</a> 
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>         <strong class="jxr_keyword">final</strong> String node_1 = internalCluster().startNode(settings);
+<a class="jxr_linenumber" name="L343" href="#L343">343</a>         internalCluster().startNode(settings);
+<a class="jxr_linenumber" name="L344" href="#L344">344</a> 
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>         logger.info(<span class="jxr_string">"--&gt; indexing a simple document"</span>);
+<a class="jxr_linenumber" name="L346" href="#L346">346</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).setSource(<span class="jxr_string">"field1"</span>, <span class="jxr_string">"value1"</span>).setRefresh(<strong class="jxr_keyword">true</strong>).execute().actionGet();
+<a class="jxr_linenumber" name="L347" href="#L347">347</a> 
+<a class="jxr_linenumber" name="L348" href="#L348">348</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>         ensureGreen();
+<a class="jxr_linenumber" name="L350" href="#L350">350</a> 
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>         logger.info(<span class="jxr_string">"--&gt; verify 1 doc in the index"</span>);
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>             assertHitCount(client().prepareSearch().setQuery(matchAllQuery()).get(), 1l);
+<a class="jxr_linenumber" name="L354" href="#L354">354</a>         }
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L356" href="#L356">356</a> 
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>         logger.info(<span class="jxr_string">"--&gt; restarting the nodes"</span>);
+<a class="jxr_linenumber" name="L358" href="#L358">358</a>         <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/gateway/Gateway.html">Gateway</a> gateway1 = internalCluster().getInstance(Gateway.<strong class="jxr_keyword">class</strong>, node_1);
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>         internalCluster().fullRestart(<strong class="jxr_keyword">new</strong> RestartCallback() {
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>             @Override
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>             <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> onNodeStopped(String nodeName) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>                 <strong class="jxr_keyword">if</strong> (node_1.equals(nodeName)) {
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>                     logger.info(<span class="jxr_string">"--&gt; deleting the data for the first node"</span>);
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>                     gateway1.reset();
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>                 }
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>             }
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>         });
+<a class="jxr_linenumber" name="L369" href="#L369">369</a> 
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
+<a class="jxr_linenumber" name="L371" href="#L371">371</a>         ensureGreen();
+<a class="jxr_linenumber" name="L372" href="#L372">372</a> 
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>         <em class="jxr_comment">// spin a bit waiting for the index to exists</em>
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>         <strong class="jxr_keyword">long</strong> time = System.currentTimeMillis();
+<a class="jxr_linenumber" name="L375" href="#L375">375</a>         <strong class="jxr_keyword">while</strong> ((System.currentTimeMillis() - time) &lt; TimeValue.timeValueSeconds(10).millis()) {
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>             <strong class="jxr_keyword">if</strong> (client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists()) {
+<a class="jxr_linenumber" name="L377" href="#L377">377</a>                 <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L378" href="#L378">378</a>             }
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>         }
+<a class="jxr_linenumber" name="L380" href="#L380">380</a> 
+<a class="jxr_linenumber" name="L381" href="#L381">381</a>         logger.info(<span class="jxr_string">"--&gt; verify that the dangling index exists"</span>);
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>         assertThat(client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L383" href="#L383">383</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
+<a class="jxr_linenumber" name="L384" href="#L384">384</a>         ensureGreen();
+<a class="jxr_linenumber" name="L385" href="#L385">385</a> 
+<a class="jxr_linenumber" name="L386" href="#L386">386</a>         logger.info(<span class="jxr_string">"--&gt; verify the doc is there"</span>);
+<a class="jxr_linenumber" name="L387" href="#L387">387</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L388" href="#L388">388</a>     }
+<a class="jxr_linenumber" name="L389" href="#L389">389</a> 
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>     @Test
+<a class="jxr_linenumber" name="L391" href="#L391">391</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testDanglingIndicesAutoImportClose() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L392" href="#L392">392</a>         <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = settingsBuilder()
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>                 .put(<span class="jxr_string">"gateway.local.auto_import_dangled"</span>, <span class="jxr_string">"closed"</span>)
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>                 .build();
+<a class="jxr_linenumber" name="L395" href="#L395">395</a> 
 <a class="jxr_linenumber" name="L396" href="#L396">396</a> 
-<a class="jxr_linenumber" name="L397" href="#L397">397</a> 
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>         logger.info(<span class="jxr_string">"--&gt; starting two nodes"</span>);
-<a class="jxr_linenumber" name="L399" href="#L399">399</a>         <strong class="jxr_keyword">final</strong> String node_1 = internalCluster().startNode(settings);
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>         internalCluster().startNode(settings);
-<a class="jxr_linenumber" name="L401" href="#L401">401</a> 
-<a class="jxr_linenumber" name="L402" href="#L402">402</a>         logger.info(<span class="jxr_string">"--&gt; indexing a simple document"</span>);
-<a class="jxr_linenumber" name="L403" href="#L403">403</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).setSource(<span class="jxr_string">"field1"</span>, <span class="jxr_string">"value1"</span>).setRefresh(<strong class="jxr_keyword">true</strong>).execute().actionGet();
-<a class="jxr_linenumber" name="L404" href="#L404">404</a> 
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
-<a class="jxr_linenumber" name="L406" href="#L406">406</a>         ensureGreen();
-<a class="jxr_linenumber" name="L407" href="#L407">407</a> 
-<a class="jxr_linenumber" name="L408" href="#L408">408</a>         logger.info(<span class="jxr_string">"--&gt; verify 1 doc in the index"</span>);
-<a class="jxr_linenumber" name="L409" href="#L409">409</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
-<a class="jxr_linenumber" name="L410" href="#L410">410</a>             assertHitCount(client().prepareSearch().setQuery(matchAllQuery()).get(), 1l);
-<a class="jxr_linenumber" name="L411" href="#L411">411</a>         }
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L413" href="#L413">413</a> 
-<a class="jxr_linenumber" name="L414" href="#L414">414</a>         logger.info(<span class="jxr_string">"--&gt; restarting the nodes"</span>);
-<a class="jxr_linenumber" name="L415" href="#L415">415</a>         <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/gateway/Gateway.html">Gateway</a> gateway1 = internalCluster().getInstance(Gateway.<strong class="jxr_keyword">class</strong>, node_1);
-<a class="jxr_linenumber" name="L416" href="#L416">416</a>         internalCluster().fullRestart(<strong class="jxr_keyword">new</strong> RestartCallback() {
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>             @Override
-<a class="jxr_linenumber" name="L418" href="#L418">418</a>             <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> onNodeStopped(String nodeName) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>                 <strong class="jxr_keyword">if</strong> (node_1.equals(nodeName)) {
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>                     logger.info(<span class="jxr_string">"--&gt; deleting the data for the first node"</span>);
-<a class="jxr_linenumber" name="L421" href="#L421">421</a>                     gateway1.reset();
-<a class="jxr_linenumber" name="L422" href="#L422">422</a>                 }
-<a class="jxr_linenumber" name="L423" href="#L423">423</a>                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>             }
-<a class="jxr_linenumber" name="L425" href="#L425">425</a>         });
-<a class="jxr_linenumber" name="L426" href="#L426">426</a> 
-<a class="jxr_linenumber" name="L427" href="#L427">427</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
-<a class="jxr_linenumber" name="L428" href="#L428">428</a>         ensureGreen();
-<a class="jxr_linenumber" name="L429" href="#L429">429</a> 
-<a class="jxr_linenumber" name="L430" href="#L430">430</a>         <em class="jxr_comment">// spin a bit waiting for the index to exists</em>
-<a class="jxr_linenumber" name="L431" href="#L431">431</a>         <strong class="jxr_keyword">long</strong> time = System.currentTimeMillis();
-<a class="jxr_linenumber" name="L432" href="#L432">432</a>         <strong class="jxr_keyword">while</strong> ((System.currentTimeMillis() - time) &lt; TimeValue.timeValueSeconds(10).millis()) {
-<a class="jxr_linenumber" name="L433" href="#L433">433</a>             <strong class="jxr_keyword">if</strong> (client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists()) {
-<a class="jxr_linenumber" name="L434" href="#L434">434</a>                 <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L435" href="#L435">435</a>             }
-<a class="jxr_linenumber" name="L436" href="#L436">436</a>         }
-<a class="jxr_linenumber" name="L437" href="#L437">437</a> 
-<a class="jxr_linenumber" name="L438" href="#L438">438</a>         logger.info(<span class="jxr_string">"--&gt; verify that the dangling index exists"</span>);
-<a class="jxr_linenumber" name="L439" href="#L439">439</a>         assertThat(client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L440" href="#L440">440</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
-<a class="jxr_linenumber" name="L441" href="#L441">441</a>         ensureGreen();
-<a class="jxr_linenumber" name="L442" href="#L442">442</a> 
-<a class="jxr_linenumber" name="L443" href="#L443">443</a>         logger.info(<span class="jxr_string">"--&gt; verify the index state is closed"</span>);
-<a class="jxr_linenumber" name="L444" href="#L444">444</a>         assertThat(client().admin().cluster().prepareState().execute().actionGet().getState().metaData().index(<span class="jxr_string">"test"</span>).state(), equalTo(IndexMetaData.State.CLOSE));
-<a class="jxr_linenumber" name="L445" href="#L445">445</a>         logger.info(<span class="jxr_string">"--&gt; open the index"</span>);
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>         assertAcked(client().admin().indices().prepareOpen(<span class="jxr_string">"test"</span>).get());
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
-<a class="jxr_linenumber" name="L448" href="#L448">448</a>         ensureGreen();
-<a class="jxr_linenumber" name="L449" href="#L449">449</a> 
-<a class="jxr_linenumber" name="L450" href="#L450">450</a>         logger.info(<span class="jxr_string">"--&gt; verify the doc is there"</span>);
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L452" href="#L452">452</a>     }
-<a class="jxr_linenumber" name="L453" href="#L453">453</a> 
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>     @Test
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testDanglingIndicesNoAutoImport() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L456" href="#L456">456</a>         <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = settingsBuilder()
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>                 .put(<span class="jxr_string">"gateway.type"</span>, <span class="jxr_string">"local"</span>).put(<span class="jxr_string">"gateway.local.auto_import_dangled"</span>, <span class="jxr_string">"no"</span>)
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>                 .build();
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>         logger.info(<span class="jxr_string">"--&gt; starting two nodes"</span>);
-<a class="jxr_linenumber" name="L460" href="#L460">460</a>         <strong class="jxr_keyword">final</strong> String node_1 = internalCluster().startNodesAsync(2, settings).get().get(0);
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>         internalCluster().startNode(settings);
-<a class="jxr_linenumber" name="L462" href="#L462">462</a> 
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>         logger.info(<span class="jxr_string">"--&gt; indexing a simple document"</span>);
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).setSource(<span class="jxr_string">"field1"</span>, <span class="jxr_string">"value1"</span>).setRefresh(<strong class="jxr_keyword">true</strong>).execute().actionGet();
-<a class="jxr_linenumber" name="L465" href="#L465">465</a> 
-<a class="jxr_linenumber" name="L466" href="#L466">466</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
-<a class="jxr_linenumber" name="L467" href="#L467">467</a>         ensureGreen();
-<a class="jxr_linenumber" name="L468" href="#L468">468</a> 
-<a class="jxr_linenumber" name="L469" href="#L469">469</a>         logger.info(<span class="jxr_string">"--&gt; verify 1 doc in the index"</span>);
-<a class="jxr_linenumber" name="L470" href="#L470">470</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
-<a class="jxr_linenumber" name="L471" href="#L471">471</a>             assertHitCount(client().prepareCount().setQuery(matchAllQuery()).get(), 1l);
-<a class="jxr_linenumber" name="L472" href="#L472">472</a>         }
-<a class="jxr_linenumber" name="L473" href="#L473">473</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L474" href="#L474">474</a> 
-<a class="jxr_linenumber" name="L475" href="#L475">475</a>         logger.info(<span class="jxr_string">"--&gt; restarting the nodes"</span>);
-<a class="jxr_linenumber" name="L476" href="#L476">476</a>         <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/gateway/Gateway.html">Gateway</a> gateway1 = internalCluster().getInstance(Gateway.<strong class="jxr_keyword">class</strong>, node_1);
-<a class="jxr_linenumber" name="L477" href="#L477">477</a>         internalCluster().fullRestart(<strong class="jxr_keyword">new</strong> RestartCallback() {
-<a class="jxr_linenumber" name="L478" href="#L478">478</a> 
-<a class="jxr_linenumber" name="L479" href="#L479">479</a>             @Override
-<a class="jxr_linenumber" name="L480" href="#L480">480</a>             <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> onNodeStopped(String nodeName) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L481" href="#L481">481</a>                 <strong class="jxr_keyword">if</strong> (node_1.equals(nodeName)) {
-<a class="jxr_linenumber" name="L482" href="#L482">482</a>                     logger.info(<span class="jxr_string">"--&gt; deleting the data for the first node"</span>);
-<a class="jxr_linenumber" name="L483" href="#L483">483</a>                     gateway1.reset();
-<a class="jxr_linenumber" name="L484" href="#L484">484</a>                 }
-<a class="jxr_linenumber" name="L485" href="#L485">485</a>                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L486" href="#L486">486</a>             }
-<a class="jxr_linenumber" name="L487" href="#L487">487</a>         });
-<a class="jxr_linenumber" name="L488" href="#L488">488</a> 
-<a class="jxr_linenumber" name="L489" href="#L489">489</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
-<a class="jxr_linenumber" name="L490" href="#L490">490</a>         ensureGreen();
-<a class="jxr_linenumber" name="L491" href="#L491">491</a> 
-<a class="jxr_linenumber" name="L492" href="#L492">492</a>         <em class="jxr_comment">// we need to wait for the allocate dangled to kick in (even though in this case its disabled)</em>
-<a class="jxr_linenumber" name="L493" href="#L493">493</a>         <em class="jxr_comment">// just to make sure</em>
-<a class="jxr_linenumber" name="L494" href="#L494">494</a>         Thread.sleep(500);
-<a class="jxr_linenumber" name="L495" href="#L495">495</a> 
-<a class="jxr_linenumber" name="L496" href="#L496">496</a>         logger.info(<span class="jxr_string">"--&gt; verify that the dangling index does not exists"</span>);
-<a class="jxr_linenumber" name="L497" href="#L497">497</a>         assertThat(client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists(), equalTo(false));
-<a class="jxr_linenumber" name="L498" href="#L498">498</a> 
-<a class="jxr_linenumber" name="L499" href="#L499">499</a>         logger.info(<span class="jxr_string">"--&gt; restart start the nodes, but make sure we do recovery only after we have 2 nodes in the cluster"</span>);
-<a class="jxr_linenumber" name="L500" href="#L500">500</a>         internalCluster().fullRestart(<strong class="jxr_keyword">new</strong> RestartCallback() {
-<a class="jxr_linenumber" name="L501" href="#L501">501</a>             @Override
-<a class="jxr_linenumber" name="L502" href="#L502">502</a>             <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> onNodeStopped(String nodeName) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L503" href="#L503">503</a>                 <strong class="jxr_keyword">return</strong> settingsBuilder().put(<span class="jxr_string">"gateway.recover_after_nodes"</span>, 2).build();
-<a class="jxr_linenumber" name="L504" href="#L504">504</a>             }
-<a class="jxr_linenumber" name="L505" href="#L505">505</a>         });
-<a class="jxr_linenumber" name="L506" href="#L506">506</a> 
-<a class="jxr_linenumber" name="L507" href="#L507">507</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
-<a class="jxr_linenumber" name="L508" href="#L508">508</a>         ensureGreen();
-<a class="jxr_linenumber" name="L509" href="#L509">509</a> 
-<a class="jxr_linenumber" name="L510" href="#L510">510</a>         logger.info(<span class="jxr_string">"--&gt; verify that the dangling index does exists now!"</span>);
-<a class="jxr_linenumber" name="L511" href="#L511">511</a>         assertThat(client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L512" href="#L512">512</a>         logger.info(<span class="jxr_string">"--&gt; verify the doc is there"</span>);
-<a class="jxr_linenumber" name="L513" href="#L513">513</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L514" href="#L514">514</a>     }
-<a class="jxr_linenumber" name="L515" href="#L515">515</a> 
-<a class="jxr_linenumber" name="L516" href="#L516">516</a>     @Test
-<a class="jxr_linenumber" name="L517" href="#L517">517</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testDanglingIndicesNoAutoImportStillDanglingAndCreatingSameIndex() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L518" href="#L518">518</a>         <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = settingsBuilder()
-<a class="jxr_linenumber" name="L519" href="#L519">519</a>                 .put(<span class="jxr_string">"gateway.type"</span>, <span class="jxr_string">"local"</span>).put(<span class="jxr_string">"gateway.local.auto_import_dangled"</span>, <span class="jxr_string">"no"</span>)
-<a class="jxr_linenumber" name="L520" href="#L520">520</a>                 .build();
-<a class="jxr_linenumber" name="L521" href="#L521">521</a> 
-<a class="jxr_linenumber" name="L522" href="#L522">522</a>         logger.info(<span class="jxr_string">"--&gt; starting two nodes"</span>);
-<a class="jxr_linenumber" name="L523" href="#L523">523</a>         <strong class="jxr_keyword">final</strong> String node_1 = internalCluster().startNode(settings);
-<a class="jxr_linenumber" name="L524" href="#L524">524</a>         internalCluster().startNode(settings);
-<a class="jxr_linenumber" name="L525" href="#L525">525</a> 
-<a class="jxr_linenumber" name="L526" href="#L526">526</a>         logger.info(<span class="jxr_string">"--&gt; indexing a simple document"</span>);
-<a class="jxr_linenumber" name="L527" href="#L527">527</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).setSource(<span class="jxr_string">"field1"</span>, <span class="jxr_string">"value1"</span>).setRefresh(<strong class="jxr_keyword">true</strong>).execute().actionGet();
-<a class="jxr_linenumber" name="L528" href="#L528">528</a> 
-<a class="jxr_linenumber" name="L529" href="#L529">529</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
-<a class="jxr_linenumber" name="L530" href="#L530">530</a>         ensureGreen();
-<a class="jxr_linenumber" name="L531" href="#L531">531</a> 
-<a class="jxr_linenumber" name="L532" href="#L532">532</a>         logger.info(<span class="jxr_string">"--&gt; verify 1 doc in the index"</span>);
-<a class="jxr_linenumber" name="L533" href="#L533">533</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
-<a class="jxr_linenumber" name="L534" href="#L534">534</a>             assertHitCount(client().prepareSearch().setQuery(matchAllQuery()).get(), 1l);
-<a class="jxr_linenumber" name="L535" href="#L535">535</a>         }
-<a class="jxr_linenumber" name="L536" href="#L536">536</a> 
-<a class="jxr_linenumber" name="L537" href="#L537">537</a>         logger.info(<span class="jxr_string">"--&gt; restarting the nodes"</span>);
-<a class="jxr_linenumber" name="L538" href="#L538">538</a>         <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/gateway/Gateway.html">Gateway</a> gateway1 = internalCluster().getInstance(Gateway.<strong class="jxr_keyword">class</strong>, node_1);
-<a class="jxr_linenumber" name="L539" href="#L539">539</a>         internalCluster().fullRestart(<strong class="jxr_keyword">new</strong> RestartCallback() {
-<a class="jxr_linenumber" name="L540" href="#L540">540</a> 
-<a class="jxr_linenumber" name="L541" href="#L541">541</a>             @Override
-<a class="jxr_linenumber" name="L542" href="#L542">542</a>             <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> onNodeStopped(String nodeName) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L543" href="#L543">543</a>                 <strong class="jxr_keyword">if</strong> (node_1.equals(nodeName)) {
-<a class="jxr_linenumber" name="L544" href="#L544">544</a>                     logger.info(<span class="jxr_string">"--&gt; deleting the data for the first node"</span>);
-<a class="jxr_linenumber" name="L545" href="#L545">545</a>                     gateway1.reset();
-<a class="jxr_linenumber" name="L546" href="#L546">546</a>                 }
-<a class="jxr_linenumber" name="L547" href="#L547">547</a>                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L548" href="#L548">548</a>             }
-<a class="jxr_linenumber" name="L549" href="#L549">549</a>         });
-<a class="jxr_linenumber" name="L550" href="#L550">550</a> 
-<a class="jxr_linenumber" name="L551" href="#L551">551</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
-<a class="jxr_linenumber" name="L552" href="#L552">552</a>         ensureGreen();
-<a class="jxr_linenumber" name="L553" href="#L553">553</a> 
-<a class="jxr_linenumber" name="L554" href="#L554">554</a>         logger.info(<span class="jxr_string">"--&gt; verify that the dangling index does not exists"</span>);
-<a class="jxr_linenumber" name="L555" href="#L555">555</a>         assertThat(client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists(), equalTo(false));
-<a class="jxr_linenumber" name="L556" href="#L556">556</a> 
-<a class="jxr_linenumber" name="L557" href="#L557">557</a>         logger.info(<span class="jxr_string">"--&gt; close the first node, so we remain with the second that has the dangling index"</span>);
-<a class="jxr_linenumber" name="L558" href="#L558">558</a>         internalCluster().stopRandomNode(InternalTestCluster.nameFilter(node_1));
-<a class="jxr_linenumber" name="L559" href="#L559">559</a> 
-<a class="jxr_linenumber" name="L560" href="#L560">560</a>         logger.info(<span class="jxr_string">"--&gt; index a different doc"</span>);
-<a class="jxr_linenumber" name="L561" href="#L561">561</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"2"</span>).setSource(<span class="jxr_string">"field1"</span>, <span class="jxr_string">"value2"</span>).setRefresh(<strong class="jxr_keyword">true</strong>).execute().actionGet();
-<a class="jxr_linenumber" name="L562" href="#L562">562</a> 
-<a class="jxr_linenumber" name="L563" href="#L563">563</a>         logger.info(<span class="jxr_string">"--&gt; verify that doc 2 does exist"</span>);
-<a class="jxr_linenumber" name="L564" href="#L564">564</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"2"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L565" href="#L565">565</a> 
-<a class="jxr_linenumber" name="L566" href="#L566">566</a>         <em class="jxr_comment">// Need an ensure yellow here, since the index gets created (again) when we index doc2, so the shard that doc</em>
-<a class="jxr_linenumber" name="L567" href="#L567">567</a>         <em class="jxr_comment">// with id 1 is assigned to might not be in a started state. We don't need to do this when verifying if doc 2</em>
-<a class="jxr_linenumber" name="L568" href="#L568">568</a>         <em class="jxr_comment">// exists, because we index into the shard that doc gets assigned to.</em>
-<a class="jxr_linenumber" name="L569" href="#L569">569</a>         ensureYellow(<span class="jxr_string">"test"</span>);
-<a class="jxr_linenumber" name="L570" href="#L570">570</a>         logger.info(<span class="jxr_string">"--&gt; verify that doc 1 doesn't exist"</span>);
-<a class="jxr_linenumber" name="L571" href="#L571">571</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(false));
-<a class="jxr_linenumber" name="L572" href="#L572">572</a>     }
-<a class="jxr_linenumber" name="L573" href="#L573">573</a> }
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>         logger.info(<span class="jxr_string">"--&gt; starting two nodes"</span>);
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>         <strong class="jxr_keyword">final</strong> String node_1 = internalCluster().startNode(settings);
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>         internalCluster().startNode(settings);
+<a class="jxr_linenumber" name="L400" href="#L400">400</a> 
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>         logger.info(<span class="jxr_string">"--&gt; indexing a simple document"</span>);
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).setSource(<span class="jxr_string">"field1"</span>, <span class="jxr_string">"value1"</span>).setRefresh(<strong class="jxr_keyword">true</strong>).execute().actionGet();
+<a class="jxr_linenumber" name="L403" href="#L403">403</a> 
+<a class="jxr_linenumber" name="L404" href="#L404">404</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>         ensureGreen();
+<a class="jxr_linenumber" name="L406" href="#L406">406</a> 
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>         logger.info(<span class="jxr_string">"--&gt; verify 1 doc in the index"</span>);
+<a class="jxr_linenumber" name="L408" href="#L408">408</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>             assertHitCount(client().prepareSearch().setQuery(matchAllQuery()).get(), 1l);
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>         }
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L412" href="#L412">412</a> 
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>         logger.info(<span class="jxr_string">"--&gt; restarting the nodes"</span>);
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>         <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/gateway/Gateway.html">Gateway</a> gateway1 = internalCluster().getInstance(Gateway.<strong class="jxr_keyword">class</strong>, node_1);
+<a class="jxr_linenumber" name="L415" href="#L415">415</a>         internalCluster().fullRestart(<strong class="jxr_keyword">new</strong> RestartCallback() {
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>             @Override
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>             <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> onNodeStopped(String nodeName) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>                 <strong class="jxr_keyword">if</strong> (node_1.equals(nodeName)) {
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>                     logger.info(<span class="jxr_string">"--&gt; deleting the data for the first node"</span>);
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>                     gateway1.reset();
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>                 }
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L423" href="#L423">423</a>             }
+<a class="jxr_linenumber" name="L424" href="#L424">424</a>         });
+<a class="jxr_linenumber" name="L425" href="#L425">425</a> 
+<a class="jxr_linenumber" name="L426" href="#L426">426</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>         ensureGreen();
+<a class="jxr_linenumber" name="L428" href="#L428">428</a> 
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>         <em class="jxr_comment">// spin a bit waiting for the index to exists</em>
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>         <strong class="jxr_keyword">long</strong> time = System.currentTimeMillis();
+<a class="jxr_linenumber" name="L431" href="#L431">431</a>         <strong class="jxr_keyword">while</strong> ((System.currentTimeMillis() - time) &lt; TimeValue.timeValueSeconds(10).millis()) {
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>             <strong class="jxr_keyword">if</strong> (client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists()) {
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>                 <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>             }
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>         }
+<a class="jxr_linenumber" name="L436" href="#L436">436</a> 
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>         logger.info(<span class="jxr_string">"--&gt; verify that the dangling index exists"</span>);
+<a class="jxr_linenumber" name="L438" href="#L438">438</a>         assertThat(client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L439" href="#L439">439</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>         ensureGreen();
+<a class="jxr_linenumber" name="L441" href="#L441">441</a> 
+<a class="jxr_linenumber" name="L442" href="#L442">442</a>         logger.info(<span class="jxr_string">"--&gt; verify the index state is closed"</span>);
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>         assertThat(client().admin().cluster().prepareState().execute().actionGet().getState().metaData().index(<span class="jxr_string">"test"</span>).state(), equalTo(IndexMetaData.State.CLOSE));
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>         logger.info(<span class="jxr_string">"--&gt; open the index"</span>);
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>         assertAcked(client().admin().indices().prepareOpen(<span class="jxr_string">"test"</span>).get());
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>         ensureGreen();
+<a class="jxr_linenumber" name="L448" href="#L448">448</a> 
+<a class="jxr_linenumber" name="L449" href="#L449">449</a>         logger.info(<span class="jxr_string">"--&gt; verify the doc is there"</span>);
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>     }
+<a class="jxr_linenumber" name="L452" href="#L452">452</a> 
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>     @Test
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testDanglingIndicesNoAutoImport() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>         <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = settingsBuilder()
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>                 .put(<span class="jxr_string">"gateway.local.auto_import_dangled"</span>, <span class="jxr_string">"no"</span>)
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>                 .build();
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>         logger.info(<span class="jxr_string">"--&gt; starting two nodes"</span>);
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>         <strong class="jxr_keyword">final</strong> String node_1 = internalCluster().startNodesAsync(2, settings).get().get(0);
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>         internalCluster().startNode(settings);
+<a class="jxr_linenumber" name="L461" href="#L461">461</a> 
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>         logger.info(<span class="jxr_string">"--&gt; indexing a simple document"</span>);
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).setSource(<span class="jxr_string">"field1"</span>, <span class="jxr_string">"value1"</span>).setRefresh(<strong class="jxr_keyword">true</strong>).execute().actionGet();
+<a class="jxr_linenumber" name="L464" href="#L464">464</a> 
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>         ensureGreen();
+<a class="jxr_linenumber" name="L467" href="#L467">467</a> 
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>         logger.info(<span class="jxr_string">"--&gt; verify 1 doc in the index"</span>);
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>             assertHitCount(client().prepareCount().setQuery(matchAllQuery()).get(), 1l);
+<a class="jxr_linenumber" name="L471" href="#L471">471</a>         }
+<a class="jxr_linenumber" name="L472" href="#L472">472</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L473" href="#L473">473</a> 
+<a class="jxr_linenumber" name="L474" href="#L474">474</a>         logger.info(<span class="jxr_string">"--&gt; restarting the nodes"</span>);
+<a class="jxr_linenumber" name="L475" href="#L475">475</a>         <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/gateway/Gateway.html">Gateway</a> gateway1 = internalCluster().getInstance(Gateway.<strong class="jxr_keyword">class</strong>, node_1);
+<a class="jxr_linenumber" name="L476" href="#L476">476</a>         internalCluster().fullRestart(<strong class="jxr_keyword">new</strong> RestartCallback() {
+<a class="jxr_linenumber" name="L477" href="#L477">477</a> 
+<a class="jxr_linenumber" name="L478" href="#L478">478</a>             @Override
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>             <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> onNodeStopped(String nodeName) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>                 <strong class="jxr_keyword">if</strong> (node_1.equals(nodeName)) {
+<a class="jxr_linenumber" name="L481" href="#L481">481</a>                     logger.info(<span class="jxr_string">"--&gt; deleting the data for the first node"</span>);
+<a class="jxr_linenumber" name="L482" href="#L482">482</a>                     gateway1.reset();
+<a class="jxr_linenumber" name="L483" href="#L483">483</a>                 }
+<a class="jxr_linenumber" name="L484" href="#L484">484</a>                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L485" href="#L485">485</a>             }
+<a class="jxr_linenumber" name="L486" href="#L486">486</a>         });
+<a class="jxr_linenumber" name="L487" href="#L487">487</a> 
+<a class="jxr_linenumber" name="L488" href="#L488">488</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
+<a class="jxr_linenumber" name="L489" href="#L489">489</a>         ensureGreen();
+<a class="jxr_linenumber" name="L490" href="#L490">490</a> 
+<a class="jxr_linenumber" name="L491" href="#L491">491</a>         <em class="jxr_comment">// we need to wait for the allocate dangled to kick in (even though in this case its disabled)</em>
+<a class="jxr_linenumber" name="L492" href="#L492">492</a>         <em class="jxr_comment">// just to make sure</em>
+<a class="jxr_linenumber" name="L493" href="#L493">493</a>         Thread.sleep(500);
+<a class="jxr_linenumber" name="L494" href="#L494">494</a> 
+<a class="jxr_linenumber" name="L495" href="#L495">495</a>         logger.info(<span class="jxr_string">"--&gt; verify that the dangling index does not exists"</span>);
+<a class="jxr_linenumber" name="L496" href="#L496">496</a>         assertThat(client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists(), equalTo(false));
+<a class="jxr_linenumber" name="L497" href="#L497">497</a> 
+<a class="jxr_linenumber" name="L498" href="#L498">498</a>         logger.info(<span class="jxr_string">"--&gt; restart start the nodes, but make sure we do recovery only after we have 2 nodes in the cluster"</span>);
+<a class="jxr_linenumber" name="L499" href="#L499">499</a>         internalCluster().fullRestart(<strong class="jxr_keyword">new</strong> RestartCallback() {
+<a class="jxr_linenumber" name="L500" href="#L500">500</a>             @Override
+<a class="jxr_linenumber" name="L501" href="#L501">501</a>             <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> onNodeStopped(String nodeName) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>                 <strong class="jxr_keyword">return</strong> settingsBuilder().put(<span class="jxr_string">"gateway.recover_after_nodes"</span>, 2).build();
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>             }
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>         });
+<a class="jxr_linenumber" name="L505" href="#L505">505</a> 
+<a class="jxr_linenumber" name="L506" href="#L506">506</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
+<a class="jxr_linenumber" name="L507" href="#L507">507</a>         ensureGreen();
+<a class="jxr_linenumber" name="L508" href="#L508">508</a> 
+<a class="jxr_linenumber" name="L509" href="#L509">509</a>         logger.info(<span class="jxr_string">"--&gt; verify that the dangling index does exists now!"</span>);
+<a class="jxr_linenumber" name="L510" href="#L510">510</a>         assertThat(client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L511" href="#L511">511</a>         logger.info(<span class="jxr_string">"--&gt; verify the doc is there"</span>);
+<a class="jxr_linenumber" name="L512" href="#L512">512</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L513" href="#L513">513</a>     }
+<a class="jxr_linenumber" name="L514" href="#L514">514</a> 
+<a class="jxr_linenumber" name="L515" href="#L515">515</a>     @Test
+<a class="jxr_linenumber" name="L516" href="#L516">516</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testDanglingIndicesNoAutoImportStillDanglingAndCreatingSameIndex() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L517" href="#L517">517</a>         <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> settings = settingsBuilder()
+<a class="jxr_linenumber" name="L518" href="#L518">518</a>                 .put(<span class="jxr_string">"gateway.local.auto_import_dangled"</span>, <span class="jxr_string">"no"</span>)
+<a class="jxr_linenumber" name="L519" href="#L519">519</a>                 .build();
+<a class="jxr_linenumber" name="L520" href="#L520">520</a> 
+<a class="jxr_linenumber" name="L521" href="#L521">521</a>         logger.info(<span class="jxr_string">"--&gt; starting two nodes"</span>);
+<a class="jxr_linenumber" name="L522" href="#L522">522</a>         <strong class="jxr_keyword">final</strong> String node_1 = internalCluster().startNode(settings);
+<a class="jxr_linenumber" name="L523" href="#L523">523</a>         internalCluster().startNode(settings);
+<a class="jxr_linenumber" name="L524" href="#L524">524</a> 
+<a class="jxr_linenumber" name="L525" href="#L525">525</a>         logger.info(<span class="jxr_string">"--&gt; indexing a simple document"</span>);
+<a class="jxr_linenumber" name="L526" href="#L526">526</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).setSource(<span class="jxr_string">"field1"</span>, <span class="jxr_string">"value1"</span>).setRefresh(<strong class="jxr_keyword">true</strong>).execute().actionGet();
+<a class="jxr_linenumber" name="L527" href="#L527">527</a> 
+<a class="jxr_linenumber" name="L528" href="#L528">528</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
+<a class="jxr_linenumber" name="L529" href="#L529">529</a>         ensureGreen();
+<a class="jxr_linenumber" name="L530" href="#L530">530</a> 
+<a class="jxr_linenumber" name="L531" href="#L531">531</a>         logger.info(<span class="jxr_string">"--&gt; verify 1 doc in the index"</span>);
+<a class="jxr_linenumber" name="L532" href="#L532">532</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
+<a class="jxr_linenumber" name="L533" href="#L533">533</a>             assertHitCount(client().prepareSearch().setQuery(matchAllQuery()).get(), 1l);
+<a class="jxr_linenumber" name="L534" href="#L534">534</a>         }
+<a class="jxr_linenumber" name="L535" href="#L535">535</a> 
+<a class="jxr_linenumber" name="L536" href="#L536">536</a>         logger.info(<span class="jxr_string">"--&gt; restarting the nodes"</span>);
+<a class="jxr_linenumber" name="L537" href="#L537">537</a>         <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/gateway/Gateway.html">Gateway</a> gateway1 = internalCluster().getInstance(Gateway.<strong class="jxr_keyword">class</strong>, node_1);
+<a class="jxr_linenumber" name="L538" href="#L538">538</a>         internalCluster().fullRestart(<strong class="jxr_keyword">new</strong> RestartCallback() {
+<a class="jxr_linenumber" name="L539" href="#L539">539</a> 
+<a class="jxr_linenumber" name="L540" href="#L540">540</a>             @Override
+<a class="jxr_linenumber" name="L541" href="#L541">541</a>             <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> onNodeStopped(String nodeName) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L542" href="#L542">542</a>                 <strong class="jxr_keyword">if</strong> (node_1.equals(nodeName)) {
+<a class="jxr_linenumber" name="L543" href="#L543">543</a>                     logger.info(<span class="jxr_string">"--&gt; deleting the data for the first node"</span>);
+<a class="jxr_linenumber" name="L544" href="#L544">544</a>                     gateway1.reset();
+<a class="jxr_linenumber" name="L545" href="#L545">545</a>                 }
+<a class="jxr_linenumber" name="L546" href="#L546">546</a>                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L547" href="#L547">547</a>             }
+<a class="jxr_linenumber" name="L548" href="#L548">548</a>         });
+<a class="jxr_linenumber" name="L549" href="#L549">549</a> 
+<a class="jxr_linenumber" name="L550" href="#L550">550</a>         logger.info(<span class="jxr_string">"--&gt; waiting for green status"</span>);
+<a class="jxr_linenumber" name="L551" href="#L551">551</a>         ensureGreen();
+<a class="jxr_linenumber" name="L552" href="#L552">552</a> 
+<a class="jxr_linenumber" name="L553" href="#L553">553</a>         logger.info(<span class="jxr_string">"--&gt; verify that the dangling index does not exists"</span>);
+<a class="jxr_linenumber" name="L554" href="#L554">554</a>         assertThat(client().admin().indices().prepareExists(<span class="jxr_string">"test"</span>).execute().actionGet().isExists(), equalTo(false));
+<a class="jxr_linenumber" name="L555" href="#L555">555</a> 
+<a class="jxr_linenumber" name="L556" href="#L556">556</a>         logger.info(<span class="jxr_string">"--&gt; close the first node, so we remain with the second that has the dangling index"</span>);
+<a class="jxr_linenumber" name="L557" href="#L557">557</a>         internalCluster().stopRandomNode(InternalTestCluster.nameFilter(node_1));
+<a class="jxr_linenumber" name="L558" href="#L558">558</a> 
+<a class="jxr_linenumber" name="L559" href="#L559">559</a>         logger.info(<span class="jxr_string">"--&gt; index a different doc"</span>);
+<a class="jxr_linenumber" name="L560" href="#L560">560</a>         client().prepareIndex(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"2"</span>).setSource(<span class="jxr_string">"field1"</span>, <span class="jxr_string">"value2"</span>).setRefresh(<strong class="jxr_keyword">true</strong>).execute().actionGet();
+<a class="jxr_linenumber" name="L561" href="#L561">561</a> 
+<a class="jxr_linenumber" name="L562" href="#L562">562</a>         logger.info(<span class="jxr_string">"--&gt; verify that doc 2 does exist"</span>);
+<a class="jxr_linenumber" name="L563" href="#L563">563</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"2"</span>).execute().actionGet().isExists(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L564" href="#L564">564</a> 
+<a class="jxr_linenumber" name="L565" href="#L565">565</a>         <em class="jxr_comment">// Need an ensure yellow here, since the index gets created (again) when we index doc2, so the shard that doc</em>
+<a class="jxr_linenumber" name="L566" href="#L566">566</a>         <em class="jxr_comment">// with id 1 is assigned to might not be in a started state. We don't need to do this when verifying if doc 2</em>
+<a class="jxr_linenumber" name="L567" href="#L567">567</a>         <em class="jxr_comment">// exists, because we index into the shard that doc gets assigned to.</em>
+<a class="jxr_linenumber" name="L568" href="#L568">568</a>         ensureYellow(<span class="jxr_string">"test"</span>);
+<a class="jxr_linenumber" name="L569" href="#L569">569</a>         logger.info(<span class="jxr_string">"--&gt; verify that doc 1 doesn't exist"</span>);
+<a class="jxr_linenumber" name="L570" href="#L570">570</a>         assertThat(client().prepareGet(<span class="jxr_string">"test"</span>, <span class="jxr_string">"type1"</span>, <span class="jxr_string">"1"</span>).execute().actionGet().isExists(), equalTo(false));
+<a class="jxr_linenumber" name="L571" href="#L571">571</a>     }
+<a class="jxr_linenumber" name="L572" href="#L572">572</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015. All rights reserved.</div>

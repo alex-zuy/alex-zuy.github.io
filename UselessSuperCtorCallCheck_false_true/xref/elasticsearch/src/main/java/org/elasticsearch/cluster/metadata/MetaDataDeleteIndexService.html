@@ -189,7 +189,7 @@
 <a class="jxr_linenumber" name="L181" href="#L181">181</a> 
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>     <strong class="jxr_keyword">class</strong> <a href="../../../../org/elasticsearch/cluster/metadata/MetaDataDeleteIndexService.html">DeleteIndexListener</a> <strong class="jxr_keyword">implements</strong> <a href="../../../../org/elasticsearch/cluster/ClusterInfoService.html">Listener</a> {
 <a class="jxr_linenumber" name="L183" href="#L183">183</a> 
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> AtomicBoolean notified = <strong class="jxr_keyword">new</strong> AtomicBoolean();
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> notified = <strong class="jxr_keyword">new</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>();
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Semaphore mdLock;
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/cluster/ClusterInfoService.html">Listener</a> listener;
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>         <strong class="jxr_keyword">volatile</strong> ScheduledFuture&lt;?&gt; future;

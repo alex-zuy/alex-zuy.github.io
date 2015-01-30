@@ -52,15 +52,15 @@
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/imports/ImportControlCheck.html">ImportControlCheck</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/Check.html">Check</a>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      <em class="jxr_javadoccomment">/** The root package controller. */</em>
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/imports/PkgControl.html">PkgControl</a> mRoot;
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/imports/PkgControl.html">PkgControl</a> root;
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      <em class="jxr_javadoccomment">/** The package doing the import. */</em>
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> String mInPkg;
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> String inPkg;
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment">     * The package controller for the current file. Used for performance</em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment">     * optimisation.</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/imports/PkgControl.html">PkgControl</a> mCurrentLeaf;
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/imports/PkgControl.html">PkgControl</a> currentLeaf;
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>      @Override
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong>[] getDefaultTokens()
@@ -70,42 +70,42 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      }
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      @Override
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beginTree(<strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aRootAST)
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beginTree(<strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> rootAST)
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      {
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>          mCurrentLeaf = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>          currentLeaf = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      }
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      @Override
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>      {
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>          <strong class="jxr_keyword">if</strong> (aAST.getType() == TokenTypes.PACKAGE_DEF) {
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> nameAST = aAST.getLastChild().getPreviousSibling();
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          <strong class="jxr_keyword">if</strong> (ast.getType() == TokenTypes.PACKAGE_DEF) {
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> nameAST = ast.getLastChild().getPreviousSibling();
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/FullIdent.html">FullIdent</a> full = FullIdent.createFullIdent(nameAST);
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>              <strong class="jxr_keyword">if</strong> (mRoot == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>              <strong class="jxr_keyword">if</strong> (root == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>                  log(nameAST, <span class="jxr_string">"import.control.missing.file"</span>);
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>              }
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>              <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>                  mInPkg = full.getText();
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>                  mCurrentLeaf = mRoot.locateFinest(mInPkg);
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>                  <strong class="jxr_keyword">if</strong> (mCurrentLeaf == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>                  inPkg = full.getText();
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>                  currentLeaf = root.locateFinest(inPkg);
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>                  <strong class="jxr_keyword">if</strong> (currentLeaf == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>                      log(nameAST, <span class="jxr_string">"import.control.unknown.pkg"</span>);
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>                  }
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>              }
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>          }
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (mCurrentLeaf != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentLeaf != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/FullIdent.html">FullIdent</a> imp;
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>              <strong class="jxr_keyword">if</strong> (aAST.getType() == TokenTypes.IMPORT) {
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>                  imp = FullIdent.createFullIdentBelow(aAST);
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>              <strong class="jxr_keyword">if</strong> (ast.getType() == TokenTypes.IMPORT) {
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>                  imp = FullIdent.createFullIdentBelow(ast);
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>              }
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>              <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>                  <em class="jxr_comment">// know it is a static import</em>
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>                  imp = FullIdent.createFullIdent(aAST
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>                  imp = FullIdent.createFullIdent(ast
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>                          .getFirstChild().getNextSibling());
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>              }
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/imports/AccessResult.html">AccessResult</a> access = mCurrentLeaf.checkAccess(imp.getText(),
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>                      mInPkg);
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/imports/AccessResult.html">AccessResult</a> access = currentLeaf.checkAccess(imp.getText(),
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>                      inPkg);
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>              <strong class="jxr_keyword">if</strong> (!AccessResult.ALLOWED.equals(access)) {
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>                 log(aAST, <span class="jxr_string">"import.control.disallowed"</span>, imp.getText());
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>                 log(ast, <span class="jxr_string">"import.control.disallowed"</span>, imp.getText());
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>             }
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         }
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>     }
@@ -113,48 +113,48 @@
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L106" href="#L106">106</a> <em class="jxr_javadoccomment">     * Set the parameter for the url containing the import control</em>
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">     * configuration. It will cause the url to be loaded.</em>
-<a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">     * @param aUrl the url of the file to load.</em>
+<a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">     * @param url the url of the file to load.</em>
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> <em class="jxr_javadoccomment">     * @throws ConversionException on error loading the file.</em>
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setUrl(<strong class="jxr_keyword">final</strong> String aUrl)
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setUrl(<strong class="jxr_keyword">final</strong> String url)
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>     {
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         <em class="jxr_comment">// Handle empty param</em>
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>         <strong class="jxr_keyword">if</strong> ((aUrl == <strong class="jxr_keyword">null</strong>) || (aUrl.trim().length() == 0)) {
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>         <strong class="jxr_keyword">if</strong> ((url == <strong class="jxr_keyword">null</strong>) || (url.trim().length() == 0)) {
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>             <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>         }
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>         <strong class="jxr_keyword">final</strong> URI uri;
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>             uri = URI.create(aUrl);
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>             uri = URI.create(url);
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>         }
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>         <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IllegalArgumentException ex) {
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ConversionException(<span class="jxr_string">"syntax error in url "</span> + aUrl, ex);
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ConversionException(<span class="jxr_string">"syntax error in url "</span> + url, ex);
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>         }
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>             mRoot = ImportControlLoader.load(uri);
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>             root = ImportControlLoader.load(uri);
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>         }
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>         <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> CheckstyleException ex) {
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ConversionException(<span class="jxr_string">"Unable to load "</span> + aUrl, ex);
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ConversionException(<span class="jxr_string">"Unable to load "</span> + url, ex);
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>         }
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>     }
 <a class="jxr_linenumber" name="L131" href="#L131">131</a> 
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L133" href="#L133">133</a> <em class="jxr_javadoccomment">     * Set the parameter for the file containing the import control</em>
+<a class="jxr_linenumber" name="L133" href="#L133">133</a> <em class="jxr_javadoccomment">     * Set the pnameter for the file containing the import control</em>
 <a class="jxr_linenumber" name="L134" href="#L134">134</a> <em class="jxr_javadoccomment">     * configuration. It will cause the file to be loaded.</em>
-<a class="jxr_linenumber" name="L135" href="#L135">135</a> <em class="jxr_javadoccomment">     * @param aName the name of the file to load.</em>
+<a class="jxr_linenumber" name="L135" href="#L135">135</a> <em class="jxr_javadoccomment">     * @param name the name of the file to load.</em>
 <a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">     * @throws ConversionException on error loading the file.</em>
 <a class="jxr_linenumber" name="L137" href="#L137">137</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setFile(<strong class="jxr_keyword">final</strong> String aName)
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setFile(<strong class="jxr_keyword">final</strong> String name)
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>     {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         <em class="jxr_comment">// Handle empty param</em>
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>         <strong class="jxr_keyword">if</strong> ((aName == <strong class="jxr_keyword">null</strong>) || (aName.trim().length() == 0)) {
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>         <strong class="jxr_keyword">if</strong> ((name == <strong class="jxr_keyword">null</strong>) || (name.trim().length() == 0)) {
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>             <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>         }
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> 
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>             mRoot = ImportControlLoader.load(<strong class="jxr_keyword">new</strong> File(aName).toURI());
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>             root = ImportControlLoader.load(<strong class="jxr_keyword">new</strong> File(name).toURI());
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>         }
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> CheckstyleException ex) {
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ConversionException(<span class="jxr_string">"Unable to load "</span> + aName, ex);
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ConversionException(<span class="jxr_string">"Unable to load "</span> + name, ex);
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>         }
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>     }
 <a class="jxr_linenumber" name="L152" href="#L152">152</a> }

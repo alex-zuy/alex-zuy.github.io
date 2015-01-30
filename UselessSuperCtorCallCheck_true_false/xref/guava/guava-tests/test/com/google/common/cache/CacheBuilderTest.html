@@ -398,7 +398,7 @@
 <a class="jxr_linenumber" name="L390" href="#L390">390</a>     <em class="jxr_comment">// If a clear() happens while a computation is pending, we should not get a removal</em>
 <a class="jxr_linenumber" name="L391" href="#L391">391</a>     <em class="jxr_comment">// notification.</em>
 <a class="jxr_linenumber" name="L392" href="#L392">392</a> 
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>     <strong class="jxr_keyword">final</strong> AtomicBoolean shouldWait = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>     <strong class="jxr_keyword">final</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> shouldWait = <strong class="jxr_keyword">new</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L394" href="#L394">394</a>     <strong class="jxr_keyword">final</strong> CountDownLatch computingLatch = <strong class="jxr_keyword">new</strong> CountDownLatch(1);
 <a class="jxr_linenumber" name="L395" href="#L395">395</a>     CacheLoader&lt;String, String&gt; computingFunction = <strong class="jxr_keyword">new</strong> CacheLoader&lt;String, String&gt;() {
 <a class="jxr_linenumber" name="L396" href="#L396">396</a>       @Override <strong class="jxr_keyword">public</strong> String load(String key) <strong class="jxr_keyword">throws</strong> InterruptedException {
@@ -464,7 +464,7 @@
 <a class="jxr_linenumber" name="L456" href="#L456">456</a>     <em class="jxr_comment">// - computation ends first: the removal listener is called, and the cache does not contain the</em>
 <a class="jxr_linenumber" name="L457" href="#L457">457</a>     <em class="jxr_comment">//   key/value pair</em>
 <a class="jxr_linenumber" name="L458" href="#L458">458</a>     <em class="jxr_comment">// - clear() happens first: the removal listener is not called, and the cache contains the pair</em>
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>     AtomicBoolean computationShouldWait = <strong class="jxr_keyword">new</strong> AtomicBoolean();
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>     <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> computationShouldWait = <strong class="jxr_keyword">new</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>();
 <a class="jxr_linenumber" name="L460" href="#L460">460</a>     CountDownLatch computationLatch = <strong class="jxr_keyword">new</strong> CountDownLatch(1);
 <a class="jxr_linenumber" name="L461" href="#L461">461</a>     QueuingRemovalListener&lt;String, String&gt; listener = queuingRemovalListener();
 <a class="jxr_linenumber" name="L462" href="#L462">462</a>     <strong class="jxr_keyword">final</strong> <a href="../../../../com/google/common/cache/LoadingCache.html">LoadingCache</a> &lt;String, String&gt; cache = CacheBuilder.newBuilder()
@@ -626,10 +626,10 @@
 <a class="jxr_linenumber" name="L618" href="#L618">618</a> 
 <a class="jxr_linenumber" name="L619" href="#L619">619</a>   @GwtIncompatible(<span class="jxr_string">"CountDownLatch"</span>)
 <a class="jxr_linenumber" name="L620" href="#L620">620</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> DelayingIdentityLoader&lt;T&gt; <strong class="jxr_keyword">extends</strong> CacheLoader&lt;T, T&gt; {
-<a class="jxr_linenumber" name="L621" href="#L621">621</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> AtomicBoolean shouldWait;
+<a class="jxr_linenumber" name="L621" href="#L621">621</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> shouldWait;
 <a class="jxr_linenumber" name="L622" href="#L622">622</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> CountDownLatch delayLatch;
 <a class="jxr_linenumber" name="L623" href="#L623">623</a> 
-<a class="jxr_linenumber" name="L624" href="#L624">624</a>     <a href="../../../../com/google/common/collect/MapMakerTest.html">DelayingIdentityLoader</a>(AtomicBoolean shouldWait, CountDownLatch delayLatch) {
+<a class="jxr_linenumber" name="L624" href="#L624">624</a>     <a href="../../../../com/google/common/collect/MapMakerTest.html">DelayingIdentityLoader</a>(<a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> shouldWait, CountDownLatch delayLatch) {
 <a class="jxr_linenumber" name="L625" href="#L625">625</a>       <strong class="jxr_keyword">this</strong>.shouldWait = shouldWait;
 <a class="jxr_linenumber" name="L626" href="#L626">626</a>       <strong class="jxr_keyword">this</strong>.delayLatch = delayLatch;
 <a class="jxr_linenumber" name="L627" href="#L627">627</a>     }

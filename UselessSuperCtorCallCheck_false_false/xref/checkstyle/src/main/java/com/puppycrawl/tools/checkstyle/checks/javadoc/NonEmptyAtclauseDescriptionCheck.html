@@ -65,22 +65,22 @@
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>      }
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      @Override
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitJavadocToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> aAst)
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitJavadocToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> ast)
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      {
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">if</strong> (isEmptyTag(aAst.getParent())) {
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>              log(aAst.getLineNumber(), <span class="jxr_string">"non.empty.atclause"</span>, aAst.getText());
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">if</strong> (isEmptyTag(ast.getParent())) {
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>              log(ast.getLineNumber(), <span class="jxr_string">"non.empty.atclause"</span>, ast.getText());
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          }
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      }
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">     * Tests if at-clause tag is empty.</em>
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">     * @param aTagNode at-clause tag.</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">     * @param tagNode at-clause tag.</em>
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment">     * @return true, if at-clause tag is empty.</em>
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isEmptyTag(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> aTagNode)
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isEmptyTag(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> tagNode)
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      {
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailNode.html">DetailNode</a> tagDescription =
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>                  JavadocUtils.findFirstToken(aTagNode, JavadocTokenTypes.DESCRIPTION);
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>                  JavadocUtils.findFirstToken(tagNode, JavadocTokenTypes.DESCRIPTION);
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">return</strong> tagDescription == <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      }
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  }

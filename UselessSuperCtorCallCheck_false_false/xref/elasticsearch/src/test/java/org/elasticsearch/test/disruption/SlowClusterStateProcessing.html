@@ -108,7 +108,7 @@
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">if</strong> (clusterService == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>             <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         }
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>         <strong class="jxr_keyword">final</strong> AtomicBoolean stopped = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> stopped = <strong class="jxr_keyword">new</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>         clusterService.submitStateUpdateTask(<span class="jxr_string">"service_disruption_delay"</span>, Priority.IMMEDIATE, <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/cluster/ClusterStateNonMasterUpdateTask.html">ClusterStateNonMasterUpdateTask</a>() {
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> 
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>             @Override

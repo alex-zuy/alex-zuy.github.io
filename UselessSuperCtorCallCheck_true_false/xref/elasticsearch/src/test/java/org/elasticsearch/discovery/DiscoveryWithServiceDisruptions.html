@@ -440,7 +440,7 @@
 <a class="jxr_linenumber" name="L432" href="#L432">432</a> 
 <a class="jxr_linenumber" name="L433" href="#L433">433</a>         <strong class="jxr_keyword">final</strong> ConcurrentHashMap&lt;String, String&gt; ackedDocs = <strong class="jxr_keyword">new</strong> ConcurrentHashMap&lt;&gt;(); <em class="jxr_comment">// id -&gt; node sent.</em>
 <a class="jxr_linenumber" name="L434" href="#L434">434</a> 
-<a class="jxr_linenumber" name="L435" href="#L435">435</a>         <strong class="jxr_keyword">final</strong> AtomicBoolean stop = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>         <strong class="jxr_keyword">final</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> stop = <strong class="jxr_keyword">new</strong> <a href="../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L436" href="#L436">436</a>         List&lt;Thread&gt; indexers = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(nodes.size());
 <a class="jxr_linenumber" name="L437" href="#L437">437</a>         List&lt;Semaphore&gt; semaphores = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(nodes.size());
 <a class="jxr_linenumber" name="L438" href="#L438">438</a>         <strong class="jxr_keyword">final</strong> <a href="../../../java/util/concurrent/atomic/AtomicInteger.html">AtomicInteger</a> idGenerator = <strong class="jxr_keyword">new</strong> <a href="../../../java/util/concurrent/atomic/AtomicInteger.html">AtomicInteger</a>(0);

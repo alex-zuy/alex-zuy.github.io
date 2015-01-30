@@ -56,11 +56,11 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>              <strong class="jxr_keyword">this</strong>.supersetDf = supersetDf;
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          }
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> Number getKeyAsNumber();
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>          <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">int</strong> compareTerm(SignificantTerms.Bucket other);
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>          <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">int</strong> compareTerm(SignificantTerms.Bucket other);
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">double</strong> getSignificanceScore();
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">double</strong> getSignificanceScore();
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          <strong class="jxr_keyword">abstract</strong> Number getKeyAsNumber();
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getSubsetDf() {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>              <strong class="jxr_keyword">return</strong> subsetDf;
@@ -83,10 +83,12 @@
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>      @Override
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>      List&lt;Bucket&gt; getBuckets();
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      @Override
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/MultiBucketsAggregation.html">Bucket</a> getBucketByKey(String key);
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>  
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  }
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment">     * Get the bucket for the given term, or null if there is no such bucket.</em>
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/MultiBucketsAggregation.html">Bucket</a> getBucketByKey(String term);
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015. All rights reserved.</div>

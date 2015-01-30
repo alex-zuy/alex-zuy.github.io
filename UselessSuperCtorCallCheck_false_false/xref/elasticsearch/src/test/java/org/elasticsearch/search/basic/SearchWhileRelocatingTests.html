@@ -93,7 +93,7 @@
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>          assertHitCount(client().prepareSearch().get(), (<strong class="jxr_keyword">long</strong>) (numDocs));
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>          <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> numIters = scaledRandomIntBetween(5, 20);
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; numIters; i++) {
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>              <strong class="jxr_keyword">final</strong> AtomicBoolean stop = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> stop = <strong class="jxr_keyword">new</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>              <strong class="jxr_keyword">final</strong> List&lt;Throwable&gt; thrownExceptions = <strong class="jxr_keyword">new</strong> CopyOnWriteArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>              <strong class="jxr_keyword">final</strong> List&lt;Throwable&gt; nonCriticalExceptions = <strong class="jxr_keyword">new</strong> CopyOnWriteArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  

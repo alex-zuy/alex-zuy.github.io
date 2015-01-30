@@ -54,7 +54,7 @@
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          <strong class="jxr_keyword">this</strong>.listener = listener;
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      }
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> maybePause(<strong class="jxr_keyword">int</strong> bytes) {
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> maybePause(<strong class="jxr_keyword">int</strong> bytes) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          bytesSinceLastRateLimit += bytes;
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          <strong class="jxr_keyword">if</strong> (bytesSinceLastRateLimit &gt;= rateLimiter.getMinPauseCheckBytes()) {
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>              <strong class="jxr_keyword">long</strong> pause = rateLimiter.pause(bytesSinceLastRateLimit);

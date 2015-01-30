@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../../../../../../apidocs/org/springframework/core/annotation/AnnotatedElementUtilsTests.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2002-2014 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2002-2015 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -113,7 +113,7 @@
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> 			Transactional.<strong class="jxr_keyword">class</strong>.getName());
 <a class="jxr_linenumber" name="L106" href="#L106">106</a> 		assertNotNull(<span class="jxr_string">"AnnotationAttributes for @Transactional on SubSubClassWithInheritedAnnotation"</span>, attributes);
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
-<a class="jxr_linenumber" name="L108" href="#L108">108</a> 		<em class="jxr_comment">// TODO [SPR-11475] Set expected to true.</em>
+<a class="jxr_linenumber" name="L108" href="#L108">108</a> 		<em class="jxr_comment">// TODO [SPR-11598] Set expected to true.</em>
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> 		<strong class="jxr_keyword">boolean</strong> expected = false;
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 		assertEquals(<span class="jxr_string">"readOnly flag for SubSubClassWithInheritedAnnotation."</span>, expected, attributes.getBoolean(<span class="jxr_string">"readOnly"</span>));
 <a class="jxr_linenumber" name="L111" href="#L111">111</a> 	}
@@ -125,7 +125,7 @@
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> 		assertNotNull(<span class="jxr_string">"AnnotationAttributtes for @Transactional on SubSubClassWithInheritedComposedAnnotation."</span>,
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> 			attributes);
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> 
-<a class="jxr_linenumber" name="L120" href="#L120">120</a> 		<em class="jxr_comment">// TODO [SPR-11475] Set expected to true.</em>
+<a class="jxr_linenumber" name="L120" href="#L120">120</a> 		<em class="jxr_comment">// TODO [SPR-11598] Set expected to true.</em>
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> 		<strong class="jxr_keyword">boolean</strong> expected = false;
 <a class="jxr_linenumber" name="L122" href="#L122">122</a> 		assertEquals(<span class="jxr_string">"readOnly flag for SubSubClassWithInheritedComposedAnnotation."</span>, expected,
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> 			attributes.getBoolean(<span class="jxr_string">"readOnly"</span>));

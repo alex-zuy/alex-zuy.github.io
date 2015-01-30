@@ -640,293 +640,294 @@
 <a class="jxr_linenumber" name="L632" href="#L632">632</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ModelAndViewMethodReturnValueHandler.html">ModelAndViewMethodReturnValueHandler</a>());
 <a class="jxr_linenumber" name="L633" href="#L633">633</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/annotation/ModelMethodProcessor.html">ModelMethodProcessor</a>());
 <a class="jxr_linenumber" name="L634" href="#L634">634</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ViewMethodReturnValueHandler.html">ViewMethodReturnValueHandler</a>());
-<a class="jxr_linenumber" name="L635" href="#L635">635</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/HttpEntityMethodProcessor.html">HttpEntityMethodProcessor</a>(
-<a class="jxr_linenumber" name="L636" href="#L636">636</a> 				getMessageConverters(), <strong class="jxr_keyword">this</strong>.contentNegotiationManager, <strong class="jxr_keyword">this</strong>.responseBodyAdvice));
-<a class="jxr_linenumber" name="L637" href="#L637">637</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/HttpHeadersReturnValueHandler.html">HttpHeadersReturnValueHandler</a>());
-<a class="jxr_linenumber" name="L638" href="#L638">638</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/CallableMethodReturnValueHandler.html">CallableMethodReturnValueHandler</a>());
-<a class="jxr_linenumber" name="L639" href="#L639">639</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/DeferredResultMethodReturnValueHandler.html">DeferredResultMethodReturnValueHandler</a>());
-<a class="jxr_linenumber" name="L640" href="#L640">640</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/AsyncTaskMethodReturnValueHandler.html">AsyncTaskMethodReturnValueHandler</a>(<strong class="jxr_keyword">this</strong>.beanFactory));
-<a class="jxr_linenumber" name="L641" href="#L641">641</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ListenableFutureReturnValueHandler.html">ListenableFutureReturnValueHandler</a>());
-<a class="jxr_linenumber" name="L642" href="#L642">642</a> 
-<a class="jxr_linenumber" name="L643" href="#L643">643</a> 		<em class="jxr_comment">// Annotation-based return value types</em>
-<a class="jxr_linenumber" name="L644" href="#L644">644</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/annotation/ModelAttributeMethodProcessor.html">ModelAttributeMethodProcessor</a>(false));
-<a class="jxr_linenumber" name="L645" href="#L645">645</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/RequestResponseBodyMethodProcessor.html">RequestResponseBodyMethodProcessor</a>(
-<a class="jxr_linenumber" name="L646" href="#L646">646</a> 				getMessageConverters(), <strong class="jxr_keyword">this</strong>.contentNegotiationManager, <strong class="jxr_keyword">this</strong>.responseBodyAdvice));
-<a class="jxr_linenumber" name="L647" href="#L647">647</a> 
-<a class="jxr_linenumber" name="L648" href="#L648">648</a> 		<em class="jxr_comment">// Multi-purpose return value types</em>
-<a class="jxr_linenumber" name="L649" href="#L649">649</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ViewNameMethodReturnValueHandler.html">ViewNameMethodReturnValueHandler</a>());
-<a class="jxr_linenumber" name="L650" href="#L650">650</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/annotation/MapMethodProcessor.html">MapMethodProcessor</a>());
-<a class="jxr_linenumber" name="L651" href="#L651">651</a> 
-<a class="jxr_linenumber" name="L652" href="#L652">652</a> 		<em class="jxr_comment">// Custom return value types</em>
-<a class="jxr_linenumber" name="L653" href="#L653">653</a> 		<strong class="jxr_keyword">if</strong> (getCustomReturnValueHandlers() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L654" href="#L654">654</a> 			handlers.addAll(getCustomReturnValueHandlers());
-<a class="jxr_linenumber" name="L655" href="#L655">655</a> 		}
-<a class="jxr_linenumber" name="L656" href="#L656">656</a> 
-<a class="jxr_linenumber" name="L657" href="#L657">657</a> 		<em class="jxr_comment">// Catch-all</em>
-<a class="jxr_linenumber" name="L658" href="#L658">658</a> 		<strong class="jxr_keyword">if</strong> (!CollectionUtils.isEmpty(getModelAndViewResolvers())) {
-<a class="jxr_linenumber" name="L659" href="#L659">659</a> 			handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ModelAndViewResolverMethodReturnValueHandler.html">ModelAndViewResolverMethodReturnValueHandler</a>(getModelAndViewResolvers()));
-<a class="jxr_linenumber" name="L660" href="#L660">660</a> 		}
-<a class="jxr_linenumber" name="L661" href="#L661">661</a> 		<strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L662" href="#L662">662</a> 			handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/annotation/ModelAttributeMethodProcessor.html">ModelAttributeMethodProcessor</a>(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L663" href="#L663">663</a> 		}
-<a class="jxr_linenumber" name="L664" href="#L664">664</a> 
-<a class="jxr_linenumber" name="L665" href="#L665">665</a> 		<strong class="jxr_keyword">return</strong> handlers;
-<a class="jxr_linenumber" name="L666" href="#L666">666</a> 	}
-<a class="jxr_linenumber" name="L667" href="#L667">667</a> 
+<a class="jxr_linenumber" name="L635" href="#L635">635</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ResponseBodyEmitterReturnValueHandler.html">ResponseBodyEmitterReturnValueHandler</a>(getMessageConverters()));
+<a class="jxr_linenumber" name="L636" href="#L636">636</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/HttpEntityMethodProcessor.html">HttpEntityMethodProcessor</a>(
+<a class="jxr_linenumber" name="L637" href="#L637">637</a> 				getMessageConverters(), <strong class="jxr_keyword">this</strong>.contentNegotiationManager, <strong class="jxr_keyword">this</strong>.responseBodyAdvice));
+<a class="jxr_linenumber" name="L638" href="#L638">638</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/HttpHeadersReturnValueHandler.html">HttpHeadersReturnValueHandler</a>());
+<a class="jxr_linenumber" name="L639" href="#L639">639</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/CallableMethodReturnValueHandler.html">CallableMethodReturnValueHandler</a>());
+<a class="jxr_linenumber" name="L640" href="#L640">640</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/DeferredResultMethodReturnValueHandler.html">DeferredResultMethodReturnValueHandler</a>());
+<a class="jxr_linenumber" name="L641" href="#L641">641</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/AsyncTaskMethodReturnValueHandler.html">AsyncTaskMethodReturnValueHandler</a>(<strong class="jxr_keyword">this</strong>.beanFactory));
+<a class="jxr_linenumber" name="L642" href="#L642">642</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ListenableFutureReturnValueHandler.html">ListenableFutureReturnValueHandler</a>());
+<a class="jxr_linenumber" name="L643" href="#L643">643</a> 
+<a class="jxr_linenumber" name="L644" href="#L644">644</a> 		<em class="jxr_comment">// Annotation-based return value types</em>
+<a class="jxr_linenumber" name="L645" href="#L645">645</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/annotation/ModelAttributeMethodProcessor.html">ModelAttributeMethodProcessor</a>(false));
+<a class="jxr_linenumber" name="L646" href="#L646">646</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/RequestResponseBodyMethodProcessor.html">RequestResponseBodyMethodProcessor</a>(
+<a class="jxr_linenumber" name="L647" href="#L647">647</a> 				getMessageConverters(), <strong class="jxr_keyword">this</strong>.contentNegotiationManager, <strong class="jxr_keyword">this</strong>.responseBodyAdvice));
+<a class="jxr_linenumber" name="L648" href="#L648">648</a> 
+<a class="jxr_linenumber" name="L649" href="#L649">649</a> 		<em class="jxr_comment">// Multi-purpose return value types</em>
+<a class="jxr_linenumber" name="L650" href="#L650">650</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ViewNameMethodReturnValueHandler.html">ViewNameMethodReturnValueHandler</a>());
+<a class="jxr_linenumber" name="L651" href="#L651">651</a> 		handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/annotation/MapMethodProcessor.html">MapMethodProcessor</a>());
+<a class="jxr_linenumber" name="L652" href="#L652">652</a> 
+<a class="jxr_linenumber" name="L653" href="#L653">653</a> 		<em class="jxr_comment">// Custom return value types</em>
+<a class="jxr_linenumber" name="L654" href="#L654">654</a> 		<strong class="jxr_keyword">if</strong> (getCustomReturnValueHandlers() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L655" href="#L655">655</a> 			handlers.addAll(getCustomReturnValueHandlers());
+<a class="jxr_linenumber" name="L656" href="#L656">656</a> 		}
+<a class="jxr_linenumber" name="L657" href="#L657">657</a> 
+<a class="jxr_linenumber" name="L658" href="#L658">658</a> 		<em class="jxr_comment">// Catch-all</em>
+<a class="jxr_linenumber" name="L659" href="#L659">659</a> 		<strong class="jxr_keyword">if</strong> (!CollectionUtils.isEmpty(getModelAndViewResolvers())) {
+<a class="jxr_linenumber" name="L660" href="#L660">660</a> 			handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ModelAndViewResolverMethodReturnValueHandler.html">ModelAndViewResolverMethodReturnValueHandler</a>(getModelAndViewResolvers()));
+<a class="jxr_linenumber" name="L661" href="#L661">661</a> 		}
+<a class="jxr_linenumber" name="L662" href="#L662">662</a> 		<strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L663" href="#L663">663</a> 			handlers.add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/annotation/ModelAttributeMethodProcessor.html">ModelAttributeMethodProcessor</a>(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L664" href="#L664">664</a> 		}
+<a class="jxr_linenumber" name="L665" href="#L665">665</a> 
+<a class="jxr_linenumber" name="L666" href="#L666">666</a> 		<strong class="jxr_keyword">return</strong> handlers;
+<a class="jxr_linenumber" name="L667" href="#L667">667</a> 	}
 <a class="jxr_linenumber" name="L668" href="#L668">668</a> 
-<a class="jxr_linenumber" name="L669" href="#L669">669</a> 	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L670" href="#L670">670</a> <em class="jxr_javadoccomment">	 * Always return {@code true} since any method argument and return value</em>
-<a class="jxr_linenumber" name="L671" href="#L671">671</a> <em class="jxr_javadoccomment">	 * type will be processed in some way. A method argument not recognized</em>
-<a class="jxr_linenumber" name="L672" href="#L672">672</a> <em class="jxr_javadoccomment">	 * by any HandlerMethodArgumentResolver is interpreted as a request parameter</em>
-<a class="jxr_linenumber" name="L673" href="#L673">673</a> <em class="jxr_javadoccomment">	 * if it is a simple type, or as a model attribute otherwise. A return value</em>
-<a class="jxr_linenumber" name="L674" href="#L674">674</a> <em class="jxr_javadoccomment">	 * not recognized by any HandlerMethodReturnValueHandler will be interpreted</em>
-<a class="jxr_linenumber" name="L675" href="#L675">675</a> <em class="jxr_javadoccomment">	 * as a model attribute.</em>
-<a class="jxr_linenumber" name="L676" href="#L676">676</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L677" href="#L677">677</a> 	@Override
-<a class="jxr_linenumber" name="L678" href="#L678">678</a> 	<strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">boolean</strong> supportsInternal(<a href="../../../../../../../org/springframework/web/method/HandlerMethod.html">HandlerMethod</a> handlerMethod) {
-<a class="jxr_linenumber" name="L679" href="#L679">679</a> 		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L680" href="#L680">680</a> 	}
-<a class="jxr_linenumber" name="L681" href="#L681">681</a> 
-<a class="jxr_linenumber" name="L682" href="#L682">682</a> 	@Override
-<a class="jxr_linenumber" name="L683" href="#L683">683</a> 	<strong class="jxr_keyword">protected</strong> <a href="../../../../../../../org/springframework/web/servlet/ModelAndView.html">ModelAndView</a> handleInternal(HttpServletRequest request,
-<a class="jxr_linenumber" name="L684" href="#L684">684</a> 			HttpServletResponse response, <a href="../../../../../../../org/springframework/web/method/HandlerMethod.html">HandlerMethod</a> handlerMethod) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L685" href="#L685">685</a> 
-<a class="jxr_linenumber" name="L686" href="#L686">686</a> 		<strong class="jxr_keyword">if</strong> (getSessionAttributesHandler(handlerMethod).hasSessionAttributes()) {
-<a class="jxr_linenumber" name="L687" href="#L687">687</a> 			<em class="jxr_comment">// Always prevent caching in case of session attribute management.</em>
-<a class="jxr_linenumber" name="L688" href="#L688">688</a> 			checkAndPrepare(request, response, <strong class="jxr_keyword">this</strong>.cacheSecondsForSessionAttributeHandlers, <strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L689" href="#L689">689</a> 		}
-<a class="jxr_linenumber" name="L690" href="#L690">690</a> 		<strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L691" href="#L691">691</a> 			<em class="jxr_comment">// Uses configured default cacheSeconds setting.</em>
-<a class="jxr_linenumber" name="L692" href="#L692">692</a> 			checkAndPrepare(request, response, <strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L693" href="#L693">693</a> 		}
-<a class="jxr_linenumber" name="L694" href="#L694">694</a> 
-<a class="jxr_linenumber" name="L695" href="#L695">695</a> 		<em class="jxr_comment">// Execute invokeHandlerMethod in synchronized block if required.</em>
-<a class="jxr_linenumber" name="L696" href="#L696">696</a> 		<strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.synchronizeOnSession) {
-<a class="jxr_linenumber" name="L697" href="#L697">697</a> 			HttpSession session = request.getSession(false);
-<a class="jxr_linenumber" name="L698" href="#L698">698</a> 			<strong class="jxr_keyword">if</strong> (session != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L699" href="#L699">699</a> 				Object mutex = WebUtils.getSessionMutex(session);
-<a class="jxr_linenumber" name="L700" href="#L700">700</a> 				<strong class="jxr_keyword">synchronized</strong> (mutex) {
-<a class="jxr_linenumber" name="L701" href="#L701">701</a> 					<strong class="jxr_keyword">return</strong> invokeHandleMethod(request, response, handlerMethod);
-<a class="jxr_linenumber" name="L702" href="#L702">702</a> 				}
-<a class="jxr_linenumber" name="L703" href="#L703">703</a> 			}
-<a class="jxr_linenumber" name="L704" href="#L704">704</a> 		}
-<a class="jxr_linenumber" name="L705" href="#L705">705</a> 
-<a class="jxr_linenumber" name="L706" href="#L706">706</a> 		<strong class="jxr_keyword">return</strong> invokeHandleMethod(request, response, handlerMethod);
-<a class="jxr_linenumber" name="L707" href="#L707">707</a> 	}
-<a class="jxr_linenumber" name="L708" href="#L708">708</a> 
-<a class="jxr_linenumber" name="L709" href="#L709">709</a> 	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L710" href="#L710">710</a> <em class="jxr_javadoccomment">	 * This implementation always returns -1. An {@code @RequestMapping} method can</em>
-<a class="jxr_linenumber" name="L711" href="#L711">711</a> <em class="jxr_javadoccomment">	 * calculate the lastModified value, call {@link WebRequest#checkNotModified(long)},</em>
-<a class="jxr_linenumber" name="L712" href="#L712">712</a> <em class="jxr_javadoccomment">	 * and return {@code null} if the result of that call is {@code true}.</em>
-<a class="jxr_linenumber" name="L713" href="#L713">713</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L714" href="#L714">714</a> 	@Override
-<a class="jxr_linenumber" name="L715" href="#L715">715</a> 	<strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">long</strong> getLastModifiedInternal(HttpServletRequest request, <a href="../../../../../../../org/springframework/web/method/HandlerMethod.html">HandlerMethod</a> handlerMethod) {
-<a class="jxr_linenumber" name="L716" href="#L716">716</a> 		<strong class="jxr_keyword">return</strong> -1;
-<a class="jxr_linenumber" name="L717" href="#L717">717</a> 	}
-<a class="jxr_linenumber" name="L718" href="#L718">718</a> 
+<a class="jxr_linenumber" name="L669" href="#L669">669</a> 
+<a class="jxr_linenumber" name="L670" href="#L670">670</a> 	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L671" href="#L671">671</a> <em class="jxr_javadoccomment">	 * Always return {@code true} since any method argument and return value</em>
+<a class="jxr_linenumber" name="L672" href="#L672">672</a> <em class="jxr_javadoccomment">	 * type will be processed in some way. A method argument not recognized</em>
+<a class="jxr_linenumber" name="L673" href="#L673">673</a> <em class="jxr_javadoccomment">	 * by any HandlerMethodArgumentResolver is interpreted as a request parameter</em>
+<a class="jxr_linenumber" name="L674" href="#L674">674</a> <em class="jxr_javadoccomment">	 * if it is a simple type, or as a model attribute otherwise. A return value</em>
+<a class="jxr_linenumber" name="L675" href="#L675">675</a> <em class="jxr_javadoccomment">	 * not recognized by any HandlerMethodReturnValueHandler will be interpreted</em>
+<a class="jxr_linenumber" name="L676" href="#L676">676</a> <em class="jxr_javadoccomment">	 * as a model attribute.</em>
+<a class="jxr_linenumber" name="L677" href="#L677">677</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L678" href="#L678">678</a> 	@Override
+<a class="jxr_linenumber" name="L679" href="#L679">679</a> 	<strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">boolean</strong> supportsInternal(<a href="../../../../../../../org/springframework/web/method/HandlerMethod.html">HandlerMethod</a> handlerMethod) {
+<a class="jxr_linenumber" name="L680" href="#L680">680</a> 		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L681" href="#L681">681</a> 	}
+<a class="jxr_linenumber" name="L682" href="#L682">682</a> 
+<a class="jxr_linenumber" name="L683" href="#L683">683</a> 	@Override
+<a class="jxr_linenumber" name="L684" href="#L684">684</a> 	<strong class="jxr_keyword">protected</strong> <a href="../../../../../../../org/springframework/web/servlet/ModelAndView.html">ModelAndView</a> handleInternal(HttpServletRequest request,
+<a class="jxr_linenumber" name="L685" href="#L685">685</a> 			HttpServletResponse response, <a href="../../../../../../../org/springframework/web/method/HandlerMethod.html">HandlerMethod</a> handlerMethod) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L686" href="#L686">686</a> 
+<a class="jxr_linenumber" name="L687" href="#L687">687</a> 		<strong class="jxr_keyword">if</strong> (getSessionAttributesHandler(handlerMethod).hasSessionAttributes()) {
+<a class="jxr_linenumber" name="L688" href="#L688">688</a> 			<em class="jxr_comment">// Always prevent caching in case of session attribute management.</em>
+<a class="jxr_linenumber" name="L689" href="#L689">689</a> 			checkAndPrepare(request, response, <strong class="jxr_keyword">this</strong>.cacheSecondsForSessionAttributeHandlers, <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L690" href="#L690">690</a> 		}
+<a class="jxr_linenumber" name="L691" href="#L691">691</a> 		<strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L692" href="#L692">692</a> 			<em class="jxr_comment">// Uses configured default cacheSeconds setting.</em>
+<a class="jxr_linenumber" name="L693" href="#L693">693</a> 			checkAndPrepare(request, response, <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L694" href="#L694">694</a> 		}
+<a class="jxr_linenumber" name="L695" href="#L695">695</a> 
+<a class="jxr_linenumber" name="L696" href="#L696">696</a> 		<em class="jxr_comment">// Execute invokeHandlerMethod in synchronized block if required.</em>
+<a class="jxr_linenumber" name="L697" href="#L697">697</a> 		<strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.synchronizeOnSession) {
+<a class="jxr_linenumber" name="L698" href="#L698">698</a> 			HttpSession session = request.getSession(false);
+<a class="jxr_linenumber" name="L699" href="#L699">699</a> 			<strong class="jxr_keyword">if</strong> (session != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L700" href="#L700">700</a> 				Object mutex = WebUtils.getSessionMutex(session);
+<a class="jxr_linenumber" name="L701" href="#L701">701</a> 				<strong class="jxr_keyword">synchronized</strong> (mutex) {
+<a class="jxr_linenumber" name="L702" href="#L702">702</a> 					<strong class="jxr_keyword">return</strong> invokeHandleMethod(request, response, handlerMethod);
+<a class="jxr_linenumber" name="L703" href="#L703">703</a> 				}
+<a class="jxr_linenumber" name="L704" href="#L704">704</a> 			}
+<a class="jxr_linenumber" name="L705" href="#L705">705</a> 		}
+<a class="jxr_linenumber" name="L706" href="#L706">706</a> 
+<a class="jxr_linenumber" name="L707" href="#L707">707</a> 		<strong class="jxr_keyword">return</strong> invokeHandleMethod(request, response, handlerMethod);
+<a class="jxr_linenumber" name="L708" href="#L708">708</a> 	}
+<a class="jxr_linenumber" name="L709" href="#L709">709</a> 
+<a class="jxr_linenumber" name="L710" href="#L710">710</a> 	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L711" href="#L711">711</a> <em class="jxr_javadoccomment">	 * This implementation always returns -1. An {@code @RequestMapping} method can</em>
+<a class="jxr_linenumber" name="L712" href="#L712">712</a> <em class="jxr_javadoccomment">	 * calculate the lastModified value, call {@link WebRequest#checkNotModified(long)},</em>
+<a class="jxr_linenumber" name="L713" href="#L713">713</a> <em class="jxr_javadoccomment">	 * and return {@code null} if the result of that call is {@code true}.</em>
+<a class="jxr_linenumber" name="L714" href="#L714">714</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L715" href="#L715">715</a> 	@Override
+<a class="jxr_linenumber" name="L716" href="#L716">716</a> 	<strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">long</strong> getLastModifiedInternal(HttpServletRequest request, <a href="../../../../../../../org/springframework/web/method/HandlerMethod.html">HandlerMethod</a> handlerMethod) {
+<a class="jxr_linenumber" name="L717" href="#L717">717</a> 		<strong class="jxr_keyword">return</strong> -1;
+<a class="jxr_linenumber" name="L718" href="#L718">718</a> 	}
 <a class="jxr_linenumber" name="L719" href="#L719">719</a> 
-<a class="jxr_linenumber" name="L720" href="#L720">720</a> 	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L721" href="#L721">721</a> <em class="jxr_javadoccomment">	 * Return the {@link SessionAttributesHandler} instance for the given handler type</em>
-<a class="jxr_linenumber" name="L722" href="#L722">722</a> <em class="jxr_javadoccomment">	 * (never {@code null}).</em>
-<a class="jxr_linenumber" name="L723" href="#L723">723</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L724" href="#L724">724</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/method/annotation/SessionAttributesHandler.html">SessionAttributesHandler</a> getSessionAttributesHandler(<a href="../../../../../../../org/springframework/web/method/HandlerMethod.html">HandlerMethod</a> handlerMethod) {
-<a class="jxr_linenumber" name="L725" href="#L725">725</a> 		Class&lt;?&gt; handlerType = handlerMethod.getBeanType();
-<a class="jxr_linenumber" name="L726" href="#L726">726</a> 		SessionAttributesHandler sessionAttrHandler = <strong class="jxr_keyword">this</strong>.sessionAttributesHandlerCache.get(handlerType);
-<a class="jxr_linenumber" name="L727" href="#L727">727</a> 		<strong class="jxr_keyword">if</strong> (sessionAttrHandler == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L728" href="#L728">728</a> 			<strong class="jxr_keyword">synchronized</strong> (<strong class="jxr_keyword">this</strong>.sessionAttributesHandlerCache) {
-<a class="jxr_linenumber" name="L729" href="#L729">729</a> 				sessionAttrHandler = <strong class="jxr_keyword">this</strong>.sessionAttributesHandlerCache.get(handlerType);
-<a class="jxr_linenumber" name="L730" href="#L730">730</a> 				<strong class="jxr_keyword">if</strong> (sessionAttrHandler == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L731" href="#L731">731</a> 					sessionAttrHandler = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/annotation/SessionAttributesHandler.html">SessionAttributesHandler</a>(handlerType, sessionAttributeStore);
-<a class="jxr_linenumber" name="L732" href="#L732">732</a> 					<strong class="jxr_keyword">this</strong>.sessionAttributesHandlerCache.put(handlerType, sessionAttrHandler);
-<a class="jxr_linenumber" name="L733" href="#L733">733</a> 				}
-<a class="jxr_linenumber" name="L734" href="#L734">734</a> 			}
-<a class="jxr_linenumber" name="L735" href="#L735">735</a> 		}
-<a class="jxr_linenumber" name="L736" href="#L736">736</a> 		<strong class="jxr_keyword">return</strong> sessionAttrHandler;
-<a class="jxr_linenumber" name="L737" href="#L737">737</a> 	}
-<a class="jxr_linenumber" name="L738" href="#L738">738</a> 
-<a class="jxr_linenumber" name="L739" href="#L739">739</a> 	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L740" href="#L740">740</a> <em class="jxr_javadoccomment">	 * Invoke the {@link RequestMapping} handler method preparing a {@link ModelAndView}</em>
-<a class="jxr_linenumber" name="L741" href="#L741">741</a> <em class="jxr_javadoccomment">	 * if view resolution is required.</em>
-<a class="jxr_linenumber" name="L742" href="#L742">742</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L743" href="#L743">743</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/servlet/ModelAndView.html">ModelAndView</a> invokeHandleMethod(HttpServletRequest request,
-<a class="jxr_linenumber" name="L744" href="#L744">744</a> 			HttpServletResponse response, <a href="../../../../../../../org/springframework/web/method/HandlerMethod.html">HandlerMethod</a> handlerMethod) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L745" href="#L745">745</a> 
-<a class="jxr_linenumber" name="L746" href="#L746">746</a> 		ServletWebRequest webRequest = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/context/request/ServletWebRequest.html">ServletWebRequest</a>(request, response);
-<a class="jxr_linenumber" name="L747" href="#L747">747</a> 
-<a class="jxr_linenumber" name="L748" href="#L748">748</a> 		WebDataBinderFactory binderFactory = getDataBinderFactory(handlerMethod);
-<a class="jxr_linenumber" name="L749" href="#L749">749</a> 		ModelFactory modelFactory = getModelFactory(handlerMethod, binderFactory);
-<a class="jxr_linenumber" name="L750" href="#L750">750</a> 		ServletInvocableHandlerMethod requestMappingMethod = createRequestMappingMethod(handlerMethod, binderFactory);
-<a class="jxr_linenumber" name="L751" href="#L751">751</a> 
-<a class="jxr_linenumber" name="L752" href="#L752">752</a> 		ModelAndViewContainer mavContainer = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/support/ModelAndViewContainer.html">ModelAndViewContainer</a>();
-<a class="jxr_linenumber" name="L753" href="#L753">753</a> 		mavContainer.addAllAttributes(RequestContextUtils.getInputFlashMap(request));
-<a class="jxr_linenumber" name="L754" href="#L754">754</a> 		modelFactory.initModel(webRequest, mavContainer, requestMappingMethod);
-<a class="jxr_linenumber" name="L755" href="#L755">755</a> 		mavContainer.setIgnoreDefaultModelOnRedirect(<strong class="jxr_keyword">this</strong>.ignoreDefaultModelOnRedirect);
-<a class="jxr_linenumber" name="L756" href="#L756">756</a> 
-<a class="jxr_linenumber" name="L757" href="#L757">757</a> 		AsyncWebRequest asyncWebRequest = WebAsyncUtils.createAsyncWebRequest(request, response);
-<a class="jxr_linenumber" name="L758" href="#L758">758</a> 		asyncWebRequest.setTimeout(<strong class="jxr_keyword">this</strong>.asyncRequestTimeout);
-<a class="jxr_linenumber" name="L759" href="#L759">759</a> 
-<a class="jxr_linenumber" name="L760" href="#L760">760</a> 		<strong class="jxr_keyword">final</strong> <a href="../../../../../../../org/springframework/web/context/request/async/WebAsyncManager.html">WebAsyncManager</a> asyncManager = WebAsyncUtils.getAsyncManager(request);
-<a class="jxr_linenumber" name="L761" href="#L761">761</a> 		asyncManager.setTaskExecutor(<strong class="jxr_keyword">this</strong>.taskExecutor);
-<a class="jxr_linenumber" name="L762" href="#L762">762</a> 		asyncManager.setAsyncWebRequest(asyncWebRequest);
-<a class="jxr_linenumber" name="L763" href="#L763">763</a> 		asyncManager.registerCallableInterceptors(<strong class="jxr_keyword">this</strong>.callableInterceptors);
-<a class="jxr_linenumber" name="L764" href="#L764">764</a> 		asyncManager.registerDeferredResultInterceptors(<strong class="jxr_keyword">this</strong>.deferredResultInterceptors);
-<a class="jxr_linenumber" name="L765" href="#L765">765</a> 
-<a class="jxr_linenumber" name="L766" href="#L766">766</a> 		<strong class="jxr_keyword">if</strong> (asyncManager.hasConcurrentResult()) {
-<a class="jxr_linenumber" name="L767" href="#L767">767</a> 			Object result = asyncManager.getConcurrentResult();
-<a class="jxr_linenumber" name="L768" href="#L768">768</a> 			mavContainer = (ModelAndViewContainer) asyncManager.getConcurrentResultContext()[0];
-<a class="jxr_linenumber" name="L769" href="#L769">769</a> 			asyncManager.clearConcurrentResult();
-<a class="jxr_linenumber" name="L770" href="#L770">770</a> 
-<a class="jxr_linenumber" name="L771" href="#L771">771</a> 			<strong class="jxr_keyword">if</strong> (logger.isDebugEnabled()) {
-<a class="jxr_linenumber" name="L772" href="#L772">772</a> 				logger.debug(<span class="jxr_string">"Found concurrent result value ["</span> + result + <span class="jxr_string">"]"</span>);
-<a class="jxr_linenumber" name="L773" href="#L773">773</a> 			}
-<a class="jxr_linenumber" name="L774" href="#L774">774</a> 			requestMappingMethod = requestMappingMethod.wrapConcurrentResult(result);
-<a class="jxr_linenumber" name="L775" href="#L775">775</a> 		}
-<a class="jxr_linenumber" name="L776" href="#L776">776</a> 
-<a class="jxr_linenumber" name="L777" href="#L777">777</a> 		requestMappingMethod.invokeAndHandle(webRequest, mavContainer);
-<a class="jxr_linenumber" name="L778" href="#L778">778</a> 
-<a class="jxr_linenumber" name="L779" href="#L779">779</a> 		<strong class="jxr_keyword">if</strong> (asyncManager.isConcurrentHandlingStarted()) {
-<a class="jxr_linenumber" name="L780" href="#L780">780</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L781" href="#L781">781</a> 		}
-<a class="jxr_linenumber" name="L782" href="#L782">782</a> 
-<a class="jxr_linenumber" name="L783" href="#L783">783</a> 		<strong class="jxr_keyword">return</strong> getModelAndView(mavContainer, modelFactory, webRequest);
-<a class="jxr_linenumber" name="L784" href="#L784">784</a> 	}
-<a class="jxr_linenumber" name="L785" href="#L785">785</a> 
-<a class="jxr_linenumber" name="L786" href="#L786">786</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.html">ServletInvocableHandlerMethod</a> createRequestMappingMethod(
-<a class="jxr_linenumber" name="L787" href="#L787">787</a> 			HandlerMethod handlerMethod, <a href="../../../../../../../org/springframework/web/bind/support/WebDataBinderFactory.html">WebDataBinderFactory</a> binderFactory) {
-<a class="jxr_linenumber" name="L788" href="#L788">788</a> 
-<a class="jxr_linenumber" name="L789" href="#L789">789</a> 		ServletInvocableHandlerMethod requestMethod;
-<a class="jxr_linenumber" name="L790" href="#L790">790</a> 		requestMethod = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.html">ServletInvocableHandlerMethod</a>(handlerMethod);
-<a class="jxr_linenumber" name="L791" href="#L791">791</a> 		requestMethod.setHandlerMethodArgumentResolvers(<strong class="jxr_keyword">this</strong>.argumentResolvers);
-<a class="jxr_linenumber" name="L792" href="#L792">792</a> 		requestMethod.setHandlerMethodReturnValueHandlers(<strong class="jxr_keyword">this</strong>.returnValueHandlers);
-<a class="jxr_linenumber" name="L793" href="#L793">793</a> 		requestMethod.setDataBinderFactory(binderFactory);
-<a class="jxr_linenumber" name="L794" href="#L794">794</a> 		requestMethod.setParameterNameDiscoverer(<strong class="jxr_keyword">this</strong>.parameterNameDiscoverer);
-<a class="jxr_linenumber" name="L795" href="#L795">795</a> 		<strong class="jxr_keyword">return</strong> requestMethod;
-<a class="jxr_linenumber" name="L796" href="#L796">796</a> 	}
-<a class="jxr_linenumber" name="L797" href="#L797">797</a> 
-<a class="jxr_linenumber" name="L798" href="#L798">798</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/method/annotation/ModelFactory.html">ModelFactory</a> getModelFactory(<a href="../../../../../../../org/springframework/web/method/HandlerMethod.html">HandlerMethod</a> handlerMethod, <a href="../../../../../../../org/springframework/web/bind/support/WebDataBinderFactory.html">WebDataBinderFactory</a> binderFactory) {
-<a class="jxr_linenumber" name="L799" href="#L799">799</a> 		SessionAttributesHandler sessionAttrHandler = getSessionAttributesHandler(handlerMethod);
-<a class="jxr_linenumber" name="L800" href="#L800">800</a> 		Class&lt;?&gt; handlerType = handlerMethod.getBeanType();
-<a class="jxr_linenumber" name="L801" href="#L801">801</a> 		Set&lt;Method&gt; methods = <strong class="jxr_keyword">this</strong>.modelAttributeCache.get(handlerType);
-<a class="jxr_linenumber" name="L802" href="#L802">802</a> 		<strong class="jxr_keyword">if</strong> (methods == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L803" href="#L803">803</a> 			methods = HandlerMethodSelector.selectMethods(handlerType, MODEL_ATTRIBUTE_METHODS);
-<a class="jxr_linenumber" name="L804" href="#L804">804</a> 			<strong class="jxr_keyword">this</strong>.modelAttributeCache.put(handlerType, methods);
-<a class="jxr_linenumber" name="L805" href="#L805">805</a> 		}
-<a class="jxr_linenumber" name="L806" href="#L806">806</a> 		List&lt;InvocableHandlerMethod&gt; attrMethods = <strong class="jxr_keyword">new</strong> ArrayList&lt;InvocableHandlerMethod&gt;();
-<a class="jxr_linenumber" name="L807" href="#L807">807</a> 		<em class="jxr_comment">// Global methods first</em>
-<a class="jxr_linenumber" name="L808" href="#L808">808</a> 		<strong class="jxr_keyword">for</strong> (Entry&lt;ControllerAdviceBean, Set&lt;Method&gt;&gt; entry : <strong class="jxr_keyword">this</strong>.modelAttributeAdviceCache.entrySet()) {
-<a class="jxr_linenumber" name="L809" href="#L809">809</a> 			<strong class="jxr_keyword">if</strong> (entry.getKey().isApplicableToBeanType(handlerType)) {
-<a class="jxr_linenumber" name="L810" href="#L810">810</a> 				Object bean = entry.getKey().resolveBean();
-<a class="jxr_linenumber" name="L811" href="#L811">811</a> 				<strong class="jxr_keyword">for</strong> (Method method : entry.getValue()) {
-<a class="jxr_linenumber" name="L812" href="#L812">812</a> 					attrMethods.add(createModelAttributeMethod(binderFactory, bean, method));
-<a class="jxr_linenumber" name="L813" href="#L813">813</a> 				}
-<a class="jxr_linenumber" name="L814" href="#L814">814</a> 			}
-<a class="jxr_linenumber" name="L815" href="#L815">815</a> 		}
-<a class="jxr_linenumber" name="L816" href="#L816">816</a> 		<strong class="jxr_keyword">for</strong> (Method method : methods) {
-<a class="jxr_linenumber" name="L817" href="#L817">817</a> 			Object bean = handlerMethod.getBean();
-<a class="jxr_linenumber" name="L818" href="#L818">818</a> 			attrMethods.add(createModelAttributeMethod(binderFactory, bean, method));
-<a class="jxr_linenumber" name="L819" href="#L819">819</a> 		}
-<a class="jxr_linenumber" name="L820" href="#L820">820</a> 		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/annotation/ModelFactory.html">ModelFactory</a>(attrMethods, binderFactory, sessionAttrHandler);
-<a class="jxr_linenumber" name="L821" href="#L821">821</a> 	}
-<a class="jxr_linenumber" name="L822" href="#L822">822</a> 
-<a class="jxr_linenumber" name="L823" href="#L823">823</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/method/support/InvocableHandlerMethod.html">InvocableHandlerMethod</a> createModelAttributeMethod(<a href="../../../../../../../org/springframework/web/bind/support/WebDataBinderFactory.html">WebDataBinderFactory</a> factory, Object bean, Method method) {
-<a class="jxr_linenumber" name="L824" href="#L824">824</a> 		InvocableHandlerMethod attrMethod = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/support/InvocableHandlerMethod.html">InvocableHandlerMethod</a>(bean, method);
-<a class="jxr_linenumber" name="L825" href="#L825">825</a> 		attrMethod.setHandlerMethodArgumentResolvers(<strong class="jxr_keyword">this</strong>.argumentResolvers);
-<a class="jxr_linenumber" name="L826" href="#L826">826</a> 		attrMethod.setParameterNameDiscoverer(<strong class="jxr_keyword">this</strong>.parameterNameDiscoverer);
-<a class="jxr_linenumber" name="L827" href="#L827">827</a> 		attrMethod.setDataBinderFactory(factory);
-<a class="jxr_linenumber" name="L828" href="#L828">828</a> 		<strong class="jxr_keyword">return</strong> attrMethod;
-<a class="jxr_linenumber" name="L829" href="#L829">829</a> 	}
-<a class="jxr_linenumber" name="L830" href="#L830">830</a> 
-<a class="jxr_linenumber" name="L831" href="#L831">831</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/bind/support/WebDataBinderFactory.html">WebDataBinderFactory</a> getDataBinderFactory(<a href="../../../../../../../org/springframework/web/method/HandlerMethod.html">HandlerMethod</a> handlerMethod) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L832" href="#L832">832</a> 		Class&lt;?&gt; handlerType = handlerMethod.getBeanType();
-<a class="jxr_linenumber" name="L833" href="#L833">833</a> 		Set&lt;Method&gt; methods = <strong class="jxr_keyword">this</strong>.initBinderCache.get(handlerType);
-<a class="jxr_linenumber" name="L834" href="#L834">834</a> 		<strong class="jxr_keyword">if</strong> (methods == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L835" href="#L835">835</a> 			methods = HandlerMethodSelector.selectMethods(handlerType, INIT_BINDER_METHODS);
-<a class="jxr_linenumber" name="L836" href="#L836">836</a> 			<strong class="jxr_keyword">this</strong>.initBinderCache.put(handlerType, methods);
-<a class="jxr_linenumber" name="L837" href="#L837">837</a> 		}
-<a class="jxr_linenumber" name="L838" href="#L838">838</a> 		List&lt;InvocableHandlerMethod&gt; initBinderMethods = <strong class="jxr_keyword">new</strong> ArrayList&lt;InvocableHandlerMethod&gt;();
-<a class="jxr_linenumber" name="L839" href="#L839">839</a> 		<em class="jxr_comment">// Global methods first</em>
-<a class="jxr_linenumber" name="L840" href="#L840">840</a> 		<strong class="jxr_keyword">for</strong> (Entry&lt;ControllerAdviceBean, Set&lt;Method&gt;&gt; entry : <strong class="jxr_keyword">this</strong>.initBinderAdviceCache .entrySet()) {
-<a class="jxr_linenumber" name="L841" href="#L841">841</a> 			<strong class="jxr_keyword">if</strong> (entry.getKey().isApplicableToBeanType(handlerType)) {
-<a class="jxr_linenumber" name="L842" href="#L842">842</a> 				Object bean = entry.getKey().resolveBean();
-<a class="jxr_linenumber" name="L843" href="#L843">843</a> 				<strong class="jxr_keyword">for</strong> (Method method : entry.getValue()) {
-<a class="jxr_linenumber" name="L844" href="#L844">844</a> 					initBinderMethods.add(createInitBinderMethod(bean, method));
-<a class="jxr_linenumber" name="L845" href="#L845">845</a> 				}
-<a class="jxr_linenumber" name="L846" href="#L846">846</a> 			}
-<a class="jxr_linenumber" name="L847" href="#L847">847</a> 		}
-<a class="jxr_linenumber" name="L848" href="#L848">848</a> 		<strong class="jxr_keyword">for</strong> (Method method : methods) {
-<a class="jxr_linenumber" name="L849" href="#L849">849</a> 			Object bean = handlerMethod.getBean();
-<a class="jxr_linenumber" name="L850" href="#L850">850</a> 			initBinderMethods.add(createInitBinderMethod(bean, method));
-<a class="jxr_linenumber" name="L851" href="#L851">851</a> 		}
-<a class="jxr_linenumber" name="L852" href="#L852">852</a> 		<strong class="jxr_keyword">return</strong> createDataBinderFactory(initBinderMethods);
-<a class="jxr_linenumber" name="L853" href="#L853">853</a> 	}
-<a class="jxr_linenumber" name="L854" href="#L854">854</a> 
-<a class="jxr_linenumber" name="L855" href="#L855">855</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/method/support/InvocableHandlerMethod.html">InvocableHandlerMethod</a> createInitBinderMethod(Object bean, Method method) {
-<a class="jxr_linenumber" name="L856" href="#L856">856</a> 		InvocableHandlerMethod binderMethod = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/support/InvocableHandlerMethod.html">InvocableHandlerMethod</a>(bean, method);
-<a class="jxr_linenumber" name="L857" href="#L857">857</a> 		binderMethod.setHandlerMethodArgumentResolvers(<strong class="jxr_keyword">this</strong>.initBinderArgumentResolvers);
-<a class="jxr_linenumber" name="L858" href="#L858">858</a> 		binderMethod.setDataBinderFactory(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/bind/support/DefaultDataBinderFactory.html">DefaultDataBinderFactory</a>(<strong class="jxr_keyword">this</strong>.webBindingInitializer));
-<a class="jxr_linenumber" name="L859" href="#L859">859</a> 		binderMethod.setParameterNameDiscoverer(<strong class="jxr_keyword">this</strong>.parameterNameDiscoverer);
-<a class="jxr_linenumber" name="L860" href="#L860">860</a> 		<strong class="jxr_keyword">return</strong> binderMethod;
-<a class="jxr_linenumber" name="L861" href="#L861">861</a> 	}
-<a class="jxr_linenumber" name="L862" href="#L862">862</a> 
-<a class="jxr_linenumber" name="L863" href="#L863">863</a> 	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L864" href="#L864">864</a> <em class="jxr_javadoccomment">	 * Template method to create a new InitBinderDataBinderFactory instance.</em>
-<a class="jxr_linenumber" name="L865" href="#L865">865</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;The default implementation creates a ServletRequestDataBinderFactory.</em>
-<a class="jxr_linenumber" name="L866" href="#L866">866</a> <em class="jxr_javadoccomment">	 * This can be overridden for custom ServletRequestDataBinder subclasses.</em>
-<a class="jxr_linenumber" name="L867" href="#L867">867</a> <em class="jxr_javadoccomment">	 * @param binderMethods {@code @InitBinder} methods</em>
-<a class="jxr_linenumber" name="L868" href="#L868">868</a> <em class="jxr_javadoccomment">	 * @return the InitBinderDataBinderFactory instance to use</em>
-<a class="jxr_linenumber" name="L869" href="#L869">869</a> <em class="jxr_javadoccomment">	 * @throws Exception in case of invalid state or arguments</em>
-<a class="jxr_linenumber" name="L870" href="#L870">870</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L871" href="#L871">871</a> 	<strong class="jxr_keyword">protected</strong> <a href="../../../../../../../org/springframework/web/method/annotation/InitBinderDataBinderFactory.html">InitBinderDataBinderFactory</a> createDataBinderFactory(List&lt;InvocableHandlerMethod&gt; binderMethods)
-<a class="jxr_linenumber" name="L872" href="#L872">872</a> 			<strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L873" href="#L873">873</a> 
-<a class="jxr_linenumber" name="L874" href="#L874">874</a> 		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ServletRequestDataBinderFactory.html">ServletRequestDataBinderFactory</a>(binderMethods, getWebBindingInitializer());
-<a class="jxr_linenumber" name="L875" href="#L875">875</a> 	}
-<a class="jxr_linenumber" name="L876" href="#L876">876</a> 
-<a class="jxr_linenumber" name="L877" href="#L877">877</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/servlet/ModelAndView.html">ModelAndView</a> getModelAndView(<a href="../../../../../../../org/springframework/web/method/support/ModelAndViewContainer.html">ModelAndViewContainer</a> mavContainer,
-<a class="jxr_linenumber" name="L878" href="#L878">878</a> 			ModelFactory modelFactory, <a href="../../../../../../../org/springframework/web/context/request/NativeWebRequest.html">NativeWebRequest</a> webRequest) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L879" href="#L879">879</a> 
-<a class="jxr_linenumber" name="L880" href="#L880">880</a> 		modelFactory.updateModel(webRequest, mavContainer);
-<a class="jxr_linenumber" name="L881" href="#L881">881</a> 		<strong class="jxr_keyword">if</strong> (mavContainer.isRequestHandled()) {
-<a class="jxr_linenumber" name="L882" href="#L882">882</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L883" href="#L883">883</a> 		}
-<a class="jxr_linenumber" name="L884" href="#L884">884</a> 		ModelMap model = mavContainer.getModel();
-<a class="jxr_linenumber" name="L885" href="#L885">885</a> 		ModelAndView mav = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/ModelAndView.html">ModelAndView</a>(mavContainer.getViewName(), model);
-<a class="jxr_linenumber" name="L886" href="#L886">886</a> 		<strong class="jxr_keyword">if</strong> (!mavContainer.isViewReference()) {
-<a class="jxr_linenumber" name="L887" href="#L887">887</a> 			mav.setView((View) mavContainer.getView());
-<a class="jxr_linenumber" name="L888" href="#L888">888</a> 		}
-<a class="jxr_linenumber" name="L889" href="#L889">889</a> 		<strong class="jxr_keyword">if</strong> (model instanceof RedirectAttributes) {
-<a class="jxr_linenumber" name="L890" href="#L890">890</a> 			Map&lt;String, ?&gt; flashAttributes = ((RedirectAttributes) model).getFlashAttributes();
-<a class="jxr_linenumber" name="L891" href="#L891">891</a> 			HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L892" href="#L892">892</a> 			RequestContextUtils.getOutputFlashMap(request).putAll(flashAttributes);
-<a class="jxr_linenumber" name="L893" href="#L893">893</a> 		}
-<a class="jxr_linenumber" name="L894" href="#L894">894</a> 		<strong class="jxr_keyword">return</strong> mav;
-<a class="jxr_linenumber" name="L895" href="#L895">895</a> 	}
-<a class="jxr_linenumber" name="L896" href="#L896">896</a> 
+<a class="jxr_linenumber" name="L720" href="#L720">720</a> 
+<a class="jxr_linenumber" name="L721" href="#L721">721</a> 	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L722" href="#L722">722</a> <em class="jxr_javadoccomment">	 * Return the {@link SessionAttributesHandler} instance for the given handler type</em>
+<a class="jxr_linenumber" name="L723" href="#L723">723</a> <em class="jxr_javadoccomment">	 * (never {@code null}).</em>
+<a class="jxr_linenumber" name="L724" href="#L724">724</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L725" href="#L725">725</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/method/annotation/SessionAttributesHandler.html">SessionAttributesHandler</a> getSessionAttributesHandler(<a href="../../../../../../../org/springframework/web/method/HandlerMethod.html">HandlerMethod</a> handlerMethod) {
+<a class="jxr_linenumber" name="L726" href="#L726">726</a> 		Class&lt;?&gt; handlerType = handlerMethod.getBeanType();
+<a class="jxr_linenumber" name="L727" href="#L727">727</a> 		SessionAttributesHandler sessionAttrHandler = <strong class="jxr_keyword">this</strong>.sessionAttributesHandlerCache.get(handlerType);
+<a class="jxr_linenumber" name="L728" href="#L728">728</a> 		<strong class="jxr_keyword">if</strong> (sessionAttrHandler == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L729" href="#L729">729</a> 			<strong class="jxr_keyword">synchronized</strong> (<strong class="jxr_keyword">this</strong>.sessionAttributesHandlerCache) {
+<a class="jxr_linenumber" name="L730" href="#L730">730</a> 				sessionAttrHandler = <strong class="jxr_keyword">this</strong>.sessionAttributesHandlerCache.get(handlerType);
+<a class="jxr_linenumber" name="L731" href="#L731">731</a> 				<strong class="jxr_keyword">if</strong> (sessionAttrHandler == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L732" href="#L732">732</a> 					sessionAttrHandler = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/annotation/SessionAttributesHandler.html">SessionAttributesHandler</a>(handlerType, sessionAttributeStore);
+<a class="jxr_linenumber" name="L733" href="#L733">733</a> 					<strong class="jxr_keyword">this</strong>.sessionAttributesHandlerCache.put(handlerType, sessionAttrHandler);
+<a class="jxr_linenumber" name="L734" href="#L734">734</a> 				}
+<a class="jxr_linenumber" name="L735" href="#L735">735</a> 			}
+<a class="jxr_linenumber" name="L736" href="#L736">736</a> 		}
+<a class="jxr_linenumber" name="L737" href="#L737">737</a> 		<strong class="jxr_keyword">return</strong> sessionAttrHandler;
+<a class="jxr_linenumber" name="L738" href="#L738">738</a> 	}
+<a class="jxr_linenumber" name="L739" href="#L739">739</a> 
+<a class="jxr_linenumber" name="L740" href="#L740">740</a> 	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L741" href="#L741">741</a> <em class="jxr_javadoccomment">	 * Invoke the {@link RequestMapping} handler method preparing a {@link ModelAndView}</em>
+<a class="jxr_linenumber" name="L742" href="#L742">742</a> <em class="jxr_javadoccomment">	 * if view resolution is required.</em>
+<a class="jxr_linenumber" name="L743" href="#L743">743</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L744" href="#L744">744</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/servlet/ModelAndView.html">ModelAndView</a> invokeHandleMethod(HttpServletRequest request,
+<a class="jxr_linenumber" name="L745" href="#L745">745</a> 			HttpServletResponse response, <a href="../../../../../../../org/springframework/web/method/HandlerMethod.html">HandlerMethod</a> handlerMethod) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L746" href="#L746">746</a> 
+<a class="jxr_linenumber" name="L747" href="#L747">747</a> 		ServletWebRequest webRequest = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/context/request/ServletWebRequest.html">ServletWebRequest</a>(request, response);
+<a class="jxr_linenumber" name="L748" href="#L748">748</a> 
+<a class="jxr_linenumber" name="L749" href="#L749">749</a> 		WebDataBinderFactory binderFactory = getDataBinderFactory(handlerMethod);
+<a class="jxr_linenumber" name="L750" href="#L750">750</a> 		ModelFactory modelFactory = getModelFactory(handlerMethod, binderFactory);
+<a class="jxr_linenumber" name="L751" href="#L751">751</a> 		ServletInvocableHandlerMethod requestMappingMethod = createRequestMappingMethod(handlerMethod, binderFactory);
+<a class="jxr_linenumber" name="L752" href="#L752">752</a> 
+<a class="jxr_linenumber" name="L753" href="#L753">753</a> 		ModelAndViewContainer mavContainer = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/support/ModelAndViewContainer.html">ModelAndViewContainer</a>();
+<a class="jxr_linenumber" name="L754" href="#L754">754</a> 		mavContainer.addAllAttributes(RequestContextUtils.getInputFlashMap(request));
+<a class="jxr_linenumber" name="L755" href="#L755">755</a> 		modelFactory.initModel(webRequest, mavContainer, requestMappingMethod);
+<a class="jxr_linenumber" name="L756" href="#L756">756</a> 		mavContainer.setIgnoreDefaultModelOnRedirect(<strong class="jxr_keyword">this</strong>.ignoreDefaultModelOnRedirect);
+<a class="jxr_linenumber" name="L757" href="#L757">757</a> 
+<a class="jxr_linenumber" name="L758" href="#L758">758</a> 		AsyncWebRequest asyncWebRequest = WebAsyncUtils.createAsyncWebRequest(request, response);
+<a class="jxr_linenumber" name="L759" href="#L759">759</a> 		asyncWebRequest.setTimeout(<strong class="jxr_keyword">this</strong>.asyncRequestTimeout);
+<a class="jxr_linenumber" name="L760" href="#L760">760</a> 
+<a class="jxr_linenumber" name="L761" href="#L761">761</a> 		<strong class="jxr_keyword">final</strong> <a href="../../../../../../../org/springframework/web/context/request/async/WebAsyncManager.html">WebAsyncManager</a> asyncManager = WebAsyncUtils.getAsyncManager(request);
+<a class="jxr_linenumber" name="L762" href="#L762">762</a> 		asyncManager.setTaskExecutor(<strong class="jxr_keyword">this</strong>.taskExecutor);
+<a class="jxr_linenumber" name="L763" href="#L763">763</a> 		asyncManager.setAsyncWebRequest(asyncWebRequest);
+<a class="jxr_linenumber" name="L764" href="#L764">764</a> 		asyncManager.registerCallableInterceptors(<strong class="jxr_keyword">this</strong>.callableInterceptors);
+<a class="jxr_linenumber" name="L765" href="#L765">765</a> 		asyncManager.registerDeferredResultInterceptors(<strong class="jxr_keyword">this</strong>.deferredResultInterceptors);
+<a class="jxr_linenumber" name="L766" href="#L766">766</a> 
+<a class="jxr_linenumber" name="L767" href="#L767">767</a> 		<strong class="jxr_keyword">if</strong> (asyncManager.hasConcurrentResult()) {
+<a class="jxr_linenumber" name="L768" href="#L768">768</a> 			Object result = asyncManager.getConcurrentResult();
+<a class="jxr_linenumber" name="L769" href="#L769">769</a> 			mavContainer = (ModelAndViewContainer) asyncManager.getConcurrentResultContext()[0];
+<a class="jxr_linenumber" name="L770" href="#L770">770</a> 			asyncManager.clearConcurrentResult();
+<a class="jxr_linenumber" name="L771" href="#L771">771</a> 
+<a class="jxr_linenumber" name="L772" href="#L772">772</a> 			<strong class="jxr_keyword">if</strong> (logger.isDebugEnabled()) {
+<a class="jxr_linenumber" name="L773" href="#L773">773</a> 				logger.debug(<span class="jxr_string">"Found concurrent result value ["</span> + result + <span class="jxr_string">"]"</span>);
+<a class="jxr_linenumber" name="L774" href="#L774">774</a> 			}
+<a class="jxr_linenumber" name="L775" href="#L775">775</a> 			requestMappingMethod = requestMappingMethod.wrapConcurrentResult(result);
+<a class="jxr_linenumber" name="L776" href="#L776">776</a> 		}
+<a class="jxr_linenumber" name="L777" href="#L777">777</a> 
+<a class="jxr_linenumber" name="L778" href="#L778">778</a> 		requestMappingMethod.invokeAndHandle(webRequest, mavContainer);
+<a class="jxr_linenumber" name="L779" href="#L779">779</a> 
+<a class="jxr_linenumber" name="L780" href="#L780">780</a> 		<strong class="jxr_keyword">if</strong> (asyncManager.isConcurrentHandlingStarted()) {
+<a class="jxr_linenumber" name="L781" href="#L781">781</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L782" href="#L782">782</a> 		}
+<a class="jxr_linenumber" name="L783" href="#L783">783</a> 
+<a class="jxr_linenumber" name="L784" href="#L784">784</a> 		<strong class="jxr_keyword">return</strong> getModelAndView(mavContainer, modelFactory, webRequest);
+<a class="jxr_linenumber" name="L785" href="#L785">785</a> 	}
+<a class="jxr_linenumber" name="L786" href="#L786">786</a> 
+<a class="jxr_linenumber" name="L787" href="#L787">787</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.html">ServletInvocableHandlerMethod</a> createRequestMappingMethod(
+<a class="jxr_linenumber" name="L788" href="#L788">788</a> 			HandlerMethod handlerMethod, <a href="../../../../../../../org/springframework/web/bind/support/WebDataBinderFactory.html">WebDataBinderFactory</a> binderFactory) {
+<a class="jxr_linenumber" name="L789" href="#L789">789</a> 
+<a class="jxr_linenumber" name="L790" href="#L790">790</a> 		ServletInvocableHandlerMethod requestMethod;
+<a class="jxr_linenumber" name="L791" href="#L791">791</a> 		requestMethod = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.html">ServletInvocableHandlerMethod</a>(handlerMethod);
+<a class="jxr_linenumber" name="L792" href="#L792">792</a> 		requestMethod.setHandlerMethodArgumentResolvers(<strong class="jxr_keyword">this</strong>.argumentResolvers);
+<a class="jxr_linenumber" name="L793" href="#L793">793</a> 		requestMethod.setHandlerMethodReturnValueHandlers(<strong class="jxr_keyword">this</strong>.returnValueHandlers);
+<a class="jxr_linenumber" name="L794" href="#L794">794</a> 		requestMethod.setDataBinderFactory(binderFactory);
+<a class="jxr_linenumber" name="L795" href="#L795">795</a> 		requestMethod.setParameterNameDiscoverer(<strong class="jxr_keyword">this</strong>.parameterNameDiscoverer);
+<a class="jxr_linenumber" name="L796" href="#L796">796</a> 		<strong class="jxr_keyword">return</strong> requestMethod;
+<a class="jxr_linenumber" name="L797" href="#L797">797</a> 	}
+<a class="jxr_linenumber" name="L798" href="#L798">798</a> 
+<a class="jxr_linenumber" name="L799" href="#L799">799</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/method/annotation/ModelFactory.html">ModelFactory</a> getModelFactory(<a href="../../../../../../../org/springframework/web/method/HandlerMethod.html">HandlerMethod</a> handlerMethod, <a href="../../../../../../../org/springframework/web/bind/support/WebDataBinderFactory.html">WebDataBinderFactory</a> binderFactory) {
+<a class="jxr_linenumber" name="L800" href="#L800">800</a> 		SessionAttributesHandler sessionAttrHandler = getSessionAttributesHandler(handlerMethod);
+<a class="jxr_linenumber" name="L801" href="#L801">801</a> 		Class&lt;?&gt; handlerType = handlerMethod.getBeanType();
+<a class="jxr_linenumber" name="L802" href="#L802">802</a> 		Set&lt;Method&gt; methods = <strong class="jxr_keyword">this</strong>.modelAttributeCache.get(handlerType);
+<a class="jxr_linenumber" name="L803" href="#L803">803</a> 		<strong class="jxr_keyword">if</strong> (methods == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L804" href="#L804">804</a> 			methods = HandlerMethodSelector.selectMethods(handlerType, MODEL_ATTRIBUTE_METHODS);
+<a class="jxr_linenumber" name="L805" href="#L805">805</a> 			<strong class="jxr_keyword">this</strong>.modelAttributeCache.put(handlerType, methods);
+<a class="jxr_linenumber" name="L806" href="#L806">806</a> 		}
+<a class="jxr_linenumber" name="L807" href="#L807">807</a> 		List&lt;InvocableHandlerMethod&gt; attrMethods = <strong class="jxr_keyword">new</strong> ArrayList&lt;InvocableHandlerMethod&gt;();
+<a class="jxr_linenumber" name="L808" href="#L808">808</a> 		<em class="jxr_comment">// Global methods first</em>
+<a class="jxr_linenumber" name="L809" href="#L809">809</a> 		<strong class="jxr_keyword">for</strong> (Entry&lt;ControllerAdviceBean, Set&lt;Method&gt;&gt; entry : <strong class="jxr_keyword">this</strong>.modelAttributeAdviceCache.entrySet()) {
+<a class="jxr_linenumber" name="L810" href="#L810">810</a> 			<strong class="jxr_keyword">if</strong> (entry.getKey().isApplicableToBeanType(handlerType)) {
+<a class="jxr_linenumber" name="L811" href="#L811">811</a> 				Object bean = entry.getKey().resolveBean();
+<a class="jxr_linenumber" name="L812" href="#L812">812</a> 				<strong class="jxr_keyword">for</strong> (Method method : entry.getValue()) {
+<a class="jxr_linenumber" name="L813" href="#L813">813</a> 					attrMethods.add(createModelAttributeMethod(binderFactory, bean, method));
+<a class="jxr_linenumber" name="L814" href="#L814">814</a> 				}
+<a class="jxr_linenumber" name="L815" href="#L815">815</a> 			}
+<a class="jxr_linenumber" name="L816" href="#L816">816</a> 		}
+<a class="jxr_linenumber" name="L817" href="#L817">817</a> 		<strong class="jxr_keyword">for</strong> (Method method : methods) {
+<a class="jxr_linenumber" name="L818" href="#L818">818</a> 			Object bean = handlerMethod.getBean();
+<a class="jxr_linenumber" name="L819" href="#L819">819</a> 			attrMethods.add(createModelAttributeMethod(binderFactory, bean, method));
+<a class="jxr_linenumber" name="L820" href="#L820">820</a> 		}
+<a class="jxr_linenumber" name="L821" href="#L821">821</a> 		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/annotation/ModelFactory.html">ModelFactory</a>(attrMethods, binderFactory, sessionAttrHandler);
+<a class="jxr_linenumber" name="L822" href="#L822">822</a> 	}
+<a class="jxr_linenumber" name="L823" href="#L823">823</a> 
+<a class="jxr_linenumber" name="L824" href="#L824">824</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/method/support/InvocableHandlerMethod.html">InvocableHandlerMethod</a> createModelAttributeMethod(<a href="../../../../../../../org/springframework/web/bind/support/WebDataBinderFactory.html">WebDataBinderFactory</a> factory, Object bean, Method method) {
+<a class="jxr_linenumber" name="L825" href="#L825">825</a> 		InvocableHandlerMethod attrMethod = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/support/InvocableHandlerMethod.html">InvocableHandlerMethod</a>(bean, method);
+<a class="jxr_linenumber" name="L826" href="#L826">826</a> 		attrMethod.setHandlerMethodArgumentResolvers(<strong class="jxr_keyword">this</strong>.argumentResolvers);
+<a class="jxr_linenumber" name="L827" href="#L827">827</a> 		attrMethod.setParameterNameDiscoverer(<strong class="jxr_keyword">this</strong>.parameterNameDiscoverer);
+<a class="jxr_linenumber" name="L828" href="#L828">828</a> 		attrMethod.setDataBinderFactory(factory);
+<a class="jxr_linenumber" name="L829" href="#L829">829</a> 		<strong class="jxr_keyword">return</strong> attrMethod;
+<a class="jxr_linenumber" name="L830" href="#L830">830</a> 	}
+<a class="jxr_linenumber" name="L831" href="#L831">831</a> 
+<a class="jxr_linenumber" name="L832" href="#L832">832</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/bind/support/WebDataBinderFactory.html">WebDataBinderFactory</a> getDataBinderFactory(<a href="../../../../../../../org/springframework/web/method/HandlerMethod.html">HandlerMethod</a> handlerMethod) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L833" href="#L833">833</a> 		Class&lt;?&gt; handlerType = handlerMethod.getBeanType();
+<a class="jxr_linenumber" name="L834" href="#L834">834</a> 		Set&lt;Method&gt; methods = <strong class="jxr_keyword">this</strong>.initBinderCache.get(handlerType);
+<a class="jxr_linenumber" name="L835" href="#L835">835</a> 		<strong class="jxr_keyword">if</strong> (methods == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L836" href="#L836">836</a> 			methods = HandlerMethodSelector.selectMethods(handlerType, INIT_BINDER_METHODS);
+<a class="jxr_linenumber" name="L837" href="#L837">837</a> 			<strong class="jxr_keyword">this</strong>.initBinderCache.put(handlerType, methods);
+<a class="jxr_linenumber" name="L838" href="#L838">838</a> 		}
+<a class="jxr_linenumber" name="L839" href="#L839">839</a> 		List&lt;InvocableHandlerMethod&gt; initBinderMethods = <strong class="jxr_keyword">new</strong> ArrayList&lt;InvocableHandlerMethod&gt;();
+<a class="jxr_linenumber" name="L840" href="#L840">840</a> 		<em class="jxr_comment">// Global methods first</em>
+<a class="jxr_linenumber" name="L841" href="#L841">841</a> 		<strong class="jxr_keyword">for</strong> (Entry&lt;ControllerAdviceBean, Set&lt;Method&gt;&gt; entry : <strong class="jxr_keyword">this</strong>.initBinderAdviceCache .entrySet()) {
+<a class="jxr_linenumber" name="L842" href="#L842">842</a> 			<strong class="jxr_keyword">if</strong> (entry.getKey().isApplicableToBeanType(handlerType)) {
+<a class="jxr_linenumber" name="L843" href="#L843">843</a> 				Object bean = entry.getKey().resolveBean();
+<a class="jxr_linenumber" name="L844" href="#L844">844</a> 				<strong class="jxr_keyword">for</strong> (Method method : entry.getValue()) {
+<a class="jxr_linenumber" name="L845" href="#L845">845</a> 					initBinderMethods.add(createInitBinderMethod(bean, method));
+<a class="jxr_linenumber" name="L846" href="#L846">846</a> 				}
+<a class="jxr_linenumber" name="L847" href="#L847">847</a> 			}
+<a class="jxr_linenumber" name="L848" href="#L848">848</a> 		}
+<a class="jxr_linenumber" name="L849" href="#L849">849</a> 		<strong class="jxr_keyword">for</strong> (Method method : methods) {
+<a class="jxr_linenumber" name="L850" href="#L850">850</a> 			Object bean = handlerMethod.getBean();
+<a class="jxr_linenumber" name="L851" href="#L851">851</a> 			initBinderMethods.add(createInitBinderMethod(bean, method));
+<a class="jxr_linenumber" name="L852" href="#L852">852</a> 		}
+<a class="jxr_linenumber" name="L853" href="#L853">853</a> 		<strong class="jxr_keyword">return</strong> createDataBinderFactory(initBinderMethods);
+<a class="jxr_linenumber" name="L854" href="#L854">854</a> 	}
+<a class="jxr_linenumber" name="L855" href="#L855">855</a> 
+<a class="jxr_linenumber" name="L856" href="#L856">856</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/method/support/InvocableHandlerMethod.html">InvocableHandlerMethod</a> createInitBinderMethod(Object bean, Method method) {
+<a class="jxr_linenumber" name="L857" href="#L857">857</a> 		InvocableHandlerMethod binderMethod = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/method/support/InvocableHandlerMethod.html">InvocableHandlerMethod</a>(bean, method);
+<a class="jxr_linenumber" name="L858" href="#L858">858</a> 		binderMethod.setHandlerMethodArgumentResolvers(<strong class="jxr_keyword">this</strong>.initBinderArgumentResolvers);
+<a class="jxr_linenumber" name="L859" href="#L859">859</a> 		binderMethod.setDataBinderFactory(<strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/bind/support/DefaultDataBinderFactory.html">DefaultDataBinderFactory</a>(<strong class="jxr_keyword">this</strong>.webBindingInitializer));
+<a class="jxr_linenumber" name="L860" href="#L860">860</a> 		binderMethod.setParameterNameDiscoverer(<strong class="jxr_keyword">this</strong>.parameterNameDiscoverer);
+<a class="jxr_linenumber" name="L861" href="#L861">861</a> 		<strong class="jxr_keyword">return</strong> binderMethod;
+<a class="jxr_linenumber" name="L862" href="#L862">862</a> 	}
+<a class="jxr_linenumber" name="L863" href="#L863">863</a> 
+<a class="jxr_linenumber" name="L864" href="#L864">864</a> 	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L865" href="#L865">865</a> <em class="jxr_javadoccomment">	 * Template method to create a new InitBinderDataBinderFactory instance.</em>
+<a class="jxr_linenumber" name="L866" href="#L866">866</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;The default implementation creates a ServletRequestDataBinderFactory.</em>
+<a class="jxr_linenumber" name="L867" href="#L867">867</a> <em class="jxr_javadoccomment">	 * This can be overridden for custom ServletRequestDataBinder subclasses.</em>
+<a class="jxr_linenumber" name="L868" href="#L868">868</a> <em class="jxr_javadoccomment">	 * @param binderMethods {@code @InitBinder} methods</em>
+<a class="jxr_linenumber" name="L869" href="#L869">869</a> <em class="jxr_javadoccomment">	 * @return the InitBinderDataBinderFactory instance to use</em>
+<a class="jxr_linenumber" name="L870" href="#L870">870</a> <em class="jxr_javadoccomment">	 * @throws Exception in case of invalid state or arguments</em>
+<a class="jxr_linenumber" name="L871" href="#L871">871</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L872" href="#L872">872</a> 	<strong class="jxr_keyword">protected</strong> <a href="../../../../../../../org/springframework/web/method/annotation/InitBinderDataBinderFactory.html">InitBinderDataBinderFactory</a> createDataBinderFactory(List&lt;InvocableHandlerMethod&gt; binderMethods)
+<a class="jxr_linenumber" name="L873" href="#L873">873</a> 			<strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L874" href="#L874">874</a> 
+<a class="jxr_linenumber" name="L875" href="#L875">875</a> 		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/mvc/method/annotation/ServletRequestDataBinderFactory.html">ServletRequestDataBinderFactory</a>(binderMethods, getWebBindingInitializer());
+<a class="jxr_linenumber" name="L876" href="#L876">876</a> 	}
+<a class="jxr_linenumber" name="L877" href="#L877">877</a> 
+<a class="jxr_linenumber" name="L878" href="#L878">878</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../../../../org/springframework/web/servlet/ModelAndView.html">ModelAndView</a> getModelAndView(<a href="../../../../../../../org/springframework/web/method/support/ModelAndViewContainer.html">ModelAndViewContainer</a> mavContainer,
+<a class="jxr_linenumber" name="L879" href="#L879">879</a> 			ModelFactory modelFactory, <a href="../../../../../../../org/springframework/web/context/request/NativeWebRequest.html">NativeWebRequest</a> webRequest) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L880" href="#L880">880</a> 
+<a class="jxr_linenumber" name="L881" href="#L881">881</a> 		modelFactory.updateModel(webRequest, mavContainer);
+<a class="jxr_linenumber" name="L882" href="#L882">882</a> 		<strong class="jxr_keyword">if</strong> (mavContainer.isRequestHandled()) {
+<a class="jxr_linenumber" name="L883" href="#L883">883</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L884" href="#L884">884</a> 		}
+<a class="jxr_linenumber" name="L885" href="#L885">885</a> 		ModelMap model = mavContainer.getModel();
+<a class="jxr_linenumber" name="L886" href="#L886">886</a> 		ModelAndView mav = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/web/servlet/ModelAndView.html">ModelAndView</a>(mavContainer.getViewName(), model);
+<a class="jxr_linenumber" name="L887" href="#L887">887</a> 		<strong class="jxr_keyword">if</strong> (!mavContainer.isViewReference()) {
+<a class="jxr_linenumber" name="L888" href="#L888">888</a> 			mav.setView((View) mavContainer.getView());
+<a class="jxr_linenumber" name="L889" href="#L889">889</a> 		}
+<a class="jxr_linenumber" name="L890" href="#L890">890</a> 		<strong class="jxr_keyword">if</strong> (model instanceof RedirectAttributes) {
+<a class="jxr_linenumber" name="L891" href="#L891">891</a> 			Map&lt;String, ?&gt; flashAttributes = ((RedirectAttributes) model).getFlashAttributes();
+<a class="jxr_linenumber" name="L892" href="#L892">892</a> 			HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L893" href="#L893">893</a> 			RequestContextUtils.getOutputFlashMap(request).putAll(flashAttributes);
+<a class="jxr_linenumber" name="L894" href="#L894">894</a> 		}
+<a class="jxr_linenumber" name="L895" href="#L895">895</a> 		<strong class="jxr_keyword">return</strong> mav;
+<a class="jxr_linenumber" name="L896" href="#L896">896</a> 	}
 <a class="jxr_linenumber" name="L897" href="#L897">897</a> 
-<a class="jxr_linenumber" name="L898" href="#L898">898</a> 	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L899" href="#L899">899</a> <em class="jxr_javadoccomment">	 * MethodFilter that matches {@link InitBinder @InitBinder} methods.</em>
-<a class="jxr_linenumber" name="L900" href="#L900">900</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L901" href="#L901">901</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../../org/springframework/util/ReflectionUtils.html">MethodFilter</a> INIT_BINDER_METHODS = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/util/ReflectionUtils.html">MethodFilter</a>() {
-<a class="jxr_linenumber" name="L902" href="#L902">902</a> 
-<a class="jxr_linenumber" name="L903" href="#L903">903</a> 		@Override
-<a class="jxr_linenumber" name="L904" href="#L904">904</a> 		<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> matches(Method method) {
-<a class="jxr_linenumber" name="L905" href="#L905">905</a> 			<strong class="jxr_keyword">return</strong> AnnotationUtils.findAnnotation(method, InitBinder.<strong class="jxr_keyword">class</strong>) != <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L906" href="#L906">906</a> 		}
-<a class="jxr_linenumber" name="L907" href="#L907">907</a> 	};
-<a class="jxr_linenumber" name="L908" href="#L908">908</a> 
-<a class="jxr_linenumber" name="L909" href="#L909">909</a> 	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L910" href="#L910">910</a> <em class="jxr_javadoccomment">	 * MethodFilter that matches {@link ModelAttribute @ModelAttribute} methods.</em>
-<a class="jxr_linenumber" name="L911" href="#L911">911</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L912" href="#L912">912</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../../org/springframework/util/ReflectionUtils.html">MethodFilter</a> MODEL_ATTRIBUTE_METHODS = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/util/ReflectionUtils.html">MethodFilter</a>() {
-<a class="jxr_linenumber" name="L913" href="#L913">913</a> 
-<a class="jxr_linenumber" name="L914" href="#L914">914</a> 		@Override
-<a class="jxr_linenumber" name="L915" href="#L915">915</a> 		<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> matches(Method method) {
-<a class="jxr_linenumber" name="L916" href="#L916">916</a> 			<strong class="jxr_keyword">return</strong> ((AnnotationUtils.findAnnotation(method, RequestMapping.<strong class="jxr_keyword">class</strong>) == <strong class="jxr_keyword">null</strong>) &amp;&amp;
-<a class="jxr_linenumber" name="L917" href="#L917">917</a> 					(AnnotationUtils.findAnnotation(method, ModelAttribute.<strong class="jxr_keyword">class</strong>) != <strong class="jxr_keyword">null</strong>));
-<a class="jxr_linenumber" name="L918" href="#L918">918</a> 		}
-<a class="jxr_linenumber" name="L919" href="#L919">919</a> 	};
-<a class="jxr_linenumber" name="L920" href="#L920">920</a> 
-<a class="jxr_linenumber" name="L921" href="#L921">921</a> }
+<a class="jxr_linenumber" name="L898" href="#L898">898</a> 
+<a class="jxr_linenumber" name="L899" href="#L899">899</a> 	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L900" href="#L900">900</a> <em class="jxr_javadoccomment">	 * MethodFilter that matches {@link InitBinder @InitBinder} methods.</em>
+<a class="jxr_linenumber" name="L901" href="#L901">901</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L902" href="#L902">902</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../../org/springframework/util/ReflectionUtils.html">MethodFilter</a> INIT_BINDER_METHODS = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/util/ReflectionUtils.html">MethodFilter</a>() {
+<a class="jxr_linenumber" name="L903" href="#L903">903</a> 
+<a class="jxr_linenumber" name="L904" href="#L904">904</a> 		@Override
+<a class="jxr_linenumber" name="L905" href="#L905">905</a> 		<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> matches(Method method) {
+<a class="jxr_linenumber" name="L906" href="#L906">906</a> 			<strong class="jxr_keyword">return</strong> AnnotationUtils.findAnnotation(method, InitBinder.<strong class="jxr_keyword">class</strong>) != <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L907" href="#L907">907</a> 		}
+<a class="jxr_linenumber" name="L908" href="#L908">908</a> 	};
+<a class="jxr_linenumber" name="L909" href="#L909">909</a> 
+<a class="jxr_linenumber" name="L910" href="#L910">910</a> 	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L911" href="#L911">911</a> <em class="jxr_javadoccomment">	 * MethodFilter that matches {@link ModelAttribute @ModelAttribute} methods.</em>
+<a class="jxr_linenumber" name="L912" href="#L912">912</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L913" href="#L913">913</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../../org/springframework/util/ReflectionUtils.html">MethodFilter</a> MODEL_ATTRIBUTE_METHODS = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../org/springframework/util/ReflectionUtils.html">MethodFilter</a>() {
+<a class="jxr_linenumber" name="L914" href="#L914">914</a> 
+<a class="jxr_linenumber" name="L915" href="#L915">915</a> 		@Override
+<a class="jxr_linenumber" name="L916" href="#L916">916</a> 		<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> matches(Method method) {
+<a class="jxr_linenumber" name="L917" href="#L917">917</a> 			<strong class="jxr_keyword">return</strong> ((AnnotationUtils.findAnnotation(method, RequestMapping.<strong class="jxr_keyword">class</strong>) == <strong class="jxr_keyword">null</strong>) &amp;&amp;
+<a class="jxr_linenumber" name="L918" href="#L918">918</a> 					(AnnotationUtils.findAnnotation(method, ModelAttribute.<strong class="jxr_keyword">class</strong>) != <strong class="jxr_keyword">null</strong>));
+<a class="jxr_linenumber" name="L919" href="#L919">919</a> 		}
+<a class="jxr_linenumber" name="L920" href="#L920">920</a> 	};
+<a class="jxr_linenumber" name="L921" href="#L921">921</a> 
+<a class="jxr_linenumber" name="L922" href="#L922">922</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015. All rights reserved.</div>

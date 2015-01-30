@@ -506,7 +506,7 @@
 <a class="jxr_linenumber" name="L498" href="#L498">498</a>         assertThat(deleteByQueryResponse.getIndices().size(), equalTo(1));
 <a class="jxr_linenumber" name="L499" href="#L499">499</a>         <strong class="jxr_keyword">for</strong> (IndexDeleteByQueryResponse indexDeleteByQueryResponse : deleteByQueryResponse) {
 <a class="jxr_linenumber" name="L500" href="#L500">500</a>             assertThat(indexDeleteByQueryResponse.getIndex(), equalTo(<span class="jxr_string">"test"</span>));
-<a class="jxr_linenumber" name="L501" href="#L501">501</a>             assertThat(indexDeleteByQueryResponse.getFailures().length, equalTo(0));
+<a class="jxr_linenumber" name="L501" href="#L501">501</a>             assertThat(indexDeleteByQueryResponse.getShardInfo().getFailures().length, equalTo(0));
 <a class="jxr_linenumber" name="L502" href="#L502">502</a>         }
 <a class="jxr_linenumber" name="L503" href="#L503">503</a> 
 <a class="jxr_linenumber" name="L504" href="#L504">504</a>         refresh();

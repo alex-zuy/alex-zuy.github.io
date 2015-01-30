@@ -283,7 +283,7 @@
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>       <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>     }
 <a class="jxr_linenumber" name="L277" href="#L277">277</a>     @Override <strong class="jxr_keyword">public</strong> String toString() {
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>       <strong class="jxr_keyword">return</strong> <span class="jxr_string">"Predicates.not("</span> + predicate.toString() + <span class="jxr_string">")"</span>;
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>       <strong class="jxr_keyword">return</strong> <span class="jxr_string">"Predicates.not("</span> + predicate + <span class="jxr_string">")"</span>;
 <a class="jxr_linenumber" name="L279" href="#L279">279</a>     }
 <a class="jxr_linenumber" name="L280" href="#L280">280</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 0;
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>   }
@@ -452,31 +452,32 @@
 <a class="jxr_linenumber" name="L444" href="#L444">444</a>     }
 <a class="jxr_linenumber" name="L445" href="#L445">445</a> 
 <a class="jxr_linenumber" name="L446" href="#L446">446</a>     @Override <strong class="jxr_keyword">public</strong> String toString() {
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>       <strong class="jxr_keyword">return</strong> p.toString() + <span class="jxr_string">"("</span> + f.toString() + <span class="jxr_string">")"</span>;
-<a class="jxr_linenumber" name="L448" href="#L448">448</a>     }
-<a class="jxr_linenumber" name="L449" href="#L449">449</a> 
-<a class="jxr_linenumber" name="L450" href="#L450">450</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 0;
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>   }
-<a class="jxr_linenumber" name="L452" href="#L452">452</a> 
-<a class="jxr_linenumber" name="L453" href="#L453">453</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; List&lt;Predicate&lt;? <strong class="jxr_keyword">super</strong> T&gt;&gt; asList(
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>       Predicate&lt;? <strong class="jxr_keyword">super</strong> T&gt; first, Predicate&lt;? <strong class="jxr_keyword">super</strong> T&gt; second) {
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>     <em class="jxr_comment">// TODO(kevinb): understand why we still get a warning despite @SafeVarargs!</em>
-<a class="jxr_linenumber" name="L456" href="#L456">456</a>     <strong class="jxr_keyword">return</strong> Arrays.&lt;Predicate&lt;? <strong class="jxr_keyword">super</strong> T&gt;&gt;asList(first, second);
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>   }
-<a class="jxr_linenumber" name="L458" href="#L458">458</a> 
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; List&lt;T&gt; defensiveCopy(T... array) {
-<a class="jxr_linenumber" name="L460" href="#L460">460</a>     <strong class="jxr_keyword">return</strong> defensiveCopy(Arrays.asList(array));
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>   }
-<a class="jxr_linenumber" name="L462" href="#L462">462</a> 
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>   <strong class="jxr_keyword">static</strong> &lt;T&gt; List&lt;T&gt; defensiveCopy(Iterable&lt;T&gt; iterable) {
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>     ArrayList&lt;T&gt; list = <strong class="jxr_keyword">new</strong> ArrayList&lt;T&gt;();
-<a class="jxr_linenumber" name="L465" href="#L465">465</a>     <strong class="jxr_keyword">for</strong> (T element : iterable) {
-<a class="jxr_linenumber" name="L466" href="#L466">466</a>       list.add(checkNotNull(element));
-<a class="jxr_linenumber" name="L467" href="#L467">467</a>     }
-<a class="jxr_linenumber" name="L468" href="#L468">468</a>     <strong class="jxr_keyword">return</strong> list;
-<a class="jxr_linenumber" name="L469" href="#L469">469</a>   }
-<a class="jxr_linenumber" name="L470" href="#L470">470</a> }
-<a class="jxr_linenumber" name="L471" href="#L471">471</a> 
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>       <em class="jxr_comment">// TODO(cpovirk): maybe make this look like the method call does ("Predicates.compose(...)")</em>
+<a class="jxr_linenumber" name="L448" href="#L448">448</a>       <strong class="jxr_keyword">return</strong> p + <span class="jxr_string">"("</span> + f + <span class="jxr_string">")"</span>;
+<a class="jxr_linenumber" name="L449" href="#L449">449</a>     }
+<a class="jxr_linenumber" name="L450" href="#L450">450</a> 
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 0;
+<a class="jxr_linenumber" name="L452" href="#L452">452</a>   }
+<a class="jxr_linenumber" name="L453" href="#L453">453</a> 
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; List&lt;Predicate&lt;? <strong class="jxr_keyword">super</strong> T&gt;&gt; asList(
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>       Predicate&lt;? <strong class="jxr_keyword">super</strong> T&gt; first, Predicate&lt;? <strong class="jxr_keyword">super</strong> T&gt; second) {
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>     <em class="jxr_comment">// TODO(kevinb): understand why we still get a warning despite @SafeVarargs!</em>
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>     <strong class="jxr_keyword">return</strong> Arrays.&lt;Predicate&lt;? <strong class="jxr_keyword">super</strong> T&gt;&gt;asList(first, second);
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>   }
+<a class="jxr_linenumber" name="L459" href="#L459">459</a> 
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; List&lt;T&gt; defensiveCopy(T... array) {
+<a class="jxr_linenumber" name="L461" href="#L461">461</a>     <strong class="jxr_keyword">return</strong> defensiveCopy(Arrays.asList(array));
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>   }
+<a class="jxr_linenumber" name="L463" href="#L463">463</a> 
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>   <strong class="jxr_keyword">static</strong> &lt;T&gt; List&lt;T&gt; defensiveCopy(Iterable&lt;T&gt; iterable) {
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>     ArrayList&lt;T&gt; list = <strong class="jxr_keyword">new</strong> ArrayList&lt;T&gt;();
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>     <strong class="jxr_keyword">for</strong> (T element : iterable) {
+<a class="jxr_linenumber" name="L467" href="#L467">467</a>       list.add(checkNotNull(element));
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>     }
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>     <strong class="jxr_keyword">return</strong> list;
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>   }
+<a class="jxr_linenumber" name="L471" href="#L471">471</a> }
+<a class="jxr_linenumber" name="L472" href="#L472">472</a> 
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015. All rights reserved.</div>

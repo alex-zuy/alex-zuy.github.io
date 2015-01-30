@@ -97,7 +97,7 @@
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      }
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>      <strong class="jxr_keyword">private</strong> Multimap&lt;Lifetime, Releasable&gt; clearables = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> AtomicBoolean closed = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> closed = <strong class="jxr_keyword">new</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> close() {
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>          <strong class="jxr_keyword">if</strong> (closed.compareAndSet(false, <strong class="jxr_keyword">true</strong>)) { <em class="jxr_comment">// prevent double release</em>
@@ -357,28 +357,33 @@
 <a class="jxr_linenumber" name="L349" href="#L349">349</a> 
 <a class="jxr_linenumber" name="L350" href="#L350">350</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <a href="../../../../org/elasticsearch/index/mapper/FieldMapper.html">FieldMapper</a> smartNameFieldMapper(String name);
 <a class="jxr_linenumber" name="L351" href="#L351">351</a> 
-<a class="jxr_linenumber" name="L352" href="#L352">352</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> MapperService.SmartNameObjectMapper smartNameObjectMapper(String name);
-<a class="jxr_linenumber" name="L353" href="#L353">353</a> 
-<a class="jxr_linenumber" name="L354" href="#L354">354</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> Counter timeEstimateCounter();
-<a class="jxr_linenumber" name="L355" href="#L355">355</a> 
-<a class="jxr_linenumber" name="L356" href="#L356">356</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L357" href="#L357">357</a> <em class="jxr_javadoccomment">     * The life time of an object that is used during search execution.</em>
-<a class="jxr_linenumber" name="L358" href="#L358">358</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L359" href="#L359">359</a>     <strong class="jxr_keyword">public</strong> enum <a href="../../../../org/elasticsearch/search/internal/SearchContext.html">Lifetime</a> {
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>         <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L361" href="#L361">361</a> <em class="jxr_javadoccomment">         * This life time is for objects that only live during collection time.</em>
-<a class="jxr_linenumber" name="L362" href="#L362">362</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L363" href="#L363">363</a>         COLLECTION,
-<a class="jxr_linenumber" name="L364" href="#L364">364</a>         <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L365" href="#L365">365</a> <em class="jxr_javadoccomment">         * This life time is for objects that need to live until the end of the current search phase.</em>
-<a class="jxr_linenumber" name="L366" href="#L366">366</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L367" href="#L367">367</a>         PHASE,
-<a class="jxr_linenumber" name="L368" href="#L368">368</a>         <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L369" href="#L369">369</a> <em class="jxr_javadoccomment">         * This life time is for objects that need to live until the search context they are attached to is destroyed.</em>
-<a class="jxr_linenumber" name="L370" href="#L370">370</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L371" href="#L371">371</a>         CONTEXT;
-<a class="jxr_linenumber" name="L372" href="#L372">372</a>     }
-<a class="jxr_linenumber" name="L373" href="#L373">373</a> }
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L353" href="#L353">353</a> <em class="jxr_javadoccomment">     * Looks up the given field, but does not restrict to fields in the types set on this context.</em>
+<a class="jxr_linenumber" name="L354" href="#L354">354</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <a href="../../../../org/elasticsearch/index/mapper/FieldMapper.html">FieldMapper</a> smartNameFieldMapperFromAnyType(String name);
+<a class="jxr_linenumber" name="L356" href="#L356">356</a> 
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> MapperService.SmartNameObjectMapper smartNameObjectMapper(String name);
+<a class="jxr_linenumber" name="L358" href="#L358">358</a> 
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> Counter timeEstimateCounter();
+<a class="jxr_linenumber" name="L360" href="#L360">360</a> 
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L362" href="#L362">362</a> <em class="jxr_javadoccomment">     * The life time of an object that is used during search execution.</em>
+<a class="jxr_linenumber" name="L363" href="#L363">363</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>     <strong class="jxr_keyword">public</strong> enum <a href="../../../../org/elasticsearch/search/internal/SearchContext.html">Lifetime</a> {
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>         <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L366" href="#L366">366</a> <em class="jxr_javadoccomment">         * This life time is for objects that only live during collection time.</em>
+<a class="jxr_linenumber" name="L367" href="#L367">367</a> <em class="jxr_javadoccomment">         */</em>
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>         COLLECTION,
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>         <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L370" href="#L370">370</a> <em class="jxr_javadoccomment">         * This life time is for objects that need to live until the end of the current search phase.</em>
+<a class="jxr_linenumber" name="L371" href="#L371">371</a> <em class="jxr_javadoccomment">         */</em>
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>         PHASE,
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>         <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L374" href="#L374">374</a> <em class="jxr_javadoccomment">         * This life time is for objects that need to live until the search context they are attached to is destroyed.</em>
+<a class="jxr_linenumber" name="L375" href="#L375">375</a> <em class="jxr_javadoccomment">         */</em>
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>         CONTEXT;
+<a class="jxr_linenumber" name="L377" href="#L377">377</a>     }
+<a class="jxr_linenumber" name="L378" href="#L378">378</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015. All rights reserved.</div>

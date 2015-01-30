@@ -256,7 +256,7 @@
 <a class="jxr_linenumber" name="L248" href="#L248">248</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> walkWarnings(
 <a class="jxr_linenumber" name="L249" href="#L249">249</a> 			SQLWarning warning,
 <a class="jxr_linenumber" name="L250" href="#L250">250</a> 			WarningHandler handler) {
-<a class="jxr_linenumber" name="L251" href="#L251">251</a> 		<strong class="jxr_keyword">if</strong> ( warning == <strong class="jxr_keyword">null</strong> || handler.doProcess() ) {
+<a class="jxr_linenumber" name="L251" href="#L251">251</a> 		<strong class="jxr_keyword">if</strong> ( warning == <strong class="jxr_keyword">null</strong> || !handler.doProcess() ) {
 <a class="jxr_linenumber" name="L252" href="#L252">252</a> 			<strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L253" href="#L253">253</a> 		}
 <a class="jxr_linenumber" name="L254" href="#L254">254</a> 		handler.prepare( warning );

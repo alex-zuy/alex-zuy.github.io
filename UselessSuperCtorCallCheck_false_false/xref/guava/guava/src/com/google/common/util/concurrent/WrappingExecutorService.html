@@ -127,7 +127,7 @@
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>   @Override
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> &lt;T&gt; List&lt;Future&lt;T&gt;&gt; invokeAll(
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>       Collection&lt;? <strong class="jxr_keyword">extends</strong> Callable&lt;T&gt;&gt; tasks, <strong class="jxr_keyword">long</strong> timeout, <a href="../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit)
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>       <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>       <strong class="jxr_keyword">throws</strong> <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>     <strong class="jxr_keyword">return</strong> delegate.invokeAll(wrapTasks(tasks), timeout, unit);
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>   }
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> 
@@ -140,7 +140,7 @@
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>   @Override
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> &lt;T&gt; T invokeAny(
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>       Collection&lt;? <strong class="jxr_keyword">extends</strong> Callable&lt;T&gt;&gt; tasks, <strong class="jxr_keyword">long</strong> timeout, <a href="../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit)
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>       <strong class="jxr_keyword">throws</strong> InterruptedException, ExecutionException, TimeoutException {
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>       <strong class="jxr_keyword">throws</strong> InterruptedException, ExecutionException, <a href="../../../../../java/util/concurrent/TimeoutException.html">TimeoutException</a> {
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>     <strong class="jxr_keyword">return</strong> delegate.invokeAny(wrapTasks(tasks), timeout, unit);
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>   }
 <a class="jxr_linenumber" name="L138" href="#L138">138</a> 
@@ -168,7 +168,7 @@
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> 
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>   @Override
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> awaitTermination(<strong class="jxr_keyword">long</strong> timeout, <a href="../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit)
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>       <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>       <strong class="jxr_keyword">throws</strong> <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>     <strong class="jxr_keyword">return</strong> delegate.awaitTermination(timeout, unit);
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>   }
 <a class="jxr_linenumber" name="L166" href="#L166">166</a> }

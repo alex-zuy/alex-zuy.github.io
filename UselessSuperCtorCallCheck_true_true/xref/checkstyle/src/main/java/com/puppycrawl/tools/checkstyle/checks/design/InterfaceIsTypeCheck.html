@@ -52,7 +52,7 @@
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>          <strong class="jxr_keyword">extends</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/Check.html">Check</a>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      <em class="jxr_javadoccomment">/** flag to control whether marker interfaces are allowed. */</em>
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> mAllowMarkerInterfaces = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> allowMarkerInterfaces = <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      @Override
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong>[] getDefaultTokens()
@@ -67,30 +67,30 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      }
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      @Override
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      {
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> objBlock =
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>                  aAST.findFirstToken(TokenTypes.OBJBLOCK);
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>                  ast.findFirstToken(TokenTypes.OBJBLOCK);
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> methodDef =
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>                  objBlock.findFirstToken(TokenTypes.METHOD_DEF);
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> variableDef =
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>                  objBlock.findFirstToken(TokenTypes.VARIABLE_DEF);
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> methodRequired =
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>                  !mAllowMarkerInterfaces || (variableDef != <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>                  !allowMarkerInterfaces || (variableDef != <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          <strong class="jxr_keyword">if</strong> ((methodDef == <strong class="jxr_keyword">null</strong>) &amp;&amp; methodRequired) {
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>              log(aAST.getLineNo(), <span class="jxr_string">"interface.type"</span>);
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>              log(ast.getLineNo(), <span class="jxr_string">"interface.type"</span>);
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          }
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      }
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">     * Controls whether marker interfaces like Serializable are allowed.</em>
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">     * @param aFlag whether to allow marker interfaces or not</em>
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">     * @param flag whether to allow marker interfaces or not</em>
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setAllowMarkerInterfaces(<strong class="jxr_keyword">boolean</strong> aFlag)
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setAllowMarkerInterfaces(<strong class="jxr_keyword">boolean</strong> flag)
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      {
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>          mAllowMarkerInterfaces = aFlag;
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>          allowMarkerInterfaces = flag;
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      }
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  }
 </pre>

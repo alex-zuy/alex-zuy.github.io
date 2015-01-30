@@ -72,15 +72,15 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      }
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      @Override
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      {
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <em class="jxr_comment">// nothing to do for Interfaces</em>
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>          <strong class="jxr_keyword">if</strong> (ScopeUtils.inInterfaceOrAnnotationBlock(aAST)) {
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          <strong class="jxr_keyword">if</strong> (ScopeUtils.inInterfaceOrAnnotationBlock(ast)) {
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>              <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          }
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>          <em class="jxr_comment">// method is ok if it is private or abstract or final</em>
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> modifiers = aAST.findFirstToken(TokenTypes.MODIFIERS);
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> modifiers = ast.findFirstToken(TokenTypes.MODIFIERS);
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">if</strong> (modifiers.branchContains(TokenTypes.LITERAL_PRIVATE)
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>              || modifiers.branchContains(TokenTypes.ABSTRACT)
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>              || modifiers.branchContains(TokenTypes.FINAL)
@@ -91,14 +91,14 @@
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          <em class="jxr_comment">// method is ok if containing class is not visible in API and</em>
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>          <em class="jxr_comment">// cannot be extended by 3rd parties (bug #884035)</em>
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>          <strong class="jxr_keyword">if</strong> (!ScopeUtils.getSurroundingScope(aAST).isIn(Scope.PROTECTED)) {
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>          <strong class="jxr_keyword">if</strong> (!ScopeUtils.getSurroundingScope(ast).isIn(Scope.PROTECTED)) {
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>              <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>          }
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          <em class="jxr_comment">// method is ok if it is implementation can verified to be empty</em>
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          <em class="jxr_comment">// Note: native methods don't have impl in java code, so</em>
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          <em class="jxr_comment">// implementation can be null even if method not abstract</em>
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> implementation = aAST.findFirstToken(TokenTypes.SLIST);
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> implementation = ast.findFirstToken(TokenTypes.SLIST);
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          <strong class="jxr_keyword">if</strong> ((implementation != <strong class="jxr_keyword">null</strong>)
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>              &amp;&amp; (implementation.getFirstChild().getType() == TokenTypes.RCURLY))
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          {
@@ -106,7 +106,7 @@
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          }
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>         <em class="jxr_comment">// check if the containing class can be subclassed</em>
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> classDef = findContainingClass(aAST);
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> classDef = findContainingClass(ast);
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> classMods =
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>             classDef.findFirstToken(TokenTypes.MODIFIERS);
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>         <strong class="jxr_keyword">if</strong> ((classDef.getType() == TokenTypes.ENUM_DEF)
@@ -138,8 +138,8 @@
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>         }
 <a class="jxr_linenumber" name="L131" href="#L131">131</a> 
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>         <strong class="jxr_keyword">if</strong> (hasDefaultConstructor || hasExplNonPrivateCtor) {
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>             <strong class="jxr_keyword">final</strong> String name = aAST.findFirstToken(TokenTypes.IDENT).getText();
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>             log(aAST.getLineNo(), aAST.getColumnNo(),
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>             <strong class="jxr_keyword">final</strong> String name = ast.findFirstToken(TokenTypes.IDENT).getText();
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>             log(ast.getLineNo(), ast.getColumnNo(),
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>                 <span class="jxr_string">"design.forExtension"</span>, name);
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         }
 <a class="jxr_linenumber" name="L137" href="#L137">137</a> 
@@ -149,12 +149,12 @@
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> 
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">     * Searches the tree towards the root until it finds a CLASS_DEF node.</em>
-<a class="jxr_linenumber" name="L144" href="#L144">144</a> <em class="jxr_javadoccomment">     * @param aAST the start node for searching</em>
+<a class="jxr_linenumber" name="L144" href="#L144">144</a> <em class="jxr_javadoccomment">     * @param ast the start node for searching</em>
 <a class="jxr_linenumber" name="L145" href="#L145">145</a> <em class="jxr_javadoccomment">     * @return the CLASS_DEF node.</em>
 <a class="jxr_linenumber" name="L146" href="#L146">146</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> findContainingClass(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> findContainingClass(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>     {
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>         <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> searchAST = aAST;
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>         <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> searchAST = ast;
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>         <strong class="jxr_keyword">while</strong> ((searchAST.getType() != TokenTypes.CLASS_DEF)
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>                &amp;&amp; (searchAST.getType() != TokenTypes.ENUM_DEF))
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>         {

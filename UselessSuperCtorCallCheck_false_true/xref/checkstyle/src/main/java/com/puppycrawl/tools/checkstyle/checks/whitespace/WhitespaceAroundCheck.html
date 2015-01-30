@@ -166,15 +166,15 @@
 <a class="jxr_linenumber" name="L158" href="#L158">158</a> <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/whitespace/WhitespaceAroundCheck.html">WhitespaceAroundCheck</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/Check.html">Check</a>
 <a class="jxr_linenumber" name="L159" href="#L159">159</a> {
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>     <em class="jxr_javadoccomment">/** Whether or not empty constructor bodies are allowed. */</em>
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> mAllowEmptyCtors;
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> allowEmptyCtors;
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>     <em class="jxr_javadoccomment">/** Whether or not empty method bodies are allowed. */</em>
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> mAllowEmptyMethods;
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> allowEmptyMethods;
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>     <em class="jxr_javadoccomment">/** Whether or not empty classes, enums and interfaces are allowed*/</em>
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> mAllowEmptyTypes;
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> allowEmptyTypes;
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>     <em class="jxr_javadoccomment">/** Whether or not empty loops are allowed*/</em>
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> mAllowEmptyLoops;
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> allowEmptyLoops;
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>     <em class="jxr_javadoccomment">/** whether or not to ignore a colon in a enhanced for loop */</em>
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> mIgnoreEnhancedForColon = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> ignoreEnhancedForColon = <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L170" href="#L170">170</a> 
 <a class="jxr_linenumber" name="L171" href="#L171">171</a>     @Override
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong>[] getDefaultTokens()
@@ -235,55 +235,55 @@
 <a class="jxr_linenumber" name="L227" href="#L227">227</a> 
 <a class="jxr_linenumber" name="L228" href="#L228">228</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L229" href="#L229">229</a> <em class="jxr_javadoccomment">     * Sets whether or not empty method bodies are allowed.</em>
-<a class="jxr_linenumber" name="L230" href="#L230">230</a> <em class="jxr_javadoccomment">     * @param aAllow &lt;code&gt;true&lt;/code&gt; to allow empty method bodies.</em>
+<a class="jxr_linenumber" name="L230" href="#L230">230</a> <em class="jxr_javadoccomment">     * @param allow &lt;code&gt;true&lt;/code&gt; to allow empty method bodies.</em>
 <a class="jxr_linenumber" name="L231" href="#L231">231</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setAllowEmptyMethods(<strong class="jxr_keyword">boolean</strong> aAllow)
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setAllowEmptyMethods(<strong class="jxr_keyword">boolean</strong> allow)
 <a class="jxr_linenumber" name="L233" href="#L233">233</a>     {
-<a class="jxr_linenumber" name="L234" href="#L234">234</a>         mAllowEmptyMethods = aAllow;
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>         allowEmptyMethods = allow;
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>     }
 <a class="jxr_linenumber" name="L236" href="#L236">236</a> 
 <a class="jxr_linenumber" name="L237" href="#L237">237</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L238" href="#L238">238</a> <em class="jxr_javadoccomment">     * Sets whether or not empty constructor bodies are allowed.</em>
-<a class="jxr_linenumber" name="L239" href="#L239">239</a> <em class="jxr_javadoccomment">     * @param aAllow &lt;code&gt;true&lt;/code&gt; to allow empty constructor bodies.</em>
+<a class="jxr_linenumber" name="L239" href="#L239">239</a> <em class="jxr_javadoccomment">     * @param allow &lt;code&gt;true&lt;/code&gt; to allow empty constructor bodies.</em>
 <a class="jxr_linenumber" name="L240" href="#L240">240</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setAllowEmptyConstructors(<strong class="jxr_keyword">boolean</strong> aAllow)
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setAllowEmptyConstructors(<strong class="jxr_keyword">boolean</strong> allow)
 <a class="jxr_linenumber" name="L242" href="#L242">242</a>     {
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>         mAllowEmptyCtors = aAllow;
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>         allowEmptyCtors = allow;
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>     }
 <a class="jxr_linenumber" name="L245" href="#L245">245</a> 
 <a class="jxr_linenumber" name="L246" href="#L246">246</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L247" href="#L247">247</a> <em class="jxr_javadoccomment">     * Sets whether or not to ignore the whitespace around the</em>
 <a class="jxr_linenumber" name="L248" href="#L248">248</a> <em class="jxr_javadoccomment">     * colon in an enhanced for loop.</em>
-<a class="jxr_linenumber" name="L249" href="#L249">249</a> <em class="jxr_javadoccomment">     * @param aIgnore &lt;code&gt;true&lt;/code&gt; to ignore enhanced for colon.</em>
+<a class="jxr_linenumber" name="L249" href="#L249">249</a> <em class="jxr_javadoccomment">     * @param ignore &lt;code&gt;true&lt;/code&gt; to ignore enhanced for colon.</em>
 <a class="jxr_linenumber" name="L250" href="#L250">250</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setIgnoreEnhancedForColon(<strong class="jxr_keyword">boolean</strong> aIgnore)
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setIgnoreEnhancedForColon(<strong class="jxr_keyword">boolean</strong> ignore)
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>     {
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>         mIgnoreEnhancedForColon = aIgnore;
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>         ignoreEnhancedForColon = ignore;
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>     }
 <a class="jxr_linenumber" name="L255" href="#L255">255</a> 
 <a class="jxr_linenumber" name="L256" href="#L256">256</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L257" href="#L257">257</a> <em class="jxr_javadoccomment">     * Sets whether or not empty type bodies are allowed.</em>
-<a class="jxr_linenumber" name="L258" href="#L258">258</a> <em class="jxr_javadoccomment">     * @param aAllow &lt;code&gt;true&lt;/code&gt; to allow empty type bodies.</em>
+<a class="jxr_linenumber" name="L258" href="#L258">258</a> <em class="jxr_javadoccomment">     * @param allow &lt;code&gt;true&lt;/code&gt; to allow empty type bodies.</em>
 <a class="jxr_linenumber" name="L259" href="#L259">259</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setAllowEmptyTypes(<strong class="jxr_keyword">boolean</strong> aAllow)
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setAllowEmptyTypes(<strong class="jxr_keyword">boolean</strong> allow)
 <a class="jxr_linenumber" name="L261" href="#L261">261</a>     {
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>         mAllowEmptyTypes = aAllow;
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>         allowEmptyTypes = allow;
 <a class="jxr_linenumber" name="L263" href="#L263">263</a>     }
 <a class="jxr_linenumber" name="L264" href="#L264">264</a> 
 <a class="jxr_linenumber" name="L265" href="#L265">265</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L266" href="#L266">266</a> <em class="jxr_javadoccomment">     * Sets whether or not empty loop bodies are allowed.</em>
-<a class="jxr_linenumber" name="L267" href="#L267">267</a> <em class="jxr_javadoccomment">     * @param aAllow &lt;code&gt;true&lt;/code&gt; to allow empty loops bodies.</em>
+<a class="jxr_linenumber" name="L267" href="#L267">267</a> <em class="jxr_javadoccomment">     * @param allow &lt;code&gt;true&lt;/code&gt; to allow empty loops bodies.</em>
 <a class="jxr_linenumber" name="L268" href="#L268">268</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setAllowEmptyLoops(<strong class="jxr_keyword">boolean</strong> aAllow)
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setAllowEmptyLoops(<strong class="jxr_keyword">boolean</strong> allow)
 <a class="jxr_linenumber" name="L270" href="#L270">270</a>     {
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>         mAllowEmptyLoops = aAllow;
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>         allowEmptyLoops = allow;
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>     }
 <a class="jxr_linenumber" name="L273" href="#L273">273</a> 
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>     @Override
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>     {
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> currentType = aAST.getType();
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> parentType = aAST.getParent().getType();
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> currentType = ast.getType();
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> parentType = ast.getParent().getType();
 <a class="jxr_linenumber" name="L279" href="#L279">279</a> 
 <a class="jxr_linenumber" name="L280" href="#L280">280</a>         <em class="jxr_comment">// Check for CURLY in array initializer</em>
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>         <strong class="jxr_keyword">if</strong> (((currentType == TokenTypes.RCURLY)
@@ -316,32 +316,32 @@
 <a class="jxr_linenumber" name="L308" href="#L308">308</a>                 <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L309" href="#L309">309</a>             }
 <a class="jxr_linenumber" name="L310" href="#L310">310</a>             <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (parentType == TokenTypes.FOR_EACH_CLAUSE
-<a class="jxr_linenumber" name="L311" href="#L311">311</a>                 &amp;&amp; <strong class="jxr_keyword">this</strong>.mIgnoreEnhancedForColon)
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>                 &amp;&amp; <strong class="jxr_keyword">this</strong>.ignoreEnhancedForColon)
 <a class="jxr_linenumber" name="L312" href="#L312">312</a>             {
 <a class="jxr_linenumber" name="L313" href="#L313">313</a>                 <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L314" href="#L314">314</a>             }
 <a class="jxr_linenumber" name="L315" href="#L315">315</a>         }
 <a class="jxr_linenumber" name="L316" href="#L316">316</a> 
 <a class="jxr_linenumber" name="L317" href="#L317">317</a>         <em class="jxr_comment">// Checks if empty methods, ctors or loops are allowed.</em>
-<a class="jxr_linenumber" name="L318" href="#L318">318</a>         <strong class="jxr_keyword">if</strong> (isEmptyMethodBlock(aAST, parentType)
-<a class="jxr_linenumber" name="L319" href="#L319">319</a>                 || isEmptyCtorBlock(aAST, parentType)
-<a class="jxr_linenumber" name="L320" href="#L320">320</a>                 || isEmptyLoop(aAST, parentType))
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>         <strong class="jxr_keyword">if</strong> (isEmptyMethodBlock(ast, parentType)
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>                 || isEmptyCtorBlock(ast, parentType)
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>                 || isEmptyLoop(ast, parentType))
 <a class="jxr_linenumber" name="L321" href="#L321">321</a>         {
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>             <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L323" href="#L323">323</a>         }
 <a class="jxr_linenumber" name="L324" href="#L324">324</a> 
 <a class="jxr_linenumber" name="L325" href="#L325">325</a>         <em class="jxr_comment">// Checks if empty classes, interfaces or enums are allowed</em>
-<a class="jxr_linenumber" name="L326" href="#L326">326</a>         <strong class="jxr_keyword">if</strong> (mAllowEmptyTypes &amp;&amp; (isEmptyType(aAST, parentType))) {
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>         <strong class="jxr_keyword">if</strong> (allowEmptyTypes &amp;&amp; (isEmptyType(ast, parentType))) {
 <a class="jxr_linenumber" name="L327" href="#L327">327</a>             <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L328" href="#L328">328</a>         }
 <a class="jxr_linenumber" name="L329" href="#L329">329</a> 
-<a class="jxr_linenumber" name="L330" href="#L330">330</a>         <strong class="jxr_keyword">final</strong> String line = getLine(aAST.getLineNo() - 1);
-<a class="jxr_linenumber" name="L331" href="#L331">331</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> before = aAST.getColumnNo() - 1;
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> after = aAST.getColumnNo() + aAST.getText().length();
+<a class="jxr_linenumber" name="L330" href="#L330">330</a>         <strong class="jxr_keyword">final</strong> String line = getLine(ast.getLineNo() - 1);
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> before = ast.getColumnNo() - 1;
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> after = ast.getColumnNo() + ast.getText().length();
 <a class="jxr_linenumber" name="L333" href="#L333">333</a> 
 <a class="jxr_linenumber" name="L334" href="#L334">334</a>         <strong class="jxr_keyword">if</strong> ((before &gt;= 0) &amp;&amp; !Character.isWhitespace(line.charAt(before))) {
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>             log(aAST.getLineNo(), aAST.getColumnNo(),
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>                     <span class="jxr_string">"ws.notPreceded"</span>, aAST.getText());
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>             log(ast.getLineNo(), ast.getColumnNo(),
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>                     <span class="jxr_string">"ws.notPreceded"</span>, ast.getText());
 <a class="jxr_linenumber" name="L337" href="#L337">337</a>         }
 <a class="jxr_linenumber" name="L338" href="#L338">338</a> 
 <a class="jxr_linenumber" name="L339" href="#L339">339</a>         <strong class="jxr_keyword">if</strong> (after &gt;= line.length()) {
@@ -352,7 +352,7 @@
 <a class="jxr_linenumber" name="L344" href="#L344">344</a>         <strong class="jxr_keyword">if</strong> (!Character.isWhitespace(nextChar)
 <a class="jxr_linenumber" name="L345" href="#L345">345</a>             <em class="jxr_comment">// Check for "return;"</em>
 <a class="jxr_linenumber" name="L346" href="#L346">346</a>             &amp;&amp; !((currentType == TokenTypes.LITERAL_RETURN)
-<a class="jxr_linenumber" name="L347" href="#L347">347</a>                 &amp;&amp; (aAST.getFirstChild().getType() == TokenTypes.SEMI))
+<a class="jxr_linenumber" name="L347" href="#L347">347</a>                 &amp;&amp; (ast.getFirstChild().getType() == TokenTypes.SEMI))
 <a class="jxr_linenumber" name="L348" href="#L348">348</a>             <em class="jxr_comment">// Check for "})" or "};" or "},". Happens with anon-inners</em>
 <a class="jxr_linenumber" name="L349" href="#L349">349</a>             &amp;&amp; !((currentType == TokenTypes.RCURLY)
 <a class="jxr_linenumber" name="L350" href="#L350">350</a>                 &amp;&amp; ((nextChar == ')')
@@ -360,54 +360,54 @@
 <a class="jxr_linenumber" name="L352" href="#L352">352</a>                     || (nextChar == ',')
 <a class="jxr_linenumber" name="L353" href="#L353">353</a>                     || (nextChar == '.'))))
 <a class="jxr_linenumber" name="L354" href="#L354">354</a>         {
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>             log(aAST.getLineNo(), aAST.getColumnNo() + aAST.getText().length(),
-<a class="jxr_linenumber" name="L356" href="#L356">356</a>                     <span class="jxr_string">"ws.notFollowed"</span>, aAST.getText());
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>             log(ast.getLineNo(), ast.getColumnNo() + ast.getText().length(),
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>                     <span class="jxr_string">"ws.notFollowed"</span>, ast.getText());
 <a class="jxr_linenumber" name="L357" href="#L357">357</a>         }
 <a class="jxr_linenumber" name="L358" href="#L358">358</a>     }
 <a class="jxr_linenumber" name="L359" href="#L359">359</a> 
 <a class="jxr_linenumber" name="L360" href="#L360">360</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L361" href="#L361">361</a> <em class="jxr_javadoccomment">     * Test if the given &lt;code&gt;DetailAST&lt;/code&gt; is part of an allowed empty</em>
 <a class="jxr_linenumber" name="L362" href="#L362">362</a> <em class="jxr_javadoccomment">     * method block.</em>
-<a class="jxr_linenumber" name="L363" href="#L363">363</a> <em class="jxr_javadoccomment">     * @param aAST the &lt;code&gt;DetailAST&lt;/code&gt; to test.</em>
-<a class="jxr_linenumber" name="L364" href="#L364">364</a> <em class="jxr_javadoccomment">     * @param aParentType the token type of &lt;code&gt;aAST&lt;/code&gt;'s parent.</em>
-<a class="jxr_linenumber" name="L365" href="#L365">365</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;aAST&lt;/code&gt; makes up part of an</em>
+<a class="jxr_linenumber" name="L363" href="#L363">363</a> <em class="jxr_javadoccomment">     * @param ast the &lt;code&gt;DetailAST&lt;/code&gt; to test.</em>
+<a class="jxr_linenumber" name="L364" href="#L364">364</a> <em class="jxr_javadoccomment">     * @param parentType the token type of &lt;code&gt;ast&lt;/code&gt;'s parent.</em>
+<a class="jxr_linenumber" name="L365" href="#L365">365</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;ast&lt;/code&gt; makes up part of an</em>
 <a class="jxr_linenumber" name="L366" href="#L366">366</a> <em class="jxr_javadoccomment">     *         allowed empty method block.</em>
 <a class="jxr_linenumber" name="L367" href="#L367">367</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L368" href="#L368">368</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isEmptyMethodBlock(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST, <strong class="jxr_keyword">int</strong> aParentType)
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isEmptyMethodBlock(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast, <strong class="jxr_keyword">int</strong> parentType)
 <a class="jxr_linenumber" name="L369" href="#L369">369</a>     {
-<a class="jxr_linenumber" name="L370" href="#L370">370</a>         <strong class="jxr_keyword">return</strong> mAllowEmptyMethods
-<a class="jxr_linenumber" name="L371" href="#L371">371</a>             &amp;&amp; isEmptyBlock(aAST, aParentType, TokenTypes.METHOD_DEF);
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>         <strong class="jxr_keyword">return</strong> allowEmptyMethods
+<a class="jxr_linenumber" name="L371" href="#L371">371</a>             &amp;&amp; isEmptyBlock(ast, parentType, TokenTypes.METHOD_DEF);
 <a class="jxr_linenumber" name="L372" href="#L372">372</a>     }
 <a class="jxr_linenumber" name="L373" href="#L373">373</a> 
 <a class="jxr_linenumber" name="L374" href="#L374">374</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L375" href="#L375">375</a> <em class="jxr_javadoccomment">     * Test if the given &lt;code&gt;DetailAST&lt;/code&gt; is part of an allowed empty</em>
 <a class="jxr_linenumber" name="L376" href="#L376">376</a> <em class="jxr_javadoccomment">     * constructor (ctor) block.</em>
-<a class="jxr_linenumber" name="L377" href="#L377">377</a> <em class="jxr_javadoccomment">     * @param aAST the &lt;code&gt;DetailAST&lt;/code&gt; to test.</em>
-<a class="jxr_linenumber" name="L378" href="#L378">378</a> <em class="jxr_javadoccomment">     * @param aParentType the token type of &lt;code&gt;aAST&lt;/code&gt;'s parent.</em>
-<a class="jxr_linenumber" name="L379" href="#L379">379</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;aAST&lt;/code&gt; makes up part of an</em>
+<a class="jxr_linenumber" name="L377" href="#L377">377</a> <em class="jxr_javadoccomment">     * @param ast the &lt;code&gt;DetailAST&lt;/code&gt; to test.</em>
+<a class="jxr_linenumber" name="L378" href="#L378">378</a> <em class="jxr_javadoccomment">     * @param parentType the token type of &lt;code&gt;ast&lt;/code&gt;'s parent.</em>
+<a class="jxr_linenumber" name="L379" href="#L379">379</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;ast&lt;/code&gt; makes up part of an</em>
 <a class="jxr_linenumber" name="L380" href="#L380">380</a> <em class="jxr_javadoccomment">     *         allowed empty constructor block.</em>
 <a class="jxr_linenumber" name="L381" href="#L381">381</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L382" href="#L382">382</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isEmptyCtorBlock(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST, <strong class="jxr_keyword">int</strong> aParentType)
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isEmptyCtorBlock(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast, <strong class="jxr_keyword">int</strong> parentType)
 <a class="jxr_linenumber" name="L383" href="#L383">383</a>     {
-<a class="jxr_linenumber" name="L384" href="#L384">384</a>         <strong class="jxr_keyword">return</strong> mAllowEmptyCtors
-<a class="jxr_linenumber" name="L385" href="#L385">385</a>             &amp;&amp; isEmptyBlock(aAST, aParentType, TokenTypes.CTOR_DEF);
+<a class="jxr_linenumber" name="L384" href="#L384">384</a>         <strong class="jxr_keyword">return</strong> allowEmptyCtors
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>             &amp;&amp; isEmptyBlock(ast, parentType, TokenTypes.CTOR_DEF);
 <a class="jxr_linenumber" name="L386" href="#L386">386</a>     }
 <a class="jxr_linenumber" name="L387" href="#L387">387</a> 
 <a class="jxr_linenumber" name="L388" href="#L388">388</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L389" href="#L389">389</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L390" href="#L390">390</a> <em class="jxr_javadoccomment">     * @param aAST aAST the &lt;code&gt;DetailAST&lt;/code&gt; to test.</em>
-<a class="jxr_linenumber" name="L391" href="#L391">391</a> <em class="jxr_javadoccomment">     * @param aParentType the token type of &lt;code&gt;aAST&lt;/code&gt;'s parent.</em>
-<a class="jxr_linenumber" name="L392" href="#L392">392</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;aAST&lt;/code&gt; makes up part of an</em>
+<a class="jxr_linenumber" name="L390" href="#L390">390</a> <em class="jxr_javadoccomment">     * @param ast ast the &lt;code&gt;DetailAST&lt;/code&gt; to test.</em>
+<a class="jxr_linenumber" name="L391" href="#L391">391</a> <em class="jxr_javadoccomment">     * @param parentType the token type of &lt;code&gt;ast&lt;/code&gt;'s parent.</em>
+<a class="jxr_linenumber" name="L392" href="#L392">392</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;ast&lt;/code&gt; makes up part of an</em>
 <a class="jxr_linenumber" name="L393" href="#L393">393</a> <em class="jxr_javadoccomment">     *         allowed empty loop block.</em>
 <a class="jxr_linenumber" name="L394" href="#L394">394</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L395" href="#L395">395</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isEmptyLoop(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST, <strong class="jxr_keyword">int</strong> aParentType)
+<a class="jxr_linenumber" name="L395" href="#L395">395</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isEmptyLoop(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast, <strong class="jxr_keyword">int</strong> parentType)
 <a class="jxr_linenumber" name="L396" href="#L396">396</a>     {
-<a class="jxr_linenumber" name="L397" href="#L397">397</a>         <strong class="jxr_keyword">return</strong> mAllowEmptyLoops
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>             &amp;&amp; (isEmptyBlock(aAST, aParentType, TokenTypes.LITERAL_FOR)
-<a class="jxr_linenumber" name="L399" href="#L399">399</a>                     || isEmptyBlock(aAST,
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>                             aParentType, TokenTypes.LITERAL_WHILE)
-<a class="jxr_linenumber" name="L401" href="#L401">401</a>                             || isEmptyBlock(aAST,
-<a class="jxr_linenumber" name="L402" href="#L402">402</a>                                     aParentType, TokenTypes.LITERAL_DO));
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>         <strong class="jxr_keyword">return</strong> allowEmptyLoops
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>             &amp;&amp; (isEmptyBlock(ast, parentType, TokenTypes.LITERAL_FOR)
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>                     || isEmptyBlock(ast,
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>                             parentType, TokenTypes.LITERAL_WHILE)
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>                             || isEmptyBlock(ast,
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>                                     parentType, TokenTypes.LITERAL_DO));
 <a class="jxr_linenumber" name="L403" href="#L403">403</a>     }
 <a class="jxr_linenumber" name="L404" href="#L404">404</a> 
 <a class="jxr_linenumber" name="L405" href="#L405">405</a>     <em class="jxr_javadoccomment">/**</em>
@@ -417,19 +417,19 @@
 <a class="jxr_linenumber" name="L409" href="#L409">409</a> <em class="jxr_javadoccomment">     * &lt;pre&gt;   class Foo {}&lt;/pre&gt;</em>
 <a class="jxr_linenumber" name="L410" href="#L410">410</a> <em class="jxr_javadoccomment">     * &lt;/p&gt;</em>
 <a class="jxr_linenumber" name="L411" href="#L411">411</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L412" href="#L412">412</a> <em class="jxr_javadoccomment">     * @param aAST aAST the &lt;code&gt;DetailAST&lt;/code&gt; to test.</em>
-<a class="jxr_linenumber" name="L413" href="#L413">413</a> <em class="jxr_javadoccomment">     * @param aParentType the token type of &lt;code&gt;aAST&lt;/code&gt;'s parent.</em>
-<a class="jxr_linenumber" name="L414" href="#L414">414</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;aAST&lt;/code&gt; makes up part of an</em>
-<a class="jxr_linenumber" name="L415" href="#L415">415</a> <em class="jxr_javadoccomment">     *         empty block contained under a &lt;code&gt;aMatch&lt;/code&gt; token type</em>
+<a class="jxr_linenumber" name="L412" href="#L412">412</a> <em class="jxr_javadoccomment">     * @param ast ast the &lt;code&gt;DetailAST&lt;/code&gt; to test.</em>
+<a class="jxr_linenumber" name="L413" href="#L413">413</a> <em class="jxr_javadoccomment">     * @param parentType the token type of &lt;code&gt;ast&lt;/code&gt;'s parent.</em>
+<a class="jxr_linenumber" name="L414" href="#L414">414</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;ast&lt;/code&gt; makes up part of an</em>
+<a class="jxr_linenumber" name="L415" href="#L415">415</a> <em class="jxr_javadoccomment">     *         empty block contained under a &lt;code&gt;match&lt;/code&gt; token type</em>
 <a class="jxr_linenumber" name="L416" href="#L416">416</a> <em class="jxr_javadoccomment">     *         node.</em>
 <a class="jxr_linenumber" name="L417" href="#L417">417</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L418" href="#L418">418</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isEmptyType(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST, <strong class="jxr_keyword">int</strong> aParentType)
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isEmptyType(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast, <strong class="jxr_keyword">int</strong> parentType)
 <a class="jxr_linenumber" name="L419" href="#L419">419</a>     {
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> type = aAST.getType();
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> type = ast.getType();
 <a class="jxr_linenumber" name="L421" href="#L421">421</a>         <strong class="jxr_keyword">if</strong> ((type == TokenTypes.RCURLY || type == TokenTypes.LCURLY)
-<a class="jxr_linenumber" name="L422" href="#L422">422</a>                 &amp;&amp; aParentType == TokenTypes.OBJBLOCK)
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>                 &amp;&amp; parentType == TokenTypes.OBJBLOCK)
 <a class="jxr_linenumber" name="L423" href="#L423">423</a>         {
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> typeNode = aAST.getParent().getParent();
+<a class="jxr_linenumber" name="L424" href="#L424">424</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> typeNode = ast.getParent().getParent();
 <a class="jxr_linenumber" name="L425" href="#L425">425</a>             <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> matchType = typeNode.getType();
 <a class="jxr_linenumber" name="L426" href="#L426">426</a>             <strong class="jxr_keyword">if</strong> (matchType == TokenTypes.CLASS_DEF
 <a class="jxr_linenumber" name="L427" href="#L427">427</a>                     || matchType == TokenTypes.INTERFACE_DEF
@@ -451,25 +451,25 @@
 <a class="jxr_linenumber" name="L443" href="#L443">443</a> <em class="jxr_javadoccomment">     * &lt;/p&gt;</em>
 <a class="jxr_linenumber" name="L444" href="#L444">444</a> <em class="jxr_javadoccomment">     * In the above, the method body is an empty block ("{}").</em>
 <a class="jxr_linenumber" name="L445" href="#L445">445</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L446" href="#L446">446</a> <em class="jxr_javadoccomment">     * @param aAST the &lt;code&gt;DetailAST&lt;/code&gt; to test.</em>
-<a class="jxr_linenumber" name="L447" href="#L447">447</a> <em class="jxr_javadoccomment">     * @param aParentType the token type of &lt;code&gt;aAST&lt;/code&gt;'s parent.</em>
-<a class="jxr_linenumber" name="L448" href="#L448">448</a> <em class="jxr_javadoccomment">     * @param aMatch the parent token type we're looking to match.</em>
-<a class="jxr_linenumber" name="L449" href="#L449">449</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;aAST&lt;/code&gt; makes up part of an</em>
-<a class="jxr_linenumber" name="L450" href="#L450">450</a> <em class="jxr_javadoccomment">     *         empty block contained under a &lt;code&gt;aMatch&lt;/code&gt; token type</em>
+<a class="jxr_linenumber" name="L446" href="#L446">446</a> <em class="jxr_javadoccomment">     * @param ast the &lt;code&gt;DetailAST&lt;/code&gt; to test.</em>
+<a class="jxr_linenumber" name="L447" href="#L447">447</a> <em class="jxr_javadoccomment">     * @param parentType the token type of &lt;code&gt;ast&lt;/code&gt;'s parent.</em>
+<a class="jxr_linenumber" name="L448" href="#L448">448</a> <em class="jxr_javadoccomment">     * @param match the parent token type we're looking to match.</em>
+<a class="jxr_linenumber" name="L449" href="#L449">449</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;ast&lt;/code&gt; makes up part of an</em>
+<a class="jxr_linenumber" name="L450" href="#L450">450</a> <em class="jxr_javadoccomment">     *         empty block contained under a &lt;code&gt;match&lt;/code&gt; token type</em>
 <a class="jxr_linenumber" name="L451" href="#L451">451</a> <em class="jxr_javadoccomment">     *         node.</em>
 <a class="jxr_linenumber" name="L452" href="#L452">452</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L453" href="#L453">453</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isEmptyBlock(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST, <strong class="jxr_keyword">int</strong> aParentType, <strong class="jxr_keyword">int</strong> aMatch)
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isEmptyBlock(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast, <strong class="jxr_keyword">int</strong> parentType, <strong class="jxr_keyword">int</strong> match)
 <a class="jxr_linenumber" name="L454" href="#L454">454</a>     {
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> type = aAST.getType();
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> type = ast.getType();
 <a class="jxr_linenumber" name="L456" href="#L456">456</a>         <strong class="jxr_keyword">if</strong> (type == TokenTypes.RCURLY) {
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> grandParent = aAST.getParent().getParent();
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>             <strong class="jxr_keyword">return</strong> (aParentType == TokenTypes.SLIST)
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>                 &amp;&amp; (grandParent.getType() == aMatch);
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> grandParent = ast.getParent().getParent();
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>             <strong class="jxr_keyword">return</strong> (parentType == TokenTypes.SLIST)
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>                 &amp;&amp; (grandParent.getType() == match);
 <a class="jxr_linenumber" name="L460" href="#L460">460</a>         }
 <a class="jxr_linenumber" name="L461" href="#L461">461</a> 
 <a class="jxr_linenumber" name="L462" href="#L462">462</a>         <strong class="jxr_keyword">return</strong> (type == TokenTypes.SLIST)
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>             &amp;&amp; (aParentType == aMatch)
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>             &amp;&amp; (aAST.getFirstChild().getType() == TokenTypes.RCURLY);
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>             &amp;&amp; (parentType == match)
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>             &amp;&amp; (ast.getFirstChild().getType() == TokenTypes.RCURLY);
 <a class="jxr_linenumber" name="L465" href="#L465">465</a>     }
 <a class="jxr_linenumber" name="L466" href="#L466">466</a> }
 </pre>

@@ -183,15 +183,15 @@
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>             unit = DateTimeUnit.resolve(in.readByte());
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>             field = unit.field();
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>             durationField = field.getDurationField();
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>             preTz = DateTimeZone.forID(in.readSharedString());
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>             postTz = DateTimeZone.forID(in.readSharedString());
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>             preTz = DateTimeZone.forID(in.readString());
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>             postTz = DateTimeZone.forID(in.readString());
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>         }
 <a class="jxr_linenumber" name="L181" href="#L181">181</a> 
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>         @Override
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>             out.writeByte(unit.id());
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>             out.writeSharedString(preTz.getID());
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>             out.writeSharedString(postTz.getID());
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>             out.writeString(preTz.getID());
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>             out.writeString(postTz.getID());
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>         }
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>     }
 <a class="jxr_linenumber" name="L189" href="#L189">189</a> 
@@ -295,15 +295,15 @@
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>             unit = DateTimeUnit.resolve(in.readByte());
 <a class="jxr_linenumber" name="L288" href="#L288">288</a>             field = unit.field();
 <a class="jxr_linenumber" name="L289" href="#L289">289</a>             durationField = field.getDurationField();
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>             preTz = DateTimeZone.forID(in.readSharedString());
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>             postTz = DateTimeZone.forID(in.readSharedString());
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>             preTz = DateTimeZone.forID(in.readString());
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>             postTz = DateTimeZone.forID(in.readString());
 <a class="jxr_linenumber" name="L292" href="#L292">292</a>         }
 <a class="jxr_linenumber" name="L293" href="#L293">293</a> 
 <a class="jxr_linenumber" name="L294" href="#L294">294</a>         @Override
 <a class="jxr_linenumber" name="L295" href="#L295">295</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L296" href="#L296">296</a>             out.writeByte(unit.id());
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>             out.writeSharedString(preTz.getID());
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>             out.writeSharedString(postTz.getID());
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>             out.writeString(preTz.getID());
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>             out.writeString(postTz.getID());
 <a class="jxr_linenumber" name="L299" href="#L299">299</a>         }
 <a class="jxr_linenumber" name="L300" href="#L300">300</a>     }
 <a class="jxr_linenumber" name="L301" href="#L301">301</a> 
@@ -398,15 +398,15 @@
 <a class="jxr_linenumber" name="L390" href="#L390">390</a>         @Override
 <a class="jxr_linenumber" name="L391" href="#L391">391</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> readFrom(<a href="../../../../org/elasticsearch/common/io/stream/StreamInput.html">StreamInput</a> in) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L392" href="#L392">392</a>             interval = in.readVLong();
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>             preTz = DateTimeZone.forID(in.readSharedString());
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>             postTz = DateTimeZone.forID(in.readSharedString());
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>             preTz = DateTimeZone.forID(in.readString());
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>             postTz = DateTimeZone.forID(in.readString());
 <a class="jxr_linenumber" name="L395" href="#L395">395</a>         }
 <a class="jxr_linenumber" name="L396" href="#L396">396</a> 
 <a class="jxr_linenumber" name="L397" href="#L397">397</a>         @Override
 <a class="jxr_linenumber" name="L398" href="#L398">398</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L399" href="#L399">399</a>             out.writeVLong(interval);
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>             out.writeSharedString(preTz.getID());
-<a class="jxr_linenumber" name="L401" href="#L401">401</a>             out.writeSharedString(postTz.getID());
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>             out.writeString(preTz.getID());
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>             out.writeString(postTz.getID());
 <a class="jxr_linenumber" name="L402" href="#L402">402</a>         }
 <a class="jxr_linenumber" name="L403" href="#L403">403</a>     }
 <a class="jxr_linenumber" name="L404" href="#L404">404</a> 
@@ -455,15 +455,15 @@
 <a class="jxr_linenumber" name="L447" href="#L447">447</a>         @Override
 <a class="jxr_linenumber" name="L448" href="#L448">448</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> readFrom(<a href="../../../../org/elasticsearch/common/io/stream/StreamInput.html">StreamInput</a> in) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L449" href="#L449">449</a>             interval = in.readVLong();
-<a class="jxr_linenumber" name="L450" href="#L450">450</a>             preTz = DateTimeZone.forID(in.readSharedString());
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>             postTz = DateTimeZone.forID(in.readSharedString());
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>             preTz = DateTimeZone.forID(in.readString());
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>             postTz = DateTimeZone.forID(in.readString());
 <a class="jxr_linenumber" name="L452" href="#L452">452</a>         }
 <a class="jxr_linenumber" name="L453" href="#L453">453</a> 
 <a class="jxr_linenumber" name="L454" href="#L454">454</a>         @Override
 <a class="jxr_linenumber" name="L455" href="#L455">455</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L456" href="#L456">456</a>             out.writeVLong(interval);
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>             out.writeSharedString(preTz.getID());
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>             out.writeSharedString(postTz.getID());
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>             out.writeString(preTz.getID());
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>             out.writeString(postTz.getID());
 <a class="jxr_linenumber" name="L459" href="#L459">459</a>         }
 <a class="jxr_linenumber" name="L460" href="#L460">460</a>     }
 <a class="jxr_linenumber" name="L461" href="#L461">461</a> }

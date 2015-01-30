@@ -98,9 +98,9 @@
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_javadoccomment">     * Used to test if logging a warning in a parent node may be skipped</em>
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_javadoccomment">     * because a warning was already logged on an immediate child node.</em>
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> mParentToSkip;
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> parentToSkip;
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>      <em class="jxr_javadoccomment">/** Depth of nested assignments.  Normally this will be 0 or 1. */</em>
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> mAssignDepth;
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> assignDepth;
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>      @Override
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong>[] getDefaultTokens()
@@ -132,11 +132,11 @@
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>     }
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> 
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>     @Override
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>     {
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> type = aAST.getType();
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> surrounded = isSurrounded(aAST);
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> parent = aAST.getParent();
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> type = ast.getType();
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> surrounded = isSurrounded(ast);
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> parent = ast.getParent();
 <a class="jxr_linenumber" name="L132" href="#L132">132</a> 
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>         <strong class="jxr_keyword">if</strong> ((type == TokenTypes.ASSIGN)
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>             &amp;&amp; (parent.getType() == TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR))
@@ -147,39 +147,39 @@
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> 
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         <em class="jxr_comment">// An identifier surrounded by parentheses.</em>
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>         <strong class="jxr_keyword">if</strong> (surrounded &amp;&amp; (type == TokenTypes.IDENT)) {
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>             mParentToSkip = aAST.getParent();
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>             log(aAST, <span class="jxr_string">"unnecessary.paren.ident"</span>, aAST.getText());
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>             parentToSkip = ast.getParent();
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>             log(ast, <span class="jxr_string">"unnecessary.paren.ident"</span>, ast.getText());
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>             <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>         }
 <a class="jxr_linenumber" name="L146" href="#L146">146</a> 
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>         <em class="jxr_comment">// A literal (numeric or string) surrounded by parentheses.</em>
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         <strong class="jxr_keyword">if</strong> (surrounded &amp;&amp; inTokenList(type, LITERALS)) {
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>             mParentToSkip = aAST.getParent();
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>             parentToSkip = ast.getParent();
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>             <strong class="jxr_keyword">if</strong> (type == TokenTypes.STRING_LITERAL) {
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>                 log(aAST, <span class="jxr_string">"unnecessary.paren.string"</span>,
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>                     chopString(aAST.getText()));
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>                 log(ast, <span class="jxr_string">"unnecessary.paren.string"</span>,
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>                     chopString(ast.getText()));
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>             }
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>             <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>                 log(aAST, <span class="jxr_string">"unnecessary.paren.literal"</span>, aAST.getText());
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>                 log(ast, <span class="jxr_string">"unnecessary.paren.literal"</span>, ast.getText());
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>             }
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>             <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>         }
 <a class="jxr_linenumber" name="L159" href="#L159">159</a> 
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         <em class="jxr_comment">// The rhs of an assignment surrounded by parentheses.</em>
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>         <strong class="jxr_keyword">if</strong> (inTokenList(type, ASSIGNMENTS)) {
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>             mAssignDepth++;
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> last = aAST.getLastChild();
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>             assignDepth++;
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> last = ast.getLastChild();
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>             <strong class="jxr_keyword">if</strong> (last.getType() == TokenTypes.RPAREN) {
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>                 log(aAST, <span class="jxr_string">"unnecessary.paren.assign"</span>);
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>                 log(ast, <span class="jxr_string">"unnecessary.paren.assign"</span>);
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>             }
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>         }
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>     }
 <a class="jxr_linenumber" name="L169" href="#L169">169</a> 
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>     @Override
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> leaveToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> leaveToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>     {
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> type = aAST.getType();
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> parent = aAST.getParent();
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> type = ast.getType();
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> parent = ast.getParent();
 <a class="jxr_linenumber" name="L175" href="#L175">175</a> 
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         <strong class="jxr_keyword">if</strong> ((type == TokenTypes.ASSIGN)
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>             &amp;&amp; (parent.getType() == TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR))
@@ -191,47 +191,47 @@
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>         <em class="jxr_comment">// An expression is surrounded by parentheses.</em>
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>         <strong class="jxr_keyword">if</strong> (type == TokenTypes.EXPR) {
 <a class="jxr_linenumber" name="L185" href="#L185">185</a> 
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>             <em class="jxr_comment">// If 'mParentToSkip' == 'aAST', then we've already logged a</em>
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>             <em class="jxr_comment">// If 'parentToSkip' == 'ast', then we've already logged a</em>
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>             <em class="jxr_comment">// warning about an immediate child node in visitToken, so we don't</em>
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>             <em class="jxr_comment">// need to log another one here.</em>
 <a class="jxr_linenumber" name="L189" href="#L189">189</a> 
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>             <strong class="jxr_keyword">if</strong> ((mParentToSkip != aAST) &amp;&amp; exprSurrounded(aAST)) {
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>                 <strong class="jxr_keyword">if</strong> (mAssignDepth &gt;= 1) {
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>                     log(aAST, <span class="jxr_string">"unnecessary.paren.assign"</span>);
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>             <strong class="jxr_keyword">if</strong> ((parentToSkip != ast) &amp;&amp; exprSurrounded(ast)) {
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>                 <strong class="jxr_keyword">if</strong> (assignDepth &gt;= 1) {
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>                     log(ast, <span class="jxr_string">"unnecessary.paren.assign"</span>);
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>                 }
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>                 <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (aAST.getParent().getType()
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>                 <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (ast.getParent().getType()
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>                     == TokenTypes.LITERAL_RETURN)
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>                 {
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>                     log(aAST, <span class="jxr_string">"unnecessary.paren.return"</span>);
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>                     log(ast, <span class="jxr_string">"unnecessary.paren.return"</span>);
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>                 }
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>                 <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>                     log(aAST, <span class="jxr_string">"unnecessary.paren.expr"</span>);
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>                     log(ast, <span class="jxr_string">"unnecessary.paren.expr"</span>);
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>                 }
 <a class="jxr_linenumber" name="L202" href="#L202">202</a>             }
 <a class="jxr_linenumber" name="L203" href="#L203">203</a> 
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>             mParentToSkip = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>             parentToSkip = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L205" href="#L205">205</a>         }
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>         <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (inTokenList(type, ASSIGNMENTS)) {
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>             mAssignDepth--;
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>             assignDepth--;
 <a class="jxr_linenumber" name="L208" href="#L208">208</a>         }
 <a class="jxr_linenumber" name="L209" href="#L209">209</a> 
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>         <strong class="jxr_keyword">super</strong>.leaveToken(aAST);
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>         <strong class="jxr_keyword">super</strong>.leaveToken(ast);
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>     }
 <a class="jxr_linenumber" name="L212" href="#L212">212</a> 
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L214" href="#L214">214</a> <em class="jxr_javadoccomment">     * Tests if the given &lt;code&gt;DetailAST&lt;/code&gt; is surrounded by parentheses.</em>
-<a class="jxr_linenumber" name="L215" href="#L215">215</a> <em class="jxr_javadoccomment">     * In short, does &lt;code&gt;aAST&lt;/code&gt; have a previous sibling whose type is</em>
+<a class="jxr_linenumber" name="L215" href="#L215">215</a> <em class="jxr_javadoccomment">     * In short, does &lt;code&gt;ast&lt;/code&gt; have a previous sibling whose type is</em>
 <a class="jxr_linenumber" name="L216" href="#L216">216</a> <em class="jxr_javadoccomment">     * &lt;code&gt;TokenTypes.LPAREN&lt;/code&gt; and a next sibling whose type is &lt;code&gt;</em>
 <a class="jxr_linenumber" name="L217" href="#L217">217</a> <em class="jxr_javadoccomment">     * TokenTypes.RPAREN&lt;/code&gt;.</em>
-<a class="jxr_linenumber" name="L218" href="#L218">218</a> <em class="jxr_javadoccomment">     * @param aAST the &lt;code&gt;DetailAST&lt;/code&gt; to check if it is surrounded by</em>
+<a class="jxr_linenumber" name="L218" href="#L218">218</a> <em class="jxr_javadoccomment">     * @param ast the &lt;code&gt;DetailAST&lt;/code&gt; to check if it is surrounded by</em>
 <a class="jxr_linenumber" name="L219" href="#L219">219</a> <em class="jxr_javadoccomment">     *        parentheses.</em>
-<a class="jxr_linenumber" name="L220" href="#L220">220</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;aAST&lt;/code&gt; is surrounded by</em>
+<a class="jxr_linenumber" name="L220" href="#L220">220</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;ast&lt;/code&gt; is surrounded by</em>
 <a class="jxr_linenumber" name="L221" href="#L221">221</a> <em class="jxr_javadoccomment">     *         parentheses.</em>
 <a class="jxr_linenumber" name="L222" href="#L222">222</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isSurrounded(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isSurrounded(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>     {
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> prev = aAST.getPreviousSibling();
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> next = aAST.getNextSibling();
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> prev = ast.getPreviousSibling();
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> next = ast.getNextSibling();
 <a class="jxr_linenumber" name="L227" href="#L227">227</a> 
 <a class="jxr_linenumber" name="L228" href="#L228">228</a>         <strong class="jxr_keyword">return</strong> (prev != <strong class="jxr_keyword">null</strong>) &amp;&amp; (prev.getType() == TokenTypes.LPAREN)
 <a class="jxr_linenumber" name="L229" href="#L229">229</a>             &amp;&amp; (next != <strong class="jxr_keyword">null</strong>) &amp;&amp; (next.getType() == TokenTypes.RPAREN);
@@ -239,22 +239,22 @@
 <a class="jxr_linenumber" name="L231" href="#L231">231</a> 
 <a class="jxr_linenumber" name="L232" href="#L232">232</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L233" href="#L233">233</a> <em class="jxr_javadoccomment">     * Tests if the given expression node is surrounded by parentheses.</em>
-<a class="jxr_linenumber" name="L234" href="#L234">234</a> <em class="jxr_javadoccomment">     * @param aAST a &lt;code&gt;DetailAST&lt;/code&gt; whose type is</em>
+<a class="jxr_linenumber" name="L234" href="#L234">234</a> <em class="jxr_javadoccomment">     * @param ast a &lt;code&gt;DetailAST&lt;/code&gt; whose type is</em>
 <a class="jxr_linenumber" name="L235" href="#L235">235</a> <em class="jxr_javadoccomment">     *        &lt;code&gt;TokenTypes.EXPR&lt;/code&gt;.</em>
 <a class="jxr_linenumber" name="L236" href="#L236">236</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if the expression is surrounded by</em>
 <a class="jxr_linenumber" name="L237" href="#L237">237</a> <em class="jxr_javadoccomment">     *         parentheses.</em>
-<a class="jxr_linenumber" name="L238" href="#L238">238</a> <em class="jxr_javadoccomment">     * @throws IllegalArgumentException if &lt;code&gt;aAST.getType()&lt;/code&gt; is not</em>
+<a class="jxr_linenumber" name="L238" href="#L238">238</a> <em class="jxr_javadoccomment">     * @throws IllegalArgumentException if &lt;code&gt;ast.getType()&lt;/code&gt; is not</em>
 <a class="jxr_linenumber" name="L239" href="#L239">239</a> <em class="jxr_javadoccomment">     *         equal to &lt;code&gt;TokenTypes.EXPR&lt;/code&gt;.</em>
 <a class="jxr_linenumber" name="L240" href="#L240">240</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> exprSurrounded(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> exprSurrounded(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L242" href="#L242">242</a>     {
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>         <strong class="jxr_keyword">if</strong> (aAST.getType() != TokenTypes.EXPR) {
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>         <strong class="jxr_keyword">if</strong> (ast.getType() != TokenTypes.EXPR) {
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"Not an expression node."</span>);
 <a class="jxr_linenumber" name="L245" href="#L245">245</a>         }
 <a class="jxr_linenumber" name="L246" href="#L246">246</a>         <strong class="jxr_keyword">boolean</strong> surrounded = false;
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>         <strong class="jxr_keyword">if</strong> (aAST.getChildCount() &gt;= MIN_CHILDREN_FOR_MATCH) {
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>             <strong class="jxr_keyword">final</strong> AST n1 = aAST.getFirstChild();
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>             <strong class="jxr_keyword">final</strong> AST nn = aAST.getLastChild();
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>         <strong class="jxr_keyword">if</strong> (ast.getChildCount() &gt;= MIN_CHILDREN_FOR_MATCH) {
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>             <strong class="jxr_keyword">final</strong> AST n1 = ast.getFirstChild();
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>             <strong class="jxr_keyword">final</strong> AST nn = ast.getLastChild();
 <a class="jxr_linenumber" name="L250" href="#L250">250</a> 
 <a class="jxr_linenumber" name="L251" href="#L251">251</a>             surrounded = (n1.getType() == TokenTypes.LPAREN)
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>                 &amp;&amp; (nn.getType() == TokenTypes.RPAREN);
@@ -264,20 +264,20 @@
 <a class="jxr_linenumber" name="L256" href="#L256">256</a> 
 <a class="jxr_linenumber" name="L257" href="#L257">257</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L258" href="#L258">258</a> <em class="jxr_javadoccomment">     * Check if the given token type can be found in an array of token types.</em>
-<a class="jxr_linenumber" name="L259" href="#L259">259</a> <em class="jxr_javadoccomment">     * @param aType the token type.</em>
-<a class="jxr_linenumber" name="L260" href="#L260">260</a> <em class="jxr_javadoccomment">     * @param aTokens an array of token types to search.</em>
-<a class="jxr_linenumber" name="L261" href="#L261">261</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;aType&lt;/code&gt; was found in &lt;code&gt;</em>
-<a class="jxr_linenumber" name="L262" href="#L262">262</a> <em class="jxr_javadoccomment">     *         aTokens&lt;/code&gt;.</em>
+<a class="jxr_linenumber" name="L259" href="#L259">259</a> <em class="jxr_javadoccomment">     * @param type the token type.</em>
+<a class="jxr_linenumber" name="L260" href="#L260">260</a> <em class="jxr_javadoccomment">     * @param tokens an array of token types to search.</em>
+<a class="jxr_linenumber" name="L261" href="#L261">261</a> <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;type&lt;/code&gt; was found in &lt;code&gt;</em>
+<a class="jxr_linenumber" name="L262" href="#L262">262</a> <em class="jxr_javadoccomment">     *         tokens&lt;/code&gt;.</em>
 <a class="jxr_linenumber" name="L263" href="#L263">263</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> inTokenList(<strong class="jxr_keyword">int</strong> aType, <strong class="jxr_keyword">int</strong>[] aTokens)
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> inTokenList(<strong class="jxr_keyword">int</strong> type, <strong class="jxr_keyword">int</strong>[] tokens)
 <a class="jxr_linenumber" name="L265" href="#L265">265</a>     {
 <a class="jxr_linenumber" name="L266" href="#L266">266</a>         <em class="jxr_comment">// NOTE: Given the small size of the two arrays searched, I'm not sure</em>
 <a class="jxr_linenumber" name="L267" href="#L267">267</a>         <em class="jxr_comment">//       it's worth bothering with doing a binary search or using a</em>
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>         <em class="jxr_comment">//       HashMap to do the searches.</em>
 <a class="jxr_linenumber" name="L269" href="#L269">269</a> 
 <a class="jxr_linenumber" name="L270" href="#L270">270</a>         <strong class="jxr_keyword">boolean</strong> found = false;
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; (i &lt; aTokens.length) &amp;&amp; !found; i++) {
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>             found = aTokens[i] == aType;
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; (i &lt; tokens.length) &amp;&amp; !found; i++) {
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>             found = tokens[i] == type;
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>         }
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>         <strong class="jxr_keyword">return</strong> found;
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>     }
@@ -286,16 +286,16 @@
 <a class="jxr_linenumber" name="L278" href="#L278">278</a> <em class="jxr_javadoccomment">     * Returns the specified string chopped to &lt;code&gt;MAX_QUOTED_LENGTH&lt;/code&gt;</em>
 <a class="jxr_linenumber" name="L279" href="#L279">279</a> <em class="jxr_javadoccomment">     * plus an ellipsis (...) if the length of the string exceeds &lt;code&gt;</em>
 <a class="jxr_linenumber" name="L280" href="#L280">280</a> <em class="jxr_javadoccomment">     * MAX_QUOTED_LENGTH&lt;/code&gt;.</em>
-<a class="jxr_linenumber" name="L281" href="#L281">281</a> <em class="jxr_javadoccomment">     * @param aString the string to potentially chop.</em>
-<a class="jxr_linenumber" name="L282" href="#L282">282</a> <em class="jxr_javadoccomment">     * @return the chopped string if &lt;code&gt;aString&lt;/code&gt; is longer than</em>
-<a class="jxr_linenumber" name="L283" href="#L283">283</a> <em class="jxr_javadoccomment">     *         &lt;code&gt;MAX_QUOTED_LENGTH&lt;/code&gt;; otherwise &lt;code&gt;aString&lt;/code&gt;.</em>
+<a class="jxr_linenumber" name="L281" href="#L281">281</a> <em class="jxr_javadoccomment">     * @param string the string to potentially chop.</em>
+<a class="jxr_linenumber" name="L282" href="#L282">282</a> <em class="jxr_javadoccomment">     * @return the chopped string if &lt;code&gt;string&lt;/code&gt; is longer than</em>
+<a class="jxr_linenumber" name="L283" href="#L283">283</a> <em class="jxr_javadoccomment">     *         &lt;code&gt;MAX_QUOTED_LENGTH&lt;/code&gt;; otherwise &lt;code&gt;string&lt;/code&gt;.</em>
 <a class="jxr_linenumber" name="L284" href="#L284">284</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L285" href="#L285">285</a>     <strong class="jxr_keyword">private</strong> String chopString(String aString)
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>     <strong class="jxr_keyword">private</strong> String chopString(String string)
 <a class="jxr_linenumber" name="L286" href="#L286">286</a>     {
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>         <strong class="jxr_keyword">if</strong> (aString.length() &gt; MAX_QUOTED_LENGTH) {
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>             <strong class="jxr_keyword">return</strong> aString.substring(0, MAX_QUOTED_LENGTH) + <span class="jxr_string">"...\&quot;"</span>;
+<a class="jxr_linenumber" name="L287" href="#L287">287</a>         <strong class="jxr_keyword">if</strong> (string.length() &gt; MAX_QUOTED_LENGTH) {
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>             <strong class="jxr_keyword">return</strong> string.substring(0, MAX_QUOTED_LENGTH) + <span class="jxr_string">"...\&quot;"</span>;
 <a class="jxr_linenumber" name="L289" href="#L289">289</a>         }
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>         <strong class="jxr_keyword">return</strong> aString;
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>         <strong class="jxr_keyword">return</strong> string;
 <a class="jxr_linenumber" name="L291" href="#L291">291</a>     }
 <a class="jxr_linenumber" name="L292" href="#L292">292</a> }
 </pre>

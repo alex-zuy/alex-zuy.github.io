@@ -66,7 +66,7 @@
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>      }
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      @Test
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testCustomMessage() <strong class="jxr_keyword">throws</strong> CheckstyleException
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testCustomMessage() <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      {
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          <a href="../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> config = createCheckConfig(emptyCheck.getClass());
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          config.addMessage(<span class="jxr_string">"msgKey"</span>, <span class="jxr_string">"This is a custom message."</span>);
@@ -84,7 +84,7 @@
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>      }
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      @Test
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testCustomMessageWithParameters() <strong class="jxr_keyword">throws</strong> CheckstyleException
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testCustomMessageWithParameters() <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      {
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>          <a href="../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> config = createCheckConfig(emptyCheck.getClass());
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          config.addMessage(<span class="jxr_string">"msgKey"</span>, <span class="jxr_string">"This is a custom message with {0}."</span>);
@@ -103,7 +103,7 @@
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>      }
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>      @Test(expected = IllegalArgumentException.<strong class="jxr_keyword">class</strong>)
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testCustomMessageWithParametersNegative() <strong class="jxr_keyword">throws</strong> CheckstyleException
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testCustomMessageWithParametersNegative() <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>      {
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>         <a href="../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> config = createCheckConfig(emptyCheck.getClass());
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>         config.addMessage(<span class="jxr_string">"msgKey"</span>, <span class="jxr_string">"This is a custom message {0."</span>);

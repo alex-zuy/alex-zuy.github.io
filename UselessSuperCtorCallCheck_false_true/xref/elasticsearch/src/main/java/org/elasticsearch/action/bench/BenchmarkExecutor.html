@@ -215,7 +215,7 @@
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>     }
 <a class="jxr_linenumber" name="L208" href="#L208">208</a> 
 <a class="jxr_linenumber" name="L209" href="#L209">209</a>     <strong class="jxr_keyword">private</strong> List&lt;String&gt; warmUp(<a href="../../../../org/elasticsearch/action/bench/BenchmarkCompetitor.html">BenchmarkCompetitor</a> competitor, List&lt;SearchRequest&gt; searchRequests, <a href="../../../../org/elasticsearch/action/bench/BenchmarkExecutor.html">StoppableSemaphore</a> stoppableSemaphore)
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>             <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>             <strong class="jxr_keyword">throws</strong> <a href="../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/action/bench/BenchmarkExecutor.html">StoppableSemaphore</a> semaphore = stoppableSemaphore.reset(competitor.settings().concurrency());
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>         <strong class="jxr_keyword">final</strong> CountDownLatch totalCount = <strong class="jxr_keyword">new</strong> CountDownLatch(searchRequests.size());
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>         <strong class="jxr_keyword">final</strong> CopyOnWriteArrayList&lt;String&gt; errorMessages = <strong class="jxr_keyword">new</strong> CopyOnWriteArrayList&lt;&gt;();
@@ -425,7 +425,7 @@
 <a class="jxr_linenumber" name="L417" href="#L417">417</a> 
 <a class="jxr_linenumber" name="L418" href="#L418">418</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> acquire() <strong class="jxr_keyword">throws</strong> InterruptedException {
 <a class="jxr_linenumber" name="L419" href="#L419">419</a>             <strong class="jxr_keyword">if</strong> (stopped) {
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> InterruptedException(<span class="jxr_string">"Benchmark Interrupted"</span>);
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../java/lang/InterruptedException.html">InterruptedException</a>(<span class="jxr_string">"Benchmark Interrupted"</span>);
 <a class="jxr_linenumber" name="L421" href="#L421">421</a>             }
 <a class="jxr_linenumber" name="L422" href="#L422">422</a>             semaphore.acquire();
 <a class="jxr_linenumber" name="L423" href="#L423">423</a>         }

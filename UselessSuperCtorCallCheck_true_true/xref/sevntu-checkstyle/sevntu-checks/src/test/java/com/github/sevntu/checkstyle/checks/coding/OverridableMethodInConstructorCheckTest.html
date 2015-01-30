@@ -39,9 +39,9 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  {
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String mCtorKey = <span class="jxr_string">"constructor"</span>;
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String mCloneKey = <span class="jxr_string">"'clone()' method"</span>;
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String mReadObjectKey = <span class="jxr_string">"'readObject()' method"</span>;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String ctorKey = <span class="jxr_string">"constructor"</span>;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String cloneKey = <span class="jxr_string">"'clone()' method"</span>;
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String readObjectKey = <span class="jxr_string">"'readObject()' method"</span>;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      @Before
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setTestinputsDir()
@@ -56,7 +56,7 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      {
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          String[] expected = {
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>          	<span class="jxr_string">"11:17: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"init"</span>, mCtorKey, <span class="jxr_string">"getPart"</span>), 
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>          	<span class="jxr_string">"11:17: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"init"</span>, ctorKey, <span class="jxr_string">"getPart"</span>), 
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>          	};
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>          verify(checkConfig, getPath(<span class="jxr_string">"InputOverridableMethodInConstructor26.java"</span>), expected);
@@ -67,8 +67,8 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      {
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>          String[] expected = {
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          	<span class="jxr_string">"14:27: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"overrideMe"</span>, mCtorKey),
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>         		<span class="jxr_string">"15:21: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"init"</span>, mCtorKey),
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          	<span class="jxr_string">"14:27: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"overrideMe"</span>, ctorKey),
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>         		<span class="jxr_string">"15:21: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"init"</span>, ctorKey),
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>              };
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          verify(checkConfig, getPath(<span class="jxr_string">"InputOverridableMethodInConstructor27.java"</span>), expected);
@@ -88,7 +88,7 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      {
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          String[] expected = {
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>          	<span class="jxr_string">"10:27: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"overrideMe"</span>, mCtorKey),
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>          	<span class="jxr_string">"10:27: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"overrideMe"</span>, ctorKey),
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          	};
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>          verify(checkConfig, getPath(<span class="jxr_string">"InputOverridableMethodInConstructor2.java"</span>), expected);
@@ -98,8 +98,8 @@
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> test2WarningsIn2Ctors() <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>      {
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          String[] expected = {
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>          	<span class="jxr_string">"10:27: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"overrideMe"</span>, mCtorKey),
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>          	<span class="jxr_string">"15:27: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"overrideMe"</span>, mCtorKey),
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>          	<span class="jxr_string">"10:27: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"overrideMe"</span>, ctorKey),
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          	<span class="jxr_string">"15:27: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"overrideMe"</span>, ctorKey),
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>              };
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>          verify(checkConfig, getPath(<span class="jxr_string">"InputOverridableMethodInConstructor3.java"</span>), expected);
@@ -110,7 +110,7 @@
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>     {
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> 
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>         String[] expected = {
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>         		<span class="jxr_string">"10:32: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"overrideMe"</span>, mCtorKey, <span class="jxr_string">"overrideMe2"</span>),
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>         		<span class="jxr_string">"10:32: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"overrideMe"</span>, ctorKey, <span class="jxr_string">"overrideMe2"</span>),
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>                 };
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         verify(checkConfig, getPath(<span class="jxr_string">"InputOverridableMethodInConstructor4.java"</span>), expected);
@@ -121,8 +121,8 @@
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>     {
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> 
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>         String[] expected = {
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>         	<span class="jxr_string">"10:32: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"overrideMe"</span>, mCtorKey, <span class="jxr_string">"overrideMe3"</span>),
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>         	<span class="jxr_string">"11:27: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"overrideMe"</span>, mCtorKey, <span class="jxr_string">"overrideMe3"</span>),
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>         	<span class="jxr_string">"10:32: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"overrideMe"</span>, ctorKey, <span class="jxr_string">"overrideMe3"</span>),
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>         	<span class="jxr_string">"11:27: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"overrideMe"</span>, ctorKey, <span class="jxr_string">"overrideMe3"</span>),
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>             };
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> 
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>         verify(checkConfig, getPath(<span class="jxr_string">"InputOverridableMethodInConstructor5.java"</span>), expected);
@@ -151,8 +151,8 @@
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>     {
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> 
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>         String[] expected = {
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>         	<span class="jxr_string">"20:37: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, mCloneKey),
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>         	<span class="jxr_string">"37:37: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, mCloneKey),
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>         	<span class="jxr_string">"20:37: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, cloneKey),
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>         	<span class="jxr_string">"37:37: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, cloneKey),
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>             };
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> 
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>         verify(checkConfig, getPath(<span class="jxr_string">"InputOverridableMethodInConstructor8.java"</span>), expected);
@@ -163,8 +163,8 @@
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>     {
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> 
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>         String[] expected = {
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>         	<span class="jxr_string">"25:37: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"doSmth"</span>, mCloneKey, <span class="jxr_string">"doSmth2"</span>),
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>         	<span class="jxr_string">"26:20: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth2"</span>, mCloneKey),
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>         	<span class="jxr_string">"25:37: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"doSmth"</span>, cloneKey, <span class="jxr_string">"doSmth2"</span>),
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>         	<span class="jxr_string">"26:20: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth2"</span>, cloneKey),
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>             };
 <a class="jxr_linenumber" name="L161" href="#L161">161</a> 
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>         verify(checkConfig, getPath(<span class="jxr_string">"InputOverridableMethodInConstructor9.java"</span>), expected);
@@ -175,10 +175,10 @@
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>     {
 <a class="jxr_linenumber" name="L168" href="#L168">168</a> 
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>         String[] expected = {
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>         	<span class="jxr_string">"25:37: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, mCloneKey),
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>         	<span class="jxr_string">"26:19: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"accept"</span>, mCloneKey),
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>         	<span class="jxr_string">"27:24: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"accept"</span>, mCloneKey),
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>         	<span class="jxr_string">"62:37: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, mCloneKey),
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>         	<span class="jxr_string">"25:37: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, cloneKey),
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>         	<span class="jxr_string">"26:19: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"accept"</span>, cloneKey),
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>         	<span class="jxr_string">"27:24: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"accept"</span>, cloneKey),
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>         	<span class="jxr_string">"62:37: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, cloneKey),
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>             };
 <a class="jxr_linenumber" name="L175" href="#L175">175</a> 
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         verify(checkConfig, getPath(<span class="jxr_string">"InputOverridableMethodInConstructor13.java"</span>), expected);
@@ -198,7 +198,7 @@
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>     {
 <a class="jxr_linenumber" name="L191" href="#L191">191</a> 
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>         String[] expected = {
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>         	<span class="jxr_string">"31:20: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, mReadObjectKey),
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>         	<span class="jxr_string">"31:20: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, readObjectKey),
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>         	};
 <a class="jxr_linenumber" name="L195" href="#L195">195</a> 
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>         verify(checkConfig, getPath(<span class="jxr_string">"InputOverridableMethodInConstructor11.java"</span>), expected);
@@ -220,15 +220,15 @@
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>     {
 <a class="jxr_linenumber" name="L213" href="#L213">213</a> 
 <a class="jxr_linenumber" name="L214" href="#L214">214</a>         String[] expected = {
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>         	<span class="jxr_string">"34:20: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, mReadObjectKey),
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>         	<span class="jxr_string">"60:19: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, mReadObjectKey),
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>         	<span class="jxr_string">"61:24: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, mReadObjectKey),
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>         	<span class="jxr_string">"62:20: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"doSmth2"</span>, mReadObjectKey, <span class="jxr_string">"doSmth"</span>),
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>         	<span class="jxr_string">"63:25: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"doSmth2"</span>, mReadObjectKey, <span class="jxr_string">"doSmth"</span>),
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>         	<span class="jxr_string">"77:23: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, mReadObjectKey),
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>         	<span class="jxr_string">"78:28: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, mReadObjectKey),
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>         	<span class="jxr_string">"80:24: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"doSmth2"</span>, mReadObjectKey, <span class="jxr_string">"doSmth"</span>),
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>         	<span class="jxr_string">"81:29: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"doSmth2"</span>, mReadObjectKey, <span class="jxr_string">"doSmth"</span>),
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>         	<span class="jxr_string">"34:20: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, readObjectKey),
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>         	<span class="jxr_string">"60:19: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, readObjectKey),
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>         	<span class="jxr_string">"61:24: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, readObjectKey),
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>         	<span class="jxr_string">"62:20: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"doSmth2"</span>, readObjectKey, <span class="jxr_string">"doSmth"</span>),
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>         	<span class="jxr_string">"63:25: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"doSmth2"</span>, readObjectKey, <span class="jxr_string">"doSmth"</span>),
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>         	<span class="jxr_string">"77:23: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, readObjectKey),
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>         	<span class="jxr_string">"78:28: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, readObjectKey),
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>         	<span class="jxr_string">"80:24: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"doSmth2"</span>, readObjectKey, <span class="jxr_string">"doSmth"</span>),
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>         	<span class="jxr_string">"81:29: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"doSmth2"</span>, readObjectKey, <span class="jxr_string">"doSmth"</span>),
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>             };
 <a class="jxr_linenumber" name="L225" href="#L225">225</a> 
 <a class="jxr_linenumber" name="L226" href="#L226">226</a>         verify(checkConfig, getPath(<span class="jxr_string">"InputOverridableMethodInConstructor14.java"</span>), expected);
@@ -257,7 +257,7 @@
 <a class="jxr_linenumber" name="L249" href="#L249">249</a>     {
 <a class="jxr_linenumber" name="L250" href="#L250">250</a> 
 <a class="jxr_linenumber" name="L251" href="#L251">251</a>         String[] expected = {
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>         	<span class="jxr_string">"17:32: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, mReadObjectKey),
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>         	<span class="jxr_string">"17:32: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"doSmth"</span>, readObjectKey),
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>         	};
 <a class="jxr_linenumber" name="L254" href="#L254">254</a> 
 <a class="jxr_linenumber" name="L255" href="#L255">255</a>         verify(checkConfig, getPath(<span class="jxr_string">"InputOverridableMethodInConstructor17.java"</span>), expected);
@@ -304,7 +304,7 @@
 <a class="jxr_linenumber" name="L296" href="#L296">296</a>     {
 <a class="jxr_linenumber" name="L297" href="#L297">297</a> 
 <a class="jxr_linenumber" name="L298" href="#L298">298</a>         String[] expected = {
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>         	<span class="jxr_string">"5:15: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"doSMTH"</span>, mCtorKey, <span class="jxr_string">"doPublic"</span>),
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>         	<span class="jxr_string">"5:15: "</span> + getCheckMessage(MSG_KEY_LEADS, <span class="jxr_string">"doSMTH"</span>, ctorKey, <span class="jxr_string">"doPublic"</span>),
 <a class="jxr_linenumber" name="L300" href="#L300">300</a>         	};
 <a class="jxr_linenumber" name="L301" href="#L301">301</a> 
 <a class="jxr_linenumber" name="L302" href="#L302">302</a>         verify(checkConfig, getPath(<span class="jxr_string">"InputOverridableMethodInConstructor22.java"</span>), expected);
@@ -324,7 +324,7 @@
 <a class="jxr_linenumber" name="L316" href="#L316">316</a>     {
 <a class="jxr_linenumber" name="L317" href="#L317">317</a> 
 <a class="jxr_linenumber" name="L318" href="#L318">318</a>         String[] expected = {
-<a class="jxr_linenumber" name="L319" href="#L319">319</a>         	<span class="jxr_string">"11:22: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"buildGetter"</span>, mCtorKey),
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>         	<span class="jxr_string">"11:22: "</span> + getCheckMessage(MSG_KEY, <span class="jxr_string">"buildGetter"</span>, ctorKey),
 <a class="jxr_linenumber" name="L320" href="#L320">320</a>         	};
 <a class="jxr_linenumber" name="L321" href="#L321">321</a> 
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>         verify(checkConfig, getPath(<span class="jxr_string">"InputOverridableMethodInConstructor24.java"</span>), expected);

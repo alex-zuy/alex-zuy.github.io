@@ -48,14 +48,14 @@
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">     * Construct an instance of this handler with the given indentation check,</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">     * abstract syntax tree, and parent handler.</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">     * @param aIndentCheck   the indentation check</em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     * @param aExpr          the abstract syntax tree</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">     * @param aParent        the parent handler</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">     * @param indentCheck   the indentation check</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     * @param expr          the abstract syntax tree</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">     * @param parent        the parent handler</em>
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/CaseHandler.html">CaseHandler</a>(<a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/IndentationCheck.html">IndentationCheck</a> aIndentCheck,
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>          <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aExpr, <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/ExpressionHandler.html">ExpressionHandler</a> aParent)
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/CaseHandler.html">CaseHandler</a>(<a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/IndentationCheck.html">IndentationCheck</a> indentCheck,
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>          <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> expr, <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/ExpressionHandler.html">ExpressionHandler</a> parent)
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      {
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">super</strong>(aIndentCheck, <span class="jxr_string">"case"</span>, aExpr, aParent);
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">super</strong>(indentCheck, <span class="jxr_string">"case"</span>, expr, parent);
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      }
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      @Override
@@ -74,7 +74,7 @@
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      }
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      @Override
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/IndentLevel.html">IndentLevel</a> suggestedChildLevel(<a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/ExpressionHandler.html">ExpressionHandler</a> aChild)
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/IndentLevel.html">IndentLevel</a> suggestedChildLevel(<a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/indentation/ExpressionHandler.html">ExpressionHandler</a> child)
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      {
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          <strong class="jxr_keyword">return</strong> getLevel();
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>      }

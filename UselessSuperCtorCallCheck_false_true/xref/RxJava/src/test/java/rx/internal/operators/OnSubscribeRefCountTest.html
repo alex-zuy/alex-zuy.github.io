@@ -70,7 +70,7 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testRefCountAsync() {
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          <strong class="jxr_keyword">final</strong> <a href="../../../java/util/concurrent/atomic/AtomicInteger.html">AtomicInteger</a> subscribeCount = <strong class="jxr_keyword">new</strong> <a href="../../../java/util/concurrent/atomic/AtomicInteger.html">AtomicInteger</a>();
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">final</strong> <a href="../../../java/util/concurrent/atomic/AtomicInteger.html">AtomicInteger</a> nextCount = <strong class="jxr_keyword">new</strong> <a href="../../../java/util/concurrent/atomic/AtomicInteger.html">AtomicInteger</a>();
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          Observable&lt;Long&gt; r = Observable.timer(0, 1, TimeUnit.MILLISECONDS)
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          Observable&lt;Long&gt; r = Observable.timer(0, 5, TimeUnit.MILLISECONDS)
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>                  .doOnSubscribe(<strong class="jxr_keyword">new</strong> <a href="../../../rx/functions/Action0.html">Action0</a>() {
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>                      @Override
@@ -102,7 +102,7 @@
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>          <em class="jxr_comment">// give time to emit</em>
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>              Thread.sleep(50);
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>              Thread.sleep(52);
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          } <strong class="jxr_keyword">catch</strong> (InterruptedException e) {
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>          }
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> 

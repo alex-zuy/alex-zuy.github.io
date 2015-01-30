@@ -202,7 +202,7 @@
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>     <strong class="jxr_keyword">if</strong> (expectedSize &lt; Ints.MAX_POWER_OF_TWO) {
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>       <em class="jxr_comment">// This is the calculation used in JDK8 to resize when a putAll</em>
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>       <em class="jxr_comment">// happens; it seems to be the most conservative calculation we</em>
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>       <em class="jxr_comment">// can make.  0,75 is the default load factor.</em>
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>       <em class="jxr_comment">// can make.  0.75 is the default load factor.</em>
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>       <strong class="jxr_keyword">return</strong> (<strong class="jxr_keyword">int</strong>) ((<strong class="jxr_keyword">float</strong>) expectedSize / 0.75F + 1.0F);
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>     }
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>     <strong class="jxr_keyword">return</strong> Integer.MAX_VALUE; <em class="jxr_comment">// any large value</em>

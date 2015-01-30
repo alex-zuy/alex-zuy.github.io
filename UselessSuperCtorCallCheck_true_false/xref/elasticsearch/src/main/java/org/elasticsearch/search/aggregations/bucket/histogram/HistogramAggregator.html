@@ -67,10 +67,10 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/histogram/HistogramAggregator.html">HistogramAggregator</a>(String name, <a href="../../../../../../org/elasticsearch/search/aggregations/AggregatorFactories.html">AggregatorFactories</a> factories, <a href="../../../../../../org/elasticsearch/common/rounding/Rounding.html">Rounding</a> rounding, <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/histogram/InternalOrder.html">InternalOrder</a> order,
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>                                 <strong class="jxr_keyword">boolean</strong> keyed, <strong class="jxr_keyword">long</strong> minDocCount, @Nullable <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/histogram/ExtendedBounds.html">ExtendedBounds</a> extendedBounds,
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>                                 @Nullable ValuesSource.Numeric valuesSource, @Nullable <a href="../../../../../../org/elasticsearch/search/aggregations/support/format/ValueFormatter.html">ValueFormatter</a> formatter,
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>                                 <strong class="jxr_keyword">long</strong> initialCapacity, InternalHistogram.Factory&lt;?&gt; histogramFactory,
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>                                 <a href="../../../../../../org/elasticsearch/search/aggregations/support/AggregationContext.html">AggregationContext</a> aggregationContext, <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> parent, Map&lt;String, Object&gt; metaData) {
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>                                 InternalHistogram.Factory&lt;?&gt; histogramFactory,
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>                                 <a href="../../../../../../org/elasticsearch/search/aggregations/support/AggregationContext.html">AggregationContext</a> aggregationContext, <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> parent, Map&lt;String, Object&gt; metaData) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">super</strong>(name, BucketAggregationMode.PER_BUCKET, factories, initialCapacity, aggregationContext, parent, metaData);
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">super</strong>(name, factories, aggregationContext, parent, metaData);
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">this</strong>.rounding = rounding;
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">this</strong>.order = order;
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          <strong class="jxr_keyword">this</strong>.keyed = keyed;
@@ -80,7 +80,7 @@
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">this</strong>.formatter = formatter;
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          <strong class="jxr_keyword">this</strong>.histogramFactory = histogramFactory;
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>          bucketOrds = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/common/util/LongHash.html">LongHash</a>(initialCapacity, aggregationContext.bigArrays());
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          bucketOrds = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/common/util/LongHash.html">LongHash</a>(1, aggregationContext.bigArrays());
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>      }
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      @Override
@@ -119,7 +119,7 @@
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>     }
 <a class="jxr_linenumber" name="L112" href="#L112">112</a> 
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>     @Override
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/InternalAggregation.html">InternalAggregation</a> buildAggregation(<strong class="jxr_keyword">long</strong> owningBucketOrdinal) {
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/InternalAggregation.html">InternalAggregation</a> buildAggregation(<strong class="jxr_keyword">long</strong> owningBucketOrdinal) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>         assert owningBucketOrdinal == 0;
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>         List&lt;InternalHistogram.Bucket&gt; buckets = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;((<strong class="jxr_keyword">int</strong>) bucketOrds.size());
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">long</strong> i = 0; i &lt; bucketOrds.size(); i++) {
@@ -131,13 +131,13 @@
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> 
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>         <em class="jxr_comment">// value source will be null for unmapped fields</em>
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         InternalHistogram.EmptyBucketInfo emptyBucketInfo = minDocCount == 0 ? <strong class="jxr_keyword">new</strong> InternalHistogram.EmptyBucketInfo(rounding, buildEmptySubAggregations(), extendedBounds) : <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>         <strong class="jxr_keyword">return</strong> histogramFactory.create(name, buckets, order, minDocCount, emptyBucketInfo, formatter, keyed, getMetaData());
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>         <strong class="jxr_keyword">return</strong> histogramFactory.create(name, buckets, order, minDocCount, emptyBucketInfo, formatter, keyed, metaData());
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>     }
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> 
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>     @Override
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/InternalAggregation.html">InternalAggregation</a> buildEmptyAggregation() {
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>         InternalHistogram.EmptyBucketInfo emptyBucketInfo = minDocCount == 0 ? <strong class="jxr_keyword">new</strong> InternalHistogram.EmptyBucketInfo(rounding, buildEmptySubAggregations(), extendedBounds) : <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>         <strong class="jxr_keyword">return</strong> histogramFactory.create(name, Collections.emptyList(), order, minDocCount, emptyBucketInfo, formatter, keyed, getMetaData());
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>         <strong class="jxr_keyword">return</strong> histogramFactory.create(name, Collections.emptyList(), order, minDocCount, emptyBucketInfo, formatter, keyed, metaData());
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>     }
 <a class="jxr_linenumber" name="L134" href="#L134">134</a> 
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>     @Override
@@ -145,7 +145,7 @@
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>         Releasables.close(bucketOrds);
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>     }
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> 
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/elasticsearch/common/util/BloomFilter.html">Factory</a> <strong class="jxr_keyword">extends</strong> ValuesSourceAggregatorFactory&lt;ValuesSource.Numeric, Map&lt;String, Object&gt;&gt; {
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/elasticsearch/common/util/BloomFilter.html">Factory</a> <strong class="jxr_keyword">extends</strong> ValuesSourceAggregatorFactory&lt;ValuesSource.Numeric&gt; {
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> 
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../org/elasticsearch/common/rounding/Rounding.html">Rounding</a> rounding;
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/histogram/InternalOrder.html">InternalOrder</a> order;
@@ -168,32 +168,29 @@
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         }
 <a class="jxr_linenumber" name="L161" href="#L161">161</a> 
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>         @Override
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>         <strong class="jxr_keyword">protected</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> createUnmapped(<a href="../../../../../../org/elasticsearch/search/aggregations/support/AggregationContext.html">AggregationContext</a> aggregationContext, <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> parent, Map&lt;String, Object&gt; metaData) {
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/histogram/HistogramAggregator.html">HistogramAggregator</a>(name, factories, rounding, order, keyed, minDocCount, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, config.formatter(), 0, histogramFactory, aggregationContext, parent, metaData);
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>         <strong class="jxr_keyword">protected</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> createUnmapped(<a href="../../../../../../org/elasticsearch/search/aggregations/support/AggregationContext.html">AggregationContext</a> aggregationContext, <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> parent, Map&lt;String, Object&gt; metaData) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/histogram/HistogramAggregator.html">HistogramAggregator</a>(name, factories, rounding, order, keyed, minDocCount, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, config.formatter(), histogramFactory, aggregationContext, parent, metaData);
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>         }
 <a class="jxr_linenumber" name="L166" href="#L166">166</a> 
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>         @Override
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>         <strong class="jxr_keyword">protected</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> create(ValuesSource.Numeric valuesSource, <strong class="jxr_keyword">long</strong> expectedBucketsCount, <a href="../../../../../../org/elasticsearch/search/aggregations/support/AggregationContext.html">AggregationContext</a> aggregationContext, <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> parent, Map&lt;String, Object&gt; metaData) {
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>             <em class="jxr_comment">// todo if we'll keep track of min/max values in IndexFieldData, we could use the max here to come up with a better estimation for the buckets count</em>
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>             <strong class="jxr_keyword">long</strong> estimatedBucketCount = 50;
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>             <strong class="jxr_keyword">if</strong> (hasParentBucketAggregator(parent)) {
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>                 estimatedBucketCount = 8;
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>             }
-<a class="jxr_linenumber" name="L174" href="#L174">174</a> 
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>             <em class="jxr_comment">// we need to round the bounds given by the user and we have to do it for every aggregator we crate</em>
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>             <em class="jxr_comment">// as the rounding is not necessarily an idempotent operation.</em>
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>             <em class="jxr_comment">// todo we need to think of a better structure to the factory/agtor code so we won't need to do that</em>
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>             <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/histogram/ExtendedBounds.html">ExtendedBounds</a> roundedBounds = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>             <strong class="jxr_keyword">if</strong> (extendedBounds != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>                 <em class="jxr_comment">// we need to process &amp; validate here using the parser</em>
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>                 extendedBounds.processAndValidate(name, aggregationContext.searchContext(), config.parser());
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>                 roundedBounds = extendedBounds.round(rounding);
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>             }
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/histogram/HistogramAggregator.html">HistogramAggregator</a>(name, factories, rounding, order, keyed, minDocCount, roundedBounds, valuesSource, config.formatter(), estimatedBucketCount, histogramFactory, aggregationContext, parent, metaData);
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>         }
-<a class="jxr_linenumber" name="L186" href="#L186">186</a> 
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>     }
-<a class="jxr_linenumber" name="L188" href="#L188">188</a> }
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>         <strong class="jxr_keyword">protected</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> doCreateInternal(ValuesSource.Numeric valuesSource, <a href="../../../../../../org/elasticsearch/search/aggregations/support/AggregationContext.html">AggregationContext</a> aggregationContext, <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> parent, <strong class="jxr_keyword">boolean</strong> collectsFromSingleBucket, Map&lt;String, Object&gt; metaData) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>             <strong class="jxr_keyword">if</strong> (collectsFromSingleBucket == false) {
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>                 <strong class="jxr_keyword">return</strong> asMultiBucketAggregator(<strong class="jxr_keyword">this</strong>, aggregationContext, parent);
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>             }
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>             <em class="jxr_comment">// we need to round the bounds given by the user and we have to do it for every aggregator we crate</em>
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>             <em class="jxr_comment">// as the rounding is not necessarily an idempotent operation.</em>
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>             <em class="jxr_comment">// todo we need to think of a better structure to the factory/agtor code so we won't need to do that</em>
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>             <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/histogram/ExtendedBounds.html">ExtendedBounds</a> roundedBounds = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>             <strong class="jxr_keyword">if</strong> (extendedBounds != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>                 <em class="jxr_comment">// we need to process &amp; validate here using the parser</em>
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>                 extendedBounds.processAndValidate(name, aggregationContext.searchContext(), config.parser());
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>                 roundedBounds = extendedBounds.round(rounding);
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>             }
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/histogram/HistogramAggregator.html">HistogramAggregator</a>(name, factories, rounding, order, keyed, minDocCount, roundedBounds, valuesSource, config.formatter(), histogramFactory, aggregationContext, parent, metaData);
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>         }
+<a class="jxr_linenumber" name="L183" href="#L183">183</a> 
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>     }
+<a class="jxr_linenumber" name="L185" href="#L185">185</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015. All rights reserved.</div>

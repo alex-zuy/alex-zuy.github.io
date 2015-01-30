@@ -55,7 +55,7 @@
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>          <a href="../../../../../org/elasticsearch/index/mapper/ParsedDocument.html">ParsedDocument</a> doc = docMapper.parse(SourceToParse.source(source).type(<span class="jxr_string">"type"</span>).id(<span class="jxr_string">"1"</span>));
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          assertThat(doc.rootDoc().getField(<span class="jxr_string">"_size"</span>).fieldType().stored(), equalTo(false));
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          assertThat(doc.rootDoc().getField(<span class="jxr_string">"_size"</span>).tokenStream(docMapper.indexAnalyzer(), <strong class="jxr_keyword">null</strong>), notNullValue());
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          assertThat(doc.rootDoc().getField(<span class="jxr_string">"_size"</span>).tokenStream(docMapper.mappers().indexAnalyzer(), <strong class="jxr_keyword">null</strong>), notNullValue());
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      }
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      @Test
@@ -73,7 +73,7 @@
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <a href="../../../../../org/elasticsearch/index/mapper/ParsedDocument.html">ParsedDocument</a> doc = docMapper.parse(SourceToParse.source(source).type(<span class="jxr_string">"type"</span>).id(<span class="jxr_string">"1"</span>));
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          assertThat(doc.rootDoc().getField(<span class="jxr_string">"_size"</span>).fieldType().stored(), equalTo(<strong class="jxr_keyword">true</strong>));
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          assertThat(doc.rootDoc().getField(<span class="jxr_string">"_size"</span>).tokenStream(docMapper.indexAnalyzer(), <strong class="jxr_keyword">null</strong>), notNullValue());
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          assertThat(doc.rootDoc().getField(<span class="jxr_string">"_size"</span>).tokenStream(docMapper.mappers().indexAnalyzer(), <strong class="jxr_keyword">null</strong>), notNullValue());
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>      }
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>      @Test

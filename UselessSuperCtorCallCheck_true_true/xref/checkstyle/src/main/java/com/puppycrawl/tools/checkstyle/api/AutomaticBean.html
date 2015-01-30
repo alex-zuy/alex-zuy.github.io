@@ -57,7 +57,7 @@
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">implements</strong> Configurable, <a href="../../../../../com/puppycrawl/tools/checkstyle/api/Contextualizable.html">Contextualizable</a>
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  {
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      <em class="jxr_javadoccomment">/** the configuration of this bean */</em>
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/api/Configuration.html">Configuration</a> mConfiguration;
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/api/Configuration.html">Configuration</a> configuration;
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>      <em class="jxr_javadoccomment">/**</em>
@@ -121,25 +121,25 @@
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_javadoccomment">     * is called to allow completion of the bean's local setup,</em>
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> <em class="jxr_javadoccomment">     * after that the method {@link #setupChild setupChild}</em>
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> <em class="jxr_javadoccomment">     * is called for each {@link Configuration#getChildren child Configuration}</em>
-<a class="jxr_linenumber" name="L116" href="#L116">116</a> <em class="jxr_javadoccomment">     * of &lt;code&gt;aConfiguration&lt;/code&gt;.</em>
+<a class="jxr_linenumber" name="L116" href="#L116">116</a> <em class="jxr_javadoccomment">     * of &lt;code&gt;configuration&lt;/code&gt;.</em>
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L118" href="#L118">118</a> <em class="jxr_javadoccomment">     * @param aConfiguration {@inheritDoc}</em>
+<a class="jxr_linenumber" name="L118" href="#L118">118</a> <em class="jxr_javadoccomment">     * @param configuration {@inheritDoc}</em>
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> <em class="jxr_javadoccomment">     * @throws CheckstyleException {@inheritDoc}</em>
 <a class="jxr_linenumber" name="L120" href="#L120">120</a> <em class="jxr_javadoccomment">     * @see Configurable</em>
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>     @Override
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> configure(<a href="../../../../../com/puppycrawl/tools/checkstyle/api/Configuration.html">Configuration</a> aConfiguration)
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> configure(<a href="../../../../../com/puppycrawl/tools/checkstyle/api/Configuration.html">Configuration</a> configuration)
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>         <strong class="jxr_keyword">throws</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/api/CheckstyleException.html">CheckstyleException</a>
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>     {
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>         mConfiguration = aConfiguration;
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>         <strong class="jxr_keyword">this</strong>.configuration = configuration;
 <a class="jxr_linenumber" name="L127" href="#L127">127</a> 
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>         <strong class="jxr_keyword">final</strong> BeanUtilsBean beanUtils = createBeanUtilsBean();
 <a class="jxr_linenumber" name="L129" href="#L129">129</a> 
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>         <em class="jxr_comment">// TODO: debug log messages</em>
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">final</strong> String[] attributes = aConfiguration.getAttributeNames();
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">final</strong> String[] attributes = configuration.getAttributeNames();
 <a class="jxr_linenumber" name="L132" href="#L132">132</a> 
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String key : attributes) {
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>             <strong class="jxr_keyword">final</strong> String value = aConfiguration.getAttribute(key);
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>             <strong class="jxr_keyword">final</strong> String value = configuration.getAttribute(key);
 <a class="jxr_linenumber" name="L135" href="#L135">135</a> 
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>             <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>                 <em class="jxr_comment">// BeanUtilsBean.copyProperties silently ignores missing setters</em>
@@ -150,7 +150,7 @@
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>                 <strong class="jxr_keyword">if</strong> ((pd == <strong class="jxr_keyword">null</strong>) || (pd.getWriteMethod() == <strong class="jxr_keyword">null</strong>)) {
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/api/CheckstyleException.html">CheckstyleException</a>(
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>                         <span class="jxr_string">"Property '"</span> + key + <span class="jxr_string">"' in module "</span>
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>                         + aConfiguration.getName()
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>                         + configuration.getName()
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>                         + <span class="jxr_string">" does not exist, please check the documentation"</span>);
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>                 }
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
@@ -160,7 +160,7 @@
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>             <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> InvocationTargetException e) {
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/api/CheckstyleException.html">CheckstyleException</a>(
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>                     <span class="jxr_string">"Cannot set property '"</span> + key + <span class="jxr_string">"' in module "</span>
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>                     + aConfiguration.getName() + <span class="jxr_string">" to '"</span> + value
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>                     + configuration.getName() + <span class="jxr_string">" to '"</span> + value
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>                     + <span class="jxr_string">"': "</span> + e.getTargetException().getMessage(), e);
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>             }
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>             <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IllegalAccessException e) {
@@ -176,19 +176,19 @@
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>             <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IllegalArgumentException e) {
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/api/CheckstyleException.html">CheckstyleException</a>(
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>                     <span class="jxr_string">"illegal value '"</span> + value + <span class="jxr_string">"' for property '"</span> + key
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>                     + <span class="jxr_string">"' of module "</span> + aConfiguration.getName(), e);
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>                     + <span class="jxr_string">"' of module "</span> + configuration.getName(), e);
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>             }
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>             <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> ConversionException e) {
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/api/CheckstyleException.html">CheckstyleException</a>(
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>                     <span class="jxr_string">"illegal value '"</span> + value + <span class="jxr_string">"' for property '"</span> + key
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>                     + <span class="jxr_string">"' of module "</span> + aConfiguration.getName(), e);
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>                     + <span class="jxr_string">"' of module "</span> + configuration.getName(), e);
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>             }
 <a class="jxr_linenumber" name="L178" href="#L178">178</a> 
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>         }
 <a class="jxr_linenumber" name="L180" href="#L180">180</a> 
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>         finishLocalSetup();
 <a class="jxr_linenumber" name="L182" href="#L182">182</a> 
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/api/Configuration.html">Configuration</a>[] childConfigs = aConfiguration.getChildren();
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/api/Configuration.html">Configuration</a>[] childConfigs = configuration.getChildren();
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Configuration childConfig : childConfigs) {
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>             setupChild(childConfig);
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>         }
@@ -196,21 +196,21 @@
 <a class="jxr_linenumber" name="L188" href="#L188">188</a> 
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> <em class="jxr_javadoccomment">     * Implements the Contextualizable interface using bean introspection.</em>
-<a class="jxr_linenumber" name="L191" href="#L191">191</a> <em class="jxr_javadoccomment">     * @param aContext {@inheritDoc}</em>
+<a class="jxr_linenumber" name="L191" href="#L191">191</a> <em class="jxr_javadoccomment">     * @param context {@inheritDoc}</em>
 <a class="jxr_linenumber" name="L192" href="#L192">192</a> <em class="jxr_javadoccomment">     * @throws CheckstyleException {@inheritDoc}</em>
 <a class="jxr_linenumber" name="L193" href="#L193">193</a> <em class="jxr_javadoccomment">     * @see Contextualizable</em>
 <a class="jxr_linenumber" name="L194" href="#L194">194</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>     @Override
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> contextualize(<a href="../../../../../com/puppycrawl/tools/checkstyle/api/Context.html">Context</a> aContext)
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> contextualize(<a href="../../../../../com/puppycrawl/tools/checkstyle/api/Context.html">Context</a> context)
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>         <strong class="jxr_keyword">throws</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/api/CheckstyleException.html">CheckstyleException</a>
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>     {
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>         <strong class="jxr_keyword">final</strong> BeanUtilsBean beanUtils = createBeanUtilsBean();
 <a class="jxr_linenumber" name="L200" href="#L200">200</a> 
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>         <em class="jxr_comment">// TODO: debug log messages</em>
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>         <strong class="jxr_keyword">final</strong> Collection&lt;String&gt; attributes = aContext.getAttributeNames();
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>         <strong class="jxr_keyword">final</strong> Collection&lt;String&gt; attributes = context.getAttributeNames();
 <a class="jxr_linenumber" name="L203" href="#L203">203</a> 
 <a class="jxr_linenumber" name="L204" href="#L204">204</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String key : attributes) {
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>             <strong class="jxr_keyword">final</strong> Object value = aContext.get(key);
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>             <strong class="jxr_keyword">final</strong> Object value = context.get(key);
 <a class="jxr_linenumber" name="L206" href="#L206">206</a> 
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>             <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L208" href="#L208">208</a>                 beanUtils.copyProperty(<strong class="jxr_keyword">this</strong>, key, value);
@@ -246,7 +246,7 @@
 <a class="jxr_linenumber" name="L238" href="#L238">238</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/api/Configuration.html">Configuration</a> getConfiguration()
 <a class="jxr_linenumber" name="L240" href="#L240">240</a>     {
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>         <strong class="jxr_keyword">return</strong> mConfiguration;
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>         <strong class="jxr_keyword">return</strong> configuration;
 <a class="jxr_linenumber" name="L242" href="#L242">242</a>     }
 <a class="jxr_linenumber" name="L243" href="#L243">243</a> 
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>     <em class="jxr_javadoccomment">/**</em>
@@ -266,11 +266,11 @@
 <a class="jxr_linenumber" name="L258" href="#L258">258</a> <em class="jxr_javadoccomment">     * &lt;p&gt;</em>
 <a class="jxr_linenumber" name="L259" href="#L259">259</a> <em class="jxr_javadoccomment">     * The default implementation does nothing.</em>
 <a class="jxr_linenumber" name="L260" href="#L260">260</a> <em class="jxr_javadoccomment">     * &lt;/p&gt;</em>
-<a class="jxr_linenumber" name="L261" href="#L261">261</a> <em class="jxr_javadoccomment">     * @param aChildConf a child of this component's Configuration</em>
+<a class="jxr_linenumber" name="L261" href="#L261">261</a> <em class="jxr_javadoccomment">     * @param childConf a child of this component's Configuration</em>
 <a class="jxr_linenumber" name="L262" href="#L262">262</a> <em class="jxr_javadoccomment">     * @throws CheckstyleException if there is a configuration error.</em>
 <a class="jxr_linenumber" name="L263" href="#L263">263</a> <em class="jxr_javadoccomment">     * @see Configuration#getChildren</em>
 <a class="jxr_linenumber" name="L264" href="#L264">264</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> setupChild(<a href="../../../../../com/puppycrawl/tools/checkstyle/api/Configuration.html">Configuration</a> aChildConf)
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> setupChild(<a href="../../../../../com/puppycrawl/tools/checkstyle/api/Configuration.html">Configuration</a> childConf)
 <a class="jxr_linenumber" name="L266" href="#L266">266</a>         <strong class="jxr_keyword">throws</strong> <a href="../../../../../com/puppycrawl/tools/checkstyle/api/CheckstyleException.html">CheckstyleException</a>
 <a class="jxr_linenumber" name="L267" href="#L267">267</a>     {
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>     }
@@ -284,16 +284,16 @@
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>     {
 <a class="jxr_linenumber" name="L277" href="#L277">277</a>         <em class="jxr_javadoccomment">/** {@inheritDoc} */</em>
 <a class="jxr_linenumber" name="L278" href="#L278">278</a>         @Override
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>         <strong class="jxr_keyword">public</strong> Object convert(@SuppressWarnings(<span class="jxr_string">"rawtypes"</span>) Class aType,
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>             Object aValue)
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>         <strong class="jxr_keyword">public</strong> Object convert(@SuppressWarnings(<span class="jxr_string">"rawtypes"</span>) Class type,
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>             Object value)
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>         {
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>             <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">null</strong> == aType) {
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>             <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">null</strong> == type) {
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ConversionException(<span class="jxr_string">"Cannot convert from null."</span>);
 <a class="jxr_linenumber" name="L284" href="#L284">284</a>             }
 <a class="jxr_linenumber" name="L285" href="#L285">285</a> 
 <a class="jxr_linenumber" name="L286" href="#L286">286</a>             <em class="jxr_comment">// Convert to a String and trim it for the tokenizer.</em>
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>             <strong class="jxr_keyword">final</strong> StringTokenizer st = <strong class="jxr_keyword">new</strong> StringTokenizer(
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>                 aValue.toString().trim(), <span class="jxr_string">","</span>);
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>                 value.toString().trim(), <span class="jxr_string">","</span>);
 <a class="jxr_linenumber" name="L289" href="#L289">289</a>             <strong class="jxr_keyword">final</strong> List&lt;String&gt; result = Lists.newArrayList();
 <a class="jxr_linenumber" name="L290" href="#L290">290</a> 
 <a class="jxr_linenumber" name="L291" href="#L291">291</a>             <strong class="jxr_keyword">while</strong> (st.hasMoreTokens()) {

@@ -86,12 +86,12 @@
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>          <a href="../../../../org/elasticsearch/search/aggregations/Aggregations.html">Aggregations</a> aggs = searchResponse.getAggregations();
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>          <a href="../../../../org/elasticsearch/search/aggregations/bucket/terms/Terms.html">Terms</a> nameAgg = aggs.get(<span class="jxr_string">"name"</span>);
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          assertThat(nameAgg.getBuckets().size(), Matchers.equalTo(1));
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>          assertThat(nameAgg.getBuckets().iterator().next().getKey(), Matchers.equalTo(<span class="jxr_string">"bacon"</span>));
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          assertThat(nameAgg.getBuckets().iterator().next().getKeyAsString(), Matchers.equalTo(<span class="jxr_string">"bacon"</span>));
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          <a href="../../../../org/elasticsearch/search/aggregations/bucket/terms/Terms.html">Terms</a> notFilteredAgg = aggs.get(<span class="jxr_string">"not_filtered"</span>);
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          assertThat(notFilteredAgg.getBuckets().size(), Matchers.equalTo(2));
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>          assertThat(notFilteredAgg.getBuckets().get(0).getKey(), Matchers.isOneOf(<span class="jxr_string">"bacon"</span>, <span class="jxr_string">"bastards"</span>));
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>          assertThat(notFilteredAgg.getBuckets().get(1).getKey(), Matchers.isOneOf(<span class="jxr_string">"bacon"</span>, <span class="jxr_string">"bastards"</span>));
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>          assertThat(notFilteredAgg.getBuckets().get(0).getKeyAsString(), Matchers.isOneOf(<span class="jxr_string">"bacon"</span>, <span class="jxr_string">"bastards"</span>));
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>          assertThat(notFilteredAgg.getBuckets().get(1).getKeyAsString(), Matchers.isOneOf(<span class="jxr_string">"bacon"</span>, <span class="jxr_string">"bastards"</span>));
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      }
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  }

@@ -672,25 +672,30 @@
 <a class="jxr_linenumber" name="L664" href="#L664">664</a>     }
 <a class="jxr_linenumber" name="L665" href="#L665">665</a> 
 <a class="jxr_linenumber" name="L666" href="#L666">666</a>     @Override
-<a class="jxr_linenumber" name="L667" href="#L667">667</a>     <strong class="jxr_keyword">public</strong> MapperService.SmartNameObjectMapper smartNameObjectMapper(String name) {
-<a class="jxr_linenumber" name="L668" href="#L668">668</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException();
+<a class="jxr_linenumber" name="L667" href="#L667">667</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/index/mapper/FieldMapper.html">FieldMapper</a> smartNameFieldMapperFromAnyType(String name) {
+<a class="jxr_linenumber" name="L668" href="#L668">668</a>         <strong class="jxr_keyword">return</strong> mapperService().smartNameFieldMapper(name);
 <a class="jxr_linenumber" name="L669" href="#L669">669</a>     }
 <a class="jxr_linenumber" name="L670" href="#L670">670</a> 
 <a class="jxr_linenumber" name="L671" href="#L671">671</a>     @Override
-<a class="jxr_linenumber" name="L672" href="#L672">672</a>     <strong class="jxr_keyword">public</strong> Counter timeEstimateCounter() {
+<a class="jxr_linenumber" name="L672" href="#L672">672</a>     <strong class="jxr_keyword">public</strong> MapperService.SmartNameObjectMapper smartNameObjectMapper(String name) {
 <a class="jxr_linenumber" name="L673" href="#L673">673</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException();
 <a class="jxr_linenumber" name="L674" href="#L674">674</a>     }
 <a class="jxr_linenumber" name="L675" href="#L675">675</a> 
 <a class="jxr_linenumber" name="L676" href="#L676">676</a>     @Override
-<a class="jxr_linenumber" name="L677" href="#L677">677</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> innerHits(<a href="../../../org/elasticsearch/search/fetch/innerhits/InnerHitsContext.html">InnerHitsContext</a> innerHitsContext) {
+<a class="jxr_linenumber" name="L677" href="#L677">677</a>     <strong class="jxr_keyword">public</strong> Counter timeEstimateCounter() {
 <a class="jxr_linenumber" name="L678" href="#L678">678</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException();
 <a class="jxr_linenumber" name="L679" href="#L679">679</a>     }
 <a class="jxr_linenumber" name="L680" href="#L680">680</a> 
 <a class="jxr_linenumber" name="L681" href="#L681">681</a>     @Override
-<a class="jxr_linenumber" name="L682" href="#L682">682</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/search/fetch/innerhits/InnerHitsContext.html">InnerHitsContext</a> innerHits() {
+<a class="jxr_linenumber" name="L682" href="#L682">682</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> innerHits(<a href="../../../org/elasticsearch/search/fetch/innerhits/InnerHitsContext.html">InnerHitsContext</a> innerHitsContext) {
 <a class="jxr_linenumber" name="L683" href="#L683">683</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException();
 <a class="jxr_linenumber" name="L684" href="#L684">684</a>     }
-<a class="jxr_linenumber" name="L685" href="#L685">685</a> }
+<a class="jxr_linenumber" name="L685" href="#L685">685</a> 
+<a class="jxr_linenumber" name="L686" href="#L686">686</a>     @Override
+<a class="jxr_linenumber" name="L687" href="#L687">687</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/search/fetch/innerhits/InnerHitsContext.html">InnerHitsContext</a> innerHits() {
+<a class="jxr_linenumber" name="L688" href="#L688">688</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException();
+<a class="jxr_linenumber" name="L689" href="#L689">689</a>     }
+<a class="jxr_linenumber" name="L690" href="#L690">690</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015. All rights reserved.</div>

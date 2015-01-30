@@ -727,7 +727,7 @@
 <a class="jxr_linenumber" name="L719" href="#L719">719</a>         assertThat(searchResponse.getHits().getTotalHits(), equalTo(2l));
 <a class="jxr_linenumber" name="L720" href="#L720">720</a>         <a href="../../../../../org/elasticsearch/search/aggregations/bucket/histogram/Histogram.html">Histogram</a> histo = searchResponse.getAggregations().get(<span class="jxr_string">"histo"</span>);
 <a class="jxr_linenumber" name="L721" href="#L721">721</a>         assertThat(histo, notNullValue());
-<a class="jxr_linenumber" name="L722" href="#L722">722</a>         Histogram.Bucket bucket = histo.getBucketByKey(1l);
+<a class="jxr_linenumber" name="L722" href="#L722">722</a>         Histogram.Bucket bucket = histo.getBuckets().get(1);
 <a class="jxr_linenumber" name="L723" href="#L723">723</a>         assertThat(bucket, notNullValue());
 <a class="jxr_linenumber" name="L724" href="#L724">724</a> 
 <a class="jxr_linenumber" name="L725" href="#L725">725</a>         <a href="../../../../../org/elasticsearch/search/aggregations/metrics/scripted/ScriptedMetric.html">ScriptedMetric</a> scriptedMetric = bucket.getAggregations().get(<span class="jxr_string">"scripted"</span>);

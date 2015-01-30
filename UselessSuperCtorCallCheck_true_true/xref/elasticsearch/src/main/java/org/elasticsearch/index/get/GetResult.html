@@ -269,8 +269,8 @@
 <a class="jxr_linenumber" name="L261" href="#L261">261</a> 
 <a class="jxr_linenumber" name="L262" href="#L262">262</a>     @Override
 <a class="jxr_linenumber" name="L263" href="#L263">263</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> readFrom(<a href="../../../../org/elasticsearch/common/io/stream/StreamInput.html">StreamInput</a> in) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>         index = in.readSharedString();
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>         type = in.readOptionalSharedString();
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>         index = in.readString();
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>         type = in.readOptionalString();
 <a class="jxr_linenumber" name="L266" href="#L266">266</a>         id = in.readString();
 <a class="jxr_linenumber" name="L267" href="#L267">267</a>         version = in.readLong();
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>         exists = in.readBoolean();
@@ -294,8 +294,8 @@
 <a class="jxr_linenumber" name="L286" href="#L286">286</a> 
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>     @Override
 <a class="jxr_linenumber" name="L288" href="#L288">288</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>         out.writeSharedString(index);
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>         out.writeOptionalSharedString(type);
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>         out.writeString(index);
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>         out.writeOptionalString(type);
 <a class="jxr_linenumber" name="L291" href="#L291">291</a>         out.writeString(id);
 <a class="jxr_linenumber" name="L292" href="#L292">292</a>         out.writeLong(version);
 <a class="jxr_linenumber" name="L293" href="#L293">293</a>         out.writeBoolean(exists);

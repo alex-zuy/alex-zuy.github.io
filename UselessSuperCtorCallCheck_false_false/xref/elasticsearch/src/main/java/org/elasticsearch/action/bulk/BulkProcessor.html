@@ -207,7 +207,7 @@
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> close() {
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>             awaitClose(0, TimeUnit.NANOSECONDS);
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>         } <strong class="jxr_keyword">catch</strong>(InterruptedException exc) {
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>         } <strong class="jxr_keyword">catch</strong>(<a href="../../../../java/lang/InterruptedException.html">InterruptedException</a> exc) {
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>             Thread.currentThread().interrupt();
 <a class="jxr_linenumber" name="L204" href="#L204">204</a>         }
 <a class="jxr_linenumber" name="L205" href="#L205">205</a>     }

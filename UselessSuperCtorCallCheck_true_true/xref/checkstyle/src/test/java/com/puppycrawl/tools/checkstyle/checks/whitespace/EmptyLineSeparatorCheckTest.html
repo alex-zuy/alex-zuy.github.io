@@ -74,7 +74,22 @@
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          };
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          verify(checkConfig, getPath(<span class="jxr_string">"whitespace/InputEmptyLineSeparatorCheckHeader.java"</span>), expected);
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      }
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  }
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      @Test
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testMultipleEmptyLinesBetweenClassMembers() <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      {
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          <a href="../../../../../../com/puppycrawl/tools/checkstyle/DefaultConfiguration.html">DefaultConfiguration</a> checkConfig = createCheckConfig(EmptyLineSeparatorCheck.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          checkConfig.addAttribute(<span class="jxr_string">"allowMultipleEmptyLines"</span>, <span class="jxr_string">"false"</span>);
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">final</strong> String[] expected = {
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>              <span class="jxr_string">"21: 'package' has more than 1 empty lines before."</span>,
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>              <span class="jxr_string">"24: 'import' has more than 1 empty lines before."</span>,
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>              <span class="jxr_string">"33: 'VARIABLE_DEF' has more than 1 empty lines before."</span>,
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>              <span class="jxr_string">"38: 'VARIABLE_DEF' has more than 1 empty lines before."</span>,
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>              <span class="jxr_string">"43: 'METHOD_DEF' has more than 1 empty lines before."</span>,
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          };
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>          verify(checkConfig, getPath(<span class="jxr_string">"whitespace/InputEmptyLineSeparatorCheckMultipleEmptyLines.java"</span>), expected);
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>      }
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015. All rights reserved.</div>

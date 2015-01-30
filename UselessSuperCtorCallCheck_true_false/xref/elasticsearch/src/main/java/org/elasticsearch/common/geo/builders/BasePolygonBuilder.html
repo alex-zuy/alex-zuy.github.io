@@ -374,7 +374,7 @@
 <a class="jxr_linenumber" name="L366" href="#L366">366</a>             <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> pos;
 <a class="jxr_linenumber" name="L367" href="#L367">367</a>             <strong class="jxr_keyword">if</strong> (intersections == 0 ||
 <a class="jxr_linenumber" name="L368" href="#L368">368</a>                (pos = Arrays.binarySearch(edges, 0, intersections, current, INTERSECTION_ORDER)) &gt;= 0) {
-<a class="jxr_linenumber" name="L369" href="#L369">369</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"Invaild shape: Hole is not within polygon"</span>);
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/ElasticsearchParseException.html">ElasticsearchParseException</a>(<span class="jxr_string">"Invalid shape: Hole is not within polygon"</span>);
 <a class="jxr_linenumber" name="L370" href="#L370">370</a>             }
 <a class="jxr_linenumber" name="L371" href="#L371">371</a>             <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> index = -(pos+2);
 <a class="jxr_linenumber" name="L372" href="#L372">372</a>             <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> component = -edges[index].component - numHoles - 1;

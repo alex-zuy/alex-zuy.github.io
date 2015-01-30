@@ -563,7 +563,7 @@
 <a class="jxr_linenumber" name="L555" href="#L555">555</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> readFrom(<a href="../../../../org/elasticsearch/common/io/stream/StreamInput.html">StreamInput</a> in, InternalSearchHits.StreamContext context) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L556" href="#L556">556</a>         score = in.readFloat();
 <a class="jxr_linenumber" name="L557" href="#L557">557</a>         id = in.readText();
-<a class="jxr_linenumber" name="L558" href="#L558">558</a>         type = in.readSharedText();
+<a class="jxr_linenumber" name="L558" href="#L558">558</a>         type = in.readText();
 <a class="jxr_linenumber" name="L559" href="#L559">559</a>         nestedIdentity = in.readOptionalStreamable(<strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/search/internal/InternalSearchHit.html">InternalNestedIdentity</a>());
 <a class="jxr_linenumber" name="L560" href="#L560">560</a>         version = in.readLong();
 <a class="jxr_linenumber" name="L561" href="#L561">561</a>         source = in.readBytesReference();
@@ -709,7 +709,7 @@
 <a class="jxr_linenumber" name="L701" href="#L701">701</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeTo(<a href="../../../../org/elasticsearch/common/io/stream/StreamOutput.html">StreamOutput</a> out, InternalSearchHits.StreamContext context) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L702" href="#L702">702</a>         out.writeFloat(score);
 <a class="jxr_linenumber" name="L703" href="#L703">703</a>         out.writeText(id);
-<a class="jxr_linenumber" name="L704" href="#L704">704</a>         out.writeSharedText(type);
+<a class="jxr_linenumber" name="L704" href="#L704">704</a>         out.writeText(type);
 <a class="jxr_linenumber" name="L705" href="#L705">705</a>         out.writeOptionalStreamable(nestedIdentity);
 <a class="jxr_linenumber" name="L706" href="#L706">706</a>         out.writeLong(version);
 <a class="jxr_linenumber" name="L707" href="#L707">707</a>         out.writeBytesReference(source);

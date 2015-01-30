@@ -156,10 +156,10 @@
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>     }
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>     
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> assertNumericTokensEqual(<a href="../../../../../org/elasticsearch/index/mapper/ParsedDocument.html">ParsedDocument</a> doc, <a href="../../../../../org/elasticsearch/index/mapper/DocumentMapper.html">DocumentMapper</a> defaultMapper, String fieldA, String fieldB) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>         assertThat(doc.rootDoc().getField(fieldA).tokenStream(defaultMapper.indexAnalyzer(), <strong class="jxr_keyword">null</strong>), notNullValue());
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>         assertThat(doc.rootDoc().getField(fieldB).tokenStream(defaultMapper.indexAnalyzer(), <strong class="jxr_keyword">null</strong>), notNullValue());
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>         assertThat(doc.rootDoc().getField(fieldA).tokenStream(defaultMapper.mappers().indexAnalyzer(), <strong class="jxr_keyword">null</strong>), notNullValue());
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>         assertThat(doc.rootDoc().getField(fieldB).tokenStream(defaultMapper.mappers().indexAnalyzer(), <strong class="jxr_keyword">null</strong>), notNullValue());
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>         
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>         TokenStream tokenStream = doc.rootDoc().getField(fieldA).tokenStream(defaultMapper.indexAnalyzer(), <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>         TokenStream tokenStream = doc.rootDoc().getField(fieldA).tokenStream(defaultMapper.mappers().indexAnalyzer(), <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>         tokenStream.reset();
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>         NumericTermAttribute nta = tokenStream.addAttribute(NumericTermAttribute.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>         List&lt;Long&gt; values = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
@@ -167,7 +167,7 @@
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>             values.add(nta.getRawValue());
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         }
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>         
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>         tokenStream = doc.rootDoc().getField(fieldB).tokenStream(defaultMapper.indexAnalyzer(), <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>         tokenStream = doc.rootDoc().getField(fieldB).tokenStream(defaultMapper.mappers().indexAnalyzer(), <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>         tokenStream.reset();
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>         nta = tokenStream.addAttribute(NumericTermAttribute.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>         <strong class="jxr_keyword">int</strong> pos = 0;
@@ -192,7 +192,7 @@
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>                 .endObject()
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>                 .bytes());
 <a class="jxr_linenumber" name="L186" href="#L186">186</a> 
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>         assertThat(doc.rootDoc().getField(<span class="jxr_string">"date_field"</span>).tokenStream(defaultMapper.indexAnalyzer(), <strong class="jxr_keyword">null</strong>), notNullValue());
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>         assertThat(doc.rootDoc().getField(<span class="jxr_string">"date_field"</span>).tokenStream(defaultMapper.mappers().indexAnalyzer(), <strong class="jxr_keyword">null</strong>), notNullValue());
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>     }
 <a class="jxr_linenumber" name="L189" href="#L189">189</a> 
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>     @Test

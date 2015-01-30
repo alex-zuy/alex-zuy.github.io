@@ -214,7 +214,7 @@
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>         assertThat(pending[0].task.toString(), equalTo(<span class="jxr_string">"the blocking"</span>));
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>         assertThat(pending[0].executing, equalTo(<strong class="jxr_keyword">true</strong>));
 <a class="jxr_linenumber" name="L208" href="#L208">208</a> 
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>         <strong class="jxr_keyword">final</strong> AtomicBoolean executeCalled = <strong class="jxr_keyword">new</strong> AtomicBoolean();
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> executeCalled = <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>();
 <a class="jxr_linenumber" name="L210" href="#L210">210</a>         <strong class="jxr_keyword">final</strong> CountDownLatch timedOut = <strong class="jxr_keyword">new</strong> CountDownLatch(1);
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>         executor.execute(<strong class="jxr_keyword">new</strong> Runnable() {
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>                              @Override

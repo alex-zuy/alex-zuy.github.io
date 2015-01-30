@@ -200,429 +200,425 @@
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>         <strong class="jxr_keyword">return</strong> loadState();
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>     }
 <a class="jxr_linenumber" name="L194" href="#L194">194</a> 
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isDangling(String index) {
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>         <strong class="jxr_keyword">return</strong> danglingIndices.containsKey(index);
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>     }
-<a class="jxr_linenumber" name="L198" href="#L198">198</a> 
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>     @Override
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> clusterChanged(<a href="../../../org/elasticsearch/cluster/ClusterChangedEvent.html">ClusterChangedEvent</a> event) {
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>         <strong class="jxr_keyword">if</strong> (event.state().blocks().disableStatePersistence()) {
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>             <em class="jxr_comment">// reset the current metadata, we need to start fresh...</em>
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>             <strong class="jxr_keyword">this</strong>.currentMetaData = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>             <strong class="jxr_keyword">return</strong>;
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>         }
-<a class="jxr_linenumber" name="L206" href="#L206">206</a> 
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>         <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> newMetaData = event.state().metaData();
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>         <em class="jxr_comment">// we don't check if metaData changed, since we might be called several times and we need to check dangling...</em>
-<a class="jxr_linenumber" name="L209" href="#L209">209</a> 
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>         <strong class="jxr_keyword">boolean</strong> success = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>         <em class="jxr_comment">// only applied to master node, writing the global and index level states</em>
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>         <strong class="jxr_keyword">if</strong> (event.state().nodes().localNode().masterNode()) {
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>             <em class="jxr_comment">// check if the global state changed?</em>
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>             <strong class="jxr_keyword">if</strong> (currentMetaData == <strong class="jxr_keyword">null</strong> || !MetaData.isGlobalStateEquals(currentMetaData, newMetaData)) {
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>                 <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>                     writeGlobalState(<span class="jxr_string">"changed"</span>, newMetaData);
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>                 } <strong class="jxr_keyword">catch</strong> (Throwable e) {
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>                     success = false;
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>                 }
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>             }
-<a class="jxr_linenumber" name="L221" href="#L221">221</a> 
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>             <em class="jxr_comment">// check and write changes in indices</em>
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>             <strong class="jxr_keyword">for</strong> (IndexMetaData indexMetaData : newMetaData) {
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>                 String writeReason = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>                 <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> currentIndexMetaData;
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>                 <strong class="jxr_keyword">if</strong> (currentMetaData == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>                     <em class="jxr_comment">// a new event..., check from the state stored</em>
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>                     <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>                         currentIndexMetaData = loadIndexState(indexMetaData.index());
-<a class="jxr_linenumber" name="L230" href="#L230">230</a>                     } <strong class="jxr_keyword">catch</strong> (IOException ex) {
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/ElasticsearchException.html">ElasticsearchException</a>(<span class="jxr_string">"failed to load index state"</span>, ex);
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>                     }
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>                 } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L234" href="#L234">234</a>                     currentIndexMetaData = currentMetaData.index(indexMetaData.index());
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>                 }
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>                 <strong class="jxr_keyword">if</strong> (currentIndexMetaData == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>                     writeReason = <span class="jxr_string">"freshly created"</span>;
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentIndexMetaData.version() != indexMetaData.version()) {
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>                     writeReason = <span class="jxr_string">"version changed from ["</span> + currentIndexMetaData.version() + <span class="jxr_string">"] to ["</span> + indexMetaData.version() + <span class="jxr_string">"]"</span>;
-<a class="jxr_linenumber" name="L240" href="#L240">240</a>                 }
-<a class="jxr_linenumber" name="L241" href="#L241">241</a> 
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>                 <em class="jxr_comment">// we update the writeReason only if we really need to write it</em>
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>                 <strong class="jxr_keyword">if</strong> (writeReason == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L244" href="#L244">244</a>                     <strong class="jxr_keyword">continue</strong>;
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>                 }
-<a class="jxr_linenumber" name="L246" href="#L246">246</a> 
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>                 <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>                     writeIndex(writeReason, indexMetaData, currentIndexMetaData);
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>                 } <strong class="jxr_keyword">catch</strong> (Throwable e) {
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>                     success = false;
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>                 }
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>             }
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>         }
-<a class="jxr_linenumber" name="L254" href="#L254">254</a> 
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>         <em class="jxr_comment">// delete indices that were there before, but are deleted now</em>
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>         <em class="jxr_comment">// we need to do it so they won't be detected as dangling</em>
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>         <strong class="jxr_keyword">if</strong> (currentMetaData != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>             <em class="jxr_comment">// only delete indices when we already received a state (currentMetaData != null)</em>
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>             <em class="jxr_comment">// and we had a go at processing dangling indices at least once</em>
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>             <em class="jxr_comment">// this will also delete the _state of the index itself</em>
-<a class="jxr_linenumber" name="L261" href="#L261">261</a>             <strong class="jxr_keyword">for</strong> (IndexMetaData current : currentMetaData) {
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>                 <strong class="jxr_keyword">if</strong> (danglingIndices.containsKey(current.index())) {
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>                     <strong class="jxr_keyword">continue</strong>;
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>                 }
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>                 <strong class="jxr_keyword">if</strong> (!newMetaData.hasIndex(current.index())) {
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>                     logger.debug(<span class="jxr_string">"[{}] deleting index that is no longer part of the metadata (indices: [{}])"</span>, current.index(), newMetaData.indices().keys());
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>                     <strong class="jxr_keyword">if</strong> (nodeEnv.hasNodeFile()) {
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>                         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>                             <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/index/Index.html">Index</a> idx = <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/index/Index.html">Index</a>(current.index());
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>                             MetaDataStateFormat.deleteMetaState(nodeEnv.indexPaths(idx));
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>                             <em class="jxr_comment">// it may take a couple of seconds for outstanding shard reference</em>
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>                             <em class="jxr_comment">// to release their refs (for example, on going recoveries)</em>
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>                             <em class="jxr_comment">// we are working on a better solution see: https://github.com/elasticsearch/elasticsearch/pull/8608</em>
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>                             nodeEnv.deleteIndexDirectorySafe(idx, deleteTimeout.millis(), current.settings());
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>                         } <strong class="jxr_keyword">catch</strong> (LockObtainFailedException ex) {
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>                             logger.debug(<span class="jxr_string">"[{}] failed to delete index - at least one shards is still locked"</span>, ex, current.index());
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>                         } <strong class="jxr_keyword">catch</strong> (Exception ex) {
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>                             logger.warn(<span class="jxr_string">"[{}] failed to delete index"</span>, ex, current.index());
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>                         }
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>                     }
-<a class="jxr_linenumber" name="L281" href="#L281">281</a>                     <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>                         nodeIndexDeletedAction.nodeIndexStoreDeleted(event.state(), current.index(), event.state().nodes().localNodeId());
-<a class="jxr_linenumber" name="L283" href="#L283">283</a>                     } <strong class="jxr_keyword">catch</strong> (Throwable e) {
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>                         logger.debug(<span class="jxr_string">"[{}] failed to notify master on local index store deletion"</span>, e, current.index());
-<a class="jxr_linenumber" name="L285" href="#L285">285</a>                     }
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>                 }
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>             }
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>         }
-<a class="jxr_linenumber" name="L289" href="#L289">289</a> 
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>         <em class="jxr_comment">// handle dangling indices, we handle those for all nodes that have a node file (data or master)</em>
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>         <strong class="jxr_keyword">if</strong> (nodeEnv.hasNodeFile()) {
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>             <strong class="jxr_keyword">if</strong> (danglingTimeout.millis() &gt;= 0) {
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>                 <strong class="jxr_keyword">synchronized</strong> (danglingMutex) {
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>                     <strong class="jxr_keyword">for</strong> (String danglingIndex : danglingIndices.keySet()) {
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>                         <strong class="jxr_keyword">if</strong> (newMetaData.hasIndex(danglingIndex)) {
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>                             logger.debug(<span class="jxr_string">"[{}] no longer dangling (created), removing"</span>, danglingIndex);
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>                             <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">DanglingIndex</a> removed = danglingIndices.remove(danglingIndex);
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>                             FutureUtils.cancel(removed.future);
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>                         }
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>                     }
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>                     <em class="jxr_comment">// delete indices that are no longer part of the metadata</em>
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>                     <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L303" href="#L303">303</a>                         <strong class="jxr_keyword">for</strong> (String indexName : nodeEnv.findAllIndices()) {
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>                             <em class="jxr_comment">// if we have the index on the metadata, don't delete it</em>
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>                             <strong class="jxr_keyword">if</strong> (newMetaData.hasIndex(indexName)) {
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>     @Override
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> clusterChanged(<a href="../../../org/elasticsearch/cluster/ClusterChangedEvent.html">ClusterChangedEvent</a> event) {
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>         <strong class="jxr_keyword">if</strong> (event.state().blocks().disableStatePersistence()) {
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>             <em class="jxr_comment">// reset the current metadata, we need to start fresh...</em>
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>             <strong class="jxr_keyword">this</strong>.currentMetaData = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>             <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>         }
+<a class="jxr_linenumber" name="L202" href="#L202">202</a> 
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>         <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> newMetaData = event.state().metaData();
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>         <em class="jxr_comment">// we don't check if metaData changed, since we might be called several times and we need to check dangling...</em>
+<a class="jxr_linenumber" name="L205" href="#L205">205</a> 
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>         <strong class="jxr_keyword">boolean</strong> success = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>         <em class="jxr_comment">// only applied to master node, writing the global and index level states</em>
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>         <strong class="jxr_keyword">if</strong> (event.state().nodes().localNode().masterNode()) {
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>             <em class="jxr_comment">// check if the global state changed?</em>
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>             <strong class="jxr_keyword">if</strong> (currentMetaData == <strong class="jxr_keyword">null</strong> || !MetaData.isGlobalStateEquals(currentMetaData, newMetaData)) {
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>                 <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>                     writeGlobalState(<span class="jxr_string">"changed"</span>, newMetaData);
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>                 } <strong class="jxr_keyword">catch</strong> (Throwable e) {
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>                     success = false;
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>                 }
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>             }
+<a class="jxr_linenumber" name="L217" href="#L217">217</a> 
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>             <em class="jxr_comment">// check and write changes in indices</em>
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>             <strong class="jxr_keyword">for</strong> (IndexMetaData indexMetaData : newMetaData) {
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>                 String writeReason = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>                 <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> currentIndexMetaData;
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>                 <strong class="jxr_keyword">if</strong> (currentMetaData == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>                     <em class="jxr_comment">// a new event..., check from the state stored</em>
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>                     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>                         currentIndexMetaData = loadIndexState(indexMetaData.index());
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>                     } <strong class="jxr_keyword">catch</strong> (IOException ex) {
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/ElasticsearchException.html">ElasticsearchException</a>(<span class="jxr_string">"failed to load index state"</span>, ex);
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>                     }
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>                 } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L230" href="#L230">230</a>                     currentIndexMetaData = currentMetaData.index(indexMetaData.index());
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>                 }
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>                 <strong class="jxr_keyword">if</strong> (currentIndexMetaData == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>                     writeReason = <span class="jxr_string">"freshly created"</span>;
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (currentIndexMetaData.version() != indexMetaData.version()) {
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>                     writeReason = <span class="jxr_string">"version changed from ["</span> + currentIndexMetaData.version() + <span class="jxr_string">"] to ["</span> + indexMetaData.version() + <span class="jxr_string">"]"</span>;
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>                 }
+<a class="jxr_linenumber" name="L237" href="#L237">237</a> 
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>                 <em class="jxr_comment">// we update the writeReason only if we really need to write it</em>
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>                 <strong class="jxr_keyword">if</strong> (writeReason == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L240" href="#L240">240</a>                     <strong class="jxr_keyword">continue</strong>;
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>                 }
+<a class="jxr_linenumber" name="L242" href="#L242">242</a> 
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>                 <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>                     writeIndex(writeReason, indexMetaData, currentIndexMetaData);
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>                 } <strong class="jxr_keyword">catch</strong> (Throwable e) {
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>                     success = false;
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>                 }
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>             }
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>         }
+<a class="jxr_linenumber" name="L250" href="#L250">250</a> 
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>         <em class="jxr_comment">// delete indices that were there before, but are deleted now</em>
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>         <em class="jxr_comment">// we need to do it so they won't be detected as dangling</em>
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>         <strong class="jxr_keyword">if</strong> (currentMetaData != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>             <em class="jxr_comment">// only delete indices when we already received a state (currentMetaData != null)</em>
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>             <em class="jxr_comment">// and we had a go at processing dangling indices at least once</em>
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>             <em class="jxr_comment">// this will also delete the _state of the index itself</em>
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>             <strong class="jxr_keyword">for</strong> (IndexMetaData current : currentMetaData) {
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>                 <strong class="jxr_keyword">if</strong> (danglingIndices.containsKey(current.index())) {
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>                     <strong class="jxr_keyword">continue</strong>;
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>                 }
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>                 <strong class="jxr_keyword">if</strong> (!newMetaData.hasIndex(current.index())) {
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>                     logger.debug(<span class="jxr_string">"[{}] deleting index that is no longer part of the metadata (indices: [{}])"</span>, current.index(), newMetaData.indices().keys());
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>                     <strong class="jxr_keyword">if</strong> (nodeEnv.hasNodeFile()) {
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>                         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>                             <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/index/Index.html">Index</a> idx = <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/index/Index.html">Index</a>(current.index());
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>                             MetaDataStateFormat.deleteMetaState(nodeEnv.indexPaths(idx));
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>                             <em class="jxr_comment">// it may take a couple of seconds for outstanding shard reference</em>
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>                             <em class="jxr_comment">// to release their refs (for example, on going recoveries)</em>
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>                             <em class="jxr_comment">// we are working on a better solution see: https://github.com/elasticsearch/elasticsearch/pull/8608</em>
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>                             nodeEnv.deleteIndexDirectorySafe(idx, deleteTimeout.millis(), current.settings());
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>                         } <strong class="jxr_keyword">catch</strong> (LockObtainFailedException ex) {
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>                             logger.debug(<span class="jxr_string">"[{}] failed to delete index - at least one shards is still locked"</span>, ex, current.index());
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>                         } <strong class="jxr_keyword">catch</strong> (Exception ex) {
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>                             logger.warn(<span class="jxr_string">"[{}] failed to delete index"</span>, ex, current.index());
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>                         }
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>                     }
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>                     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>                         nodeIndexDeletedAction.nodeIndexStoreDeleted(event.state(), current.index(), event.state().nodes().localNodeId());
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>                     } <strong class="jxr_keyword">catch</strong> (Throwable e) {
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>                         logger.debug(<span class="jxr_string">"[{}] failed to notify master on local index store deletion"</span>, e, current.index());
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>                     }
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>                 }
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>             }
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>         }
+<a class="jxr_linenumber" name="L285" href="#L285">285</a> 
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>         <em class="jxr_comment">// handle dangling indices, we handle those for all nodes that have a node file (data or master)</em>
+<a class="jxr_linenumber" name="L287" href="#L287">287</a>         <strong class="jxr_keyword">if</strong> (nodeEnv.hasNodeFile()) {
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>             <strong class="jxr_keyword">if</strong> (danglingTimeout.millis() &gt;= 0) {
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>                 <strong class="jxr_keyword">synchronized</strong> (danglingMutex) {
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>                     <strong class="jxr_keyword">for</strong> (String danglingIndex : danglingIndices.keySet()) {
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>                         <strong class="jxr_keyword">if</strong> (newMetaData.hasIndex(danglingIndex)) {
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>                             logger.debug(<span class="jxr_string">"[{}] no longer dangling (created), removing"</span>, danglingIndex);
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>                             <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">DanglingIndex</a> removed = danglingIndices.remove(danglingIndex);
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>                             FutureUtils.cancel(removed.future);
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>                         }
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>                     }
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>                     <em class="jxr_comment">// delete indices that are no longer part of the metadata</em>
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>                     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>                         <strong class="jxr_keyword">for</strong> (String indexName : nodeEnv.findAllIndices()) {
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>                             <em class="jxr_comment">// if we have the index on the metadata, don't delete it</em>
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>                             <strong class="jxr_keyword">if</strong> (newMetaData.hasIndex(indexName)) {
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>                                 <strong class="jxr_keyword">continue</strong>;
+<a class="jxr_linenumber" name="L303" href="#L303">303</a>                             }
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>                             <strong class="jxr_keyword">if</strong> (danglingIndices.containsKey(indexName)) {
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>                                 <em class="jxr_comment">// already dangling, continue</em>
 <a class="jxr_linenumber" name="L306" href="#L306">306</a>                                 <strong class="jxr_keyword">continue</strong>;
 <a class="jxr_linenumber" name="L307" href="#L307">307</a>                             }
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>                             <strong class="jxr_keyword">if</strong> (danglingIndices.containsKey(indexName)) {
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>                                 <em class="jxr_comment">// already dangling, continue</em>
-<a class="jxr_linenumber" name="L310" href="#L310">310</a>                                 <strong class="jxr_keyword">continue</strong>;
-<a class="jxr_linenumber" name="L311" href="#L311">311</a>                             }
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>                             <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> indexMetaData = loadIndexState(indexName);
-<a class="jxr_linenumber" name="L313" href="#L313">313</a>                             <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/index/Index.html">Index</a> index = <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/index/Index.html">Index</a>(indexName);
-<a class="jxr_linenumber" name="L314" href="#L314">314</a>                             <strong class="jxr_keyword">if</strong> (indexMetaData != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>                                 <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L316" href="#L316">316</a>                                     <em class="jxr_comment">// the index deletion might not have worked due to shards still being locked</em>
-<a class="jxr_linenumber" name="L317" href="#L317">317</a>                                     <em class="jxr_comment">// we have three cases here:</em>
-<a class="jxr_linenumber" name="L318" href="#L318">318</a>                                     <em class="jxr_comment">//  - we acquired all shards locks here --&gt; we can import the dangling index</em>
-<a class="jxr_linenumber" name="L319" href="#L319">319</a>                                     <em class="jxr_comment">//  - we failed to acquire the lock --&gt; somebody else uses it - DON'T IMPORT</em>
-<a class="jxr_linenumber" name="L320" href="#L320">320</a>                                     <em class="jxr_comment">//  - we acquired successfully but the lock list is empty --&gt; no shards present - DON'T IMPORT</em>
-<a class="jxr_linenumber" name="L321" href="#L321">321</a>                                     <em class="jxr_comment">// in the last case we should in-fact try to delete the directory since it might be a leftover...</em>
-<a class="jxr_linenumber" name="L322" href="#L322">322</a>                                     <strong class="jxr_keyword">final</strong> List&lt;ShardLock&gt; shardLocks = nodeEnv.lockAllForIndex(index, 0);
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>                                     <strong class="jxr_keyword">if</strong> (shardLocks.isEmpty()) {
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>                                         <em class="jxr_comment">// no shards - try to remove the directory</em>
-<a class="jxr_linenumber" name="L325" href="#L325">325</a>                                         nodeEnv.deleteIndexDirectorySafe(index, 0, indexMetaData.settings());
-<a class="jxr_linenumber" name="L326" href="#L326">326</a>                                         <strong class="jxr_keyword">continue</strong>;
-<a class="jxr_linenumber" name="L327" href="#L327">327</a>                                     }
-<a class="jxr_linenumber" name="L328" href="#L328">328</a>                                     IOUtils.closeWhileHandlingException(shardLocks);
-<a class="jxr_linenumber" name="L329" href="#L329">329</a>                                 } <strong class="jxr_keyword">catch</strong> (IOException ex) {
-<a class="jxr_linenumber" name="L330" href="#L330">330</a>                                     logger.warn(<span class="jxr_string">"[{}] skipping locked dangling index, exists on local file system, but not in cluster metadata, auto import to cluster state is set to [{}]"</span>, ex, indexName, autoImportDangled);
-<a class="jxr_linenumber" name="L331" href="#L331">331</a>                                     <strong class="jxr_keyword">continue</strong>;
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>                                 }
-<a class="jxr_linenumber" name="L333" href="#L333">333</a>                                 <strong class="jxr_keyword">if</strong>(autoImportDangled.shouldImport()){
-<a class="jxr_linenumber" name="L334" href="#L334">334</a>                                     logger.info(<span class="jxr_string">"[{}] dangling index, exists on local file system, but not in cluster metadata, auto import to cluster state [{}]"</span>, indexName, autoImportDangled);
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>                                     danglingIndices.put(indexName, <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">DanglingIndex</a>(indexName, <strong class="jxr_keyword">null</strong>));
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>                                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (danglingTimeout.millis() == 0) {
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>                                     logger.info(<span class="jxr_string">"[{}] dangling index, exists on local file system, but not in cluster metadata, timeout set to 0, deleting now"</span>, indexName);
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>                                     <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>                                         nodeEnv.deleteIndexDirectorySafe(index, 0, indexMetaData.settings());
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>                                     } <strong class="jxr_keyword">catch</strong> (LockObtainFailedException ex) {
-<a class="jxr_linenumber" name="L341" href="#L341">341</a>                                         logger.debug(<span class="jxr_string">"[{}] failed to delete index - at least one shards is still locked"</span>, ex, indexName);
-<a class="jxr_linenumber" name="L342" href="#L342">342</a>                                     } <strong class="jxr_keyword">catch</strong> (Exception ex) {
-<a class="jxr_linenumber" name="L343" href="#L343">343</a>                                         logger.warn(<span class="jxr_string">"[{}] failed to delete dangling index"</span>, ex, indexName);
-<a class="jxr_linenumber" name="L344" href="#L344">344</a>                                     }
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>                                 } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L346" href="#L346">346</a>                                     logger.info(<span class="jxr_string">"[{}] dangling index, exists on local file system, but not in cluster metadata, scheduling to delete in [{}], auto import to cluster state [{}]"</span>, indexName, danglingTimeout, autoImportDangled);
-<a class="jxr_linenumber" name="L347" href="#L347">347</a>                                     danglingIndices.put(indexName,
-<a class="jxr_linenumber" name="L348" href="#L348">348</a>                                             <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">DanglingIndex</a>(indexName,
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>                                                     threadPool.schedule(danglingTimeout,
-<a class="jxr_linenumber" name="L350" href="#L350">350</a>                                                             ThreadPool.Names.SAME,
-<a class="jxr_linenumber" name="L351" href="#L351">351</a>                                                             <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">RemoveDanglingIndex</a>(index, indexMetaData.settings()))));
-<a class="jxr_linenumber" name="L352" href="#L352">352</a>                                 }
-<a class="jxr_linenumber" name="L353" href="#L353">353</a>                             }
-<a class="jxr_linenumber" name="L354" href="#L354">354</a>                         }
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>                     } <strong class="jxr_keyword">catch</strong> (Throwable e) {
-<a class="jxr_linenumber" name="L356" href="#L356">356</a>                         logger.warn(<span class="jxr_string">"failed to find dangling indices"</span>, e);
-<a class="jxr_linenumber" name="L357" href="#L357">357</a>                     }
-<a class="jxr_linenumber" name="L358" href="#L358">358</a>                 }
-<a class="jxr_linenumber" name="L359" href="#L359">359</a>             }
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>             <strong class="jxr_keyword">if</strong> (autoImportDangled.shouldImport() &amp;&amp; !danglingIndices.isEmpty()) {
-<a class="jxr_linenumber" name="L361" href="#L361">361</a>                 <strong class="jxr_keyword">final</strong> List&lt;IndexMetaData&gt; dangled = Lists.newArrayList();
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>                 <strong class="jxr_keyword">for</strong> (String indexName : danglingIndices.keySet()) {
-<a class="jxr_linenumber" name="L363" href="#L363">363</a>                     <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> indexMetaData;
-<a class="jxr_linenumber" name="L364" href="#L364">364</a>                     <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>                         indexMetaData = loadIndexState(indexName);
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>                     } <strong class="jxr_keyword">catch</strong> (IOException ex) {
-<a class="jxr_linenumber" name="L367" href="#L367">367</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/ElasticsearchException.html">ElasticsearchException</a>(<span class="jxr_string">"failed to load index state"</span>, ex);
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>                             <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> indexMetaData = loadIndexState(indexName);
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>                             <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/index/Index.html">Index</a> index = <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/index/Index.html">Index</a>(indexName);
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>                             <strong class="jxr_keyword">if</strong> (indexMetaData != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>                                 <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>                                     <em class="jxr_comment">// the index deletion might not have worked due to shards still being locked</em>
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>                                     <em class="jxr_comment">// we have three cases here:</em>
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>                                     <em class="jxr_comment">//  - we acquired all shards locks here --&gt; we can import the dangling index</em>
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>                                     <em class="jxr_comment">//  - we failed to acquire the lock --&gt; somebody else uses it - DON'T IMPORT</em>
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>                                     <em class="jxr_comment">//  - we acquired successfully but the lock list is empty --&gt; no shards present - DON'T IMPORT</em>
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>                                     <em class="jxr_comment">// in the last case we should in-fact try to delete the directory since it might be a leftover...</em>
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>                                     <strong class="jxr_keyword">final</strong> List&lt;ShardLock&gt; shardLocks = nodeEnv.lockAllForIndex(index, 0);
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>                                     <strong class="jxr_keyword">if</strong> (shardLocks.isEmpty()) {
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>                                         <em class="jxr_comment">// no shards - try to remove the directory</em>
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>                                         nodeEnv.deleteIndexDirectorySafe(index, 0, indexMetaData.settings());
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>                                         <strong class="jxr_keyword">continue</strong>;
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>                                     }
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>                                     IOUtils.closeWhileHandlingException(shardLocks);
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>                                 } <strong class="jxr_keyword">catch</strong> (IOException ex) {
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>                                     logger.warn(<span class="jxr_string">"[{}] skipping locked dangling index, exists on local file system, but not in cluster metadata, auto import to cluster state is set to [{}]"</span>, ex, indexName, autoImportDangled);
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>                                     <strong class="jxr_keyword">continue</strong>;
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>                                 }
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>                                 <strong class="jxr_keyword">if</strong>(autoImportDangled.shouldImport()){
+<a class="jxr_linenumber" name="L330" href="#L330">330</a>                                     logger.info(<span class="jxr_string">"[{}] dangling index, exists on local file system, but not in cluster metadata, auto import to cluster state [{}]"</span>, indexName, autoImportDangled);
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>                                     danglingIndices.put(indexName, <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">DanglingIndex</a>(indexName, <strong class="jxr_keyword">null</strong>));
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>                                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (danglingTimeout.millis() == 0) {
+<a class="jxr_linenumber" name="L333" href="#L333">333</a>                                     logger.info(<span class="jxr_string">"[{}] dangling index, exists on local file system, but not in cluster metadata, timeout set to 0, deleting now"</span>, indexName);
+<a class="jxr_linenumber" name="L334" href="#L334">334</a>                                     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>                                         nodeEnv.deleteIndexDirectorySafe(index, 0, indexMetaData.settings());
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>                                     } <strong class="jxr_keyword">catch</strong> (LockObtainFailedException ex) {
+<a class="jxr_linenumber" name="L337" href="#L337">337</a>                                         logger.debug(<span class="jxr_string">"[{}] failed to delete index - at least one shards is still locked"</span>, ex, indexName);
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>                                     } <strong class="jxr_keyword">catch</strong> (Exception ex) {
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>                                         logger.warn(<span class="jxr_string">"[{}] failed to delete dangling index"</span>, ex, indexName);
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>                                     }
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>                                 } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>                                     logger.info(<span class="jxr_string">"[{}] dangling index, exists on local file system, but not in cluster metadata, scheduling to delete in [{}], auto import to cluster state [{}]"</span>, indexName, danglingTimeout, autoImportDangled);
+<a class="jxr_linenumber" name="L343" href="#L343">343</a>                                     danglingIndices.put(indexName,
+<a class="jxr_linenumber" name="L344" href="#L344">344</a>                                             <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">DanglingIndex</a>(indexName,
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>                                                     threadPool.schedule(danglingTimeout,
+<a class="jxr_linenumber" name="L346" href="#L346">346</a>                                                             ThreadPool.Names.SAME,
+<a class="jxr_linenumber" name="L347" href="#L347">347</a>                                                             <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">RemoveDanglingIndex</a>(index, indexMetaData.settings()))));
+<a class="jxr_linenumber" name="L348" href="#L348">348</a>                                 }
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>                             }
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>                         }
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>                     } <strong class="jxr_keyword">catch</strong> (Throwable e) {
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>                         logger.warn(<span class="jxr_string">"failed to find dangling indices"</span>, e);
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>                     }
+<a class="jxr_linenumber" name="L354" href="#L354">354</a>                 }
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>             }
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>             <strong class="jxr_keyword">if</strong> (autoImportDangled.shouldImport() &amp;&amp; !danglingIndices.isEmpty()) {
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>                 <strong class="jxr_keyword">final</strong> List&lt;IndexMetaData&gt; dangled = Lists.newArrayList();
+<a class="jxr_linenumber" name="L358" href="#L358">358</a>                 <strong class="jxr_keyword">for</strong> (String indexName : danglingIndices.keySet()) {
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>                     <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> indexMetaData;
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>                     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>                         indexMetaData = loadIndexState(indexName);
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>                     } <strong class="jxr_keyword">catch</strong> (IOException ex) {
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/ElasticsearchException.html">ElasticsearchException</a>(<span class="jxr_string">"failed to load index state"</span>, ex);
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>                     }
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>                     <strong class="jxr_keyword">if</strong> (indexMetaData == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>                         logger.debug(<span class="jxr_string">"failed to find state for dangling index [{}]"</span>, indexName);
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>                         <strong class="jxr_keyword">continue</strong>;
 <a class="jxr_linenumber" name="L368" href="#L368">368</a>                     }
-<a class="jxr_linenumber" name="L369" href="#L369">369</a>                     <strong class="jxr_keyword">if</strong> (indexMetaData == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L370" href="#L370">370</a>                         logger.debug(<span class="jxr_string">"failed to find state for dangling index [{}]"</span>, indexName);
-<a class="jxr_linenumber" name="L371" href="#L371">371</a>                         <strong class="jxr_keyword">continue</strong>;
-<a class="jxr_linenumber" name="L372" href="#L372">372</a>                     }
-<a class="jxr_linenumber" name="L373" href="#L373">373</a>                     <em class="jxr_comment">// we might have someone copying over an index, renaming the directory, handle that</em>
-<a class="jxr_linenumber" name="L374" href="#L374">374</a>                     <strong class="jxr_keyword">if</strong> (!indexMetaData.index().equals(indexName)) {
-<a class="jxr_linenumber" name="L375" href="#L375">375</a>                         logger.info(<span class="jxr_string">"dangled index directory name is [{}], state name is [{}], renaming to directory name"</span>, indexName, indexMetaData.index());
-<a class="jxr_linenumber" name="L376" href="#L376">376</a>                         indexMetaData = IndexMetaData.builder(indexMetaData).index(indexName).build();
-<a class="jxr_linenumber" name="L377" href="#L377">377</a>                     }
-<a class="jxr_linenumber" name="L378" href="#L378">378</a>                     <strong class="jxr_keyword">if</strong> (autoImportDangled == AutoImportDangledState.CLOSED) {
-<a class="jxr_linenumber" name="L379" href="#L379">379</a>                         indexMetaData = IndexMetaData.builder(indexMetaData).state(IndexMetaData.State.CLOSE).build();
-<a class="jxr_linenumber" name="L380" href="#L380">380</a>                     }
-<a class="jxr_linenumber" name="L381" href="#L381">381</a>                     <strong class="jxr_keyword">if</strong> (indexMetaData != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L382" href="#L382">382</a>                         dangled.add(indexMetaData);
-<a class="jxr_linenumber" name="L383" href="#L383">383</a>                     }
-<a class="jxr_linenumber" name="L384" href="#L384">384</a>                 }
-<a class="jxr_linenumber" name="L385" href="#L385">385</a>                 <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a>[] dangledIndices = dangled.toArray(<strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a>[dangled.size()]);
-<a class="jxr_linenumber" name="L386" href="#L386">386</a>                 <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L387" href="#L387">387</a>                     allocateDangledIndices.allocateDangled(dangledIndices, <strong class="jxr_keyword">new</strong> LocalAllocateDangledIndices.Listener() {
-<a class="jxr_linenumber" name="L388" href="#L388">388</a>                         @Override
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>                         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onResponse(LocalAllocateDangledIndices.AllocateDangledResponse response) {
-<a class="jxr_linenumber" name="L390" href="#L390">390</a>                             logger.trace(<span class="jxr_string">"allocated dangled"</span>);
-<a class="jxr_linenumber" name="L391" href="#L391">391</a>                         }
-<a class="jxr_linenumber" name="L392" href="#L392">392</a> 
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>                         @Override
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>                         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onFailure(Throwable e) {
-<a class="jxr_linenumber" name="L395" href="#L395">395</a>                             logger.info(<span class="jxr_string">"failed to send allocated dangled"</span>, e);
-<a class="jxr_linenumber" name="L396" href="#L396">396</a>                         }
-<a class="jxr_linenumber" name="L397" href="#L397">397</a>                     });
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>                 } <strong class="jxr_keyword">catch</strong> (Throwable e) {
-<a class="jxr_linenumber" name="L399" href="#L399">399</a>                     logger.warn(<span class="jxr_string">"failed to send allocate dangled"</span>, e);
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>                 }
-<a class="jxr_linenumber" name="L401" href="#L401">401</a>             }
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>                     <em class="jxr_comment">// we might have someone copying over an index, renaming the directory, handle that</em>
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>                     <strong class="jxr_keyword">if</strong> (!indexMetaData.index().equals(indexName)) {
+<a class="jxr_linenumber" name="L371" href="#L371">371</a>                         logger.info(<span class="jxr_string">"dangled index directory name is [{}], state name is [{}], renaming to directory name"</span>, indexName, indexMetaData.index());
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>                         indexMetaData = IndexMetaData.builder(indexMetaData).index(indexName).build();
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>                     }
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>                     <strong class="jxr_keyword">if</strong> (autoImportDangled == AutoImportDangledState.CLOSED) {
+<a class="jxr_linenumber" name="L375" href="#L375">375</a>                         indexMetaData = IndexMetaData.builder(indexMetaData).state(IndexMetaData.State.CLOSE).build();
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>                     }
+<a class="jxr_linenumber" name="L377" href="#L377">377</a>                     <strong class="jxr_keyword">if</strong> (indexMetaData != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L378" href="#L378">378</a>                         dangled.add(indexMetaData);
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>                     }
+<a class="jxr_linenumber" name="L380" href="#L380">380</a>                 }
+<a class="jxr_linenumber" name="L381" href="#L381">381</a>                 <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a>[] dangledIndices = dangled.toArray(<strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a>[dangled.size()]);
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>                 <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L383" href="#L383">383</a>                     allocateDangledIndices.allocateDangled(dangledIndices, <strong class="jxr_keyword">new</strong> LocalAllocateDangledIndices.Listener() {
+<a class="jxr_linenumber" name="L384" href="#L384">384</a>                         @Override
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>                         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onResponse(LocalAllocateDangledIndices.AllocateDangledResponse response) {
+<a class="jxr_linenumber" name="L386" href="#L386">386</a>                             logger.trace(<span class="jxr_string">"allocated dangled"</span>);
+<a class="jxr_linenumber" name="L387" href="#L387">387</a>                         }
+<a class="jxr_linenumber" name="L388" href="#L388">388</a> 
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>                         @Override
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>                         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onFailure(Throwable e) {
+<a class="jxr_linenumber" name="L391" href="#L391">391</a>                             logger.info(<span class="jxr_string">"failed to send allocated dangled"</span>, e);
+<a class="jxr_linenumber" name="L392" href="#L392">392</a>                         }
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>                     });
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>                 } <strong class="jxr_keyword">catch</strong> (Throwable e) {
+<a class="jxr_linenumber" name="L395" href="#L395">395</a>                     logger.warn(<span class="jxr_string">"failed to send allocate dangled"</span>, e);
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>                 }
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>             }
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>         }
+<a class="jxr_linenumber" name="L399" href="#L399">399</a> 
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>         <strong class="jxr_keyword">if</strong> (success) {
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>             currentMetaData = newMetaData;
 <a class="jxr_linenumber" name="L402" href="#L402">402</a>         }
-<a class="jxr_linenumber" name="L403" href="#L403">403</a> 
-<a class="jxr_linenumber" name="L404" href="#L404">404</a>         <strong class="jxr_keyword">if</strong> (success) {
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>             currentMetaData = newMetaData;
-<a class="jxr_linenumber" name="L406" href="#L406">406</a>         }
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>     }
-<a class="jxr_linenumber" name="L408" href="#L408">408</a> 
-<a class="jxr_linenumber" name="L409" href="#L409">409</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L410" href="#L410">410</a> <em class="jxr_javadoccomment">     * Returns a StateFormat that can read and write {@link MetaData}</em>
-<a class="jxr_linenumber" name="L411" href="#L411">411</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>     <strong class="jxr_keyword">static</strong> MetaDataStateFormat&lt;MetaData&gt; globalStateFormat(<a href="../../../org/elasticsearch/common/xcontent/XContentType.html">XContentType</a> format, <strong class="jxr_keyword">final</strong> ToXContent.Params formatParams, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> deleteOldFiles) {
-<a class="jxr_linenumber" name="L413" href="#L413">413</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> MetaDataStateFormat&lt;MetaData&gt;(format, deleteOldFiles) {
-<a class="jxr_linenumber" name="L414" href="#L414">414</a> 
-<a class="jxr_linenumber" name="L415" href="#L415">415</a>             @Override
-<a class="jxr_linenumber" name="L416" href="#L416">416</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> toXContent(<a href="../../../org/elasticsearch/common/xcontent/XContentBuilder.html">XContentBuilder</a> builder, <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> state) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>                 MetaData.Builder.toXContent(state, builder, formatParams);
-<a class="jxr_linenumber" name="L418" href="#L418">418</a>             }
-<a class="jxr_linenumber" name="L419" href="#L419">419</a> 
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>             @Override
-<a class="jxr_linenumber" name="L421" href="#L421">421</a>             <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> fromXContent(<a href="../../../org/elasticsearch/common/xcontent/XContentParser.html">XContentParser</a> parser) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L422" href="#L422">422</a>                 <strong class="jxr_keyword">return</strong> MetaData.Builder.fromXContent(parser);
-<a class="jxr_linenumber" name="L423" href="#L423">423</a>             }
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>         };
-<a class="jxr_linenumber" name="L425" href="#L425">425</a>     }
-<a class="jxr_linenumber" name="L426" href="#L426">426</a> 
-<a class="jxr_linenumber" name="L427" href="#L427">427</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L428" href="#L428">428</a> <em class="jxr_javadoccomment">     * Returns a StateFormat that can read and write {@link IndexMetaData}</em>
-<a class="jxr_linenumber" name="L429" href="#L429">429</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L430" href="#L430">430</a>     <strong class="jxr_keyword">static</strong> MetaDataStateFormat&lt;IndexMetaData&gt; indexStateFormat(<a href="../../../org/elasticsearch/common/xcontent/XContentType.html">XContentType</a> format, <strong class="jxr_keyword">final</strong> ToXContent.Params formatParams, <strong class="jxr_keyword">boolean</strong> deleteOldFiles) {
-<a class="jxr_linenumber" name="L431" href="#L431">431</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> MetaDataStateFormat&lt;IndexMetaData&gt;(format, deleteOldFiles) {
+<a class="jxr_linenumber" name="L403" href="#L403">403</a>     }
+<a class="jxr_linenumber" name="L404" href="#L404">404</a> 
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L406" href="#L406">406</a> <em class="jxr_javadoccomment">     * Returns a StateFormat that can read and write {@link MetaData}</em>
+<a class="jxr_linenumber" name="L407" href="#L407">407</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L408" href="#L408">408</a>     <strong class="jxr_keyword">static</strong> MetaDataStateFormat&lt;MetaData&gt; globalStateFormat(<a href="../../../org/elasticsearch/common/xcontent/XContentType.html">XContentType</a> format, <strong class="jxr_keyword">final</strong> ToXContent.Params formatParams, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> deleteOldFiles) {
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> MetaDataStateFormat&lt;MetaData&gt;(format, deleteOldFiles) {
+<a class="jxr_linenumber" name="L410" href="#L410">410</a> 
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>             @Override
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> toXContent(<a href="../../../org/elasticsearch/common/xcontent/XContentBuilder.html">XContentBuilder</a> builder, <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> state) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>                 MetaData.Builder.toXContent(state, builder, formatParams);
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>             }
+<a class="jxr_linenumber" name="L415" href="#L415">415</a> 
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>             @Override
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>             <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> fromXContent(<a href="../../../org/elasticsearch/common/xcontent/XContentParser.html">XContentParser</a> parser) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>                 <strong class="jxr_keyword">return</strong> MetaData.Builder.fromXContent(parser);
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>             }
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>         };
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>     }
+<a class="jxr_linenumber" name="L422" href="#L422">422</a> 
+<a class="jxr_linenumber" name="L423" href="#L423">423</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L424" href="#L424">424</a> <em class="jxr_javadoccomment">     * Returns a StateFormat that can read and write {@link IndexMetaData}</em>
+<a class="jxr_linenumber" name="L425" href="#L425">425</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L426" href="#L426">426</a>     <strong class="jxr_keyword">static</strong> MetaDataStateFormat&lt;IndexMetaData&gt; indexStateFormat(<a href="../../../org/elasticsearch/common/xcontent/XContentType.html">XContentType</a> format, <strong class="jxr_keyword">final</strong> ToXContent.Params formatParams, <strong class="jxr_keyword">boolean</strong> deleteOldFiles) {
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> MetaDataStateFormat&lt;IndexMetaData&gt;(format, deleteOldFiles) {
+<a class="jxr_linenumber" name="L428" href="#L428">428</a> 
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>             @Override
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> toXContent(<a href="../../../org/elasticsearch/common/xcontent/XContentBuilder.html">XContentBuilder</a> builder, <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> state) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L431" href="#L431">431</a>                 IndexMetaData.Builder.toXContent(state, builder, formatParams);            }
 <a class="jxr_linenumber" name="L432" href="#L432">432</a> 
 <a class="jxr_linenumber" name="L433" href="#L433">433</a>             @Override
-<a class="jxr_linenumber" name="L434" href="#L434">434</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> toXContent(<a href="../../../org/elasticsearch/common/xcontent/XContentBuilder.html">XContentBuilder</a> builder, <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> state) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L435" href="#L435">435</a>                 IndexMetaData.Builder.toXContent(state, builder, formatParams);            }
-<a class="jxr_linenumber" name="L436" href="#L436">436</a> 
-<a class="jxr_linenumber" name="L437" href="#L437">437</a>             @Override
-<a class="jxr_linenumber" name="L438" href="#L438">438</a>             <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> fromXContent(<a href="../../../org/elasticsearch/common/xcontent/XContentParser.html">XContentParser</a> parser) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L439" href="#L439">439</a>                 <strong class="jxr_keyword">return</strong> IndexMetaData.Builder.fromXContent(parser);
-<a class="jxr_linenumber" name="L440" href="#L440">440</a>             }
-<a class="jxr_linenumber" name="L441" href="#L441">441</a>         };
-<a class="jxr_linenumber" name="L442" href="#L442">442</a>     }
-<a class="jxr_linenumber" name="L443" href="#L443">443</a> 
-<a class="jxr_linenumber" name="L444" href="#L444">444</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> writeIndex(String reason, <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> indexMetaData, @Nullable <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> previousIndexMetaData) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L445" href="#L445">445</a>         logger.trace(<span class="jxr_string">"[{}] writing state, reason [{}]"</span>, indexMetaData.index(), reason);
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> deleteOldFiles = previousIndexMetaData != <strong class="jxr_keyword">null</strong> &amp;&amp; previousIndexMetaData.version() != indexMetaData.version();
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>         <strong class="jxr_keyword">final</strong> MetaDataStateFormat&lt;IndexMetaData&gt; writer = indexStateFormat(format, formatParams, deleteOldFiles);
-<a class="jxr_linenumber" name="L448" href="#L448">448</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L449" href="#L449">449</a>             writer.write(indexMetaData, INDEX_STATE_FILE_PREFIX, indexMetaData.version(),
-<a class="jxr_linenumber" name="L450" href="#L450">450</a>                     nodeEnv.indexPaths(<strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/index/Index.html">Index</a>(indexMetaData.index())));
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>         } <strong class="jxr_keyword">catch</strong> (Throwable ex) {
-<a class="jxr_linenumber" name="L452" href="#L452">452</a>             logger.warn(<span class="jxr_string">"[{}]: failed to write index state"</span>, ex, indexMetaData.index());
-<a class="jxr_linenumber" name="L453" href="#L453">453</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IOException(<span class="jxr_string">"failed to write state for ["</span> + indexMetaData.index() + <span class="jxr_string">"]"</span>, ex);
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>         }
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>     }
-<a class="jxr_linenumber" name="L456" href="#L456">456</a> 
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> writeGlobalState(String reason, <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> metaData) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>         logger.trace(<span class="jxr_string">"{} writing state, reason [{}]"</span>, GLOBAL_STATE_LOG_TYPE, reason);
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>         <strong class="jxr_keyword">final</strong> MetaDataStateFormat&lt;MetaData&gt; writer = globalStateFormat(format, gatewayModeFormatParams, <strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L460" href="#L460">460</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>             writer.write(metaData, GLOBAL_STATE_FILE_PREFIX, metaData.version(), nodeEnv.nodeDataPaths());
-<a class="jxr_linenumber" name="L462" href="#L462">462</a>         } <strong class="jxr_keyword">catch</strong> (Throwable ex) {
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>             logger.warn(<span class="jxr_string">"{}: failed to write global state"</span>, ex, GLOBAL_STATE_LOG_TYPE);
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IOException(<span class="jxr_string">"failed to write global state"</span>, ex);
-<a class="jxr_linenumber" name="L465" href="#L465">465</a>         }
-<a class="jxr_linenumber" name="L466" href="#L466">466</a>     }
-<a class="jxr_linenumber" name="L467" href="#L467">467</a> 
-<a class="jxr_linenumber" name="L468" href="#L468">468</a>     <strong class="jxr_keyword">private</strong> <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> loadState() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L469" href="#L469">469</a>         <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> globalMetaData = loadGlobalState();
-<a class="jxr_linenumber" name="L470" href="#L470">470</a>         MetaData.Builder metaDataBuilder;
-<a class="jxr_linenumber" name="L471" href="#L471">471</a>         <strong class="jxr_keyword">if</strong> (globalMetaData != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L472" href="#L472">472</a>             metaDataBuilder = MetaData.builder(globalMetaData);
-<a class="jxr_linenumber" name="L473" href="#L473">473</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L474" href="#L474">474</a>             metaDataBuilder = MetaData.builder();
-<a class="jxr_linenumber" name="L475" href="#L475">475</a>         }
-<a class="jxr_linenumber" name="L476" href="#L476">476</a> 
-<a class="jxr_linenumber" name="L477" href="#L477">477</a>         <strong class="jxr_keyword">final</strong> Set&lt;String&gt; indices = nodeEnv.findAllIndices();
-<a class="jxr_linenumber" name="L478" href="#L478">478</a>         <strong class="jxr_keyword">for</strong> (String index : indices) {
-<a class="jxr_linenumber" name="L479" href="#L479">479</a>             <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> indexMetaData = loadIndexState(index);
-<a class="jxr_linenumber" name="L480" href="#L480">480</a>             <strong class="jxr_keyword">if</strong> (indexMetaData == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L481" href="#L481">481</a>                 logger.debug(<span class="jxr_string">"[{}] failed to find metadata for existing index location"</span>, index);
-<a class="jxr_linenumber" name="L482" href="#L482">482</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L483" href="#L483">483</a>                 metaDataBuilder.put(indexMetaData, false);
-<a class="jxr_linenumber" name="L484" href="#L484">484</a>             }
-<a class="jxr_linenumber" name="L485" href="#L485">485</a>         }
-<a class="jxr_linenumber" name="L486" href="#L486">486</a>         <strong class="jxr_keyword">return</strong> metaDataBuilder.build();
-<a class="jxr_linenumber" name="L487" href="#L487">487</a>     }
-<a class="jxr_linenumber" name="L488" href="#L488">488</a> 
-<a class="jxr_linenumber" name="L489" href="#L489">489</a>     @Nullable
-<a class="jxr_linenumber" name="L490" href="#L490">490</a>     <strong class="jxr_keyword">private</strong> <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> loadIndexState(String index) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L491" href="#L491">491</a>         <strong class="jxr_keyword">return</strong> MetaDataStateFormat.loadLatestState(logger, indexStateFormat(format, formatParams, <strong class="jxr_keyword">true</strong>),
-<a class="jxr_linenumber" name="L492" href="#L492">492</a>                 INDEX_STATE_FILE_PATTERN, <span class="jxr_string">"["</span> + index + <span class="jxr_string">"]"</span>, nodeEnv.indexPaths(<strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/index/Index.html">Index</a>(index)));
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>             <strong class="jxr_keyword">public</strong> <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> fromXContent(<a href="../../../org/elasticsearch/common/xcontent/XContentParser.html">XContentParser</a> parser) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>                 <strong class="jxr_keyword">return</strong> IndexMetaData.Builder.fromXContent(parser);
+<a class="jxr_linenumber" name="L436" href="#L436">436</a>             }
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>         };
+<a class="jxr_linenumber" name="L438" href="#L438">438</a>     }
+<a class="jxr_linenumber" name="L439" href="#L439">439</a> 
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> writeIndex(String reason, <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> indexMetaData, @Nullable <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> previousIndexMetaData) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>         logger.trace(<span class="jxr_string">"[{}] writing state, reason [{}]"</span>, indexMetaData.index(), reason);
+<a class="jxr_linenumber" name="L442" href="#L442">442</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> deleteOldFiles = previousIndexMetaData != <strong class="jxr_keyword">null</strong> &amp;&amp; previousIndexMetaData.version() != indexMetaData.version();
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>         <strong class="jxr_keyword">final</strong> MetaDataStateFormat&lt;IndexMetaData&gt; writer = indexStateFormat(format, formatParams, deleteOldFiles);
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>             writer.write(indexMetaData, INDEX_STATE_FILE_PREFIX, indexMetaData.version(),
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>                     nodeEnv.indexPaths(<strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/index/Index.html">Index</a>(indexMetaData.index())));
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>         } <strong class="jxr_keyword">catch</strong> (Throwable ex) {
+<a class="jxr_linenumber" name="L448" href="#L448">448</a>             logger.warn(<span class="jxr_string">"[{}]: failed to write index state"</span>, ex, indexMetaData.index());
+<a class="jxr_linenumber" name="L449" href="#L449">449</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IOException(<span class="jxr_string">"failed to write state for ["</span> + indexMetaData.index() + <span class="jxr_string">"]"</span>, ex);
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>         }
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>     }
+<a class="jxr_linenumber" name="L452" href="#L452">452</a> 
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> writeGlobalState(String reason, <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> metaData) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>         logger.trace(<span class="jxr_string">"{} writing state, reason [{}]"</span>, GLOBAL_STATE_LOG_TYPE, reason);
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>         <strong class="jxr_keyword">final</strong> MetaDataStateFormat&lt;MetaData&gt; writer = globalStateFormat(format, gatewayModeFormatParams, <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>             writer.write(metaData, GLOBAL_STATE_FILE_PREFIX, metaData.version(), nodeEnv.nodeDataPaths());
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>         } <strong class="jxr_keyword">catch</strong> (Throwable ex) {
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>             logger.warn(<span class="jxr_string">"{}: failed to write global state"</span>, ex, GLOBAL_STATE_LOG_TYPE);
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IOException(<span class="jxr_string">"failed to write global state"</span>, ex);
+<a class="jxr_linenumber" name="L461" href="#L461">461</a>         }
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>     }
+<a class="jxr_linenumber" name="L463" href="#L463">463</a> 
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>     <strong class="jxr_keyword">private</strong> <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> loadState() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>         <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> globalMetaData = loadGlobalState();
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>         MetaData.Builder metaDataBuilder;
+<a class="jxr_linenumber" name="L467" href="#L467">467</a>         <strong class="jxr_keyword">if</strong> (globalMetaData != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>             metaDataBuilder = MetaData.builder(globalMetaData);
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>             metaDataBuilder = MetaData.builder();
+<a class="jxr_linenumber" name="L471" href="#L471">471</a>         }
+<a class="jxr_linenumber" name="L472" href="#L472">472</a> 
+<a class="jxr_linenumber" name="L473" href="#L473">473</a>         <strong class="jxr_keyword">final</strong> Set&lt;String&gt; indices = nodeEnv.findAllIndices();
+<a class="jxr_linenumber" name="L474" href="#L474">474</a>         <strong class="jxr_keyword">for</strong> (String index : indices) {
+<a class="jxr_linenumber" name="L475" href="#L475">475</a>             <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> indexMetaData = loadIndexState(index);
+<a class="jxr_linenumber" name="L476" href="#L476">476</a>             <strong class="jxr_keyword">if</strong> (indexMetaData == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L477" href="#L477">477</a>                 logger.debug(<span class="jxr_string">"[{}] failed to find metadata for existing index location"</span>, index);
+<a class="jxr_linenumber" name="L478" href="#L478">478</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>                 metaDataBuilder.put(indexMetaData, false);
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>             }
+<a class="jxr_linenumber" name="L481" href="#L481">481</a>         }
+<a class="jxr_linenumber" name="L482" href="#L482">482</a>         <strong class="jxr_keyword">return</strong> metaDataBuilder.build();
+<a class="jxr_linenumber" name="L483" href="#L483">483</a>     }
+<a class="jxr_linenumber" name="L484" href="#L484">484</a> 
+<a class="jxr_linenumber" name="L485" href="#L485">485</a>     @Nullable
+<a class="jxr_linenumber" name="L486" href="#L486">486</a>     <strong class="jxr_keyword">private</strong> <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> loadIndexState(String index) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L487" href="#L487">487</a>         <strong class="jxr_keyword">return</strong> MetaDataStateFormat.loadLatestState(logger, indexStateFormat(format, formatParams, <strong class="jxr_keyword">true</strong>),
+<a class="jxr_linenumber" name="L488" href="#L488">488</a>                 INDEX_STATE_FILE_PATTERN, <span class="jxr_string">"["</span> + index + <span class="jxr_string">"]"</span>, nodeEnv.indexPaths(<strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/index/Index.html">Index</a>(index)));
+<a class="jxr_linenumber" name="L489" href="#L489">489</a>     }
+<a class="jxr_linenumber" name="L490" href="#L490">490</a> 
+<a class="jxr_linenumber" name="L491" href="#L491">491</a>     <strong class="jxr_keyword">private</strong> <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> loadGlobalState() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L492" href="#L492">492</a>         <strong class="jxr_keyword">return</strong> MetaDataStateFormat.loadLatestState(logger, globalStateFormat(format, gatewayModeFormatParams, <strong class="jxr_keyword">true</strong>), GLOBAL_STATE_FILE_PATTERN, GLOBAL_STATE_LOG_TYPE, nodeEnv.nodeDataPaths());
 <a class="jxr_linenumber" name="L493" href="#L493">493</a>     }
 <a class="jxr_linenumber" name="L494" href="#L494">494</a> 
-<a class="jxr_linenumber" name="L495" href="#L495">495</a>     <strong class="jxr_keyword">private</strong> <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> loadGlobalState() <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L496" href="#L496">496</a>         <strong class="jxr_keyword">return</strong> MetaDataStateFormat.loadLatestState(logger, globalStateFormat(format, gatewayModeFormatParams, <strong class="jxr_keyword">true</strong>), GLOBAL_STATE_FILE_PATTERN, GLOBAL_STATE_LOG_TYPE, nodeEnv.nodeDataPaths());
-<a class="jxr_linenumber" name="L497" href="#L497">497</a>     }
-<a class="jxr_linenumber" name="L498" href="#L498">498</a> 
-<a class="jxr_linenumber" name="L499" href="#L499">499</a> 
-<a class="jxr_linenumber" name="L500" href="#L500">500</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L501" href="#L501">501</a> <em class="jxr_javadoccomment">     * Throws an IAE if a pre 0.19 state is detected</em>
-<a class="jxr_linenumber" name="L502" href="#L502">502</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L503" href="#L503">503</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> ensureNoPre019State() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L504" href="#L504">504</a>         <strong class="jxr_keyword">for</strong> (Path dataLocation : nodeEnv.nodeDataPaths()) {
-<a class="jxr_linenumber" name="L505" href="#L505">505</a>             <strong class="jxr_keyword">final</strong> Path stateLocation = dataLocation.resolve(MetaDataStateFormat.STATE_DIR_NAME);
-<a class="jxr_linenumber" name="L506" href="#L506">506</a>             <strong class="jxr_keyword">if</strong> (!Files.exists(stateLocation)) {
-<a class="jxr_linenumber" name="L507" href="#L507">507</a>                 <strong class="jxr_keyword">continue</strong>;
-<a class="jxr_linenumber" name="L508" href="#L508">508</a>             }
-<a class="jxr_linenumber" name="L509" href="#L509">509</a>             <strong class="jxr_keyword">try</strong> (DirectoryStream&lt;Path&gt; stream = Files.newDirectoryStream(stateLocation)) {
-<a class="jxr_linenumber" name="L510" href="#L510">510</a>                 <strong class="jxr_keyword">for</strong> (Path stateFile : stream) {
-<a class="jxr_linenumber" name="L511" href="#L511">511</a>                     <strong class="jxr_keyword">if</strong> (logger.isTraceEnabled()) {
-<a class="jxr_linenumber" name="L512" href="#L512">512</a>                         logger.trace(<span class="jxr_string">"[upgrade]: processing ["</span> + stateFile.getFileName() + <span class="jxr_string">"]"</span>);
-<a class="jxr_linenumber" name="L513" href="#L513">513</a>                     }
-<a class="jxr_linenumber" name="L514" href="#L514">514</a>                     <strong class="jxr_keyword">final</strong> String name = stateFile.getFileName().toString();
-<a class="jxr_linenumber" name="L515" href="#L515">515</a>                     <strong class="jxr_keyword">if</strong> (name.startsWith(<span class="jxr_string">"metadata-"</span>)) {
-<a class="jxr_linenumber" name="L516" href="#L516">516</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/ElasticsearchIllegalStateException.html">ElasticsearchIllegalStateException</a>(<span class="jxr_string">"Detected pre 0.19 metadata file please upgrade to a version before "</span>
-<a class="jxr_linenumber" name="L517" href="#L517">517</a>                                 + Version.CURRENT.minimumCompatibilityVersion()
-<a class="jxr_linenumber" name="L518" href="#L518">518</a>                                 + <span class="jxr_string">" first to upgrade state structures - metadata found: ["</span> + stateFile.getParent().toAbsolutePath());
-<a class="jxr_linenumber" name="L519" href="#L519">519</a>                     }
-<a class="jxr_linenumber" name="L520" href="#L520">520</a>                 }
-<a class="jxr_linenumber" name="L521" href="#L521">521</a>             }
-<a class="jxr_linenumber" name="L522" href="#L522">522</a>         }
-<a class="jxr_linenumber" name="L523" href="#L523">523</a>     }
-<a class="jxr_linenumber" name="L524" href="#L524">524</a> 
-<a class="jxr_linenumber" name="L525" href="#L525">525</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L526" href="#L526">526</a> <em class="jxr_javadoccomment">     * Elasticsearch 2.0 deprecated custom routing hash functions. So what we do here is that for old indices, we</em>
-<a class="jxr_linenumber" name="L527" href="#L527">527</a> <em class="jxr_javadoccomment">     * move this old &amp; deprecated node setting to an index setting so that we can keep things backward compatible.</em>
-<a class="jxr_linenumber" name="L528" href="#L528">528</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L529" href="#L529">529</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> pre20Upgrade() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L530" href="#L530">530</a>         <strong class="jxr_keyword">final</strong> Class&lt;? <strong class="jxr_keyword">extends</strong> HashFunction&gt; pre20HashFunction;
-<a class="jxr_linenumber" name="L531" href="#L531">531</a>         <strong class="jxr_keyword">final</strong> String pre20HashFunctionName = settings.get(DEPRECATED_SETTING_ROUTING_HASH_FUNCTION, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L532" href="#L532">532</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> hasCustomPre20HashFunction = pre20HashFunctionName != <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L533" href="#L533">533</a>         <em class="jxr_comment">// the hash function package has changed we replace the two hash functions if their fully qualified name is used.</em>
-<a class="jxr_linenumber" name="L534" href="#L534">534</a>         <strong class="jxr_keyword">if</strong> (hasCustomPre20HashFunction) {
-<a class="jxr_linenumber" name="L535" href="#L535">535</a>             <strong class="jxr_keyword">switch</strong> (pre20HashFunctionName) {
-<a class="jxr_linenumber" name="L536" href="#L536">536</a>                 <strong class="jxr_keyword">case</strong> <span class="jxr_string">"org.elasticsearch.cluster.routing.operation.hash.simple.SimpleHashFunction"</span>:
-<a class="jxr_linenumber" name="L537" href="#L537">537</a>                     pre20HashFunction = SimpleHashFunction.<strong class="jxr_keyword">class</strong>;
-<a class="jxr_linenumber" name="L538" href="#L538">538</a>                     <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L539" href="#L539">539</a>                 <strong class="jxr_keyword">case</strong> <span class="jxr_string">"org.elasticsearch.cluster.routing.operation.hash.djb.DjbHashFunction"</span>:
-<a class="jxr_linenumber" name="L540" href="#L540">540</a>                     pre20HashFunction = DjbHashFunction.<strong class="jxr_keyword">class</strong>;
-<a class="jxr_linenumber" name="L541" href="#L541">541</a>                     <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L542" href="#L542">542</a>                 <strong class="jxr_keyword">default</strong>:
-<a class="jxr_linenumber" name="L543" href="#L543">543</a>                     pre20HashFunction = settings.getAsClass(DEPRECATED_SETTING_ROUTING_HASH_FUNCTION, DjbHashFunction.<strong class="jxr_keyword">class</strong>, <span class="jxr_string">"org.elasticsearch.cluster.routing."</span>, <span class="jxr_string">"HashFunction"</span>);
-<a class="jxr_linenumber" name="L544" href="#L544">544</a>             }
-<a class="jxr_linenumber" name="L545" href="#L545">545</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L546" href="#L546">546</a>             pre20HashFunction = DjbHashFunction.<strong class="jxr_keyword">class</strong>;
-<a class="jxr_linenumber" name="L547" href="#L547">547</a>         }
-<a class="jxr_linenumber" name="L548" href="#L548">548</a>         <strong class="jxr_keyword">final</strong> Boolean pre20UseType = settings.getAsBoolean(DEPRECATED_SETTING_ROUTING_USE_TYPE, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L549" href="#L549">549</a>         <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> metaData = loadMetaState();
-<a class="jxr_linenumber" name="L550" href="#L550">550</a>         <strong class="jxr_keyword">for</strong> (IndexMetaData indexMetaData : metaData) {
-<a class="jxr_linenumber" name="L551" href="#L551">551</a>             <strong class="jxr_keyword">if</strong> (indexMetaData.settings().get(IndexMetaData.SETTING_LEGACY_ROUTING_HASH_FUNCTION) == <strong class="jxr_keyword">null</strong>
-<a class="jxr_linenumber" name="L552" href="#L552">552</a>                     &amp;&amp; indexMetaData.getCreationVersion().before(Version.V_2_0_0)) {
-<a class="jxr_linenumber" name="L553" href="#L553">553</a>                 <em class="jxr_comment">// these settings need an upgrade</em>
-<a class="jxr_linenumber" name="L554" href="#L554">554</a>                 <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> indexSettings = ImmutableSettings.builder().put(indexMetaData.settings())
-<a class="jxr_linenumber" name="L555" href="#L555">555</a>                         .put(IndexMetaData.SETTING_LEGACY_ROUTING_HASH_FUNCTION, pre20HashFunction)
-<a class="jxr_linenumber" name="L556" href="#L556">556</a>                         .put(IndexMetaData.SETTING_LEGACY_ROUTING_USE_TYPE, pre20UseType == <strong class="jxr_keyword">null</strong> ? false : pre20UseType)
+<a class="jxr_linenumber" name="L495" href="#L495">495</a> 
+<a class="jxr_linenumber" name="L496" href="#L496">496</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L497" href="#L497">497</a> <em class="jxr_javadoccomment">     * Throws an IAE if a pre 0.19 state is detected</em>
+<a class="jxr_linenumber" name="L498" href="#L498">498</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L499" href="#L499">499</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> ensureNoPre019State() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L500" href="#L500">500</a>         <strong class="jxr_keyword">for</strong> (Path dataLocation : nodeEnv.nodeDataPaths()) {
+<a class="jxr_linenumber" name="L501" href="#L501">501</a>             <strong class="jxr_keyword">final</strong> Path stateLocation = dataLocation.resolve(MetaDataStateFormat.STATE_DIR_NAME);
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>             <strong class="jxr_keyword">if</strong> (!Files.exists(stateLocation)) {
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>                 <strong class="jxr_keyword">continue</strong>;
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>             }
+<a class="jxr_linenumber" name="L505" href="#L505">505</a>             <strong class="jxr_keyword">try</strong> (DirectoryStream&lt;Path&gt; stream = Files.newDirectoryStream(stateLocation)) {
+<a class="jxr_linenumber" name="L506" href="#L506">506</a>                 <strong class="jxr_keyword">for</strong> (Path stateFile : stream) {
+<a class="jxr_linenumber" name="L507" href="#L507">507</a>                     <strong class="jxr_keyword">if</strong> (logger.isTraceEnabled()) {
+<a class="jxr_linenumber" name="L508" href="#L508">508</a>                         logger.trace(<span class="jxr_string">"[upgrade]: processing ["</span> + stateFile.getFileName() + <span class="jxr_string">"]"</span>);
+<a class="jxr_linenumber" name="L509" href="#L509">509</a>                     }
+<a class="jxr_linenumber" name="L510" href="#L510">510</a>                     <strong class="jxr_keyword">final</strong> String name = stateFile.getFileName().toString();
+<a class="jxr_linenumber" name="L511" href="#L511">511</a>                     <strong class="jxr_keyword">if</strong> (name.startsWith(<span class="jxr_string">"metadata-"</span>)) {
+<a class="jxr_linenumber" name="L512" href="#L512">512</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/ElasticsearchIllegalStateException.html">ElasticsearchIllegalStateException</a>(<span class="jxr_string">"Detected pre 0.19 metadata file please upgrade to a version before "</span>
+<a class="jxr_linenumber" name="L513" href="#L513">513</a>                                 + Version.CURRENT.minimumCompatibilityVersion()
+<a class="jxr_linenumber" name="L514" href="#L514">514</a>                                 + <span class="jxr_string">" first to upgrade state structures - metadata found: ["</span> + stateFile.getParent().toAbsolutePath());
+<a class="jxr_linenumber" name="L515" href="#L515">515</a>                     }
+<a class="jxr_linenumber" name="L516" href="#L516">516</a>                 }
+<a class="jxr_linenumber" name="L517" href="#L517">517</a>             }
+<a class="jxr_linenumber" name="L518" href="#L518">518</a>         }
+<a class="jxr_linenumber" name="L519" href="#L519">519</a>     }
+<a class="jxr_linenumber" name="L520" href="#L520">520</a> 
+<a class="jxr_linenumber" name="L521" href="#L521">521</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L522" href="#L522">522</a> <em class="jxr_javadoccomment">     * Elasticsearch 2.0 deprecated custom routing hash functions. So what we do here is that for old indices, we</em>
+<a class="jxr_linenumber" name="L523" href="#L523">523</a> <em class="jxr_javadoccomment">     * move this old &amp; deprecated node setting to an index setting so that we can keep things backward compatible.</em>
+<a class="jxr_linenumber" name="L524" href="#L524">524</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L525" href="#L525">525</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> pre20Upgrade() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L526" href="#L526">526</a>         <strong class="jxr_keyword">final</strong> Class&lt;? <strong class="jxr_keyword">extends</strong> HashFunction&gt; pre20HashFunction;
+<a class="jxr_linenumber" name="L527" href="#L527">527</a>         <strong class="jxr_keyword">final</strong> String pre20HashFunctionName = settings.get(DEPRECATED_SETTING_ROUTING_HASH_FUNCTION, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L528" href="#L528">528</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> hasCustomPre20HashFunction = pre20HashFunctionName != <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L529" href="#L529">529</a>         <em class="jxr_comment">// the hash function package has changed we replace the two hash functions if their fully qualified name is used.</em>
+<a class="jxr_linenumber" name="L530" href="#L530">530</a>         <strong class="jxr_keyword">if</strong> (hasCustomPre20HashFunction) {
+<a class="jxr_linenumber" name="L531" href="#L531">531</a>             <strong class="jxr_keyword">switch</strong> (pre20HashFunctionName) {
+<a class="jxr_linenumber" name="L532" href="#L532">532</a>                 <strong class="jxr_keyword">case</strong> <span class="jxr_string">"org.elasticsearch.cluster.routing.operation.hash.simple.SimpleHashFunction"</span>:
+<a class="jxr_linenumber" name="L533" href="#L533">533</a>                     pre20HashFunction = SimpleHashFunction.<strong class="jxr_keyword">class</strong>;
+<a class="jxr_linenumber" name="L534" href="#L534">534</a>                     <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L535" href="#L535">535</a>                 <strong class="jxr_keyword">case</strong> <span class="jxr_string">"org.elasticsearch.cluster.routing.operation.hash.djb.DjbHashFunction"</span>:
+<a class="jxr_linenumber" name="L536" href="#L536">536</a>                     pre20HashFunction = DjbHashFunction.<strong class="jxr_keyword">class</strong>;
+<a class="jxr_linenumber" name="L537" href="#L537">537</a>                     <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L538" href="#L538">538</a>                 <strong class="jxr_keyword">default</strong>:
+<a class="jxr_linenumber" name="L539" href="#L539">539</a>                     pre20HashFunction = settings.getAsClass(DEPRECATED_SETTING_ROUTING_HASH_FUNCTION, DjbHashFunction.<strong class="jxr_keyword">class</strong>, <span class="jxr_string">"org.elasticsearch.cluster.routing."</span>, <span class="jxr_string">"HashFunction"</span>);
+<a class="jxr_linenumber" name="L540" href="#L540">540</a>             }
+<a class="jxr_linenumber" name="L541" href="#L541">541</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L542" href="#L542">542</a>             pre20HashFunction = DjbHashFunction.<strong class="jxr_keyword">class</strong>;
+<a class="jxr_linenumber" name="L543" href="#L543">543</a>         }
+<a class="jxr_linenumber" name="L544" href="#L544">544</a>         <strong class="jxr_keyword">final</strong> Boolean pre20UseType = settings.getAsBoolean(DEPRECATED_SETTING_ROUTING_USE_TYPE, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L545" href="#L545">545</a>         <a href="../../../org/elasticsearch/cluster/metadata/MetaData.html">MetaData</a> metaData = loadMetaState();
+<a class="jxr_linenumber" name="L546" href="#L546">546</a>         <strong class="jxr_keyword">for</strong> (IndexMetaData indexMetaData : metaData) {
+<a class="jxr_linenumber" name="L547" href="#L547">547</a>             <strong class="jxr_keyword">if</strong> (indexMetaData.settings().get(IndexMetaData.SETTING_LEGACY_ROUTING_HASH_FUNCTION) == <strong class="jxr_keyword">null</strong>
+<a class="jxr_linenumber" name="L548" href="#L548">548</a>                     &amp;&amp; indexMetaData.getCreationVersion().before(Version.V_2_0_0)) {
+<a class="jxr_linenumber" name="L549" href="#L549">549</a>                 <em class="jxr_comment">// these settings need an upgrade</em>
+<a class="jxr_linenumber" name="L550" href="#L550">550</a>                 <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> indexSettings = ImmutableSettings.builder().put(indexMetaData.settings())
+<a class="jxr_linenumber" name="L551" href="#L551">551</a>                         .put(IndexMetaData.SETTING_LEGACY_ROUTING_HASH_FUNCTION, pre20HashFunction)
+<a class="jxr_linenumber" name="L552" href="#L552">552</a>                         .put(IndexMetaData.SETTING_LEGACY_ROUTING_USE_TYPE, pre20UseType == <strong class="jxr_keyword">null</strong> ? false : pre20UseType)
+<a class="jxr_linenumber" name="L553" href="#L553">553</a>                         .build();
+<a class="jxr_linenumber" name="L554" href="#L554">554</a>                 <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> newMetaData = IndexMetaData.builder(indexMetaData)
+<a class="jxr_linenumber" name="L555" href="#L555">555</a>                         .version(indexMetaData.version())
+<a class="jxr_linenumber" name="L556" href="#L556">556</a>                         .settings(indexSettings)
 <a class="jxr_linenumber" name="L557" href="#L557">557</a>                         .build();
-<a class="jxr_linenumber" name="L558" href="#L558">558</a>                 <a href="../../../org/elasticsearch/cluster/metadata/IndexMetaData.html">IndexMetaData</a> newMetaData = IndexMetaData.builder(indexMetaData)
-<a class="jxr_linenumber" name="L559" href="#L559">559</a>                         .version(indexMetaData.version())
-<a class="jxr_linenumber" name="L560" href="#L560">560</a>                         .settings(indexSettings)
-<a class="jxr_linenumber" name="L561" href="#L561">561</a>                         .build();
-<a class="jxr_linenumber" name="L562" href="#L562">562</a>                 writeIndex(<span class="jxr_string">"upgrade"</span>, newMetaData, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L563" href="#L563">563</a>             } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (indexMetaData.getCreationVersion().onOrAfter(Version.V_2_0_0)) {
-<a class="jxr_linenumber" name="L564" href="#L564">564</a>                 <strong class="jxr_keyword">if</strong> (indexMetaData.getSettings().get(IndexMetaData.SETTING_LEGACY_ROUTING_HASH_FUNCTION) != <strong class="jxr_keyword">null</strong>
-<a class="jxr_linenumber" name="L565" href="#L565">565</a>                         || indexMetaData.getSettings().get(IndexMetaData.SETTING_LEGACY_ROUTING_USE_TYPE) != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L566" href="#L566">566</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/ElasticsearchIllegalStateException.html">ElasticsearchIllegalStateException</a>(<span class="jxr_string">"Indices created on or after 2.0 should NOT contain ["</span> + IndexMetaData.SETTING_LEGACY_ROUTING_HASH_FUNCTION
-<a class="jxr_linenumber" name="L567" href="#L567">567</a>                             + <span class="jxr_string">"] + or ["</span> + IndexMetaData.SETTING_LEGACY_ROUTING_USE_TYPE + <span class="jxr_string">"] in their index settings"</span>);
-<a class="jxr_linenumber" name="L568" href="#L568">568</a>                 }
-<a class="jxr_linenumber" name="L569" href="#L569">569</a>             }
+<a class="jxr_linenumber" name="L558" href="#L558">558</a>                 writeIndex(<span class="jxr_string">"upgrade"</span>, newMetaData, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L559" href="#L559">559</a>             } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (indexMetaData.getCreationVersion().onOrAfter(Version.V_2_0_0)) {
+<a class="jxr_linenumber" name="L560" href="#L560">560</a>                 <strong class="jxr_keyword">if</strong> (indexMetaData.getSettings().get(IndexMetaData.SETTING_LEGACY_ROUTING_HASH_FUNCTION) != <strong class="jxr_keyword">null</strong>
+<a class="jxr_linenumber" name="L561" href="#L561">561</a>                         || indexMetaData.getSettings().get(IndexMetaData.SETTING_LEGACY_ROUTING_USE_TYPE) != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L562" href="#L562">562</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/elasticsearch/ElasticsearchIllegalStateException.html">ElasticsearchIllegalStateException</a>(<span class="jxr_string">"Indices created on or after 2.0 should NOT contain ["</span> + IndexMetaData.SETTING_LEGACY_ROUTING_HASH_FUNCTION
+<a class="jxr_linenumber" name="L563" href="#L563">563</a>                             + <span class="jxr_string">"] + or ["</span> + IndexMetaData.SETTING_LEGACY_ROUTING_USE_TYPE + <span class="jxr_string">"] in their index settings"</span>);
+<a class="jxr_linenumber" name="L564" href="#L564">564</a>                 }
+<a class="jxr_linenumber" name="L565" href="#L565">565</a>             }
+<a class="jxr_linenumber" name="L566" href="#L566">566</a>         }
+<a class="jxr_linenumber" name="L567" href="#L567">567</a>         <strong class="jxr_keyword">if</strong> (hasCustomPre20HashFunction|| pre20UseType != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L568" href="#L568">568</a>             logger.warn(<span class="jxr_string">"Settings [{}] and [{}] are deprecated. Index settings from your old indices have been updated to record the fact that they "</span>
+<a class="jxr_linenumber" name="L569" href="#L569">569</a>                     + <span class="jxr_string">"used some custom routing logic, you can now remove these settings from your `elasticsearch.yml` file"</span>, DEPRECATED_SETTING_ROUTING_HASH_FUNCTION, DEPRECATED_SETTING_ROUTING_USE_TYPE);
 <a class="jxr_linenumber" name="L570" href="#L570">570</a>         }
-<a class="jxr_linenumber" name="L571" href="#L571">571</a>         <strong class="jxr_keyword">if</strong> (hasCustomPre20HashFunction|| pre20UseType != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L572" href="#L572">572</a>             logger.warn(<span class="jxr_string">"Settings [{}] and [{}] are deprecated. Index settings from your old indices have been updated to record the fact that they "</span>
-<a class="jxr_linenumber" name="L573" href="#L573">573</a>                     + <span class="jxr_string">"used some custom routing logic, you can now remove these settings from your `elasticsearch.yml` file"</span>, DEPRECATED_SETTING_ROUTING_HASH_FUNCTION, DEPRECATED_SETTING_ROUTING_USE_TYPE);
-<a class="jxr_linenumber" name="L574" href="#L574">574</a>         }
-<a class="jxr_linenumber" name="L575" href="#L575">575</a>     }
-<a class="jxr_linenumber" name="L576" href="#L576">576</a> 
-<a class="jxr_linenumber" name="L577" href="#L577">577</a>     <strong class="jxr_keyword">class</strong> <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">RemoveDanglingIndex</a> <strong class="jxr_keyword">implements</strong> Runnable {
-<a class="jxr_linenumber" name="L578" href="#L578">578</a> 
-<a class="jxr_linenumber" name="L579" href="#L579">579</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/index/Index.html">Index</a> index;
-<a class="jxr_linenumber" name="L580" href="#L580">580</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> indexSettings;
-<a class="jxr_linenumber" name="L581" href="#L581">581</a> 
-<a class="jxr_linenumber" name="L582" href="#L582">582</a>         <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">RemoveDanglingIndex</a>(<a href="../../../org/elasticsearch/index/Index.html">Index</a> index, @IndexSettings <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> indexSettings) {
-<a class="jxr_linenumber" name="L583" href="#L583">583</a>             <strong class="jxr_keyword">this</strong>.index = index;
-<a class="jxr_linenumber" name="L584" href="#L584">584</a>             <strong class="jxr_keyword">this</strong>.indexSettings = indexSettings;
-<a class="jxr_linenumber" name="L585" href="#L585">585</a>         }
-<a class="jxr_linenumber" name="L586" href="#L586">586</a> 
-<a class="jxr_linenumber" name="L587" href="#L587">587</a>         @Override
-<a class="jxr_linenumber" name="L588" href="#L588">588</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> run() {
-<a class="jxr_linenumber" name="L589" href="#L589">589</a>             <strong class="jxr_keyword">synchronized</strong> (danglingMutex) {
-<a class="jxr_linenumber" name="L590" href="#L590">590</a>                 <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">DanglingIndex</a> remove = danglingIndices.remove(index.name());
-<a class="jxr_linenumber" name="L591" href="#L591">591</a>                 <em class="jxr_comment">// no longer there...</em>
-<a class="jxr_linenumber" name="L592" href="#L592">592</a>                 <strong class="jxr_keyword">if</strong> (remove == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L593" href="#L593">593</a>                     <strong class="jxr_keyword">return</strong>;
-<a class="jxr_linenumber" name="L594" href="#L594">594</a>                 }
-<a class="jxr_linenumber" name="L595" href="#L595">595</a>                 logger.warn(<span class="jxr_string">"[{}] deleting dangling index"</span>, index);
-<a class="jxr_linenumber" name="L596" href="#L596">596</a> 
-<a class="jxr_linenumber" name="L597" href="#L597">597</a>                 <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L598" href="#L598">598</a>                     MetaDataStateFormat.deleteMetaState(nodeEnv.indexPaths(index));
-<a class="jxr_linenumber" name="L599" href="#L599">599</a>                     nodeEnv.deleteIndexDirectorySafe(index, 0, indexSettings);
-<a class="jxr_linenumber" name="L600" href="#L600">600</a>                 } <strong class="jxr_keyword">catch</strong> (Exception ex) {
-<a class="jxr_linenumber" name="L601" href="#L601">601</a>                     logger.debug(<span class="jxr_string">"failed to delete dangling index"</span>, ex);
-<a class="jxr_linenumber" name="L602" href="#L602">602</a>                 }
-<a class="jxr_linenumber" name="L603" href="#L603">603</a>             }
-<a class="jxr_linenumber" name="L604" href="#L604">604</a>         }
-<a class="jxr_linenumber" name="L605" href="#L605">605</a>     }
+<a class="jxr_linenumber" name="L571" href="#L571">571</a>     }
+<a class="jxr_linenumber" name="L572" href="#L572">572</a> 
+<a class="jxr_linenumber" name="L573" href="#L573">573</a>     <strong class="jxr_keyword">class</strong> <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">RemoveDanglingIndex</a> <strong class="jxr_keyword">implements</strong> Runnable {
+<a class="jxr_linenumber" name="L574" href="#L574">574</a> 
+<a class="jxr_linenumber" name="L575" href="#L575">575</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/index/Index.html">Index</a> index;
+<a class="jxr_linenumber" name="L576" href="#L576">576</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> indexSettings;
+<a class="jxr_linenumber" name="L577" href="#L577">577</a> 
+<a class="jxr_linenumber" name="L578" href="#L578">578</a>         <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">RemoveDanglingIndex</a>(<a href="../../../org/elasticsearch/index/Index.html">Index</a> index, @IndexSettings <a href="../../../org/elasticsearch/common/settings/Settings.html">Settings</a> indexSettings) {
+<a class="jxr_linenumber" name="L579" href="#L579">579</a>             <strong class="jxr_keyword">this</strong>.index = index;
+<a class="jxr_linenumber" name="L580" href="#L580">580</a>             <strong class="jxr_keyword">this</strong>.indexSettings = indexSettings;
+<a class="jxr_linenumber" name="L581" href="#L581">581</a>         }
+<a class="jxr_linenumber" name="L582" href="#L582">582</a> 
+<a class="jxr_linenumber" name="L583" href="#L583">583</a>         @Override
+<a class="jxr_linenumber" name="L584" href="#L584">584</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> run() {
+<a class="jxr_linenumber" name="L585" href="#L585">585</a>             <strong class="jxr_keyword">synchronized</strong> (danglingMutex) {
+<a class="jxr_linenumber" name="L586" href="#L586">586</a>                 <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">DanglingIndex</a> remove = danglingIndices.remove(index.name());
+<a class="jxr_linenumber" name="L587" href="#L587">587</a>                 <em class="jxr_comment">// no longer there...</em>
+<a class="jxr_linenumber" name="L588" href="#L588">588</a>                 <strong class="jxr_keyword">if</strong> (remove == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L589" href="#L589">589</a>                     <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="L590" href="#L590">590</a>                 }
+<a class="jxr_linenumber" name="L591" href="#L591">591</a>                 logger.warn(<span class="jxr_string">"[{}] deleting dangling index"</span>, index);
+<a class="jxr_linenumber" name="L592" href="#L592">592</a> 
+<a class="jxr_linenumber" name="L593" href="#L593">593</a>                 <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L594" href="#L594">594</a>                     MetaDataStateFormat.deleteMetaState(nodeEnv.indexPaths(index));
+<a class="jxr_linenumber" name="L595" href="#L595">595</a>                     nodeEnv.deleteIndexDirectorySafe(index, 0, indexSettings);
+<a class="jxr_linenumber" name="L596" href="#L596">596</a>                 } <strong class="jxr_keyword">catch</strong> (Exception ex) {
+<a class="jxr_linenumber" name="L597" href="#L597">597</a>                     logger.debug(<span class="jxr_string">"failed to delete dangling index"</span>, ex);
+<a class="jxr_linenumber" name="L598" href="#L598">598</a>                 }
+<a class="jxr_linenumber" name="L599" href="#L599">599</a>             }
+<a class="jxr_linenumber" name="L600" href="#L600">600</a>         }
+<a class="jxr_linenumber" name="L601" href="#L601">601</a>     }
+<a class="jxr_linenumber" name="L602" href="#L602">602</a> 
+<a class="jxr_linenumber" name="L603" href="#L603">603</a>     <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">DanglingIndex</a> {
+<a class="jxr_linenumber" name="L604" href="#L604">604</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> String index;
+<a class="jxr_linenumber" name="L605" href="#L605">605</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> ScheduledFuture future;
 <a class="jxr_linenumber" name="L606" href="#L606">606</a> 
-<a class="jxr_linenumber" name="L607" href="#L607">607</a>     <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">DanglingIndex</a> {
-<a class="jxr_linenumber" name="L608" href="#L608">608</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> String index;
-<a class="jxr_linenumber" name="L609" href="#L609">609</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> ScheduledFuture future;
-<a class="jxr_linenumber" name="L610" href="#L610">610</a> 
-<a class="jxr_linenumber" name="L611" href="#L611">611</a>         <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">DanglingIndex</a>(String index, ScheduledFuture future) {
-<a class="jxr_linenumber" name="L612" href="#L612">612</a>             <strong class="jxr_keyword">this</strong>.index = index;
-<a class="jxr_linenumber" name="L613" href="#L613">613</a>             <strong class="jxr_keyword">this</strong>.future = future;
-<a class="jxr_linenumber" name="L614" href="#L614">614</a>         }
-<a class="jxr_linenumber" name="L615" href="#L615">615</a>     }
-<a class="jxr_linenumber" name="L616" href="#L616">616</a> 
-<a class="jxr_linenumber" name="L617" href="#L617">617</a> }
+<a class="jxr_linenumber" name="L607" href="#L607">607</a>         <a href="../../../org/elasticsearch/gateway/GatewayMetaState.html">DanglingIndex</a>(String index, ScheduledFuture future) {
+<a class="jxr_linenumber" name="L608" href="#L608">608</a>             <strong class="jxr_keyword">this</strong>.index = index;
+<a class="jxr_linenumber" name="L609" href="#L609">609</a>             <strong class="jxr_keyword">this</strong>.future = future;
+<a class="jxr_linenumber" name="L610" href="#L610">610</a>         }
+<a class="jxr_linenumber" name="L611" href="#L611">611</a>     }
+<a class="jxr_linenumber" name="L612" href="#L612">612</a> 
+<a class="jxr_linenumber" name="L613" href="#L613">613</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015. All rights reserved.</div>

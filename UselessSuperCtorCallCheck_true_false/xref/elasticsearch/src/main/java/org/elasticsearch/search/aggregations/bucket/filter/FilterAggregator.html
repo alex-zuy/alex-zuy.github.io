@@ -51,7 +51,7 @@
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>                              <a href="../../../../../../org/elasticsearch/search/aggregations/AggregatorFactories.html">AggregatorFactories</a> factories,
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>                              <a href="../../../../../../org/elasticsearch/search/aggregations/support/AggregationContext.html">AggregationContext</a> aggregationContext,
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>                              <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> parent,
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>                              Map&lt;String, Object&gt; metaData) {
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>                              Map&lt;String, Object&gt; metaData) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>          <strong class="jxr_keyword">super</strong>(name, factories, aggregationContext, parent, metaData);
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">this</strong>.filter = filter;
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      }
@@ -73,13 +73,13 @@
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      }
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      @Override
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/InternalAggregation.html">InternalAggregation</a> buildAggregation(<strong class="jxr_keyword">long</strong> owningBucketOrdinal) {
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/filter/InternalFilter.html">InternalFilter</a>(name, bucketDocCount(owningBucketOrdinal), bucketAggregations(owningBucketOrdinal), getMetaData());
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/InternalAggregation.html">InternalAggregation</a> buildAggregation(<strong class="jxr_keyword">long</strong> owningBucketOrdinal) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/filter/InternalFilter.html">InternalFilter</a>(name, bucketDocCount(owningBucketOrdinal), bucketAggregations(owningBucketOrdinal), metaData());
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      }
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>      @Override
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/InternalAggregation.html">InternalAggregation</a> buildEmptyAggregation() {
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/filter/InternalFilter.html">InternalFilter</a>(name, 0, buildEmptySubAggregations(), getMetaData());
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/filter/InternalFilter.html">InternalFilter</a>(name, 0, buildEmptySubAggregations(), metaData());
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>      }
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/filter/FilterAggregator.html">Factory</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/AggregatorFactory.html">AggregatorFactory</a> {
@@ -92,7 +92,7 @@
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          }
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>          @Override
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> createInternal(<a href="../../../../../../org/elasticsearch/search/aggregations/support/AggregationContext.html">AggregationContext</a> context, <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> parent, <strong class="jxr_keyword">long</strong> expectedBucketsCount, Map&lt;String, Object&gt; metaData) {
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> createInternal(<a href="../../../../../../org/elasticsearch/search/aggregations/support/AggregationContext.html">AggregationContext</a> context, <a href="../../../../../../org/elasticsearch/search/aggregations/Aggregator.html">Aggregator</a> parent, <strong class="jxr_keyword">boolean</strong> collectsFromSingleBucket, Map&lt;String, Object&gt; metaData) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/bucket/filter/FilterAggregator.html">FilterAggregator</a>(name, filter, factories, context, parent, metaData);
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          }
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  

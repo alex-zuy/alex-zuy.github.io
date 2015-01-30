@@ -66,19 +66,19 @@
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>      }
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      @Override
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aDetailAST)
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> detailAST)
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      {
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> paramDef =
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>              aDetailAST.findFirstToken(TokenTypes.PARAMETER_DEF);
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> paradef =
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>              detailAST.findFirstToken(TokenTypes.PARAMETER_DEF);
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> excTypeParent =
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>                  paramDef.findFirstToken(TokenTypes.TYPE);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>                  paradef.findFirstToken(TokenTypes.TYPE);
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">final</strong> List&lt;DetailAST&gt; excTypes = getAllExceptionTypes(excTypeParent);
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">for</strong> (DetailAST excType : excTypes) {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/FullIdent.html">FullIdent</a> ident = FullIdent.createFullIdent(excType);
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>              <strong class="jxr_keyword">if</strong> (isIllegalClassName(ident.getText())) {
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>                  log(aDetailAST, <span class="jxr_string">"illegal.catch"</span>, ident.getText());
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>                  log(detailAST, <span class="jxr_string">"illegal.catch"</span>, ident.getText());
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>              }
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          }
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>      }
@@ -86,12 +86,12 @@
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment">     * Finds all exception types in current catch.</em>
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">     * We need it till we can have few different exception types into one catch.</em>
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">     * @param aParentToken - parent node for types (TYPE or BOR)</em>
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">     * @param parentToken - parent node for types (TYPE or BOR)</em>
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">     * @return list, that contains all exception types in current catch</em>
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>      <strong class="jxr_keyword">public</strong> List&lt;DetailAST&gt; getAllExceptionTypes(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aParentToken)
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>      <strong class="jxr_keyword">public</strong> List&lt;DetailAST&gt; getAllExceptionTypes(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> parentToken)
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      {
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>          <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> currentNode = aParentToken.getFirstChild();
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>          <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> currentNode = parentToken.getFirstChild();
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">final</strong> List&lt;DetailAST&gt; exceptionTypes = <strong class="jxr_keyword">new</strong> LinkedList&lt;DetailAST&gt;();
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>          <strong class="jxr_keyword">if</strong> (currentNode.getType() == TokenTypes.BOR) {
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>              exceptionTypes.addAll(getAllExceptionTypes(currentNode));

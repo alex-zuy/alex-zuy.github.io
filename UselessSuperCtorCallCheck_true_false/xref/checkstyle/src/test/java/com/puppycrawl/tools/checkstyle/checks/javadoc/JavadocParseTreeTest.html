@@ -51,7 +51,7 @@
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> File folderWithInputFiles = <strong class="jxr_keyword">new</strong> File(
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>              <span class="jxr_string">"src/test/resources/com/puppycrawl/tools/checkstyle/grammars/javadoc"</span>);
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> JavadocParser parser;
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> BaseErrorListener mErrorListener = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/JavadocParseTreeTest.html">FailOnErrorListener</a>();
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> BaseErrorListener errorListener = <strong class="jxr_keyword">new</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/javadoc/JavadocParseTreeTest.html">FailOnErrorListener</a>();
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> ParseTree parseJavadoc(String aBlockComment)
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">throws</strong> IOException
@@ -62,13 +62,13 @@
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>          <strong class="jxr_keyword">final</strong> ANTLRInputStream input = <strong class="jxr_keyword">new</strong> ANTLRInputStream(in);
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>          <strong class="jxr_keyword">final</strong> JavadocLexer lexer = <strong class="jxr_keyword">new</strong> JavadocLexer(input);
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>          lexer.removeErrorListeners();
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>          lexer.addErrorListener(mErrorListener);
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          lexer.addErrorListener(errorListener);
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>          <strong class="jxr_keyword">final</strong> CommonTokenStream tokens = <strong class="jxr_keyword">new</strong> CommonTokenStream(lexer);
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>          parser = <strong class="jxr_keyword">new</strong> JavadocParser(tokens);
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>          parser.removeErrorListeners();
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>          parser.addErrorListener(mErrorListener);
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          parser.addErrorListener(errorListener);
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">return</strong> parser.javadoc();
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      }

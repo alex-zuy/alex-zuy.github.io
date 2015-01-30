@@ -75,30 +75,33 @@
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/SearchParseException.html">SearchParseException</a>(context, <span class="jxr_string">"Missing [child_type] field for children aggregation ["</span> + aggregationName + <span class="jxr_string">"]"</span>);
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          }
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>          <a href="../../../../../../org/elasticsearch/index/mapper/DocumentMapper.html">DocumentMapper</a> childDocMapper = context.mapperService().documentMapper(childType);
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>          <strong class="jxr_keyword">if</strong> (childDocMapper == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/SearchParseException.html">SearchParseException</a>(context, <span class="jxr_string">"[children] No mapping for for type ["</span> + childType + <span class="jxr_string">"]"</span>);
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>          }
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>          <a href="../../../../../../org/elasticsearch/index/mapper/internal/ParentFieldMapper.html">ParentFieldMapper</a> parentFieldMapper = childDocMapper.parentFieldMapper();
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">if</strong> (!parentFieldMapper.active()) {
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/SearchParseException.html">SearchParseException</a>(context, <span class="jxr_string">"[children] _parent field not configured"</span>);
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>          }
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>  
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>          String parentType = parentFieldMapper.type();
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>          <a href="../../../../../../org/elasticsearch/index/mapper/DocumentMapper.html">DocumentMapper</a> parentDocMapper = context.mapperService().documentMapper(parentType);
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>          <strong class="jxr_keyword">if</strong> (parentDocMapper == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/SearchParseException.html">SearchParseException</a>(context, <span class="jxr_string">"[children]  Type ["</span> + childType + <span class="jxr_string">"] points to a non existent parent type ["</span> + parentType + <span class="jxr_string">"]"</span>);
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>          }
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>          Filter parentFilter = context.filterCache().cache(parentDocMapper.typeFilter(), <strong class="jxr_keyword">null</strong>, context.queryParserService().autoFilterCachePolicy());
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>          Filter childFilter = context.filterCache().cache(childDocMapper.typeFilter(), <strong class="jxr_keyword">null</strong>, context.queryParserService().autoFilterCachePolicy());
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>  
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>          <a href="../../../../../../org/elasticsearch/index/fielddata/plain/ParentChildIndexFieldData.html">ParentChildIndexFieldData</a> parentChildIndexFieldData = context.fieldData().getForField(parentFieldMapper);
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>          ValuesSourceConfig&lt;ValuesSource.Bytes.WithOrdinals.ParentChild&gt; config = <strong class="jxr_keyword">new</strong> ValuesSourceConfig&lt;&gt;(ValuesSource.Bytes.WithOrdinals.ParentChild.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          config.fieldContext(<strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/support/FieldContext.html">FieldContext</a>(parentFieldMapper.names().indexName(), parentChildIndexFieldData, parentFieldMapper));
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ParentToChildrenAggregator.Factory(aggregationName, config, parentType, parentFilter, childFilter);
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>      }
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>  }
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          ValuesSourceConfig&lt;ValuesSource.Bytes.WithOrdinals.ParentChild&gt; config = <strong class="jxr_keyword">new</strong> ValuesSourceConfig&lt;&gt;(ValuesSource.Bytes.WithOrdinals.ParentChild.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          <a href="../../../../../../org/elasticsearch/index/mapper/DocumentMapper.html">DocumentMapper</a> childDocMapper = context.mapperService().documentMapper(childType);
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          String parentType = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          Filter parentFilter = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          Filter childFilter = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">if</strong> (childDocMapper != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>              <a href="../../../../../../org/elasticsearch/index/mapper/internal/ParentFieldMapper.html">ParentFieldMapper</a> parentFieldMapper = childDocMapper.parentFieldMapper();
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>              <strong class="jxr_keyword">if</strong> (!parentFieldMapper.active()) {
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>                  <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/SearchParseException.html">SearchParseException</a>(context, <span class="jxr_string">"[children] _parent field not configured"</span>);
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>              }
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>              parentType = parentFieldMapper.type();
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>              <a href="../../../../../../org/elasticsearch/index/mapper/DocumentMapper.html">DocumentMapper</a> parentDocMapper = context.mapperService().documentMapper(parentType);
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>              <strong class="jxr_keyword">if</strong> (parentDocMapper != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>                  parentFilter = context.filterCache().cache(parentDocMapper.typeFilter(), <strong class="jxr_keyword">null</strong>, context.queryParserService().autoFilterCachePolicy());
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>                  childFilter = context.filterCache().cache(childDocMapper.typeFilter(), <strong class="jxr_keyword">null</strong>, context.queryParserService().autoFilterCachePolicy());
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>                  <a href="../../../../../../org/elasticsearch/index/fielddata/plain/ParentChildIndexFieldData.html">ParentChildIndexFieldData</a> parentChildIndexFieldData = context.fieldData().getForField(parentFieldMapper);
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>                  config.fieldContext(<strong class="jxr_keyword">new</strong> <a href="../../../../../../org/elasticsearch/search/aggregations/support/FieldContext.html">FieldContext</a>(parentFieldMapper.names().indexName(), parentChildIndexFieldData, parentFieldMapper));
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>              } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>                  config.unmapped(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>              }
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>          } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>              config.unmapped(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>          }
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ParentToChildrenAggregator.Factory(aggregationName, config, parentType, parentFilter, childFilter);
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>      }
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015. All rights reserved.</div>

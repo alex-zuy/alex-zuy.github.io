@@ -397,52 +397,49 @@
 <a class="jxr_linenumber" name="L389" href="#L389">389</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/google/common/testing/EqualsTesterTest.html">InvalidEqualsIncompatibleClassObject</a> {
 <a class="jxr_linenumber" name="L390" href="#L390">390</a> 
 <a class="jxr_linenumber" name="L391" href="#L391">391</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> equals(Object o) {
-<a class="jxr_linenumber" name="L392" href="#L392">392</a>       <strong class="jxr_keyword">if</strong> (o == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>         <strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>       }
-<a class="jxr_linenumber" name="L395" href="#L395">395</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L396" href="#L396">396</a>     }
-<a class="jxr_linenumber" name="L397" href="#L397">397</a> 
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> hashCode() {
-<a class="jxr_linenumber" name="L399" href="#L399">399</a>       <strong class="jxr_keyword">return</strong> 0;
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>     }
-<a class="jxr_linenumber" name="L401" href="#L401">401</a>   }
-<a class="jxr_linenumber" name="L402" href="#L402">402</a> 
-<a class="jxr_linenumber" name="L403" href="#L403">403</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../com/google/common/testing/EqualsTesterTest.html">NamedObject</a> named(String name) {
-<a class="jxr_linenumber" name="L404" href="#L404">404</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/google/common/testing/EqualsTesterTest.html">NamedObject</a>(name);
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>   }
+<a class="jxr_linenumber" name="L392" href="#L392">392</a>       <strong class="jxr_keyword">return</strong> o != <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>     }
+<a class="jxr_linenumber" name="L394" href="#L394">394</a> 
+<a class="jxr_linenumber" name="L395" href="#L395">395</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> hashCode() {
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>       <strong class="jxr_keyword">return</strong> 0;
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>     }
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>   }
+<a class="jxr_linenumber" name="L399" href="#L399">399</a> 
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../com/google/common/testing/EqualsTesterTest.html">NamedObject</a> named(String name) {
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/google/common/testing/EqualsTesterTest.html">NamedObject</a>(name);
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>   }
+<a class="jxr_linenumber" name="L403" href="#L403">403</a> 
+<a class="jxr_linenumber" name="L404" href="#L404">404</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/google/common/testing/EqualsTesterTest.html">NamedObject</a> {
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Set&lt;String&gt; peerNames = Sets.newHashSet();
 <a class="jxr_linenumber" name="L406" href="#L406">406</a> 
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/google/common/testing/EqualsTesterTest.html">NamedObject</a> {
-<a class="jxr_linenumber" name="L408" href="#L408">408</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Set&lt;String&gt; peerNames = Sets.newHashSet();
-<a class="jxr_linenumber" name="L409" href="#L409">409</a> 
-<a class="jxr_linenumber" name="L410" href="#L410">410</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String name;
-<a class="jxr_linenumber" name="L411" href="#L411">411</a> 
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>     <a href="../../../../com/google/common/testing/EqualsTesterTest.html">NamedObject</a>(String name) {
-<a class="jxr_linenumber" name="L413" href="#L413">413</a>       <strong class="jxr_keyword">this</strong>.name = Preconditions.checkNotNull(name);
-<a class="jxr_linenumber" name="L414" href="#L414">414</a>     }
-<a class="jxr_linenumber" name="L415" href="#L415">415</a> 
-<a class="jxr_linenumber" name="L416" href="#L416">416</a>     <a href="../../../../com/google/common/testing/EqualsTesterTest.html">NamedObject</a> addPeers(String... names) {
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>       peerNames.addAll(ImmutableList.copyOf(names));
-<a class="jxr_linenumber" name="L418" href="#L418">418</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>     }
-<a class="jxr_linenumber" name="L420" href="#L420">420</a> 
-<a class="jxr_linenumber" name="L421" href="#L421">421</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> equals(Object obj) {
-<a class="jxr_linenumber" name="L422" href="#L422">422</a>       <strong class="jxr_keyword">if</strong> (obj instanceof NamedObject) {
-<a class="jxr_linenumber" name="L423" href="#L423">423</a>         <a href="../../../../com/google/common/testing/EqualsTesterTest.html">NamedObject</a> that = (NamedObject) obj;
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>         <strong class="jxr_keyword">return</strong> name.equals(that.name) || peerNames.contains(that.name);
-<a class="jxr_linenumber" name="L425" href="#L425">425</a>       }
-<a class="jxr_linenumber" name="L426" href="#L426">426</a>       <strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L427" href="#L427">427</a>     }
-<a class="jxr_linenumber" name="L428" href="#L428">428</a> 
-<a class="jxr_linenumber" name="L429" href="#L429">429</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> hashCode() {
-<a class="jxr_linenumber" name="L430" href="#L430">430</a>       <strong class="jxr_keyword">return</strong> 0;
-<a class="jxr_linenumber" name="L431" href="#L431">431</a>     }
-<a class="jxr_linenumber" name="L432" href="#L432">432</a> 
-<a class="jxr_linenumber" name="L433" href="#L433">433</a>     @Override <strong class="jxr_keyword">public</strong> String toString() {
-<a class="jxr_linenumber" name="L434" href="#L434">434</a>       <strong class="jxr_keyword">return</strong> name;
-<a class="jxr_linenumber" name="L435" href="#L435">435</a>     }
-<a class="jxr_linenumber" name="L436" href="#L436">436</a>   }
-<a class="jxr_linenumber" name="L437" href="#L437">437</a> }
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String name;
+<a class="jxr_linenumber" name="L408" href="#L408">408</a> 
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>     <a href="../../../../com/google/common/testing/EqualsTesterTest.html">NamedObject</a>(String name) {
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>       <strong class="jxr_keyword">this</strong>.name = Preconditions.checkNotNull(name);
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>     }
+<a class="jxr_linenumber" name="L412" href="#L412">412</a> 
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>     <a href="../../../../com/google/common/testing/EqualsTesterTest.html">NamedObject</a> addPeers(String... names) {
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>       peerNames.addAll(ImmutableList.copyOf(names));
+<a class="jxr_linenumber" name="L415" href="#L415">415</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>     }
+<a class="jxr_linenumber" name="L417" href="#L417">417</a> 
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> equals(Object obj) {
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>       <strong class="jxr_keyword">if</strong> (obj instanceof NamedObject) {
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>         <a href="../../../../com/google/common/testing/EqualsTesterTest.html">NamedObject</a> that = (NamedObject) obj;
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>         <strong class="jxr_keyword">return</strong> name.equals(that.name) || peerNames.contains(that.name);
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>       }
+<a class="jxr_linenumber" name="L423" href="#L423">423</a>       <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L424" href="#L424">424</a>     }
+<a class="jxr_linenumber" name="L425" href="#L425">425</a> 
+<a class="jxr_linenumber" name="L426" href="#L426">426</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> hashCode() {
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>       <strong class="jxr_keyword">return</strong> 0;
+<a class="jxr_linenumber" name="L428" href="#L428">428</a>     }
+<a class="jxr_linenumber" name="L429" href="#L429">429</a> 
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>     @Override <strong class="jxr_keyword">public</strong> String toString() {
+<a class="jxr_linenumber" name="L431" href="#L431">431</a>       <strong class="jxr_keyword">return</strong> name;
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>     }
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>   }
+<a class="jxr_linenumber" name="L434" href="#L434">434</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015. All rights reserved.</div>

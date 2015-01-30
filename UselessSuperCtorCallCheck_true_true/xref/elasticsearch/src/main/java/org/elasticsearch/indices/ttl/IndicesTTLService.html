@@ -117,7 +117,7 @@
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     }
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/elasticsearch/indices/ttl/IndicesTTLService.html">PurgerThread</a> <strong class="jxr_keyword">extends</strong> Thread {
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> AtomicBoolean running = <strong class="jxr_keyword">new</strong> AtomicBoolean(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> running = <strong class="jxr_keyword">new</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../org/elasticsearch/indices/ttl/IndicesTTLService.html">Notifier</a> notifier;
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> CountDownLatch shutdownLatch = <strong class="jxr_keyword">new</strong> CountDownLatch(1);
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> 

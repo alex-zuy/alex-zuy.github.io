@@ -83,7 +83,7 @@
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  		}
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  	}
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>  	<strong class="jxr_keyword">private</strong> Executor concurrentExecutor;
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../../java/util/concurrent/Executor.html">Executor</a> concurrentExecutor;
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../../org/springframework/core/task/support/TaskExecutorAdapter.html">TaskExecutorAdapter</a> adaptedExecutor;
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  
@@ -102,7 +102,7 @@
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  <em class="jxr_javadoccomment">	 * in order to expose {@link javax.enterprise.concurrent.ManagedTask} adapters for it.</em>
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">	 * @param concurrentExecutor the {@link java.util.concurrent.Executor} to delegate to</em>
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>  	<strong class="jxr_keyword">public</strong> <a href="../../../../org/springframework/scheduling/concurrent/ConcurrentTaskExecutor.html">ConcurrentTaskExecutor</a>(Executor concurrentExecutor) {
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>  	<strong class="jxr_keyword">public</strong> <a href="../../../../org/springframework/scheduling/concurrent/ConcurrentTaskExecutor.html">ConcurrentTaskExecutor</a>(<a href="../../../../java/util/concurrent/Executor.html">Executor</a> concurrentExecutor) {
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>  		setConcurrentExecutor(concurrentExecutor);
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  	}
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> 
@@ -112,7 +112,7 @@
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;Autodetects a JSR-236 {@link javax.enterprise.concurrent.ManagedExecutorService}</em>
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_javadoccomment">	 * in order to expose {@link javax.enterprise.concurrent.ManagedTask} adapters for it.</em>
 <a class="jxr_linenumber" name="L106" href="#L106">106</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L107" href="#L107">107</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> setConcurrentExecutor(Executor concurrentExecutor) {
+<a class="jxr_linenumber" name="L107" href="#L107">107</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> setConcurrentExecutor(<a href="../../../../java/util/concurrent/Executor.html">Executor</a> concurrentExecutor) {
 <a class="jxr_linenumber" name="L108" href="#L108">108</a> 		<strong class="jxr_keyword">if</strong> (concurrentExecutor != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> 			<strong class="jxr_keyword">this</strong>.concurrentExecutor = concurrentExecutor;
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 			<strong class="jxr_keyword">if</strong> (managedExecutorServiceClass != <strong class="jxr_keyword">null</strong> &amp;&amp; managedExecutorServiceClass.isInstance(concurrentExecutor)) {
@@ -131,7 +131,7 @@
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> 	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> <em class="jxr_javadoccomment">	 * Return the {@link java.util.concurrent.Executor} that this adapter delegates to.</em>
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L126" href="#L126">126</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> Executor getConcurrentExecutor() {
+<a class="jxr_linenumber" name="L126" href="#L126">126</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../java/util/concurrent/Executor.html">Executor</a> getConcurrentExecutor() {
 <a class="jxr_linenumber" name="L127" href="#L127">127</a> 		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.concurrentExecutor;
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> 	}
 <a class="jxr_linenumber" name="L129" href="#L129">129</a> 
@@ -183,7 +183,7 @@
 <a class="jxr_linenumber" name="L175" href="#L175">175</a> <em class="jxr_javadoccomment">	 */</em>
 <a class="jxr_linenumber" name="L176" href="#L176">176</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/springframework/scheduling/concurrent/ConcurrentTaskExecutor.html">ManagedTaskExecutorAdapter</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../org/springframework/core/task/support/TaskExecutorAdapter.html">TaskExecutorAdapter</a> {
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> 
-<a class="jxr_linenumber" name="L178" href="#L178">178</a> 		<strong class="jxr_keyword">public</strong> <a href="../../../../org/springframework/scheduling/concurrent/ConcurrentTaskExecutor.html">ManagedTaskExecutorAdapter</a>(Executor concurrentExecutor) {
+<a class="jxr_linenumber" name="L178" href="#L178">178</a> 		<strong class="jxr_keyword">public</strong> <a href="../../../../org/springframework/scheduling/concurrent/ConcurrentTaskExecutor.html">ManagedTaskExecutorAdapter</a>(<a href="../../../../java/util/concurrent/Executor.html">Executor</a> concurrentExecutor) {
 <a class="jxr_linenumber" name="L179" href="#L179">179</a> 			<strong class="jxr_keyword">super</strong>(concurrentExecutor);
 <a class="jxr_linenumber" name="L180" href="#L180">180</a> 		}
 <a class="jxr_linenumber" name="L181" href="#L181">181</a> 

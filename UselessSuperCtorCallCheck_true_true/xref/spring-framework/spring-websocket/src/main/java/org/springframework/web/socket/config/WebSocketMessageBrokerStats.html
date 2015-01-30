@@ -188,7 +188,7 @@
 <a class="jxr_linenumber" name="L180" href="#L180">180</a> 		<strong class="jxr_keyword">return</strong> (<strong class="jxr_keyword">this</strong>.sockJsTaskScheduler != <strong class="jxr_keyword">null</strong> ? getExecutorStatsInfo(<strong class="jxr_keyword">this</strong>.sockJsTaskScheduler) : <span class="jxr_string">"null"</span>);
 <a class="jxr_linenumber" name="L181" href="#L181">181</a> 	}
 <a class="jxr_linenumber" name="L182" href="#L182">182</a> 
-<a class="jxr_linenumber" name="L183" href="#L183">183</a> 	<strong class="jxr_keyword">private</strong> String getExecutorStatsInfo(Executor executor) {
+<a class="jxr_linenumber" name="L183" href="#L183">183</a> 	<strong class="jxr_keyword">private</strong> String getExecutorStatsInfo(<a href="../../../../../java/util/concurrent/Executor.html">Executor</a> executor) {
 <a class="jxr_linenumber" name="L184" href="#L184">184</a> 		String s = executor.toString();
 <a class="jxr_linenumber" name="L185" href="#L185">185</a> 		<strong class="jxr_keyword">return</strong> s.substring(s.indexOf(<span class="jxr_string">"pool"</span>), s.length() - 1);
 <a class="jxr_linenumber" name="L186" href="#L186">186</a> 	}

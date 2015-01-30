@@ -143,7 +143,7 @@
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testEvilFuture_setFuture() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>     <strong class="jxr_keyword">final</strong> RuntimeException exception = <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"you didn't say the magic word!"</span>);
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>     AbstractFuture&lt;String&gt; evilFuture = <strong class="jxr_keyword">new</strong> AbstractFuture&lt;String&gt;() {
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>       @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addListener(Runnable r, Executor e) {
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>       @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addListener(Runnable r, <a href="../../../../../java/util/concurrent/Executor.html">Executor</a> e) {
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>         <strong class="jxr_keyword">throw</strong> exception;
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>       }
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>     };
@@ -421,9 +421,9 @@
 <a class="jxr_linenumber" name="L413" href="#L413">413</a>     <strong class="jxr_keyword">final</strong> ExecutorService executor = Executors.newFixedThreadPool(barrier.getParties());
 <a class="jxr_linenumber" name="L414" href="#L414">414</a>     <strong class="jxr_keyword">final</strong> AtomicReference&lt;AbstractFuture&lt;String&gt;&gt; currentFuture = Atomics.newReference();
 <a class="jxr_linenumber" name="L415" href="#L415">415</a>     <strong class="jxr_keyword">final</strong> AtomicReference&lt;AbstractFuture&lt;String&gt;&gt; setFutureFuture = Atomics.newReference();
-<a class="jxr_linenumber" name="L416" href="#L416">416</a>     <strong class="jxr_keyword">final</strong> AtomicBoolean setFutureSetSucess = <strong class="jxr_keyword">new</strong> AtomicBoolean();
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>     <strong class="jxr_keyword">final</strong> AtomicBoolean setFutureCompletionSucess = <strong class="jxr_keyword">new</strong> AtomicBoolean();
-<a class="jxr_linenumber" name="L418" href="#L418">418</a>     <strong class="jxr_keyword">final</strong> AtomicBoolean cancellationSucess = <strong class="jxr_keyword">new</strong> AtomicBoolean();
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>     <strong class="jxr_keyword">final</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> setFutureSetSucess = <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>();
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>     <strong class="jxr_keyword">final</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> setFutureCompletionSucess = <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>();
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>     <strong class="jxr_keyword">final</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> cancellationSucess = <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>();
 <a class="jxr_linenumber" name="L419" href="#L419">419</a>     Callable&lt;Void&gt; cancelRunnable = <strong class="jxr_keyword">new</strong> Callable&lt;Void&gt;() {
 <a class="jxr_linenumber" name="L420" href="#L420">420</a>       @Override <strong class="jxr_keyword">public</strong> Void call() {
 <a class="jxr_linenumber" name="L421" href="#L421">421</a>         cancellationSucess.set(currentFuture.get().cancel(<strong class="jxr_keyword">true</strong>));
@@ -546,8 +546,8 @@
 <a class="jxr_linenumber" name="L538" href="#L538">538</a>         + 1); <em class="jxr_comment">// for the main thread</em>
 <a class="jxr_linenumber" name="L539" href="#L539">539</a>     <strong class="jxr_keyword">final</strong> ExecutorService executor = Executors.newFixedThreadPool(barrier.getParties());
 <a class="jxr_linenumber" name="L540" href="#L540">540</a>     <strong class="jxr_keyword">final</strong> AtomicReference&lt;AbstractFuture&lt;String&gt;&gt; currentFuture = Atomics.newReference();
-<a class="jxr_linenumber" name="L541" href="#L541">541</a>     <strong class="jxr_keyword">final</strong> AtomicBoolean setFutureSuccess = <strong class="jxr_keyword">new</strong> AtomicBoolean();
-<a class="jxr_linenumber" name="L542" href="#L542">542</a>     <strong class="jxr_keyword">final</strong> AtomicBoolean cancellationSucess = <strong class="jxr_keyword">new</strong> AtomicBoolean();
+<a class="jxr_linenumber" name="L541" href="#L541">541</a>     <strong class="jxr_keyword">final</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> setFutureSuccess = <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>();
+<a class="jxr_linenumber" name="L542" href="#L542">542</a>     <strong class="jxr_keyword">final</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> cancellationSucess = <strong class="jxr_keyword">new</strong> <a href="../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>();
 <a class="jxr_linenumber" name="L543" href="#L543">543</a>     Callable&lt;Void&gt; cancelRunnable = <strong class="jxr_keyword">new</strong> Callable&lt;Void&gt;() {
 <a class="jxr_linenumber" name="L544" href="#L544">544</a>       @Override <strong class="jxr_keyword">public</strong> Void call() {
 <a class="jxr_linenumber" name="L545" href="#L545">545</a>         cancellationSucess.set(currentFuture.get().cancel(<strong class="jxr_keyword">true</strong>));

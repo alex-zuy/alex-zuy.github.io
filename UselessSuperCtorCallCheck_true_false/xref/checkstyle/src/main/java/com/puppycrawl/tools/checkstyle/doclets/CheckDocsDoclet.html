@@ -63,10 +63,10 @@
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>          Comparator&lt;ClassDoc&gt;
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>      {
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          <em class="jxr_javadoccomment">/** {@inheritDoc} */</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> compare(ClassDoc aObject1, ClassDoc aObject2)
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> compare(ClassDoc object1, ClassDoc object2)
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>          {
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>              <strong class="jxr_keyword">final</strong> String checkName1 = getCheckName(aObject1);
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>              <strong class="jxr_keyword">final</strong> String checkName2 = getCheckName(aObject2);
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>              <strong class="jxr_keyword">final</strong> String checkName1 = getCheckName(object1);
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>              <strong class="jxr_keyword">final</strong> String checkName2 = getCheckName(object2);
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>              <strong class="jxr_keyword">return</strong> checkName1.compareTo(checkName2);
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          }
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      }
@@ -74,12 +74,12 @@
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">     * The first sentence of the check description.</em>
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">     * @param aClassDoc class doc of the check, e.g. EmptyStatement</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">     * @param classDoc class doc of the check, e.g. EmptyStatement</em>
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment">     * @return The first sentence of the check description.</em>
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getDescription(<strong class="jxr_keyword">final</strong> ClassDoc aClassDoc)
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getDescription(<strong class="jxr_keyword">final</strong> ClassDoc classDoc)
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      {
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>          <strong class="jxr_keyword">final</strong> Tag[] tags = aClassDoc.firstSentenceTags();
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          <strong class="jxr_keyword">final</strong> Tag[] tags = classDoc.firstSentenceTags();
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">final</strong> StringBuffer buf = <strong class="jxr_keyword">new</strong> StringBuffer();
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">if</strong> (tags.length &gt; 0) {
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>              buf.append(tags[0].text());
@@ -90,29 +90,29 @@
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">     * Removes an opening p tag from a StringBuffer.</em>
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">     * @param aText the text to process</em>
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">     * @param text the text to process</em>
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> removeOpeningParagraphTag(<strong class="jxr_keyword">final</strong> StringBuffer aText)
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> removeOpeningParagraphTag(<strong class="jxr_keyword">final</strong> StringBuffer text)
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>      {
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          <strong class="jxr_keyword">final</strong> String openTag = <span class="jxr_string">"&lt;p&gt;"</span>;
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> tagLen = openTag.length();
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>          <strong class="jxr_keyword">if</strong> ((aText.length() &gt; tagLen)
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>                  &amp;&amp; aText.substring(0, tagLen).equals(openTag))
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>          <strong class="jxr_keyword">if</strong> ((text.length() &gt; tagLen)
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>                  &amp;&amp; text.substring(0, tagLen).equals(openTag))
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>          {
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>              aText.delete(0, tagLen);
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>              text.delete(0, tagLen);
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>          }
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>      }
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  <em class="jxr_javadoccomment">     * Returns the official name of a check.</em>
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_javadoccomment">     * @param aClassDoc the the check's documentation as extracted by javadoc</em>
+<a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_javadoccomment">     * @param classDoc the the check's documentation as extracted by javadoc</em>
 <a class="jxr_linenumber" name="L102" href="#L102">102</a> <em class="jxr_javadoccomment">     * @return the check name, e.g. "IllegalImport" for</em>
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_javadoccomment">     * the "c.p.t.c.c.i.IllegalImportCheck" class.</em>
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getCheckName(<strong class="jxr_keyword">final</strong> ClassDoc aClassDoc)
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getCheckName(<strong class="jxr_keyword">final</strong> ClassDoc classDoc)
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>     {
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">final</strong> String strippedClassName = aClassDoc.typeName();
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">final</strong> String strippedClassName = classDoc.typeName();
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         <strong class="jxr_keyword">final</strong> String checkName;
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>         <strong class="jxr_keyword">if</strong> (strippedClassName.endsWith(<span class="jxr_string">"Check"</span>)) {
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>             checkName = strippedClassName.substring(
@@ -126,47 +126,47 @@
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> 
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L120" href="#L120">120</a> <em class="jxr_javadoccomment">     * Writes the opening tags of an xdoc.</em>
-<a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">     * @param aPrintWriter you guessed it ... the target to print to :)</em>
-<a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">     * @param aTitle the title to use for the document.</em>
+<a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">     * @param printWriter you guessed it ... the target to print to :)</em>
+<a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">     * @param title the title to use for the document.</em>
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> writeXdocsHeader(
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>             <strong class="jxr_keyword">final</strong> PrintWriter aPrintWriter,
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>             <strong class="jxr_keyword">final</strong> String aTitle)
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>             <strong class="jxr_keyword">final</strong> PrintWriter printWriter,
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>             <strong class="jxr_keyword">final</strong> String title)
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>     {
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>         aPrintWriter.println(<span class="jxr_string">"&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;ISO-8859-1\&quot;?&gt;"</span>);
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>         aPrintWriter.println(<span class="jxr_string">"&lt;document&gt;"</span>);
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>         aPrintWriter.println(<span class="jxr_string">"&lt;properties&gt;"</span>);
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>         aPrintWriter.println(<span class="jxr_string">"&lt;title&gt;"</span> + aTitle + <span class="jxr_string">"&lt;/title&gt;"</span>);
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>         aPrintWriter.println(<span class="jxr_string">"&lt;author "</span>
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>         printWriter.println(<span class="jxr_string">"&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;"</span>);
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>         printWriter.println(<span class="jxr_string">"&lt;document&gt;"</span>);
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>         printWriter.println(<span class="jxr_string">"&lt;properties&gt;"</span>);
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         printWriter.println(<span class="jxr_string">"&lt;title&gt;"</span> + title + <span class="jxr_string">"&lt;/title&gt;"</span>);
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>         printWriter.println(<span class="jxr_string">"&lt;author "</span>
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>                 + <span class="jxr_string">"email=\&quot;checkstyle-devel@lists.sourceforge.net"</span>
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>                 + <span class="jxr_string">"\&quot;&gt;Checkstyle Development Team&lt;/author&gt;"</span>);
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>         aPrintWriter.println(<span class="jxr_string">"&lt;/properties&gt;"</span>);
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>         aPrintWriter.println(<span class="jxr_string">"&lt;body&gt;"</span>);
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>         aPrintWriter.flush();
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>         printWriter.println(<span class="jxr_string">"&lt;/properties&gt;"</span>);
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>         printWriter.println(<span class="jxr_string">"&lt;body&gt;"</span>);
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>         printWriter.flush();
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>     }
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> 
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> <em class="jxr_javadoccomment">     * Writes the closing tags of an xdoc document.</em>
-<a class="jxr_linenumber" name="L142" href="#L142">142</a> <em class="jxr_javadoccomment">     * @param aPrintWriter you guessed it ... the target to print to :)</em>
+<a class="jxr_linenumber" name="L142" href="#L142">142</a> <em class="jxr_javadoccomment">     * @param printWriter you guessed it ... the target to print to :)</em>
 <a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> writeXdocsFooter(<strong class="jxr_keyword">final</strong> PrintWriter aPrintWriter)
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> writeXdocsFooter(<strong class="jxr_keyword">final</strong> PrintWriter printWriter)
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>     {
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>         aPrintWriter.println(<span class="jxr_string">"&lt;/body&gt;"</span>);
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>         aPrintWriter.println(<span class="jxr_string">"&lt;/document&gt;"</span>);
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>         aPrintWriter.flush();
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>         printWriter.println(<span class="jxr_string">"&lt;/body&gt;"</span>);
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>         printWriter.println(<span class="jxr_string">"&lt;/document&gt;"</span>);
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>         printWriter.flush();
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>     }
 <a class="jxr_linenumber" name="L150" href="#L150">150</a> 
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L152" href="#L152">152</a> <em class="jxr_javadoccomment">     * Doclet entry point.</em>
-<a class="jxr_linenumber" name="L153" href="#L153">153</a> <em class="jxr_javadoccomment">     * @param aRoot parsed javadoc of all java files passed to the javadoc task</em>
+<a class="jxr_linenumber" name="L153" href="#L153">153</a> <em class="jxr_javadoccomment">     * @param root parsed javadoc of all java files passed to the javadoc task</em>
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> <em class="jxr_javadoccomment">     * @return true (TODO: semantics of the return value is not clear to me)</em>
 <a class="jxr_linenumber" name="L155" href="#L155">155</a> <em class="jxr_javadoccomment">     * @throws IOException if there are problems writing output</em>
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> start(RootDoc aRoot) <strong class="jxr_keyword">throws</strong> IOException
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> start(RootDoc root) <strong class="jxr_keyword">throws</strong> IOException
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>     {
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>         <strong class="jxr_keyword">final</strong> ClassDoc[] classDocs = aRoot.classes();
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>         <strong class="jxr_keyword">final</strong> ClassDoc[] classDocs = root.classes();
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> 
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>         <strong class="jxr_keyword">final</strong> File destDir = <strong class="jxr_keyword">new</strong> File(getDestDir(aRoot.options()));
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>         <strong class="jxr_keyword">final</strong> File destDir = <strong class="jxr_keyword">new</strong> File(getDestDir(root.options()));
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> 
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>         <strong class="jxr_keyword">final</strong> File checksIndexFile = <strong class="jxr_keyword">new</strong> File(destDir, <span class="jxr_string">"availablechecks.xml"</span>);
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>         <strong class="jxr_keyword">final</strong> PrintWriter fileWriter = <strong class="jxr_keyword">new</strong> PrintWriter(
@@ -219,12 +219,12 @@
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L212" href="#L212">212</a> <em class="jxr_javadoccomment">     * Calculates the human readable page name for a doc page.</em>
 <a class="jxr_linenumber" name="L213" href="#L213">213</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L214" href="#L214">214</a> <em class="jxr_javadoccomment">     * @param aClassDoc the doc page.</em>
+<a class="jxr_linenumber" name="L214" href="#L214">214</a> <em class="jxr_javadoccomment">     * @param classDoc the doc page.</em>
 <a class="jxr_linenumber" name="L215" href="#L215">215</a> <em class="jxr_javadoccomment">     * @return the human readable page name for the doc page.</em>
 <a class="jxr_linenumber" name="L216" href="#L216">216</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getPageName(ClassDoc aClassDoc)
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getPageName(ClassDoc classDoc)
 <a class="jxr_linenumber" name="L218" href="#L218">218</a>     {
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>         <strong class="jxr_keyword">final</strong> String packageName = aClassDoc.containingPackage().name();
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>         <strong class="jxr_keyword">final</strong> String packageName = classDoc.containingPackage().name();
 <a class="jxr_linenumber" name="L220" href="#L220">220</a>         <strong class="jxr_keyword">final</strong> String pageName =
 <a class="jxr_linenumber" name="L221" href="#L221">221</a>                 packageName.substring(packageName.lastIndexOf('.') + 1);
 <a class="jxr_linenumber" name="L222" href="#L222">222</a>         <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"checks"</span>.equals(pageName)) {
@@ -235,12 +235,12 @@
 <a class="jxr_linenumber" name="L227" href="#L227">227</a> 
 <a class="jxr_linenumber" name="L228" href="#L228">228</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L229" href="#L229">229</a> <em class="jxr_javadoccomment">     * Return the destination directory for this Javadoc run.</em>
-<a class="jxr_linenumber" name="L230" href="#L230">230</a> <em class="jxr_javadoccomment">     * @param aOptions Javadoc commandline options</em>
+<a class="jxr_linenumber" name="L230" href="#L230">230</a> <em class="jxr_javadoccomment">     * @param options Javadoc commandline options</em>
 <a class="jxr_linenumber" name="L231" href="#L231">231</a> <em class="jxr_javadoccomment">     * @return the dest dir specified on the command line (or ant task)</em>
 <a class="jxr_linenumber" name="L232" href="#L232">232</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String getDestDir(String[][] aOptions)
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String getDestDir(String[][] options)
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>     {
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String[] opt : aOptions) {
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String[] opt : options) {
 <a class="jxr_linenumber" name="L236" href="#L236">236</a>             <strong class="jxr_keyword">if</strong> (DEST_DIR_OPT.equalsIgnoreCase(opt[0])) {
 <a class="jxr_linenumber" name="L237" href="#L237">237</a>                 <strong class="jxr_keyword">return</strong> opt[1];
 <a class="jxr_linenumber" name="L238" href="#L238">238</a>             }
@@ -250,12 +250,12 @@
 <a class="jxr_linenumber" name="L242" href="#L242">242</a> 
 <a class="jxr_linenumber" name="L243" href="#L243">243</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L244" href="#L244">244</a> <em class="jxr_javadoccomment">     * Returns option length (how many parts are in option).</em>
-<a class="jxr_linenumber" name="L245" href="#L245">245</a> <em class="jxr_javadoccomment">     * @param aOption option name to process</em>
+<a class="jxr_linenumber" name="L245" href="#L245">245</a> <em class="jxr_javadoccomment">     * @param option option name to process</em>
 <a class="jxr_linenumber" name="L246" href="#L246">246</a> <em class="jxr_javadoccomment">     * @return option length (how many parts are in option).</em>
 <a class="jxr_linenumber" name="L247" href="#L247">247</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> optionLength(String aOption)
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> optionLength(String option)
 <a class="jxr_linenumber" name="L249" href="#L249">249</a>     {
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>         <strong class="jxr_keyword">if</strong> (DEST_DIR_OPT.equals(aOption)) {
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>         <strong class="jxr_keyword">if</strong> (DEST_DIR_OPT.equals(option)) {
 <a class="jxr_linenumber" name="L251" href="#L251">251</a>             <strong class="jxr_keyword">return</strong> 2;
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>         }
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>         <strong class="jxr_keyword">return</strong> 0;

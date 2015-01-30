@@ -71,9 +71,9 @@
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      }
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      @Override
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      {
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> defaultGroupAST = aAST.getParent();
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> defaultGroupAST = ast.getParent();
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <em class="jxr_comment">//default keywords used in annotations too - not what we're</em>
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          <em class="jxr_comment">//interested in</em>
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          <strong class="jxr_keyword">if</strong> (defaultGroupAST.getType() != TokenTypes.ANNOTATION_FIELD_DEF
@@ -87,7 +87,7 @@
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>                  || (defaultGroupAST.getColumnNo()
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>                      != lastGroupAST.getColumnNo()))
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>              {
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>                  log(aAST, <span class="jxr_string">"default.comes.last"</span>);
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>                  log(ast, <span class="jxr_string">"default.comes.last"</span>);
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>              }
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          }
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      }

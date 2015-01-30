@@ -141,7 +141,7 @@
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>         }
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>     }
 <a class="jxr_linenumber" name="L135" href="#L135">135</a> 
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/action/termvectors/MultiTermVectorsResponse.html">Fields</a> getFields() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> getFields() <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>         <strong class="jxr_keyword">if</strong> (hasTermVectors() &amp;&amp; isExists()) {
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>             <strong class="jxr_keyword">if</strong> (!sourceCopied) { <em class="jxr_comment">// make the bytes safe</em>
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>                 headerRef = headerRef.copyBytesArray();
@@ -149,7 +149,7 @@
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>             }
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/action/termvectors/TermVectorsFields.html">TermVectorsFields</a>(headerRef, termVectors);
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/action/termvectors/MultiTermVectorsResponse.html">Fields</a>() {
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a>() {
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>                 @Override
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>                 <strong class="jxr_keyword">public</strong> Iterator&lt;String&gt; iterator() {
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>                     <strong class="jxr_keyword">return</strong> Iterators.emptyIterator();
@@ -185,7 +185,7 @@
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>         }
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>         builder.startObject(FieldStrings.TERM_VECTORS);
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>         <strong class="jxr_keyword">final</strong> CharsRefBuilder spare = <strong class="jxr_keyword">new</strong> CharsRefBuilder();
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>         <a href="../../../../org/elasticsearch/action/termvectors/MultiTermVectorsResponse.html">Fields</a> theFields = getFields();
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>         <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> theFields = getFields();
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>         Iterator&lt;String&gt; fieldIter = theFields.iterator();
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>         <strong class="jxr_keyword">while</strong> (fieldIter.hasNext()) {
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>             buildField(builder, spare, theFields, fieldIter);
@@ -194,7 +194,7 @@
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>         <strong class="jxr_keyword">return</strong> builder;
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>     }
 <a class="jxr_linenumber" name="L188" href="#L188">188</a> 
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> buildField(<a href="../../../../org/elasticsearch/common/xcontent/XContentBuilder.html">XContentBuilder</a> builder, <strong class="jxr_keyword">final</strong> CharsRefBuilder spare, <a href="../../../../org/elasticsearch/action/termvectors/MultiTermVectorsResponse.html">Fields</a> theFields, Iterator&lt;String&gt; fieldIter) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> buildField(<a href="../../../../org/elasticsearch/common/xcontent/XContentBuilder.html">XContentBuilder</a> builder, <strong class="jxr_keyword">final</strong> CharsRefBuilder spare, <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> theFields, Iterator&lt;String&gt; fieldIter) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>         String fieldName = fieldIter.next();
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>         builder.startObject(fieldName);
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>         Terms curTerms = theFields.terms(fieldName);
@@ -329,11 +329,11 @@
 <a class="jxr_linenumber" name="L321" href="#L321">321</a>          <strong class="jxr_keyword">this</strong>.exists = exists;
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>     }
 <a class="jxr_linenumber" name="L323" href="#L323">323</a> 
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setFields(<a href="../../../../org/elasticsearch/action/termvectors/MultiTermVectorsResponse.html">Fields</a> termVectorsByField, Set&lt;String&gt; selectedFields, EnumSet&lt;Flag&gt; flags, <a href="../../../../org/elasticsearch/action/termvectors/MultiTermVectorsResponse.html">Fields</a> topLevelFields) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setFields(<a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> termVectorsByField, Set&lt;String&gt; selectedFields, EnumSet&lt;Flag&gt; flags, <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> topLevelFields) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L325" href="#L325">325</a>         setFields(termVectorsByField, selectedFields, flags, topLevelFields, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L326" href="#L326">326</a>     }
 <a class="jxr_linenumber" name="L327" href="#L327">327</a> 
-<a class="jxr_linenumber" name="L328" href="#L328">328</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setFields(<a href="../../../../org/elasticsearch/action/termvectors/MultiTermVectorsResponse.html">Fields</a> termVectorsByField, Set&lt;String&gt; selectedFields, EnumSet&lt;Flag&gt; flags, <a href="../../../../org/elasticsearch/action/termvectors/MultiTermVectorsResponse.html">Fields</a> topLevelFields, @Nullable <a href="../../../../org/elasticsearch/search/dfs/AggregatedDfs.html">AggregatedDfs</a> dfs) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setFields(<a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> termVectorsByField, Set&lt;String&gt; selectedFields, EnumSet&lt;Flag&gt; flags, <a href="../../../../org/elasticsearch/action/ActionWriteResponse.html">Fields</a> topLevelFields, @Nullable <a href="../../../../org/elasticsearch/search/dfs/AggregatedDfs.html">AggregatedDfs</a> dfs) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L329" href="#L329">329</a>         <a href="../../../../org/elasticsearch/action/termvectors/TermVectorsWriter.html">TermVectorsWriter</a> tvw = <strong class="jxr_keyword">new</strong> <a href="../../../../org/elasticsearch/action/termvectors/TermVectorsWriter.html">TermVectorsWriter</a>(<strong class="jxr_keyword">this</strong>);
 <a class="jxr_linenumber" name="L330" href="#L330">330</a> 
 <a class="jxr_linenumber" name="L331" href="#L331">331</a>         <strong class="jxr_keyword">if</strong> (termVectorsByField != <strong class="jxr_keyword">null</strong>) {

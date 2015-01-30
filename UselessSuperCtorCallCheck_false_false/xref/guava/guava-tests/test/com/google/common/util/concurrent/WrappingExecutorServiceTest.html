@@ -219,7 +219,7 @@
 <a class="jxr_linenumber" name="L211" href="#L211">211</a> 
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>     @Override
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>     <strong class="jxr_keyword">public</strong> &lt;T&gt; List&lt;Future&lt;T&gt;&gt; invokeAll(Collection&lt;? <strong class="jxr_keyword">extends</strong> Callable&lt;T&gt;&gt; tasks)
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>         <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>         <strong class="jxr_keyword">throws</strong> <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>       lastMethodCalled = <span class="jxr_string">"invokeAll"</span>;
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>       assertTaskWrapped(tasks);
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>       <strong class="jxr_keyword">return</strong> inline.invokeAll(tasks);
@@ -228,7 +228,7 @@
 <a class="jxr_linenumber" name="L220" href="#L220">220</a>     @Override
 <a class="jxr_linenumber" name="L221" href="#L221">221</a>     <strong class="jxr_keyword">public</strong> &lt;T&gt; List&lt;Future&lt;T&gt;&gt; invokeAll(
 <a class="jxr_linenumber" name="L222" href="#L222">222</a>         Collection&lt;? <strong class="jxr_keyword">extends</strong> Callable&lt;T&gt;&gt; tasks, <strong class="jxr_keyword">long</strong> timeout, <a href="../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit)
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>         <strong class="jxr_keyword">throws</strong> InterruptedException {
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>         <strong class="jxr_keyword">throws</strong> <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>       assertTaskWrapped(tasks);
 <a class="jxr_linenumber" name="L225" href="#L225">225</a>       lastMethodCalled = <span class="jxr_string">"invokeAllTimeout"</span>;
 <a class="jxr_linenumber" name="L226" href="#L226">226</a>       lastTimeoutInMillis = unit.toMillis(timeout);
@@ -238,7 +238,7 @@
 <a class="jxr_linenumber" name="L230" href="#L230">230</a>     <em class="jxr_comment">// Define the invokeAny methods to invoke the first task</em>
 <a class="jxr_linenumber" name="L231" href="#L231">231</a>     @Override
 <a class="jxr_linenumber" name="L232" href="#L232">232</a>     <strong class="jxr_keyword">public</strong> &lt;T&gt; T invokeAny(Collection&lt;? <strong class="jxr_keyword">extends</strong> Callable&lt;T&gt;&gt; tasks)
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>         <strong class="jxr_keyword">throws</strong> ExecutionException, InterruptedException {
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>         <strong class="jxr_keyword">throws</strong> ExecutionException, <a href="../../../../../java/lang/InterruptedException.html">InterruptedException</a> {
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>       assertTaskWrapped(tasks);
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>       lastMethodCalled = <span class="jxr_string">"invokeAny"</span>;
 <a class="jxr_linenumber" name="L236" href="#L236">236</a>       <strong class="jxr_keyword">return</strong> inline.submit(Iterables.get(tasks, 0)).get();
@@ -246,7 +246,7 @@
 <a class="jxr_linenumber" name="L238" href="#L238">238</a> 
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>     @Override
 <a class="jxr_linenumber" name="L240" href="#L240">240</a>     <strong class="jxr_keyword">public</strong> &lt;T&gt; T invokeAny(Collection&lt;? <strong class="jxr_keyword">extends</strong> Callable&lt;T&gt;&gt; tasks, <strong class="jxr_keyword">long</strong> timeout, <a href="../../../../../java/util/concurrent/TimeUnit.html">TimeUnit</a> unit)
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>         <strong class="jxr_keyword">throws</strong> ExecutionException, InterruptedException, TimeoutException {
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>         <strong class="jxr_keyword">throws</strong> ExecutionException, InterruptedException, <a href="../../../../../java/util/concurrent/TimeoutException.html">TimeoutException</a> {
 <a class="jxr_linenumber" name="L242" href="#L242">242</a>       assertTaskWrapped(tasks);
 <a class="jxr_linenumber" name="L243" href="#L243">243</a>       lastMethodCalled = <span class="jxr_string">"invokeAnyTimeout"</span>;
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>       lastTimeoutInMillis = unit.toMillis(timeout);

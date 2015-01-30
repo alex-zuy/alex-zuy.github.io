@@ -207,7 +207,7 @@
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>         assertThat(searchResponse.getHits().getTotalHits(), equalTo(2l));
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>         <a href="../../../../../org/elasticsearch/search/aggregations/bucket/histogram/Histogram.html">Histogram</a> histo = searchResponse.getAggregations().get(<span class="jxr_string">"histo"</span>);
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>         assertThat(histo, Matchers.notNullValue());
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>         Histogram.Bucket bucket = histo.getBucketByKey(1l);
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>         Histogram.Bucket bucket = histo.getBuckets().get(1);
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>         assertThat(bucket, Matchers.notNullValue());
 <a class="jxr_linenumber" name="L204" href="#L204">204</a> 
 <a class="jxr_linenumber" name="L205" href="#L205">205</a>         <a href="../../../../../org/elasticsearch/search/aggregations/bucket/missing/Missing.html">Missing</a> missing = bucket.getAggregations().get(<span class="jxr_string">"missing"</span>);

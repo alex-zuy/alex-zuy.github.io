@@ -44,7 +44,7 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/elasticsearch/index/cache/query/ShardQueryCache.html">ShardQueryCache</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../org/elasticsearch/index/shard/AbstractIndexShardComponent.html">AbstractIndexShardComponent</a> <strong class="jxr_keyword">implements</strong> RemovalListener&lt;IndicesQueryCache.Key, BytesReference&gt; {
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/elasticsearch/index/cache/query/ShardQueryCache.html">ShardQueryCache</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../org/elasticsearch/index/shard/AbstractIndexShardComponent.html">AbstractIndexShardComponent</a> <strong class="jxr_keyword">implements</strong> RemovalListener&lt;IndicesQueryCache.Key, IndicesQueryCache.Value&gt; {
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">final</strong> <a href="../../../../../org/elasticsearch/common/metrics/CounterMetric.html">CounterMetric</a> evictionsMetric = <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/common/metrics/CounterMetric.html">CounterMetric</a>();
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">final</strong> <a href="../../../../../org/elasticsearch/common/metrics/CounterMetric.html">CounterMetric</a> totalMetric = <strong class="jxr_keyword">new</strong> <a href="../../../../../org/elasticsearch/common/metrics/CounterMetric.html">CounterMetric</a>();
@@ -68,12 +68,12 @@
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>          missCount.inc();
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      }
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onCached(IndicesQueryCache.Key key, <a href="../../../../../org/elasticsearch/common/bytes/BytesReference.html">BytesReference</a> value) {
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>          totalMetric.inc(key.ramBytesUsed() + value.length());
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onCached(IndicesQueryCache.Key key, IndicesQueryCache.Value value) {
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          totalMetric.inc(key.ramBytesUsed() + value.ramBytesUsed());
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      }
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      @Override
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onRemoval(RemovalNotification&lt;IndicesQueryCache.Key, BytesReference&gt; removalNotification) {
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onRemoval(RemovalNotification&lt;IndicesQueryCache.Key, IndicesQueryCache.Value&gt; removalNotification) {
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">if</strong> (removalNotification.wasEvicted()) {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>              evictionsMetric.inc();
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          }
@@ -82,7 +82,7 @@
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>              dec += removalNotification.getKey().ramBytesUsed();
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          }
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">if</strong> (removalNotification.getValue() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>              dec += removalNotification.getValue().length();
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>              dec += removalNotification.getValue().ramBytesUsed();
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>          }
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>          totalMetric.dec(dec);
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      }

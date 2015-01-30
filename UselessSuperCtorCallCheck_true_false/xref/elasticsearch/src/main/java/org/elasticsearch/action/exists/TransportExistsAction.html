@@ -214,7 +214,7 @@
 <a class="jxr_linenumber" name="L206" href="#L206">206</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>     <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/elasticsearch/action/exists/TransportExistsAction.html">ExistsAsyncBroadcastAction</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../org/elasticsearch/action/support/broadcast/TransportBroadcastOperationAction.html">AsyncBroadcastAction</a>  {
 <a class="jxr_linenumber" name="L208" href="#L208">208</a> 
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>         <strong class="jxr_keyword">final</strong> AtomicBoolean processed = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> processed = <strong class="jxr_keyword">new</strong> <a href="../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L210" href="#L210">210</a> 
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>         <a href="../../../../org/elasticsearch/action/exists/TransportExistsAction.html">ExistsAsyncBroadcastAction</a>(<a href="../../../../org/elasticsearch/action/exists/ExistsRequest.html">ExistsRequest</a> request, ActionListener&lt;ExistsResponse&gt; listener) {
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>             <strong class="jxr_keyword">super</strong>(request, listener);

@@ -228,7 +228,7 @@
 <a class="jxr_linenumber" name="L220" href="#L220">220</a>     }
 <a class="jxr_linenumber" name="L221" href="#L221">221</a> 
 <a class="jxr_linenumber" name="L222" href="#L222">222</a>     <strong class="jxr_keyword">private</strong> String key(Terms.Bucket bucket) {
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>         <strong class="jxr_keyword">return</strong> randomBoolean() ? bucket.getKey() : bucket.getKeyAsText().string();
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>         <strong class="jxr_keyword">return</strong> bucket.getKeyAsString();
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>     }
 <a class="jxr_linenumber" name="L225" href="#L225">225</a> 
 <a class="jxr_linenumber" name="L226" href="#L226">226</a>     @Test
@@ -417,7 +417,7 @@
 <a class="jxr_linenumber" name="L409" href="#L409">409</a>             <a href="../../../../../org/elasticsearch/search/aggregations/metrics/sum/Sum.html">Sum</a> sum = bucket.getAggregations().get(<span class="jxr_string">"sum"</span>);
 <a class="jxr_linenumber" name="L410" href="#L410">410</a>             assertThat(sum, notNullValue());
 <a class="jxr_linenumber" name="L411" href="#L411">411</a>             assertThat((<strong class="jxr_keyword">long</strong>) sum.getValue(), equalTo(i+i+1l));
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>             assertThat((String) propertiesKeys[i], equalTo(String.valueOf((<strong class="jxr_keyword">double</strong>) i)));
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>             assertThat((<strong class="jxr_keyword">double</strong>) propertiesKeys[i], equalTo((<strong class="jxr_keyword">double</strong>) i));
 <a class="jxr_linenumber" name="L413" href="#L413">413</a>             assertThat((<strong class="jxr_keyword">long</strong>) propertiesDocCounts[i], equalTo(1l));
 <a class="jxr_linenumber" name="L414" href="#L414">414</a>             assertThat((<strong class="jxr_keyword">double</strong>) propertiesCounts[i], equalTo((<strong class="jxr_keyword">double</strong>) i + i + 1l));
 <a class="jxr_linenumber" name="L415" href="#L415">415</a>         }
@@ -473,7 +473,7 @@
 <a class="jxr_linenumber" name="L465" href="#L465">465</a>             Terms.Bucket bucket = terms.getBucketByKey(<span class="jxr_string">""</span> + (i + 1d));
 <a class="jxr_linenumber" name="L466" href="#L466">466</a>             assertThat(bucket, notNullValue());
 <a class="jxr_linenumber" name="L467" href="#L467">467</a>             assertThat(key(bucket), equalTo(<span class="jxr_string">""</span> + (i+1d)));
-<a class="jxr_linenumber" name="L468" href="#L468">468</a>             assertThat(bucket.getKeyAsNumber().intValue(), equalTo(i+1));
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>             assertThat(bucket.getKeyAsNumber().intValue(), equalTo(i + 1));
 <a class="jxr_linenumber" name="L469" href="#L469">469</a>             assertThat(bucket.getDocCount(), equalTo(1l));
 <a class="jxr_linenumber" name="L470" href="#L470">470</a>         }
 <a class="jxr_linenumber" name="L471" href="#L471">471</a>     }
@@ -528,7 +528,7 @@
 <a class="jxr_linenumber" name="L520" href="#L520">520</a>             Terms.Bucket bucket = terms.getBucketByKey(<span class="jxr_string">""</span> + (i + 1d));
 <a class="jxr_linenumber" name="L521" href="#L521">521</a>             assertThat(bucket, notNullValue());
 <a class="jxr_linenumber" name="L522" href="#L522">522</a>             assertThat(key(bucket), equalTo(<span class="jxr_string">""</span> + (i+1d)));
-<a class="jxr_linenumber" name="L523" href="#L523">523</a>             assertThat(bucket.getKeyAsNumber().intValue(), equalTo(i+1));
+<a class="jxr_linenumber" name="L523" href="#L523">523</a>             assertThat(bucket.getKeyAsNumber().intValue(), equalTo(i + 1));
 <a class="jxr_linenumber" name="L524" href="#L524">524</a>             <strong class="jxr_keyword">if</strong> (i == 0 || i == 5) {
 <a class="jxr_linenumber" name="L525" href="#L525">525</a>                 assertThat(bucket.getDocCount(), equalTo(1l));
 <a class="jxr_linenumber" name="L526" href="#L526">526</a>             } <strong class="jxr_keyword">else</strong> {
@@ -600,7 +600,7 @@
 <a class="jxr_linenumber" name="L592" href="#L592">592</a>             Terms.Bucket bucket = terms.getBucketByKey(<span class="jxr_string">""</span> + (i + 1d));
 <a class="jxr_linenumber" name="L593" href="#L593">593</a>             assertThat(bucket, notNullValue());
 <a class="jxr_linenumber" name="L594" href="#L594">594</a>             assertThat(key(bucket), equalTo(<span class="jxr_string">""</span> + (i+1d)));
-<a class="jxr_linenumber" name="L595" href="#L595">595</a>             assertThat(bucket.getKeyAsNumber().doubleValue(), equalTo(i+1d));
+<a class="jxr_linenumber" name="L595" href="#L595">595</a>             assertThat(bucket.getKeyAsNumber().doubleValue(), equalTo(i + 1d));
 <a class="jxr_linenumber" name="L596" href="#L596">596</a>             <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> count = i == 0 || i == 5 ? 1 : 2;
 <a class="jxr_linenumber" name="L597" href="#L597">597</a>             <strong class="jxr_keyword">double</strong> s = 0;
 <a class="jxr_linenumber" name="L598" href="#L598">598</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> j = 0; j &lt; NUM_DOCS; ++j) {
@@ -815,7 +815,7 @@
 <a class="jxr_linenumber" name="L807" href="#L807">807</a>         assertThat(searchResponse.getHits().getTotalHits(), equalTo(2l));
 <a class="jxr_linenumber" name="L808" href="#L808">808</a>         <a href="../../../../../org/elasticsearch/search/aggregations/bucket/histogram/Histogram.html">Histogram</a> histo = searchResponse.getAggregations().get(<span class="jxr_string">"histo"</span>);
 <a class="jxr_linenumber" name="L809" href="#L809">809</a>         assertThat(histo, Matchers.notNullValue());
-<a class="jxr_linenumber" name="L810" href="#L810">810</a>         Histogram.Bucket bucket = histo.getBucketByKey(1l);
+<a class="jxr_linenumber" name="L810" href="#L810">810</a>         Histogram.Bucket bucket = histo.getBuckets().get(1);
 <a class="jxr_linenumber" name="L811" href="#L811">811</a>         assertThat(bucket, Matchers.notNullValue());
 <a class="jxr_linenumber" name="L812" href="#L812">812</a> 
 <a class="jxr_linenumber" name="L813" href="#L813">813</a>         <a href="../../../../../org/elasticsearch/search/aggregations/bucket/terms/Terms.html">Terms</a> terms = bucket.getAggregations().get(<span class="jxr_string">"terms"</span>);

@@ -32,7 +32,7 @@
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../rx/schedulers/ExecutorSchedulerTest.html">ExecutorSchedulerTest</a> <strong class="jxr_keyword">extends</strong> <a href="../../rx/schedulers/AbstractSchedulerConcurrencyTests.html">AbstractSchedulerConcurrencyTests</a> {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">static</strong> Executor executor = Executors.newFixedThreadPool(2, <strong class="jxr_keyword">new</strong> <a href="../../rx/internal/util/RxThreadFactory.html">RxThreadFactory</a>(<span class="jxr_string">"TestCustomPool-"</span>));
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">static</strong> <a href="../../java/util/concurrent/Executor.html">Executor</a> executor = Executors.newFixedThreadPool(2, <strong class="jxr_keyword">new</strong> <a href="../../rx/internal/util/RxThreadFactory.html">RxThreadFactory</a>(<span class="jxr_string">"TestCustomPool-"</span>));
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      @Override
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">protected</strong> <a href="../../rx/Scheduler.html">Scheduler</a> getScheduler() {

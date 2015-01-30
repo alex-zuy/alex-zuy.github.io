@@ -263,7 +263,7 @@
 <a class="jxr_linenumber" name="L255" href="#L255">255</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Set&lt;DiscoveryNode&gt; nodeToDisconnect = ConcurrentCollections.newConcurrentSet();
 <a class="jxr_linenumber" name="L256" href="#L256">256</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../../org/elasticsearch/discovery/zen/ping/ZenPing.html">PingCollection</a> pingCollection;
 <a class="jxr_linenumber" name="L257" href="#L257">257</a> 
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>         <strong class="jxr_keyword">private</strong> AtomicBoolean closed = <strong class="jxr_keyword">new</strong> AtomicBoolean(false);
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a> closed = <strong class="jxr_keyword">new</strong> <a href="../../../../../../java/util/concurrent/atomic/AtomicBoolean.html">AtomicBoolean</a>(false);
 <a class="jxr_linenumber" name="L259" href="#L259">259</a> 
 <a class="jxr_linenumber" name="L260" href="#L260">260</a>         <a href="../../../../../../org/elasticsearch/discovery/zen/ping/unicast/UnicastZenPing.html">SendPingsHandler</a>(<strong class="jxr_keyword">int</strong> id) {
 <a class="jxr_linenumber" name="L261" href="#L261">261</a>             <strong class="jxr_keyword">this</strong>.id = id;

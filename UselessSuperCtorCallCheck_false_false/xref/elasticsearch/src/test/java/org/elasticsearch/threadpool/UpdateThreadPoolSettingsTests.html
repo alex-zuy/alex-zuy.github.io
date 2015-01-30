@@ -93,7 +93,7 @@
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>          assertThat(threadPool.executor(Names.SEARCH), instanceOf(EsThreadPoolExecutor.<strong class="jxr_keyword">class</strong>));
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>          <em class="jxr_comment">// Change keep alive</em>
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>          Executor oldExecutor = threadPool.executor(Names.SEARCH);
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          <a href="../../../java/util/concurrent/Executor.html">Executor</a> oldExecutor = threadPool.executor(Names.SEARCH);
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          threadPool.updateSettings(settingsBuilder().put(<span class="jxr_string">"threadpool.search.keep_alive"</span>, <span class="jxr_string">"1m"</span>).build());
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          <em class="jxr_comment">// Make sure keep alive value changed</em>
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          assertThat(info(threadPool, Names.SEARCH).getKeepAlive().minutes(), equalTo(1L));
@@ -153,7 +153,7 @@
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>         assertThat(((EsThreadPoolExecutor) threadPool.executor(Names.SEARCH)).getMaximumPoolSize(), equalTo(15));
 <a class="jxr_linenumber" name="L146" href="#L146">146</a> 
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>         <em class="jxr_comment">// Change size</em>
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>         Executor oldExecutor = threadPool.executor(Names.SEARCH);
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>         <a href="../../../java/util/concurrent/Executor.html">Executor</a> oldExecutor = threadPool.executor(Names.SEARCH);
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>         threadPool.updateSettings(settingsBuilder().put(<span class="jxr_string">"threadpool.search.size"</span>, <span class="jxr_string">"10"</span>).build());
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>         <em class="jxr_comment">// Make sure size values changed</em>
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>         assertThat(info(threadPool, Names.SEARCH).getMax(), equalTo(10));
@@ -187,7 +187,7 @@
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>         assertThat(threadPool.executor(Names.SEARCH), instanceOf(EsThreadPoolExecutor.<strong class="jxr_keyword">class</strong>));
 <a class="jxr_linenumber" name="L180" href="#L180">180</a> 
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>         <em class="jxr_comment">// Change settings that doesn't require pool replacement</em>
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>         Executor oldExecutor = threadPool.executor(Names.SEARCH);
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>         <a href="../../../java/util/concurrent/Executor.html">Executor</a> oldExecutor = threadPool.executor(Names.SEARCH);
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>         threadPool.updateSettings(settingsBuilder()
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>                 .put(<span class="jxr_string">"threadpool.search.type"</span>, <span class="jxr_string">"scaling"</span>)
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>                 .put(<span class="jxr_string">"threadpool.search.keep_alive"</span>, <span class="jxr_string">"10m"</span>)
@@ -215,7 +215,7 @@
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>                 .put(<span class="jxr_string">"name"</span>,<span class="jxr_string">"testCachedExecutorType"</span>).build(), <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L208" href="#L208">208</a> 
 <a class="jxr_linenumber" name="L209" href="#L209">209</a>         <strong class="jxr_keyword">final</strong> CountDownLatch latch = <strong class="jxr_keyword">new</strong> CountDownLatch(1);
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>         Executor oldExecutor = threadPool.executor(Names.SEARCH);
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>         <a href="../../../java/util/concurrent/Executor.html">Executor</a> oldExecutor = threadPool.executor(Names.SEARCH);
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>         threadPool.executor(Names.SEARCH).execute(<strong class="jxr_keyword">new</strong> Runnable() {
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>             @Override
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> run() {

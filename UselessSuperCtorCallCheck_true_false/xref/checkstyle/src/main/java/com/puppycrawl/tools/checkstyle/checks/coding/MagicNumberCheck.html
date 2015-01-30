@@ -48,8 +48,8 @@
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> * &amp;lt;/module&amp;gt;</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> * &lt;/pre&gt;</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> * @author Rick Giles</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> * @author Lars K�hne</em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> * @author Daniel Solano G�mez</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> * @author Lars Kühne</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> * @author Daniel Solano Gómez</em>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/checks/coding/MagicNumberCheck.html">MagicNumberCheck</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/Check.html">Check</a>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  {
@@ -75,11 +75,11 @@
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      }
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>      <em class="jxr_javadoccomment">/** the numbers to ignore in the check, sorted */</em>
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">double</strong>[] mIgnoreNumbers = {-1, 0, 1, 2};
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">double</strong>[] ignoreNumbers = {-1, 0, 1, 2};
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>      <em class="jxr_javadoccomment">/** Whether to ignore magic numbers in a hash code method. */</em>
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> mIgnoreHashCodeMethod;
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> ignoreHashCodeMethod;
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      <em class="jxr_javadoccomment">/** Whether to ignore magic numbers in annotation. */</em>
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> mIgnoreAnnotation;
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> ignoreAnnotation;
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>      @Override
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong>[] getDefaultTokens()
@@ -93,46 +93,46 @@
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      }
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      @Override
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitToken(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      {
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          <strong class="jxr_keyword">if</strong> (mIgnoreAnnotation &amp;&amp; isInAnnotation(aAST)) {
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          <strong class="jxr_keyword">if</strong> (ignoreAnnotation &amp;&amp; isInAnnotation(ast)) {
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>              <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          }
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>          <strong class="jxr_keyword">if</strong> (inIgnoreList(aAST)
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>              || (mIgnoreHashCodeMethod &amp;&amp; isInHashCodeMethod(aAST)))
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          <strong class="jxr_keyword">if</strong> (inIgnoreList(ast)
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>              || (ignoreHashCodeMethod &amp;&amp; isInHashCodeMethod(ast)))
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          {
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>              <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          }
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> constantDefAST = findContainingConstantDef(aAST);
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> constantDefAST = findContainingConstantDef(ast);
 <a class="jxr_linenumber" name="L101" href="#L101">101</a> 
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         <strong class="jxr_keyword">if</strong> (constantDefAST == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>             reportMagicNumber(aAST);
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>             reportMagicNumber(ast);
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>         }
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>         <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>             <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast = aAST.getParent();
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>             <strong class="jxr_keyword">while</strong> (ast != constantDefAST) {
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>                 <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> type = ast.getType();
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>             <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> astNode = ast.getParent();
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>             <strong class="jxr_keyword">while</strong> (astNode != constantDefAST) {
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>                 <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> type = astNode.getType();
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>                 <strong class="jxr_keyword">if</strong> (Arrays.binarySearch(ALLOWED_PATH_TOKENTYPES, type) &lt; 0) {
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>                     reportMagicNumber(aAST);
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>                     reportMagicNumber(ast);
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>                     <strong class="jxr_keyword">break</strong>;
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>                 }
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> 
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>                 ast = ast.getParent();
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>                 astNode = astNode.getParent();
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>             }
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>         }
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>     }
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> 
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L120" href="#L120">120</a> <em class="jxr_javadoccomment">     * Finds the constant definition that contains aAST.</em>
-<a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">     * @param aAST the AST</em>
-<a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">     * @return the constant def or null if aAST is not</em>
+<a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">     * @param ast the AST</em>
+<a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">     * @return the constant def or null if ast is not</em>
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> <em class="jxr_javadoccomment">     * contained in a constant definition</em>
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> findContainingConstantDef(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> findContainingConstantDef(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>     {
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>         <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> varDefAST = aAST;
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>         <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> varDefAST = ast;
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>         <strong class="jxr_keyword">while</strong> ((varDefAST != <strong class="jxr_keyword">null</strong>)
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>                 &amp;&amp; (varDefAST.getType() != TokenTypes.VARIABLE_DEF)
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>                 &amp;&amp; (varDefAST.getType() != TokenTypes.ENUM_CONSTANT_DEF))
@@ -164,13 +164,13 @@
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> 
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L158" href="#L158">158</a> <em class="jxr_javadoccomment">     * Reports aAST as a magic number, includes unary operators as needed.</em>
-<a class="jxr_linenumber" name="L159" href="#L159">159</a> <em class="jxr_javadoccomment">     * @param aAST the AST node that contains the number to report</em>
+<a class="jxr_linenumber" name="L159" href="#L159">159</a> <em class="jxr_javadoccomment">     * @param ast the AST node that contains the number to report</em>
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> reportMagicNumber(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> reportMagicNumber(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>     {
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>         String text = aAST.getText();
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> parent = aAST.getParent();
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>         <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> reportAST = aAST;
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>         String text = ast.getText();
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> parent = ast.getParent();
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>         <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> reportAST = ast;
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>         <strong class="jxr_keyword">if</strong> (parent.getType() == TokenTypes.UNARY_MINUS) {
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>             reportAST = parent;
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>             text = <span class="jxr_string">"-"</span> + text;
@@ -190,21 +190,21 @@
 <a class="jxr_linenumber" name="L182" href="#L182">182</a> <em class="jxr_javadoccomment">     * A valid hash code method is considered to be a method of the signature</em>
 <a class="jxr_linenumber" name="L183" href="#L183">183</a> <em class="jxr_javadoccomment">     * {@code public int hashCode()}.</em>
 <a class="jxr_linenumber" name="L184" href="#L184">184</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L185" href="#L185">185</a> <em class="jxr_javadoccomment">     * @param aAST the AST from which to search for an enclosing hash code</em>
+<a class="jxr_linenumber" name="L185" href="#L185">185</a> <em class="jxr_javadoccomment">     * @param ast the AST from which to search for an enclosing hash code</em>
 <a class="jxr_linenumber" name="L186" href="#L186">186</a> <em class="jxr_javadoccomment">     * method definition</em>
 <a class="jxr_linenumber" name="L187" href="#L187">187</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L188" href="#L188">188</a> <em class="jxr_javadoccomment">     * @return {@code true} if {@code aAST} is in the scope of a valid hash</em>
+<a class="jxr_linenumber" name="L188" href="#L188">188</a> <em class="jxr_javadoccomment">     * @return {@code true} if {@code ast} is in the scope of a valid hash</em>
 <a class="jxr_linenumber" name="L189" href="#L189">189</a> <em class="jxr_javadoccomment">     * code method</em>
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isInHashCodeMethod(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isInHashCodeMethod(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>     {
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>         <em class="jxr_comment">// if not in a code block, can't be in hashCode()</em>
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>         <strong class="jxr_keyword">if</strong> (!ScopeUtils.inCodeBlock(aAST)) {
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>         <strong class="jxr_keyword">if</strong> (!ScopeUtils.inCodeBlock(ast)) {
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>             <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>         }
 <a class="jxr_linenumber" name="L197" href="#L197">197</a> 
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>         <em class="jxr_comment">// find the method definition AST</em>
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>         <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> methodDefAST = aAST.getParent();
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>         <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> methodDefAST = ast.getParent();
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>         <strong class="jxr_keyword">while</strong> ((<strong class="jxr_keyword">null</strong> != methodDefAST)
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>                 &amp;&amp; (TokenTypes.METHOD_DEF != methodDefAST.getType()))
 <a class="jxr_linenumber" name="L202" href="#L202">202</a>         {
@@ -237,75 +237,75 @@
 <a class="jxr_linenumber" name="L229" href="#L229">229</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L230" href="#L230">230</a> <em class="jxr_javadoccomment">     * Decides whether the number of an AST is in the ignore list of this</em>
 <a class="jxr_linenumber" name="L231" href="#L231">231</a> <em class="jxr_javadoccomment">     * check.</em>
-<a class="jxr_linenumber" name="L232" href="#L232">232</a> <em class="jxr_javadoccomment">     * @param aAST the AST to check</em>
-<a class="jxr_linenumber" name="L233" href="#L233">233</a> <em class="jxr_javadoccomment">     * @return true if the number of aAST is in the ignore list of this</em>
+<a class="jxr_linenumber" name="L232" href="#L232">232</a> <em class="jxr_javadoccomment">     * @param ast the AST to check</em>
+<a class="jxr_linenumber" name="L233" href="#L233">233</a> <em class="jxr_javadoccomment">     * @return true if the number of ast is in the ignore list of this</em>
 <a class="jxr_linenumber" name="L234" href="#L234">234</a> <em class="jxr_javadoccomment">     * check.</em>
 <a class="jxr_linenumber" name="L235" href="#L235">235</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> inIgnoreList(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> inIgnoreList(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L237" href="#L237">237</a>     {
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>         <strong class="jxr_keyword">double</strong> value = CheckUtils.parseDouble(aAST.getText(), aAST.getType());
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> parent = aAST.getParent();
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>         <strong class="jxr_keyword">double</strong> value = CheckUtils.parseDouble(ast.getText(), ast.getType());
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> parent = ast.getParent();
 <a class="jxr_linenumber" name="L240" href="#L240">240</a>         <strong class="jxr_keyword">if</strong> (parent.getType() == TokenTypes.UNARY_MINUS) {
 <a class="jxr_linenumber" name="L241" href="#L241">241</a>             value = -1 * value;
 <a class="jxr_linenumber" name="L242" href="#L242">242</a>         }
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>         <strong class="jxr_keyword">return</strong> (Arrays.binarySearch(mIgnoreNumbers, value) &gt;= 0);
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>         <strong class="jxr_keyword">return</strong> (Arrays.binarySearch(ignoreNumbers, value) &gt;= 0);
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>     }
 <a class="jxr_linenumber" name="L245" href="#L245">245</a> 
 <a class="jxr_linenumber" name="L246" href="#L246">246</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L247" href="#L247">247</a> <em class="jxr_javadoccomment">     * Sets the numbers to ignore in the check.</em>
 <a class="jxr_linenumber" name="L248" href="#L248">248</a> <em class="jxr_javadoccomment">     * BeanUtils converts numeric token list to double array automatically.</em>
-<a class="jxr_linenumber" name="L249" href="#L249">249</a> <em class="jxr_javadoccomment">     * @param aList list of numbers to ignore.</em>
+<a class="jxr_linenumber" name="L249" href="#L249">249</a> <em class="jxr_javadoccomment">     * @param list list of numbers to ignore.</em>
 <a class="jxr_linenumber" name="L250" href="#L250">250</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setIgnoreNumbers(<strong class="jxr_keyword">double</strong>[] aList)
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setIgnoreNumbers(<strong class="jxr_keyword">double</strong>[] list)
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>     {
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>         <strong class="jxr_keyword">if</strong> ((aList == <strong class="jxr_keyword">null</strong>) || (aList.length == 0)) {
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>             mIgnoreNumbers = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">double</strong>[0];
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>         <strong class="jxr_keyword">if</strong> ((list == <strong class="jxr_keyword">null</strong>) || (list.length == 0)) {
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>             ignoreNumbers = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">double</strong>[0];
 <a class="jxr_linenumber" name="L255" href="#L255">255</a>         }
 <a class="jxr_linenumber" name="L256" href="#L256">256</a>         <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>             mIgnoreNumbers = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">double</strong>[aList.length];
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>             System.arraycopy(aList, 0, mIgnoreNumbers, 0, aList.length);
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>             Arrays.sort(mIgnoreNumbers);
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>             ignoreNumbers = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">double</strong>[list.length];
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>             System.arraycopy(list, 0, ignoreNumbers, 0, list.length);
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>             Arrays.sort(ignoreNumbers);
 <a class="jxr_linenumber" name="L260" href="#L260">260</a>         }
 <a class="jxr_linenumber" name="L261" href="#L261">261</a>     }
 <a class="jxr_linenumber" name="L262" href="#L262">262</a> 
 <a class="jxr_linenumber" name="L263" href="#L263">263</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L264" href="#L264">264</a> <em class="jxr_javadoccomment">     * Set whether to ignore hashCode methods.</em>
-<a class="jxr_linenumber" name="L265" href="#L265">265</a> <em class="jxr_javadoccomment">     * @param aIgnoreHashCodeMethod decide whether to ignore</em>
+<a class="jxr_linenumber" name="L265" href="#L265">265</a> <em class="jxr_javadoccomment">     * @param ignoreHashCodeMethod decide whether to ignore</em>
 <a class="jxr_linenumber" name="L266" href="#L266">266</a> <em class="jxr_javadoccomment">     * hash code methods</em>
 <a class="jxr_linenumber" name="L267" href="#L267">267</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setIgnoreHashCodeMethod(<strong class="jxr_keyword">boolean</strong> aIgnoreHashCodeMethod)
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setIgnoreHashCodeMethod(<strong class="jxr_keyword">boolean</strong> ignoreHashCodeMethod)
 <a class="jxr_linenumber" name="L269" href="#L269">269</a>     {
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>         mIgnoreHashCodeMethod = aIgnoreHashCodeMethod;
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>         <strong class="jxr_keyword">this</strong>.ignoreHashCodeMethod = ignoreHashCodeMethod;
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>     }
 <a class="jxr_linenumber" name="L272" href="#L272">272</a> 
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L274" href="#L274">274</a> <em class="jxr_javadoccomment">     * Set whether to ignore Annotations.</em>
-<a class="jxr_linenumber" name="L275" href="#L275">275</a> <em class="jxr_javadoccomment">     * @param aIgnoreAnnotation decide whether to ignore annotations</em>
+<a class="jxr_linenumber" name="L275" href="#L275">275</a> <em class="jxr_javadoccomment">     * @param ignoreAnnotation decide whether to ignore annotations</em>
 <a class="jxr_linenumber" name="L276" href="#L276">276</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setIgnoreAnnotation(<strong class="jxr_keyword">boolean</strong> aIgnoreAnnotation)
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setIgnoreAnnotation(<strong class="jxr_keyword">boolean</strong> ignoreAnnotation)
 <a class="jxr_linenumber" name="L278" href="#L278">278</a>     {
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>         mIgnoreAnnotation = aIgnoreAnnotation;
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>         <strong class="jxr_keyword">this</strong>.ignoreAnnotation = ignoreAnnotation;
 <a class="jxr_linenumber" name="L280" href="#L280">280</a>     }
 <a class="jxr_linenumber" name="L281" href="#L281">281</a> 
 <a class="jxr_linenumber" name="L282" href="#L282">282</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L283" href="#L283">283</a> <em class="jxr_javadoccomment">     * Determines if the column displays a token type of annotation or</em>
 <a class="jxr_linenumber" name="L284" href="#L284">284</a> <em class="jxr_javadoccomment">     * annotation member</em>
 <a class="jxr_linenumber" name="L285" href="#L285">285</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">     * @param aAST the AST from which to search for annotations</em>
+<a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">     * @param ast the AST from which to search for annotations</em>
 <a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L288" href="#L288">288</a> <em class="jxr_javadoccomment">     * @return {@code true} if the token type for this node is a annotation</em>
 <a class="jxr_linenumber" name="L289" href="#L289">289</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isInAnnotation(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> aAST)
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isInAnnotation(<a href="../../../../../../com/puppycrawl/tools/checkstyle/api/DetailAST.html">DetailAST</a> ast)
 <a class="jxr_linenumber" name="L291" href="#L291">291</a>     {
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>         <strong class="jxr_keyword">if</strong> ((<strong class="jxr_keyword">null</strong> == aAST.getParent())
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>                 || (<strong class="jxr_keyword">null</strong> == aAST.getParent().getParent()))
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>         <strong class="jxr_keyword">if</strong> ((<strong class="jxr_keyword">null</strong> == ast.getParent())
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>                 || (<strong class="jxr_keyword">null</strong> == ast.getParent().getParent()))
 <a class="jxr_linenumber" name="L294" href="#L294">294</a>         {
 <a class="jxr_linenumber" name="L295" href="#L295">295</a>             <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L296" href="#L296">296</a>         }
 <a class="jxr_linenumber" name="L297" href="#L297">297</a> 
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>         <strong class="jxr_keyword">return</strong> (TokenTypes.ANNOTATION == aAST.getParent().getParent().getType())
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>         <strong class="jxr_keyword">return</strong> (TokenTypes.ANNOTATION == ast.getParent().getParent().getType())
 <a class="jxr_linenumber" name="L299" href="#L299">299</a>                 || (TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>                         == aAST.getParent().getParent().getType());
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>                         == ast.getParent().getParent().getType());
 <a class="jxr_linenumber" name="L301" href="#L301">301</a>     }
 <a class="jxr_linenumber" name="L302" href="#L302">302</a> }
 </pre>

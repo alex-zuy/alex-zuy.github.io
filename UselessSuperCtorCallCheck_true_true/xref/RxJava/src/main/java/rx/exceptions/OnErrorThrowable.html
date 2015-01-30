@@ -156,7 +156,7 @@
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>                 <strong class="jxr_keyword">return</strong> (String) value;
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>             }
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>             <strong class="jxr_keyword">if</strong> (value instanceof Enum) {
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>                 <strong class="jxr_keyword">return</strong> ((Enum) value).name();
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>                 <strong class="jxr_keyword">return</strong> ((Enum&lt;?&gt;) value).name();
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>             }
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>             <strong class="jxr_keyword">return</strong> value.getClass().getName() + <span class="jxr_string">".class"</span>;
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>         }
