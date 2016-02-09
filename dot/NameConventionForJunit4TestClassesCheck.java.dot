@@ -1,0 +1,37 @@
+digraph dependencies {
+rankdir = "LR";
+subgraph clustersimple {
+"isMatchesRegex(Pattern,String)" [ color="#ff0000ff" shape="polygon" ];
+"logUnexpectedClassName(DetailAST)" [ color="#ff0000ff" ];
+"getIdentifierName(DetailAST)" [ color="#ff0000ff" shape="polygon" ];
+}
+"visitToken(DetailAST)" [ color="#00ff00ff" shape="trapezium" ];
+"isClassDefinitionAnnotated(DetailAST)" [ color="#ff0000ff" ];
+"isAtleastOneMethodAnnotated(DetailAST)" [ color="#ff0000ff" ];
+"hasUnexpectedName(DetailAST)" [ color="#ff0000ff" ];
+"hasAnnotation(DetailAST,Pattern)" [ color="#ff0000ff" ];
+"visitToken(DetailAST)" -> "isClassDefinitionAnnotated(DetailAST)" [ label="0" ];
+"visitToken(DetailAST)" -> "isAtleastOneMethodAnnotated(DetailAST)" [ label="1" ];
+"visitToken(DetailAST)" -> "hasUnexpectedName(DetailAST)" [ label="2" ];
+"visitToken(DetailAST)" -> "logUnexpectedClassName(DetailAST)" [ label="4" ];
+"isClassDefinitionAnnotated(DetailAST)" -> "hasAnnotation(DetailAST,Pattern)" [ label="2" ];
+"isAtleastOneMethodAnnotated(DetailAST)" -> "hasAnnotation(DetailAST,Pattern)" [ label="1" ];
+"hasUnexpectedName(DetailAST)" -> "isMatchesRegex(Pattern,String)" [ label="3" ];
+"hasUnexpectedName(DetailAST)" -> "getIdentifierName(DetailAST)" [ label="2" ];
+"hasAnnotation(DetailAST,Pattern)" -> "isMatchesRegex(Pattern,String)" [ label="2" ];
+"hasAnnotation(DetailAST,Pattern)" -> "getIdentifierName(DetailAST)" [ label="1" ];
+/*
+Legend
+Node border color:
+    a) GREEN - public
+    b) YELLOW - protected
+    c) BLACK - private
+    d) BLUE - default
+Node shape:
+    if static - rectangle
+    otherwise if override - trapezium
+    otherwise if overloaded - triangle
+    otherwise ellipse
+
+*/
+}

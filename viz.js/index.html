@@ -334,6 +334,31 @@ digraph G {
     updateGraph();
 
     console.log('Maybe we need to do it here');
+
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    var fileName = getParameterByName('file');
+    if(fileName != null) {
+      var baseUrl = 'https://pirat9600q.github.io/dot/';
+      var xhr = new XMLHttpRequest();
+      xhr.addEventListener('load', function() {
+        var txt = this.responseText;
+        setTimeout(function() {
+          editor.setValue(txt, -1);
+        }, 1500);
+        
+      });
+      xhr.open('GET', baseUrl + fileName);
+      xhr.send();
+    }
     
     </script>
     
