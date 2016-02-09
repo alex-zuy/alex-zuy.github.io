@@ -1,0 +1,882 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+        <script>jQuery(function($) {
+    var table = $('#matrixTable');
+    var maxWidth = table.find('.horizontal-heading td')
+        .get()
+        .map(function(elem) {
+            return $(elem).width();
+        })
+        .sort(function(l, r) {
+            return parseInt(l) - parseInt(r);
+        })
+        .pop();
+    console.log('Max width:' + maxWidth);
+    table.css('marginTop', maxWidth + 50 + 'px');
+    table.find('.horizontal-heading td').css('maxWidth', '30px');
+});</script>
+        <style>.horizontal-heading td .rotated {
+    margin-bottom: 10px;
+    position: relative;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+.horizontal-heading td {
+    /*max-width: 30px;*/
+}
+.diagonal {
+    background-color: darkgray;
+}
+.depends-on {
+    background-color: red;
+}
+table {
+    border-collapse: collapse;
+}
+td.cell {
+    text-align: center;
+    border: solid 2px black
+}</style>
+    </head>
+    <body>
+        <table id="matrixTable" style="margin-top: 300px">
+            <thead></thead>
+            <tbody>
+                <tr class="horizontal-heading">
+                    <td></td>
+                                            <td>
+                            <div class="rotated">
+                                setCheckFields(boolean)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                setCheckMethods(boolean)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                setValidateOnlyOverlapping(boolean)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                getDefaultTokens()
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                getRequiredTokens()
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                getAcceptableTokens()
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                beginTree(DetailAST)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                visitToken(DetailAST)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                processIdent(DetailAST)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                logViolation(String,DetailAST,AbstractFrame)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                processField(DetailAST,int)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                collectDeclarations(Deque,DetailAST)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                collectVariableDeclarations(DetailAST,AbstractFrame)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                endCollectingDeclarations(Queue,DetailAST)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                checkField(DetailAST)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                isOverlappingByMethodArgument(DetailAST)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                getRightAssigmentOperand(DetailAST)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                canBeReferencedFromStaticContext(AbstractFrame,AbstractFrame)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                isUseOfFieldInsideMethod(DetailAST)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                isOverlappingByLocalVariable(DetailAST)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                checkMethod(DetailAST)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                findFrame(DetailAST,boolean)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                isDeclarationToken(int)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                isAssignToken(int)
+                            </div>
+                        </td>
+                                            <td>
+                            <div class="rotated">
+                                getNearestClassFrameName()
+                            </div>
+                        </td>
+                                    </tr>
+                                            <tr>
+                            <td>setCheckFields(boolean)</td>
+                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>setCheckMethods(boolean)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>setValidateOnlyOverlapping(boolean)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>getDefaultTokens()</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">1</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>getRequiredTokens()</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell depends-on">0</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>getAcceptableTokens()</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>beginTree(DetailAST)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">4</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">6</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>visitToken(DetailAST)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell depends-on">0</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>processIdent(DetailAST)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell depends-on">0</td>
+                                                                                                                                <td class="cell depends-on">1</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">11</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>logViolation(String,DetailAST,AbstractFrame)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">14</td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>processField(DetailAST,int)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">3</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">11</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>collectDeclarations(Deque,DetailAST)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell depends-on">0</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>collectVariableDeclarations(DetailAST,AbstractFrame)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>endCollectingDeclarations(Queue,DetailAST)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>checkField(DetailAST)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell depends-on">0</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">4</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">6</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>isOverlappingByMethodArgument(DetailAST)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell depends-on">0</td>
+                                                                                                                                <td class="cell depends-on">1</td>
+                                                                                                                                <td class="cell depends-on">2</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">5</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">7</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>getRightAssigmentOperand(DetailAST)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>canBeReferencedFromStaticContext(AbstractFrame,AbstractFrame)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>isUseOfFieldInsideMethod(DetailAST)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">0</td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">2</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>isOverlappingByLocalVariable(DetailAST)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">1</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>checkMethod(DetailAST)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell depends-on">0</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>findFrame(DetailAST,boolean)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>isDeclarationToken(int)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>isAssignToken(int)</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td>getNearestClassFrameName()</td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                    </tr>
+                                </tbody>
+        </table>
+    </body>
+</html>
