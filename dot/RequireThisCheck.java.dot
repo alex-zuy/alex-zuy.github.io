@@ -1,29 +1,29 @@
 digraph dependencies {
 rankdir = "LR";
 subgraph clustersimple {
-"collectVariableDeclarations(DetailAST,AbstractFrame)" [ color="#ff0000ff" shape="polygon" ];
-"endCollectingDeclarations(Queue,DetailAST)" [ color="#ff0000ff" ];
-"getRightAssigmentOperand(DetailAST)" [ color="#ff0000ff" shape="polygon" ];
-"canBeReferencedFromStaticContext(AbstractFrame,AbstractFrame)" [ color="#ff0000ff" shape="polygon" ];
-"findFrame(DetailAST,boolean)" [ color="#ff0000ff" ];
-"isDeclarationToken(int)" [ color="#ff0000ff" shape="polygon" ];
-"isAssignToken(int)" [ color="#ff0000ff" shape="polygon" ];
-"getNearestClassFrameName()" [ color="#ff0000ff" ];
+"collectVariableDeclarations(DetailAST,AbstractFrame)" [ color="#000000ff" shape="polygon" ];
+"endCollectingDeclarations(Queue,DetailAST)" [ color="#000000ff" ];
+"getRightAssigmentOperand(DetailAST)" [ color="#000000ff" shape="polygon" ];
+"canBeReferencedFromStaticContext(AbstractFrame,AbstractFrame)" [ color="#000000ff" shape="polygon" ];
+"findFrame(DetailAST,boolean)" [ color="#000000ff" ];
+"isDeclarationToken(int)" [ color="#000000ff" shape="polygon" ];
+"isAssignToken(int)" [ color="#000000ff" shape="polygon" ];
+"getNearestClassFrameName()" [ color="#000000ff" ];
 "getAcceptableTokens()" [ color="#00ff00ff" shape="trapezium" ];
 }
-"collectDeclarations(Deque,DetailAST)" [ color="#ff0000ff" shape="polygon" ];
-"checkField(DetailAST)" [ color="#ff0000ff" ];
-"isOverlappingByMethodArgument(DetailAST)" [ color="#ff0000ff" ];
-"isUseOfFieldInsideMethod(DetailAST)" [ color="#ff0000ff" ];
-"isOverlappingByLocalVariable(DetailAST)" [ color="#ff0000ff" ];
-"checkMethod(DetailAST)" [ color="#ff0000ff" ];
+"collectDeclarations(Deque,DetailAST)" [ color="#000000ff" shape="polygon" ];
+"checkField(DetailAST)" [ color="#000000ff" ];
+"isOverlappingByMethodArgument(DetailAST)" [ color="#000000ff" ];
+"isUseOfFieldInsideMethod(DetailAST)" [ color="#000000ff" ];
+"isOverlappingByLocalVariable(DetailAST)" [ color="#000000ff" ];
+"checkMethod(DetailAST)" [ color="#000000ff" ];
 "getDefaultTokens()" [ color="#00ff00ff" shape="trapezium" ];
 "getRequiredTokens()" [ color="#00ff00ff" shape="trapezium" ];
 "beginTree(DetailAST)" [ color="#00ff00ff" shape="trapezium" ];
 "visitToken(DetailAST)" [ color="#00ff00ff" shape="trapezium" ];
-"processIdent(DetailAST)" [ color="#ff0000ff" ];
-"logViolation(String,DetailAST,AbstractFrame)" [ color="#ff0000ff" ];
-"processField(DetailAST,int)" [ color="#ff0000ff" ];
+"processIdent(DetailAST)" [ color="#000000ff" ];
+"logViolation(String,DetailAST,AbstractFrame)" [ color="#000000ff" ];
+"processField(DetailAST,int)" [ color="#000000ff" ];
 "collectDeclarations(Deque,DetailAST)" -> "collectVariableDeclarations(DetailAST,AbstractFrame)" [ label="0" ];
 "checkField(DetailAST)" -> "isOverlappingByMethodArgument(DetailAST)" [ label="0" ];
 "checkField(DetailAST)" -> "isOverlappingByLocalVariable(DetailAST)" [ label="4" ];

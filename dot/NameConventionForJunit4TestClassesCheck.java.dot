@@ -1,15 +1,15 @@
 digraph dependencies {
 rankdir = "LR";
 subgraph clustersimple {
-"isMatchesRegex(Pattern,String)" [ color="#ff0000ff" shape="polygon" ];
-"logUnexpectedClassName(DetailAST)" [ color="#ff0000ff" ];
-"getIdentifierName(DetailAST)" [ color="#ff0000ff" shape="polygon" ];
+"isMatchesRegex(Pattern,String)" [ color="#000000ff" shape="polygon" ];
+"logUnexpectedClassName(DetailAST)" [ color="#000000ff" ];
+"getIdentifierName(DetailAST)" [ color="#000000ff" shape="polygon" ];
 }
 "visitToken(DetailAST)" [ color="#00ff00ff" shape="trapezium" ];
-"isClassDefinitionAnnotated(DetailAST)" [ color="#ff0000ff" ];
-"isAtleastOneMethodAnnotated(DetailAST)" [ color="#ff0000ff" ];
-"hasUnexpectedName(DetailAST)" [ color="#ff0000ff" ];
-"hasAnnotation(DetailAST,Pattern)" [ color="#ff0000ff" ];
+"isClassDefinitionAnnotated(DetailAST)" [ color="#000000ff" ];
+"isAtleastOneMethodAnnotated(DetailAST)" [ color="#000000ff" ];
+"hasUnexpectedName(DetailAST)" [ color="#000000ff" ];
+"hasAnnotation(DetailAST,Pattern)" [ color="#000000ff" ];
 "visitToken(DetailAST)" -> "isClassDefinitionAnnotated(DetailAST)" [ label="0" ];
 "visitToken(DetailAST)" -> "isAtleastOneMethodAnnotated(DetailAST)" [ label="1" ];
 "visitToken(DetailAST)" -> "hasUnexpectedName(DetailAST)" [ label="2" ];
