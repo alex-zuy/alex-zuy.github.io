@@ -21,12 +21,12 @@
     table.css('marginTop', maxWidth + 50 + 'px');
     table.find('.horizontal-heading td').css('maxWidth', '30px');
     table.find('td.cell').click(function(e) {
-        table.find('td.cell').removeClass('highlighted');
+        table.find('td.highlightable').removeClass('highlighted');
         var td = e.target;
         var column = $(td).index();
         var row = $(td).parent().index();
         console.log('Column: ' + column, 'Row: ' + row);
-        var selector = `td.cell:nth-child(${column + 1}),tr:nth-child(${row + 1})>td.cell`;
+        var selector = `td.highlightable:nth-child(${column + 1}),tr:nth-child(${row + 1})>td.highlightable`;
         console.log('Selector: "' + selector + '"');
         table.find(selector).addClass('highlighted');
     });
@@ -77,7 +77,7 @@ td[data-static=true] {
     margin-left: auto;
     margin-right: auto;
 }
-.highlighted {
+.highlightable.highlighted {
     background-color: yellow;
 }
         </style>
@@ -88,270 +88,270 @@ td[data-static=true] {
             <tbody>
                 <tr class="horizontal-heading">
                     <td></td>
-                                            <td data-accessibility="PUBLIC" data-static="false">
+                                            <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
                             <div class="rotated">
                                 setExpectedClassNameRegex(String)
                             </div>
                         </td>
-                                            <td data-accessibility="PUBLIC" data-static="false">
+                                            <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
                             <div class="rotated">
                                 setClassAnnotationNameRegex(String)
                             </div>
                         </td>
-                                            <td data-accessibility="PUBLIC" data-static="false">
+                                            <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
                             <div class="rotated">
                                 setMethodAnnotationNameRegex(String)
                             </div>
                         </td>
-                                            <td data-accessibility="PUBLIC" data-static="false">
+                                            <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
                             <div class="rotated">
                                 getDefaultTokens()
                             </div>
                         </td>
-                                            <td data-accessibility="PUBLIC" data-static="false">
+                                            <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
                             <div class="rotated">
                                 visitToken(DetailAST)
                             </div>
                         </td>
-                                            <td data-accessibility="PRIVATE" data-static="false">
+                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
                             <div class="rotated">
                                 isClassDefinitionAnnotated(DetailAST)
                             </div>
                         </td>
-                                            <td data-accessibility="PRIVATE" data-static="false">
+                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
                             <div class="rotated">
                                 isAtleastOneMethodAnnotated(DetailAST)
                             </div>
                         </td>
-                                            <td data-accessibility="PRIVATE" data-static="false">
+                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
                             <div class="rotated">
                                 hasUnexpectedName(DetailAST)
                             </div>
                         </td>
-                                            <td data-accessibility="PRIVATE" data-static="false">
+                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
                             <div class="rotated">
                                 hasAnnotation(DetailAST,Pattern)
                             </div>
                         </td>
-                                            <td data-accessibility="PRIVATE" data-static="false">
+                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
                             <div class="rotated">
                                 logUnexpectedClassName(DetailAST)
                             </div>
                         </td>
-                                            <td data-accessibility="PRIVATE" data-static="true">
+                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="true">
                             <div class="rotated">
                                 getIdentifierName(DetailAST)
                             </div>
                         </td>
-                                            <td data-accessibility="PRIVATE" data-static="true">
+                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="true">
                             <div class="rotated">
                                 isMatchesRegex(Pattern,String)
                             </div>
                         </td>
                                     </tr>
                                             <tr>
-                            <td data-accessibility="PUBLIC" data-static="false">
+                            <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
                                 setExpectedClassNameRegex(String)
                             </td>
-                                                                                                <td class="cell diagonal">-</td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
+                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                     </tr>
                                             <tr>
-                            <td data-accessibility="PUBLIC" data-static="false">
+                            <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
                                 setClassAnnotationNameRegex(String)
                             </td>
-                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell diagonal">-</td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                     </tr>
                                             <tr>
-                            <td data-accessibility="PUBLIC" data-static="false">
+                            <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
                                 setMethodAnnotationNameRegex(String)
                             </td>
-                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell diagonal">-</td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                     </tr>
                                             <tr>
-                            <td data-accessibility="PUBLIC" data-static="false">
+                            <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
                                 getDefaultTokens()
                             </td>
-                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell diagonal">-</td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                     </tr>
                                             <tr>
-                            <td data-accessibility="PUBLIC" data-static="false">
+                            <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
                                 visitToken(DetailAST)
                             </td>
-                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell diagonal">-</td>
-                                                                                                                                <td class="cell depends-on">0</td>
-                                                                                                                                <td class="cell depends-on">1</td>
-                                                                                                                                <td class="cell depends-on">2</td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell depends-on">4</td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell depends-on">0</td>
+                                                                                                                                <td class="highlightable cell depends-on">1</td>
+                                                                                                                                <td class="highlightable cell depends-on">2</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell depends-on">4</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                     </tr>
                                             <tr>
-                            <td data-accessibility="PRIVATE" data-static="false">
+                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
                                 isClassDefinitionAnnotated(DetailAST)
                             </td>
-                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell diagonal">-</td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell depends-on">2</td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell depends-on">2</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                     </tr>
                                             <tr>
-                            <td data-accessibility="PRIVATE" data-static="false">
+                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
                                 isAtleastOneMethodAnnotated(DetailAST)
                             </td>
-                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell diagonal">-</td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell depends-on">1</td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell depends-on">1</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                     </tr>
                                             <tr>
-                            <td data-accessibility="PRIVATE" data-static="false">
+                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
                                 hasUnexpectedName(DetailAST)
                             </td>
-                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell diagonal">-</td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell depends-on">2</td>
-                                                                                                                                <td class="cell depends-on">3</td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell depends-on">2</td>
+                                                                                                                                <td class="highlightable cell depends-on">3</td>
                                                                                     </tr>
                                             <tr>
-                            <td data-accessibility="PRIVATE" data-static="false">
+                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
                                 hasAnnotation(DetailAST,Pattern)
                             </td>
-                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell diagonal">-</td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell depends-on">1</td>
-                                                                                                                                <td class="cell depends-on">2</td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell depends-on">1</td>
+                                                                                                                                <td class="highlightable cell depends-on">2</td>
                                                                                     </tr>
                                             <tr>
-                            <td data-accessibility="PRIVATE" data-static="false">
+                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
                                 logUnexpectedClassName(DetailAST)
                             </td>
-                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell diagonal">-</td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                     </tr>
                                             <tr>
-                            <td data-accessibility="PRIVATE" data-static="true">
+                            <td class="highlightable" data-accessibility="PRIVATE" data-static="true">
                                 getIdentifierName(DetailAST)
                             </td>
-                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell diagonal">-</td>
-                                                                                                                                <td class="cell"></td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                     </tr>
                                             <tr>
-                            <td data-accessibility="PRIVATE" data-static="true">
+                            <td class="highlightable" data-accessibility="PRIVATE" data-static="true">
                                 isMatchesRegex(Pattern,String)
                             </td>
-                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell"></td>
-                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
                                                                                     </tr>
                                 </tbody>
         </table>
