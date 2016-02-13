@@ -18,8 +18,9 @@
             return parseInt(l) - parseInt(r);
         })
         .pop();
-    table.css('marginTop', maxWidth + 50 + 'px');
     table.find('.horizontal-heading td').css('maxWidth', '30px');
+    table.find('tr.horizontal-heading>td').css('height', maxWidth);
+
     table.find('td.cell').click(function(e) {
         table.find('td.highlightable').removeClass('highlighted');
         var td = e.target;
@@ -33,8 +34,11 @@
 });
         </script>
         <style>
-            .horizontal-heading td .rotated {
-    margin-bottom: 10px;
+            #matrixTable {
+    margin-top: 20px;
+}
+.horizontal-heading td .rotated {
+    margin-bottom: 7px;
     position: relative;
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
@@ -43,7 +47,7 @@
     transform: rotate(-90deg);
 }
 .horizontal-heading td {
-    /*max-width: 30px;*/
+    vertical-align: bottom;
 }
 .diagonal {
     background-color: darkgray !important;
