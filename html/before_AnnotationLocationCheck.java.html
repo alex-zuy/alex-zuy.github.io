@@ -1,0 +1,877 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+        <script>
+            jQuery(function($) {
+    var table = $('#matrixTable');
+    var maxWidth = table.find('.horizontal-heading td')
+        .get()
+        .map(function(elem) {
+            return $(elem).width();
+        })
+        .sort(function(l, r) {
+            return parseInt(l) - parseInt(r);
+        })
+        .pop();
+    table.css('marginTop', maxWidth + 50 + 'px');
+    table.find('.horizontal-heading td').css('maxWidth', '30px');
+    table.find('td.cell').click(function(e) {
+        table.find('td.cell').removeClass('highlighted');
+        var td = e.target;
+        var column = $(td).index();
+        var row = $(td).parent().index();
+        console.log('Column: ' + column, 'Row: ' + row);
+        var selector = `td.cell:nth-child(${column + 1}),tr:nth-child(${row + 1})>td.cell`;
+        console.log('Selector: "' + selector + '"');
+        table.find(selector).addClass('highlighted');
+    });
+});
+        </script>
+        <style>
+            .horizontal-heading td .rotated {
+    margin-bottom: 10px;
+    position: relative;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+.horizontal-heading td {
+    /*max-width: 30px;*/
+}
+.diagonal {
+    background-color: darkgray !important;
+}
+.depends-on {
+    background-color: red !important;
+}
+table {
+    border-collapse: collapse;
+}
+td.cell {
+    text-align: center;
+    border: solid 2px black
+}
+td[data-accessibility=PUBLIC] {
+    color: green;
+}
+td[data-accessibility=PROTECTED] {
+    color: yellow;
+}
+td[data-accessibility=PRIVATE] {
+    color: black;
+}
+td[data-accessibility=DEFAULT] {
+    color: blue;
+}
+td[data-static=true] {
+    background-color: #D0D0D0;
+}
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+}
+.highlighted {
+    background-color: yellow;
+}
+        </style>
+    </head>
+    <body>
+        <table id="matrixTable" class="centered">
+            <thead></thead>
+            <tbody>
+                <tr class="horizontal-heading">
+                    <td></td>
+                                            <td data-accessibility="PUBLIC" data-static="false">
+                            <div class="rotated">
+                                setAllowSamelineSingleParameterlessAnnotation(boolean)
+                            </div>
+                        </td>
+                                            <td data-accessibility="PUBLIC" data-static="false">
+                            <div class="rotated">
+                                setAllowSamelineParameterizedAnnotation(boolean)
+                            </div>
+                        </td>
+                                            <td data-accessibility="PUBLIC" data-static="false">
+                            <div class="rotated">
+                                setAllowSamelineMultipleAnnotations(boolean)
+                            </div>
+                        </td>
+                                            <td data-accessibility="PUBLIC" data-static="false">
+                            <div class="rotated">
+                                getDefaultTokens()
+                            </div>
+                        </td>
+                                            <td data-accessibility="PUBLIC" data-static="false">
+                            <div class="rotated">
+                                getAcceptableTokens()
+                            </div>
+                        </td>
+                                            <td data-accessibility="PUBLIC" data-static="false">
+                            <div class="rotated">
+                                getRequiredTokens()
+                            </div>
+                        </td>
+                                            <td data-accessibility="PUBLIC" data-static="false">
+                            <div class="rotated">
+                                visitToken(DetailAST)
+                            </div>
+                        </td>
+                                            <td data-accessibility="PRIVATE" data-static="false">
+                            <div class="rotated">
+                                checkAnnotations(DetailAST,int)
+                            </div>
+                        </td>
+                                            <td data-accessibility="PRIVATE" data-static="false">
+                            <div class="rotated">
+                                isCorrectLocation(DetailAST,boolean)
+                            </div>
+                        </td>
+                                            <td data-accessibility="PRIVATE" data-static="true">
+                            <div class="rotated">
+                                getAnnotationName(DetailAST)
+                            </div>
+                        </td>
+                                            <td data-accessibility="PRIVATE" data-static="true">
+                            <div class="rotated">
+                                hasNodeAfter(DetailAST)
+                            </div>
+                        </td>
+                                            <td data-accessibility="PRIVATE" data-static="true">
+                            <div class="rotated">
+                                hasNodeBefore(DetailAST)
+                            </div>
+                        </td>
+                                            <td data-accessibility="PRIVATE" data-static="true">
+                            <div class="rotated">
+                                hasNodeBeside(DetailAST)
+                            </div>
+                        </td>
+                                            <td data-accessibility="PRIVATE" data-static="true">
+                            <div class="rotated">
+                                getAnnotationLevel(DetailAST)
+                            </div>
+                        </td>
+                                            <td data-accessibility="PRIVATE" data-static="true">
+                            <div class="rotated">
+                                isParameterized(DetailAST)
+                            </div>
+                        </td>
+                                            <td data-accessibility="PRIVATE" data-static="true">
+                            <div class="rotated">
+                                hasAnnotations(DetailAST)
+                            </div>
+                        </td>
+                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PUBLIC" data-static="false">
+                                setAllowSamelineSingleParameterlessAnnotation(boolean)
+                            </td>
+                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PUBLIC" data-static="false">
+                                setAllowSamelineParameterizedAnnotation(boolean)
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PUBLIC" data-static="false">
+                                setAllowSamelineMultipleAnnotations(boolean)
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PUBLIC" data-static="false">
+                                getDefaultTokens()
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PUBLIC" data-static="false">
+                                getAcceptableTokens()
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PUBLIC" data-static="false">
+                                getRequiredTokens()
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PUBLIC" data-static="false">
+                                visitToken(DetailAST)
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell depends-on">0</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">6</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">8</td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PRIVATE" data-static="false">
+                                checkAnnotations(DetailAST,int)
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell depends-on">0</td>
+                                                                                                                                <td class="cell depends-on">1</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">3</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">6</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PRIVATE" data-static="false">
+                                isCorrectLocation(DetailAST,boolean)
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">2</td>
+                                                                                                                                <td class="cell depends-on">3</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PRIVATE" data-static="true">
+                                getAnnotationName(DetailAST)
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PRIVATE" data-static="true">
+                                hasNodeAfter(DetailAST)
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PRIVATE" data-static="true">
+                                hasNodeBefore(DetailAST)
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PRIVATE" data-static="true">
+                                hasNodeBeside(DetailAST)
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell depends-on">1</td>
+                                                                                                                                <td class="cell depends-on">0</td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PRIVATE" data-static="true">
+                                getAnnotationLevel(DetailAST)
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PRIVATE" data-static="true">
+                                isParameterized(DetailAST)
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                                                                <td class="cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td data-accessibility="PRIVATE" data-static="true">
+                                hasAnnotations(DetailAST)
+                            </td>
+                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell"></td>
+                                                                                                                                <td class="cell diagonal">-</td>
+                                                                                    </tr>
+                                </tbody>
+        </table>
+        <div class="centered">
+            In the matrix above, methods situated in the order they appear
+            in class definition(first method occupies first row and first column,
+            second method occupies second row and second column an so on). Text color
+            indicates accessibility of methods in the following way:
+            <ul>
+                <li>public - GREEN</li>
+                <li>protected - yellow</li>
+                <li>private - black</li>
+                <li>default - blue</li>
+            </ul>
+            Grey background color indicates that method is static.
+        </div>
+        <p>
+            If some method depends on another method(by calling it), then matrix
+            cell situated at intersection of caller`s row and callee`s column is displayed
+            in red and number in this cell indicates distance between methods.
+            Diagonal cells are always displayed in grey.
+        </p>
+        <h4>Source file</h4>
+        <!-- Library -->
+        <link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+        <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js" type="text/javascript"></script>
+        <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shAutoloader.js" type="text/javascript"></script>
+        <script type="text/javascript" src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJava.js"></script>
+        <!-- Source code -->
+        <script type="syntaxhighlighter" class="brush: java"><![CDATA[////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2016 the original author or authors.
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
+
+package com.puppycrawl.tools.checkstyle.checks.annotation;
+
+import org.apache.commons.lang3.ArrayUtils;
+
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
+import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+
+/**
+ * Check location of annotation on language elements.
+ * By default, Check enforce to locate annotations immediately after
+ * documentation block and before target element, annotation should be located
+ * on separate line from target element.
+ *
+ * <p>
+ * Example:
+ * </p>
+ *
+ * <pre>
+ * &#64;Override
+ * &#64;Nullable
+ * public String getNameIfPresent() { ... }
+ * </pre>
+ *
+ * <p>
+ * Check have following options:
+ * </p>
+ * <ul>
+ * <li>allowSamelineMultipleAnnotations - to allow annotation to be located on
+ * the same line as target element. Default value is false.
+ * </li>
+ *
+ * <li>
+ * allowSamelineSingleParameterlessAnnotation - to allow single parameterless
+ * annotation to be located on the same line as target element. Default value is false.
+ * </li>
+ *
+ * <li>
+ * allowSamelineParameterizedAnnotation - to allow parameterized annotation
+ * to be located on the same line as target element. Default value is false.
+ * </li>
+ * </ul>
+ * <br>
+ * <p>
+ * Example to allow single parameterless annotation on the same line:
+ * </p>
+ * <pre>
+ * &#64;Override public int hashCode() { ... }
+ * </pre>
+ *
+ * <p>Use following configuration:
+ * <pre>
+ * &lt;module name=&quot;AnnotationLocation&quot;&gt;
+ *    &lt;property name=&quot;allowSamelineMultipleAnnotations&quot; value=&quot;false&quot;/&gt;
+ *    &lt;property name=&quot;allowSamelineSingleParameterlessAnnotation&quot;
+ *    value=&quot;true&quot;/&gt;
+ *    &lt;property name=&quot;allowSamelineParameterizedAnnotation&quot; value=&quot;false&quot;
+ *    /&gt;
+ * &lt;/module&gt;
+ * </pre>
+ * <br>
+ * <p>
+ * Example to allow multiple parameterized annotations on the same line:
+ * </p>
+ * <pre>
+ * &#64;SuppressWarnings("deprecation") &#64;Mock DataLoader loader;
+ * </pre>
+ *
+ * <p>Use following configuration:
+ * <pre>
+ * &lt;module name=&quot;AnnotationLocation&quot;&gt;
+ *    &lt;property name=&quot;allowSamelineMultipleAnnotations&quot; value=&quot;true&quot;/&gt;
+ *    &lt;property name=&quot;allowSamelineSingleParameterlessAnnotation&quot;
+ *    value=&quot;true&quot;/&gt;
+ *    &lt;property name=&quot;allowSamelineParameterizedAnnotation&quot; value=&quot;true&quot;
+ *    /&gt;
+ * &lt;/module&gt;
+ * </pre>
+ * <br>
+ * <p>
+ * Example to allow multiple parameterless annotations on the same line:
+ * </p>
+ * <pre>
+ * &#64;Partial &#64;Mock DataLoader loader;
+ * </pre>
+ *
+ * <p>Use following configuration:
+ * <pre>
+ * &lt;module name=&quot;AnnotationLocation&quot;&gt;
+ *    &lt;property name=&quot;allowSamelineMultipleAnnotations&quot; value=&quot;true&quot;/&gt;
+ *    &lt;property name=&quot;allowSamelineSingleParameterlessAnnotation&quot;
+ *    value=&quot;true&quot;/&gt;
+ *    &lt;property name=&quot;allowSamelineParameterizedAnnotation&quot; value=&quot;false&quot;
+ *    /&gt;
+ * &lt;/module&gt;
+ * </pre>
+ *
+ * @author maxvetrenko
+ */
+public class AnnotationLocationCheck extends AbstractCheck {
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
+    public static final String MSG_KEY_ANNOTATION_LOCATION_ALONE = "annotation.location.alone";
+
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
+    public static final String MSG_KEY_ANNOTATION_LOCATION = "annotation.location";
+
+    /**
+     * Some javadoc.
+     */
+    private boolean allowSamelineSingleParameterlessAnnotation = true;
+
+    /**
+     * Some javadoc.
+     */
+    private boolean allowSamelineParameterizedAnnotation;
+
+    /**
+     * Some javadoc.
+     */
+    private boolean allowSamelineMultipleAnnotations;
+
+    /**
+     * Some javadoc.
+     * @param allow Some javadoc.
+     */
+    public final void setAllowSamelineSingleParameterlessAnnotation(boolean allow) {
+        allowSamelineSingleParameterlessAnnotation = allow;
+    }
+
+    /**
+     * Some javadoc.
+     * @param allow Some javadoc.
+     */
+    public final void setAllowSamelineParameterizedAnnotation(boolean allow) {
+        allowSamelineParameterizedAnnotation = allow;
+    }
+
+    /**
+     * Some javadoc.
+     * @param allow Some javadoc.
+     */
+    public final void setAllowSamelineMultipleAnnotations(boolean allow) {
+        allowSamelineMultipleAnnotations = allow;
+    }
+
+    @Override
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.CLASS_DEF,
+            TokenTypes.INTERFACE_DEF,
+            TokenTypes.ENUM_DEF,
+            TokenTypes.METHOD_DEF,
+            TokenTypes.CTOR_DEF,
+            TokenTypes.VARIABLE_DEF,
+        };
+    }
+
+    @Override
+    public int[] getAcceptableTokens() {
+        return new int[] {
+            TokenTypes.CLASS_DEF,
+            TokenTypes.INTERFACE_DEF,
+            TokenTypes.ENUM_DEF,
+            TokenTypes.METHOD_DEF,
+            TokenTypes.CTOR_DEF,
+            TokenTypes.VARIABLE_DEF,
+            TokenTypes.PARAMETER_DEF,
+            TokenTypes.ANNOTATION_DEF,
+            TokenTypes.TYPECAST,
+            TokenTypes.LITERAL_THROWS,
+            TokenTypes.IMPLEMENTS_CLAUSE,
+            TokenTypes.TYPE_ARGUMENT,
+            TokenTypes.LITERAL_NEW,
+            TokenTypes.DOT,
+            TokenTypes.ANNOTATION_FIELD_DEF,
+        };
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return ArrayUtils.EMPTY_INT_ARRAY;
+    }
+
+    @Override
+    public void visitToken(DetailAST ast) {
+        final DetailAST modifiersNode = ast.findFirstToken(TokenTypes.MODIFIERS);
+
+        if (hasAnnotations(modifiersNode)) {
+            checkAnnotations(modifiersNode, getAnnotationLevel(modifiersNode));
+        }
+    }
+
+    /**
+     * Some javadoc.
+     * @param modifierNode Some javadoc.
+     * @param correctLevel Some javadoc.
+     */
+    private void checkAnnotations(DetailAST modifierNode, int correctLevel) {
+        DetailAST annotation = modifierNode.getFirstChild();
+
+        while (annotation != null && annotation.getType() == TokenTypes.ANNOTATION) {
+            final boolean hasParameters = isParameterized(annotation);
+
+            if (!isCorrectLocation(annotation, hasParameters)) {
+                log(annotation.getLineNo(),
+                        MSG_KEY_ANNOTATION_LOCATION_ALONE, getAnnotationName(annotation));
+            }
+            else if (annotation.getColumnNo() != correctLevel && !hasNodeBefore(annotation)) {
+                log(annotation.getLineNo(), MSG_KEY_ANNOTATION_LOCATION,
+                    getAnnotationName(annotation), annotation.getColumnNo(), correctLevel);
+            }
+            annotation = annotation.getNextSibling();
+        }
+    }
+
+    /**
+     * Some javadoc.
+     * @param annotation Some javadoc.
+     * @param hasParams Some javadoc.
+     * @return Some javadoc.
+     */
+    private boolean isCorrectLocation(DetailAST annotation, boolean hasParams) {
+        final boolean allowingCondition;
+
+        if (hasParams) {
+            allowingCondition = allowSamelineParameterizedAnnotation;
+        }
+        else {
+            allowingCondition = allowSamelineSingleParameterlessAnnotation;
+        }
+        return allowSamelineMultipleAnnotations
+            || allowingCondition && !hasNodeBefore(annotation)
+            || !allowingCondition && !hasNodeBeside(annotation);
+    }
+
+    /**
+     * Some javadoc.
+     * @param annotation Some javadoc.
+     * @return Some javadoc.
+     */
+    private static String getAnnotationName(DetailAST annotation) {
+        DetailAST identNode = annotation.findFirstToken(TokenTypes.IDENT);
+        if (identNode == null) {
+            identNode = annotation.findFirstToken(TokenTypes.DOT).findFirstToken(TokenTypes.IDENT);
+        }
+        return identNode.getText();
+    }
+
+    /**
+     * Some javadoc.
+     * @param annotation Some javadoc.
+     * @return Some javadoc.
+     */
+    private static boolean hasNodeAfter(DetailAST annotation) {
+        final int annotationLineNo = annotation.getLineNo();
+        DetailAST nextNode = annotation.getNextSibling();
+
+        if (nextNode == null) {
+            nextNode = annotation.getParent().getNextSibling();
+        }
+
+        return annotationLineNo == nextNode.getLineNo();
+    }
+
+    /**
+     * Some javadoc.
+     * @param annotation Some javadoc.
+     * @return Some javadoc.
+     */
+    private static boolean hasNodeBefore(DetailAST annotation) {
+        final int annotationLineNo = annotation.getLineNo();
+        final DetailAST previousNode = annotation.getPreviousSibling();
+
+        return previousNode != null && annotationLineNo == previousNode.getLineNo();
+    }
+
+    /**
+     * Some javadoc.
+     * @param annotation Some javadoc.
+     * @return Some javadoc.
+     */
+    private static boolean hasNodeBeside(DetailAST annotation) {
+        return hasNodeBefore(annotation) || hasNodeAfter(annotation);
+    }
+
+    /**
+     * Some javadoc.
+     * @param modifierNode Some javadoc.
+     * @return Some javadoc.
+     */
+    private static int getAnnotationLevel(DetailAST modifierNode) {
+        return modifierNode.getParent().getColumnNo();
+    }
+
+    /**
+     * Some javadoc.
+     * @param annotation Some javadoc.
+     * @return Some javadoc.
+     */
+    private static boolean isParameterized(DetailAST annotation) {
+        return annotation.findFirstToken(TokenTypes.EXPR) != null;
+    }
+
+    /**
+     * Some javadoc.
+     * @param modifierNode Some javadoc.
+     * @return Some javadoc.
+     */
+    private static boolean hasAnnotations(DetailAST modifierNode) {
+        return modifierNode.findFirstToken(TokenTypes.ANNOTATION) != null;
+    }
+}]]></script>
+        <script type="text/javascript">
+            SyntaxHighlighter.all()
+        </script>
+    </body>
+</html>
