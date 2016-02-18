@@ -1,17 +1,17 @@
 digraph dependencies {
 rankdir = "LR";
 subgraph clustersimple {
-"isParameterized(DetailAST)" [ color="#ff0000ff" shape="polygon" ];
-"hasNodeBefore(DetailAST)" [ color="#ff0000ff" shape="polygon" ];
-"hasNodeAfter(DetailAST)" [ color="#ff0000ff" shape="polygon" ];
-"getAnnotationLevel(DetailAST)" [ color="#ff0000ff" shape="polygon" ];
-"hasAnnotations(DetailAST)" [ color="#ff0000ff" shape="polygon" ];
-"getAnnotationName(DetailAST)" [ color="#ff0000ff" shape="polygon" ];
+"isParameterized(DetailAST)" [ color="#000000ff" shape="polygon" ];
+"hasNodeBefore(DetailAST)" [ color="#000000ff" shape="polygon" ];
+"hasNodeAfter(DetailAST)" [ color="#000000ff" shape="polygon" ];
+"getAnnotationLevel(DetailAST)" [ color="#000000ff" shape="polygon" ];
+"hasAnnotations(DetailAST)" [ color="#000000ff" shape="polygon" ];
+"getAnnotationName(DetailAST)" [ color="#000000ff" shape="polygon" ];
 }
-"isCorrectLocation(DetailAST,boolean)" [ color="#ff0000ff" ];
-"hasNodeBeside(DetailAST)" [ color="#ff0000ff" shape="polygon" ];
+"isCorrectLocation(DetailAST,boolean)" [ color="#000000ff" ];
+"hasNodeBeside(DetailAST)" [ color="#000000ff" shape="polygon" ];
 "visitToken(DetailAST)" [ color="#00ff00ff" shape="trapezium" ];
-"checkAnnotations(DetailAST,int)" [ color="#ff0000ff" ];
+"checkAnnotations(DetailAST,int)" [ color="#000000ff" ];
 "isCorrectLocation(DetailAST,boolean)" -> "hasNodeBeside(DetailAST)" [ label="0" ];
 "isCorrectLocation(DetailAST,boolean)" -> "hasNodeBefore(DetailAST)" [ label="1" ];
 "hasNodeBeside(DetailAST)" -> "hasNodeBefore(DetailAST)" [ label="0" ];
