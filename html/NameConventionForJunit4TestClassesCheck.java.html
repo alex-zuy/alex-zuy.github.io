@@ -16,7 +16,8 @@
             allHighlightableCells.removeClass('highlighted');
             firstColumnCells.removeClass('dependency');
             table.find('.relative-dependency').text('');
-            var td = $(e.target);
+            var clickedElem = $(e.target);
+            var td = clickedElem.is('td') ? clickedElem : clickedElem.parent('td');
             var clickedColumn = td.index() + 1;
             var clickedRow = td.parent().index() + 1;
             var cellsInRowOrColumn =
@@ -112,7 +113,9 @@ td[data-static=true] .signature {
 .highlightable.dependency, .highlightable.dependency .signature {
     background-color: #D09CDC;
 }
-
+tr:first-child td {
+    padding-bottom: 5px;
+}
 [data-override=true].horizontal-content {
     margin-left: -15px;
     padding-left: 15px;
@@ -622,7 +625,7 @@ td[data-static=true] .signature {
         <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shAutoloader.js" type="text/javascript"></script>
         <script type="text/javascript" src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJava.js"></script>
         <!-- Source code -->
-        <script type="syntaxhighlighter" class="brush: java"><![CDATA[////////////////////////////////////////////////////////////////////////////////
+        <script type="syntaxhighlighter" class="brush: java; quick-code: false;"><![CDATA[////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
 // Copyright(C) 2001-2012  Oliver Burn
 // This library is free software; you can redistribute it and/or

@@ -3,19 +3,12 @@ rankdir = "LR";
 subgraph clustersimple {
 "collectVariableDeclarations(DetailAST,AbstractFrame)" [ color="#000000ff" shape="polygon" ];
 "endCollectingDeclarations(Queue,DetailAST)" [ color="#000000ff" ];
-"getRightAssigmentOperand(DetailAST)" [ color="#000000ff" shape="polygon" ];
-"canBeReferencedFromStaticContext(AbstractFrame,AbstractFrame)" [ color="#000000ff" shape="polygon" ];
 "findFrame(DetailAST,boolean)" [ color="#000000ff" ];
 "isDeclarationToken(int)" [ color="#000000ff" shape="polygon" ];
-"isAssignToken(int)" [ color="#000000ff" shape="polygon" ];
 "getNearestClassFrameName()" [ color="#000000ff" ];
 "getAcceptableTokens()" [ color="#00ff00ff" shape="trapezium" ];
 }
-"collectDeclarations(Deque,DetailAST)" [ color="#000000ff" shape="polygon" ];
 "checkField(DetailAST)" [ color="#000000ff" ];
-"isOverlappingByMethodArgument(DetailAST)" [ color="#000000ff" ];
-"isUseOfFieldInsideMethod(DetailAST)" [ color="#000000ff" ];
-"isOverlappingByLocalVariable(DetailAST)" [ color="#000000ff" ];
 "checkMethod(DetailAST)" [ color="#000000ff" ];
 "getDefaultTokens()" [ color="#00ff00ff" shape="trapezium" ];
 "getRequiredTokens()" [ color="#00ff00ff" shape="trapezium" ];
@@ -24,30 +17,21 @@ subgraph clustersimple {
 "processIdent(DetailAST)" [ color="#000000ff" ];
 "logViolation(String,DetailAST,AbstractFrame)" [ color="#000000ff" ];
 "processField(DetailAST,int)" [ color="#000000ff" ];
-"collectDeclarations(Deque,DetailAST)" -> "collectVariableDeclarations(DetailAST,AbstractFrame)" [ label="0" ];
-"checkField(DetailAST)" -> "isOverlappingByMethodArgument(DetailAST)" [ label="0" ];
-"checkField(DetailAST)" -> "isOverlappingByLocalVariable(DetailAST)" [ label="4" ];
-"checkField(DetailAST)" -> "findFrame(DetailAST,boolean)" [ label="6" ];
-"isOverlappingByMethodArgument(DetailAST)" -> "getRightAssigmentOperand(DetailAST)" [ label="0" ];
-"isOverlappingByMethodArgument(DetailAST)" -> "canBeReferencedFromStaticContext(AbstractFrame,AbstractFrame)" [ label="1" ];
-"isOverlappingByMethodArgument(DetailAST)" -> "isUseOfFieldInsideMethod(DetailAST)" [ label="2" ];
-"isOverlappingByMethodArgument(DetailAST)" -> "findFrame(DetailAST,boolean)" [ label="5" ];
-"isOverlappingByMethodArgument(DetailAST)" -> "isAssignToken(int)" [ label="7" ];
-"isUseOfFieldInsideMethod(DetailAST)" -> "canBeReferencedFromStaticContext(AbstractFrame,AbstractFrame)" [ label="0" ];
-"isUseOfFieldInsideMethod(DetailAST)" -> "findFrame(DetailAST,boolean)" [ label="2" ];
-"isOverlappingByLocalVariable(DetailAST)" -> "findFrame(DetailAST,boolean)" [ label="1" ];
-"checkMethod(DetailAST)" -> "findFrame(DetailAST,boolean)" [ label="0" ];
-"getDefaultTokens()" -> "getAcceptableTokens()" [ label="1" ];
-"getRequiredTokens()" -> "getAcceptableTokens()" [ label="0" ];
-"beginTree(DetailAST)" -> "collectDeclarations(Deque,DetailAST)" [ label="4" ];
-"beginTree(DetailAST)" -> "endCollectingDeclarations(Queue,DetailAST)" [ label="6" ];
-"visitToken(DetailAST)" -> "processIdent(DetailAST)" [ label="0" ];
-"processIdent(DetailAST)" -> "checkMethod(DetailAST)" [ label="11" ];
-"processIdent(DetailAST)" -> "logViolation(String,DetailAST,AbstractFrame)" [ label="0" ];
-"processIdent(DetailAST)" -> "processField(DetailAST,int)" [ label="1" ];
-"logViolation(String,DetailAST,AbstractFrame)" -> "getNearestClassFrameName()" [ label="14" ];
-"processField(DetailAST,int)" -> "checkField(DetailAST)" [ label="3" ];
-"processField(DetailAST,int)" -> "isDeclarationToken(int)" [ label="11" ];
+"collectDeclarations(Deque,DetailAST)" [ color="#000000ff" shape="polygon" ];
+"checkField(DetailAST)" -> "findFrame(DetailAST,boolean)" [ label="1/30" ];
+"checkMethod(DetailAST)" -> "findFrame(DetailAST,boolean)" [ label="0/15" ];
+"getDefaultTokens()" -> "getAcceptableTokens()" [ label="1/9" ];
+"getRequiredTokens()" -> "getAcceptableTokens()" [ label="0/4" ];
+"beginTree(DetailAST)" -> "endCollectingDeclarations(Queue,DetailAST)" [ label="6/190" ];
+"beginTree(DetailAST)" -> "collectDeclarations(Deque,DetailAST)" [ label="4/118" ];
+"visitToken(DetailAST)" -> "processIdent(DetailAST)" [ label="0/25" ];
+"processIdent(DetailAST)" -> "checkMethod(DetailAST)" [ label="6/180" ];
+"processIdent(DetailAST)" -> "logViolation(String,DetailAST,AbstractFrame)" [ label="0/33" ];
+"processIdent(DetailAST)" -> "processField(DetailAST,int)" [ label="1/48" ];
+"logViolation(String,DetailAST,AbstractFrame)" -> "getNearestClassFrameName()" [ label="8/184" ];
+"processField(DetailAST,int)" -> "checkField(DetailAST)" [ label="3/116" ];
+"processField(DetailAST,int)" -> "isDeclarationToken(int)" [ label="6/161" ];
+"collectDeclarations(Deque,DetailAST)" -> "collectVariableDeclarations(DetailAST,AbstractFrame)" [ label="0/47" ];
 /*
 Legend
 Node border color:

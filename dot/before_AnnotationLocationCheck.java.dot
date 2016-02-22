@@ -12,17 +12,17 @@ subgraph clustersimple {
 "visitToken(DetailAST)" [ color="#00ff00ff" shape="trapezium" ];
 "checkAnnotations(DetailAST,int)" [ color="#000000ff" ];
 "isCorrectLocation(DetailAST,boolean)" [ color="#000000ff" ];
-"hasNodeBeside(DetailAST)" -> "hasNodeBefore(DetailAST)" [ label="0" ];
-"hasNodeBeside(DetailAST)" -> "hasNodeAfter(DetailAST)" [ label="1" ];
-"visitToken(DetailAST)" -> "getAnnotationLevel(DetailAST)" [ label="6" ];
-"visitToken(DetailAST)" -> "hasAnnotations(DetailAST)" [ label="8" ];
-"visitToken(DetailAST)" -> "checkAnnotations(DetailAST,int)" [ label="0" ];
-"checkAnnotations(DetailAST,int)" -> "hasNodeBefore(DetailAST)" [ label="3" ];
-"checkAnnotations(DetailAST,int)" -> "isParameterized(DetailAST)" [ label="6" ];
-"checkAnnotations(DetailAST,int)" -> "isCorrectLocation(DetailAST,boolean)" [ label="0" ];
-"checkAnnotations(DetailAST,int)" -> "getAnnotationName(DetailAST)" [ label="1" ];
-"isCorrectLocation(DetailAST,boolean)" -> "hasNodeBefore(DetailAST)" [ label="2" ];
-"isCorrectLocation(DetailAST,boolean)" -> "hasNodeBeside(DetailAST)" [ label="3" ];
+"hasNodeBeside(DetailAST)" -> "hasNodeBefore(DetailAST)" [ label="0/11" ];
+"hasNodeBeside(DetailAST)" -> "hasNodeAfter(DetailAST)" [ label="1/27" ];
+"visitToken(DetailAST)" -> "getAnnotationLevel(DetailAST)" [ label="6/106" ];
+"visitToken(DetailAST)" -> "hasAnnotations(DetailAST)" [ label="8/124" ];
+"visitToken(DetailAST)" -> "checkAnnotations(DetailAST,int)" [ label="0/13" ];
+"checkAnnotations(DetailAST,int)" -> "hasNodeBefore(DetailAST)" [ label="3/71" ];
+"checkAnnotations(DetailAST,int)" -> "isParameterized(DetailAST)" [ label="6/101" ];
+"checkAnnotations(DetailAST,int)" -> "isCorrectLocation(DetailAST,boolean)" [ label="0/23" ];
+"checkAnnotations(DetailAST,int)" -> "getAnnotationName(DetailAST)" [ label="1/42" ];
+"isCorrectLocation(DetailAST,boolean)" -> "hasNodeBefore(DetailAST)" [ label="2/47" ];
+"isCorrectLocation(DetailAST,boolean)" -> "hasNodeBeside(DetailAST)" [ label="3/59" ];
 /*
 Legend
 Node border color:

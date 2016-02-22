@@ -10,16 +10,16 @@ subgraph clustersimple {
 "isAtleastOneMethodAnnotated(DetailAST)" [ color="#000000ff" ];
 "hasUnexpectedName(DetailAST)" [ color="#000000ff" ];
 "hasAnnotation(DetailAST,Pattern)" [ color="#000000ff" ];
-"visitToken(DetailAST)" -> "isClassDefinitionAnnotated(DetailAST)" [ label="0" ];
-"visitToken(DetailAST)" -> "isAtleastOneMethodAnnotated(DetailAST)" [ label="1" ];
-"visitToken(DetailAST)" -> "hasUnexpectedName(DetailAST)" [ label="2" ];
-"visitToken(DetailAST)" -> "logUnexpectedClassName(DetailAST)" [ label="4" ];
-"isClassDefinitionAnnotated(DetailAST)" -> "hasAnnotation(DetailAST,Pattern)" [ label="2" ];
-"isAtleastOneMethodAnnotated(DetailAST)" -> "hasAnnotation(DetailAST,Pattern)" [ label="1" ];
-"hasUnexpectedName(DetailAST)" -> "isMatchesRegex(Pattern,String)" [ label="3" ];
-"hasUnexpectedName(DetailAST)" -> "getIdentifierName(DetailAST)" [ label="2" ];
-"hasAnnotation(DetailAST,Pattern)" -> "isMatchesRegex(Pattern,String)" [ label="2" ];
-"hasAnnotation(DetailAST,Pattern)" -> "getIdentifierName(DetailAST)" [ label="1" ];
+"visitToken(DetailAST)" -> "isClassDefinitionAnnotated(DetailAST)" [ label="0/14" ];
+"visitToken(DetailAST)" -> "isAtleastOneMethodAnnotated(DetailAST)" [ label="1/27" ];
+"visitToken(DetailAST)" -> "hasUnexpectedName(DetailAST)" [ label="2/51" ];
+"visitToken(DetailAST)" -> "logUnexpectedClassName(DetailAST)" [ label="4/95" ];
+"isClassDefinitionAnnotated(DetailAST)" -> "hasAnnotation(DetailAST,Pattern)" [ label="2/52" ];
+"isAtleastOneMethodAnnotated(DetailAST)" -> "hasAnnotation(DetailAST,Pattern)" [ label="1/39" ];
+"hasUnexpectedName(DetailAST)" -> "isMatchesRegex(Pattern,String)" [ label="3/89" ];
+"hasUnexpectedName(DetailAST)" -> "getIdentifierName(DetailAST)" [ label="2/55" ];
+"hasAnnotation(DetailAST,Pattern)" -> "isMatchesRegex(Pattern,String)" [ label="2/73" ];
+"hasAnnotation(DetailAST,Pattern)" -> "getIdentifierName(DetailAST)" [ label="1/39" ];
 /*
 Legend
 Node border color:
