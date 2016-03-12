@@ -1,28 +1,28 @@
 digraph dependencies {
 rankdir = "LR";
 subgraph clustersimple {
-"hasNodeBefore(DetailAST)" [ color="#000000ff" shape="polygon" ];
 "getAnnotationLevel(DetailAST)" [ color="#000000ff" shape="polygon" ];
-"isParameterized(DetailAST)" [ color="#000000ff" shape="polygon" ];
-"hasAnnotations(DetailAST)" [ color="#000000ff" shape="polygon" ];
 "getAnnotationName(DetailAST)" [ color="#000000ff" shape="polygon" ];
 "hasNodeAfter(DetailAST)" [ color="#000000ff" shape="polygon" ];
+"hasNodeBefore(DetailAST)" [ color="#000000ff" shape="polygon" ];
+"hasAnnotations(DetailAST)" [ color="#000000ff" shape="polygon" ];
+"isParameterized(DetailAST)" [ color="#000000ff" shape="polygon" ];
 }
-"hasNodeBeside(DetailAST)" [ color="#000000ff" shape="polygon" ];
-"visitToken(DetailAST)" [ color="#00ff00ff" shape="trapezium" ];
 "checkAnnotations(DetailAST,int)" [ color="#000000ff" ];
+"hasNodeBeside(DetailAST)" [ color="#000000ff" shape="polygon" ];
 "isCorrectLocation(DetailAST,boolean)" [ color="#000000ff" ];
-"hasNodeBeside(DetailAST)" -> "hasNodeBefore(DetailAST)" [ label="0/11" ];
-"hasNodeBeside(DetailAST)" -> "hasNodeAfter(DetailAST)" [ label="1/27" ];
-"visitToken(DetailAST)" -> "getAnnotationLevel(DetailAST)" [ label="6/106" ];
-"visitToken(DetailAST)" -> "hasAnnotations(DetailAST)" [ label="8/124" ];
-"visitToken(DetailAST)" -> "checkAnnotations(DetailAST,int)" [ label="0/13" ];
-"checkAnnotations(DetailAST,int)" -> "hasNodeBefore(DetailAST)" [ label="3/71" ];
-"checkAnnotations(DetailAST,int)" -> "isParameterized(DetailAST)" [ label="6/101" ];
-"checkAnnotations(DetailAST,int)" -> "isCorrectLocation(DetailAST,boolean)" [ label="0/23" ];
-"checkAnnotations(DetailAST,int)" -> "getAnnotationName(DetailAST)" [ label="1/42" ];
-"isCorrectLocation(DetailAST,boolean)" -> "hasNodeBefore(DetailAST)" [ label="2/47" ];
-"isCorrectLocation(DetailAST,boolean)" -> "hasNodeBeside(DetailAST)" [ label="3/59" ];
+"visitToken(DetailAST)" [ color="#00ff00ff" shape="trapezium" ];
+"checkAnnotations(DetailAST,int)" -> "isParameterized(DetailAST)" [ label="7/102" ];
+"checkAnnotations(DetailAST,int)" -> "isCorrectLocation(DetailAST,boolean)" [ label="1/24" ];
+"checkAnnotations(DetailAST,int)" -> "getAnnotationName(DetailAST)" [ label="2/43" ];
+"checkAnnotations(DetailAST,int)" -> "hasNodeBefore(DetailAST)" [ label="4/72" ];
+"hasNodeBeside(DetailAST)" -> "hasNodeBefore(DetailAST)" [ label="-1/-12" ];
+"hasNodeBeside(DetailAST)" -> "hasNodeAfter(DetailAST)" [ label="-2/-28" ];
+"isCorrectLocation(DetailAST,boolean)" -> "hasNodeBefore(DetailAST)" [ label="3/48" ];
+"isCorrectLocation(DetailAST,boolean)" -> "hasNodeBeside(DetailAST)" [ label="4/60" ];
+"visitToken(DetailAST)" -> "hasAnnotations(DetailAST)" [ label="9/125" ];
+"visitToken(DetailAST)" -> "getAnnotationLevel(DetailAST)" [ label="7/107" ];
+"visitToken(DetailAST)" -> "checkAnnotations(DetailAST,int)" [ label="1/14" ];
 /*
 Legend
 Node border color:

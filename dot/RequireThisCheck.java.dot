@@ -18,20 +18,20 @@ subgraph clustersimple {
 "logViolation(String,DetailAST,AbstractFrame)" [ color="#000000ff" ];
 "processField(DetailAST,int)" [ color="#000000ff" ];
 "collectDeclarations(Deque,DetailAST)" [ color="#000000ff" shape="polygon" ];
-"checkField(DetailAST)" -> "findFrame(DetailAST,boolean)" [ label="1/30" ];
-"checkMethod(DetailAST)" -> "findFrame(DetailAST,boolean)" [ label="0/15" ];
-"getDefaultTokens()" -> "getAcceptableTokens()" [ label="1/9" ];
-"getRequiredTokens()" -> "getAcceptableTokens()" [ label="0/4" ];
-"beginTree(DetailAST)" -> "endCollectingDeclarations(Queue,DetailAST)" [ label="6/190" ];
-"beginTree(DetailAST)" -> "collectDeclarations(Deque,DetailAST)" [ label="4/118" ];
-"visitToken(DetailAST)" -> "processIdent(DetailAST)" [ label="0/25" ];
-"processIdent(DetailAST)" -> "checkMethod(DetailAST)" [ label="6/180" ];
-"processIdent(DetailAST)" -> "logViolation(String,DetailAST,AbstractFrame)" [ label="0/33" ];
-"processIdent(DetailAST)" -> "processField(DetailAST,int)" [ label="1/48" ];
-"logViolation(String,DetailAST,AbstractFrame)" -> "getNearestClassFrameName()" [ label="8/184" ];
-"processField(DetailAST,int)" -> "checkField(DetailAST)" [ label="3/116" ];
-"processField(DetailAST,int)" -> "isDeclarationToken(int)" [ label="6/161" ];
-"collectDeclarations(Deque,DetailAST)" -> "collectVariableDeclarations(DetailAST,AbstractFrame)" [ label="0/47" ];
+"checkField(DetailAST)" -> "findFrame(DetailAST,boolean)" [ label="2/31" ];
+"checkMethod(DetailAST)" -> "findFrame(DetailAST,boolean)" [ label="1/16" ];
+"getDefaultTokens()" -> "getAcceptableTokens()" [ label="2/10" ];
+"getRequiredTokens()" -> "getAcceptableTokens()" [ label="1/5" ];
+"beginTree(DetailAST)" -> "endCollectingDeclarations(Queue,DetailAST)" [ label="7/191" ];
+"beginTree(DetailAST)" -> "collectDeclarations(Deque,DetailAST)" [ label="5/119" ];
+"visitToken(DetailAST)" -> "processIdent(DetailAST)" [ label="1/26" ];
+"processIdent(DetailAST)" -> "checkMethod(DetailAST)" [ label="7/181" ];
+"processIdent(DetailAST)" -> "logViolation(String,DetailAST,AbstractFrame)" [ label="1/34" ];
+"processIdent(DetailAST)" -> "processField(DetailAST,int)" [ label="2/49" ];
+"logViolation(String,DetailAST,AbstractFrame)" -> "getNearestClassFrameName()" [ label="9/185" ];
+"processField(DetailAST,int)" -> "checkField(DetailAST)" [ label="4/117" ];
+"processField(DetailAST,int)" -> "isDeclarationToken(int)" [ label="7/162" ];
+"collectDeclarations(Deque,DetailAST)" -> "collectVariableDeclarations(DetailAST,AbstractFrame)" [ label="1/48" ];
 /*
 Legend
 Node border color:

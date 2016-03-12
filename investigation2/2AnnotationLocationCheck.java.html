@@ -2,6 +2,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -140,6 +141,16 @@ tr:first-child td {
         </style>
     </head>
     <body>
+        <div>
+            <span>Panalty function value: 36.0</span>
+            <p>Penalty calculation parameters:</p>
+            <ul>
+                <li>declaration before first usage penalty - 4.0</li>
+                <li>overload group division penalty - 5.0</li>
+                <li>override group division penalty - 3.0</li>
+                <li>relative order inconsistency penalty - 1.0</li>
+            </ul>
+        </div>
         <table id="matrixTable" class="centered">
             <thead></thead>
             <tbody>
@@ -148,21 +159,21 @@ tr:first-child td {
                                             <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
                             <div class="rotated">
                                 <span class="signature">
-                                    setExpectedClassNameRegex(String)
+                                    setAllowSamelineSingleParameterlessAnnotation(boolean)
                                 </span>
                             </div>
                         </td>
                                             <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
                             <div class="rotated">
                                 <span class="signature">
-                                    setClassAnnotationNameRegex(String)
+                                    setAllowSamelineParameterizedAnnotation(boolean)
                                 </span>
                             </div>
                         </td>
                                             <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
                             <div class="rotated">
                                 <span class="signature">
-                                    setMethodAnnotationNameRegex(String)
+                                    setAllowSamelineMultipleAnnotations(boolean)
                                 </span>
                             </div>
                         </td>
@@ -176,56 +187,84 @@ tr:first-child td {
                                             <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
                             <div class="rotated">
                                 <span class="signature">
+                                    getAcceptableTokens()
+                                </span>
+                            </div>
+                        </td>
+                                            <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
+                            <div class="rotated">
+                                <span class="signature">
+                                    getRequiredTokens()
+                                </span>
+                            </div>
+                        </td>
+                                            <td class="highlightable" data-accessibility="PUBLIC" data-static="false">
+                            <div class="rotated">
+                                <span class="signature">
                                     visitToken(DetailAST)
                                 </span>
                             </div>
                         </td>
-                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
+                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="true">
                             <div class="rotated">
                                 <span class="signature">
-                                    isClassDefinitionAnnotated(DetailAST)
-                                </span>
-                            </div>
-                        </td>
-                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
-                            <div class="rotated">
-                                <span class="signature">
-                                    isAtleastOneMethodAnnotated(DetailAST)
-                                </span>
-                            </div>
-                        </td>
-                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
-                            <div class="rotated">
-                                <span class="signature">
-                                    hasUnexpectedName(DetailAST)
-                                </span>
-                            </div>
-                        </td>
-                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
-                            <div class="rotated">
-                                <span class="signature">
-                                    hasAnnotation(DetailAST,Pattern)
-                                </span>
-                            </div>
-                        </td>
-                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
-                            <div class="rotated">
-                                <span class="signature">
-                                    logUnexpectedClassName(DetailAST)
+                                    hasAnnotations(DetailAST)
                                 </span>
                             </div>
                         </td>
                                             <td class="highlightable" data-accessibility="PRIVATE" data-static="true">
                             <div class="rotated">
                                 <span class="signature">
-                                    getIdentifierName(DetailAST)
+                                    getAnnotationLevel(DetailAST)
+                                </span>
+                            </div>
+                        </td>
+                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
+                            <div class="rotated">
+                                <span class="signature">
+                                    checkAnnotations(DetailAST,int)
                                 </span>
                             </div>
                         </td>
                                             <td class="highlightable" data-accessibility="PRIVATE" data-static="true">
                             <div class="rotated">
                                 <span class="signature">
-                                    isMatchesRegex(Pattern,String)
+                                    isParameterized(DetailAST)
+                                </span>
+                            </div>
+                        </td>
+                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="false">
+                            <div class="rotated">
+                                <span class="signature">
+                                    isCorrectLocation(DetailAST,boolean)
+                                </span>
+                            </div>
+                        </td>
+                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="true">
+                            <div class="rotated">
+                                <span class="signature">
+                                    getAnnotationName(DetailAST)
+                                </span>
+                            </div>
+                        </td>
+                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="true">
+                            <div class="rotated">
+                                <span class="signature">
+                                    hasNodeAfter(DetailAST)
+                                </span>
+                            </div>
+                        </td>
+                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="true">
+                            <div class="rotated">
+                                <span class="signature">
+                                    hasNodeBefore(DetailAST)
+                                </span>
+                            </div>
+                        </td>
+                                            <td class="highlightable" data-accessibility="PRIVATE" data-static="true">
+                            <div class="rotated">
+                                <span class="signature">
+                                    hasNodeBeside(DetailAST)
                                 </span>
                             </div>
                         </td>
@@ -239,7 +278,7 @@ tr:first-child td {
                                 <span class="horizontal-content" data-overloaded="false">
                                     <span class="horizontal-content" data-override="false">
                                         <span class="signature">
-                                            setExpectedClassNameRegex(String)
+                                            setAllowSamelineSingleParameterlessAnnotation(boolean)
                                         </span>
                                     </span>
                                 </span>
@@ -256,6 +295,10 @@ tr:first-child td {
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                     </tr>
                                             <tr>
                             <td class="highlightable"
@@ -266,7 +309,7 @@ tr:first-child td {
                                 <span class="horizontal-content" data-overloaded="false">
                                     <span class="horizontal-content" data-override="false">
                                         <span class="signature">
-                                            setClassAnnotationNameRegex(String)
+                                            setAllowSamelineParameterizedAnnotation(boolean)
                                         </span>
                                     </span>
                                 </span>
@@ -283,6 +326,10 @@ tr:first-child td {
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                     </tr>
                                             <tr>
                             <td class="highlightable"
@@ -293,7 +340,7 @@ tr:first-child td {
                                 <span class="horizontal-content" data-overloaded="false">
                                     <span class="horizontal-content" data-override="false">
                                         <span class="signature">
-                                            setMethodAnnotationNameRegex(String)
+                                            setAllowSamelineMultipleAnnotations(boolean)
                                         </span>
                                     </span>
                                 </span>
@@ -301,6 +348,10 @@ tr:first-child td {
                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
@@ -337,12 +388,78 @@ tr:first-child td {
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                     </tr>
                                             <tr>
                             <td class="highlightable"
                                 data-accessibility="PUBLIC"
                                 data-static="false"
-                                data-dependencies-indices="[5,6,7,9,]">
+                                data-dependencies-indices="[]">
+                                <span class="relative-dependency"></span>
+                                <span class="horizontal-content" data-overloaded="false">
+                                    <span class="horizontal-content" data-override="true">
+                                        <span class="signature">
+                                            getAcceptableTokens()
+                                        </span>
+                                    </span>
+                                </span>
+                            </td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td class="highlightable"
+                                data-accessibility="PUBLIC"
+                                data-static="false"
+                                data-dependencies-indices="[]">
+                                <span class="relative-dependency"></span>
+                                <span class="horizontal-content" data-overloaded="false">
+                                    <span class="horizontal-content" data-override="true">
+                                        <span class="signature">
+                                            getRequiredTokens()
+                                        </span>
+                                    </span>
+                                </span>
+                            </td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td class="highlightable"
+                                data-accessibility="PUBLIC"
+                                data-static="false"
+                                data-dependencies-indices="[7,8,9,]">
                                 <span class="relative-dependency"></span>
                                 <span class="horizontal-content" data-overloaded="false">
                                     <span class="horizontal-content" data-override="true">
@@ -356,158 +473,242 @@ tr:first-child td {
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell diagonal">-</td>
                                                                                                                                 <td class="highlightable cell depends-on">
-                                        <span class="index-distance">1</span>/<span class="line-distance">15</span>
+                                        <span class="index-distance">1</span>/<span class="line-distance">14</span>
                                     </td>
                                                                                                                                 <td class="highlightable cell depends-on">
-                                        <span class="index-distance">2</span>/<span class="line-distance">28</span>
+                                        <span class="index-distance">2</span>/<span class="line-distance">23</span>
+                                    </td>
+                                                                                                                                <td class="highlightable cell depends-on">
+                                        <span class="index-distance">3</span>/<span class="line-distance">32</span>
+                                    </td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td class="highlightable"
+                                data-accessibility="PRIVATE"
+                                data-static="true"
+                                data-dependencies-indices="[]">
+                                <span class="relative-dependency"></span>
+                                <span class="horizontal-content" data-overloaded="false">
+                                    <span class="horizontal-content" data-override="false">
+                                        <span class="signature">
+                                            hasAnnotations(DetailAST)
+                                        </span>
+                                    </span>
+                                </span>
+                            </td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td class="highlightable"
+                                data-accessibility="PRIVATE"
+                                data-static="true"
+                                data-dependencies-indices="[]">
+                                <span class="relative-dependency"></span>
+                                <span class="horizontal-content" data-overloaded="false">
+                                    <span class="horizontal-content" data-override="false">
+                                        <span class="signature">
+                                            getAnnotationLevel(DetailAST)
+                                        </span>
+                                    </span>
+                                </span>
+                            </td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td class="highlightable"
+                                data-accessibility="PRIVATE"
+                                data-static="false"
+                                data-dependencies-indices="[10,11,12,14,]">
+                                <span class="relative-dependency"></span>
+                                <span class="horizontal-content" data-overloaded="false">
+                                    <span class="horizontal-content" data-override="false">
+                                        <span class="signature">
+                                            checkAnnotations(DetailAST,int)
+                                        </span>
+                                    </span>
+                                </span>
+                            </td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell depends-on">
+                                        <span class="index-distance">1</span>/<span class="line-distance">23</span>
+                                    </td>
+                                                                                                                                <td class="highlightable cell depends-on">
+                                        <span class="index-distance">2</span>/<span class="line-distance">33</span>
                                     </td>
                                                                                                                                 <td class="highlightable cell depends-on">
                                         <span class="index-distance">3</span>/<span class="line-distance">52</span>
                                     </td>
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell depends-on">
-                                        <span class="index-distance">5</span>/<span class="line-distance">96</span>
+                                        <span class="index-distance">5</span>/<span class="line-distance">81</span>
                                     </td>
-                                                                                                                                <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                     </tr>
                                             <tr>
                             <td class="highlightable"
                                 data-accessibility="PRIVATE"
-                                data-static="false"
-                                data-dependencies-indices="[8,]">
-                                <span class="relative-dependency"></span>
-                                <span class="horizontal-content" data-overloaded="false">
-                                    <span class="horizontal-content" data-override="false">
-                                        <span class="signature">
-                                            isClassDefinitionAnnotated(DetailAST)
-                                        </span>
-                                    </span>
-                                </span>
-                            </td>
-                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell diagonal">-</td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell depends-on">
-                                        <span class="index-distance">3</span>/<span class="line-distance">53</span>
-                                    </td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                    </tr>
-                                            <tr>
-                            <td class="highlightable"
-                                data-accessibility="PRIVATE"
-                                data-static="false"
-                                data-dependencies-indices="[8,]">
-                                <span class="relative-dependency"></span>
-                                <span class="horizontal-content" data-overloaded="false">
-                                    <span class="horizontal-content" data-override="false">
-                                        <span class="signature">
-                                            isAtleastOneMethodAnnotated(DetailAST)
-                                        </span>
-                                    </span>
-                                </span>
-                            </td>
-                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell diagonal">-</td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell depends-on">
-                                        <span class="index-distance">2</span>/<span class="line-distance">40</span>
-                                    </td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                    </tr>
-                                            <tr>
-                            <td class="highlightable"
-                                data-accessibility="PRIVATE"
-                                data-static="false"
-                                data-dependencies-indices="[10,11,]">
-                                <span class="relative-dependency"></span>
-                                <span class="horizontal-content" data-overloaded="false">
-                                    <span class="horizontal-content" data-override="false">
-                                        <span class="signature">
-                                            hasUnexpectedName(DetailAST)
-                                        </span>
-                                    </span>
-                                </span>
-                            </td>
-                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell diagonal">-</td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell depends-on">
-                                        <span class="index-distance">3</span>/<span class="line-distance">56</span>
-                                    </td>
-                                                                                                                                <td class="highlightable cell depends-on">
-                                        <span class="index-distance">4</span>/<span class="line-distance">90</span>
-                                    </td>
-                                                                                    </tr>
-                                            <tr>
-                            <td class="highlightable"
-                                data-accessibility="PRIVATE"
-                                data-static="false"
-                                data-dependencies-indices="[10,11,]">
-                                <span class="relative-dependency"></span>
-                                <span class="horizontal-content" data-overloaded="false">
-                                    <span class="horizontal-content" data-override="false">
-                                        <span class="signature">
-                                            hasAnnotation(DetailAST,Pattern)
-                                        </span>
-                                    </span>
-                                </span>
-                            </td>
-                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell diagonal">-</td>
-                                                                                                                                <td class="highlightable cell"></td>
-                                                                                                                                <td class="highlightable cell depends-on">
-                                        <span class="index-distance">2</span>/<span class="line-distance">40</span>
-                                    </td>
-                                                                                                                                <td class="highlightable cell depends-on">
-                                        <span class="index-distance">3</span>/<span class="line-distance">74</span>
-                                    </td>
-                                                                                    </tr>
-                                            <tr>
-                            <td class="highlightable"
-                                data-accessibility="PRIVATE"
-                                data-static="false"
+                                data-static="true"
                                 data-dependencies-indices="[]">
                                 <span class="relative-dependency"></span>
                                 <span class="horizontal-content" data-overloaded="false">
                                     <span class="horizontal-content" data-override="false">
                                         <span class="signature">
-                                            logUnexpectedClassName(DetailAST)
+                                            isParameterized(DetailAST)
                                         </span>
                                     </span>
                                 </span>
                             </td>
                                                                                                 <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td class="highlightable"
+                                data-accessibility="PRIVATE"
+                                data-static="false"
+                                data-dependencies-indices="[14,15,]">
+                                <span class="relative-dependency"></span>
+                                <span class="horizontal-content" data-overloaded="false">
+                                    <span class="horizontal-content" data-override="false">
+                                        <span class="signature">
+                                            isCorrectLocation(DetailAST,boolean)
+                                        </span>
+                                    </span>
+                                </span>
+                            </td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell depends-on">
+                                        <span class="index-distance">3</span>/<span class="line-distance">48</span>
+                                    </td>
+                                                                                                                                <td class="highlightable cell depends-on">
+                                        <span class="index-distance">4</span>/<span class="line-distance">60</span>
+                                    </td>
+                                                                                    </tr>
+                                            <tr>
+                            <td class="highlightable"
+                                data-accessibility="PRIVATE"
+                                data-static="true"
+                                data-dependencies-indices="[]">
+                                <span class="relative-dependency"></span>
+                                <span class="horizontal-content" data-overloaded="false">
+                                    <span class="horizontal-content" data-override="false">
+                                        <span class="signature">
+                                            getAnnotationName(DetailAST)
+                                        </span>
+                                    </span>
+                                </span>
+                            </td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell diagonal">-</td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                    </tr>
+                                            <tr>
+                            <td class="highlightable"
+                                data-accessibility="PRIVATE"
+                                data-static="true"
+                                data-dependencies-indices="[]">
+                                <span class="relative-dependency"></span>
+                                <span class="horizontal-content" data-overloaded="false">
+                                    <span class="horizontal-content" data-override="false">
+                                        <span class="signature">
+                                            hasNodeAfter(DetailAST)
+                                        </span>
+                                    </span>
+                                </span>
+                            </td>
+                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
@@ -529,12 +730,16 @@ tr:first-child td {
                                 <span class="horizontal-content" data-overloaded="false">
                                     <span class="horizontal-content" data-override="false">
                                         <span class="signature">
-                                            getIdentifierName(DetailAST)
+                                            hasNodeBefore(DetailAST)
                                         </span>
                                     </span>
                                 </span>
                             </td>
                                                                                                 <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
@@ -551,12 +756,12 @@ tr:first-child td {
                             <td class="highlightable"
                                 data-accessibility="PRIVATE"
                                 data-static="true"
-                                data-dependencies-indices="[]">
+                                data-dependencies-indices="[14,13,]">
                                 <span class="relative-dependency"></span>
                                 <span class="horizontal-content" data-overloaded="false">
                                     <span class="horizontal-content" data-override="false">
                                         <span class="signature">
-                                            isMatchesRegex(Pattern,String)
+                                            hasNodeBeside(DetailAST)
                                         </span>
                                     </span>
                                 </span>
@@ -572,6 +777,14 @@ tr:first-child td {
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
                                                                                                                                 <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell"></td>
+                                                                                                                                <td class="highlightable cell depends-on">
+                                        <span class="index-distance">-2</span>/<span class="line-distance">-28</span>
+                                    </td>
+                                                                                                                                <td class="highlightable cell depends-on">
+                                        <span class="index-distance">-1</span>/<span class="line-distance">-12</span>
+                                    </td>
                                                                                                                                 <td class="highlightable cell diagonal">-</td>
                                                                                     </tr>
                                 </tbody>
@@ -628,7 +841,8 @@ tr:first-child td {
         <!-- Source code -->
         <script type="syntaxhighlighter" class="brush: java; quick-code: false;"><![CDATA[////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright(C) 2001-2012  Oliver Burn
+// Copyright (C) 2001-2016 the original author or authors.
+//
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
 // License as published by the Free Software Foundation; either
@@ -644,339 +858,327 @@ tr:first-child td {
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
 
-package com.github.sevntu.checkstyle.checks.coding;
+package com.puppycrawl.tools.checkstyle.checks.annotation;
 
-import java.util.regex.Pattern;
+import org.apache.commons.lang3.ArrayUtils;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
+ * Check location of annotation on language elements.
+ * By default, Check enforce to locate annotations immediately after
+ * documentation block and before target element, annotation should be located
+ * on separate line from target element.
+ *
  * <p>
- * This check verifies the name of JUnit4 test class for compliance with user
- * defined naming convention(by default Check expects test classes names
- * matching
- * ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase\\d*|.+TestCases\\d*"
- * regex).
+ * Example:
  * </p>
- * <p>
- * Class is considered to be a test if its definition or one of its method
- * definitions annotated with user defined annotations. By default Check looks
- * for classes which contain methods annotated with "Test" or "org.junit.Test".
- * </p>
- * <p>
- * Check has following options:
- * </p>
- * <p>
- * "expectedClassNameRegex" - regular expression which matches expected test
- * class names. If test class name does not matches this regex then Check will
- * log violation. This option defaults to
- * ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase\\d*|.+TestCases\\d*".
- * </p>
- * <p>
- * "classAnnotationNameRegex" - regular expression which matches test annotation
- * names on classes. If class annotated with matching annotation, it is
- * considered to be a test. This option defaults to empty regex(one that matches
- * nothing). If for example this option set to "RunWith", then class "SomeClass"
- * is considered to be a test:
- * 
+ *
  * <pre>
- * <code>
- * {@literal @}RunWith(Parameterized.class)
- * class SomeClass
- * {
- * }
- * </code>
+ * &#64;Override
+ * &#64;Nullable
+ * public String getNameIfPresent() { ... }
  * </pre>
- * 
- * </p>
+ *
  * <p>
- * "methodAnnotationNameRegex" - regular expression which matches test
- * annotation names on methods. If class contains a method annotated with
- * matching annotation, it is considered to be a test. This option defaults to
- * "Test|org.junit.Test". For example, if this option set to "Test", then class
- * "SomeClass" is considered to be a test.
- * 
+ * Check have following options:
+ * </p>
+ * <ul>
+ * <li>allowSamelineMultipleAnnotations - to allow annotation to be located on
+ * the same line as target element. Default value is false.
+ * </li>
+ *
+ * <li>
+ * allowSamelineSingleParameterlessAnnotation - to allow single parameterless
+ * annotation to be located on the same line as target element. Default value is false.
+ * </li>
+ *
+ * <li>
+ * allowSamelineParameterizedAnnotation - to allow parameterized annotation
+ * to be located on the same line as target element. Default value is false.
+ * </li>
+ * </ul>
+ * <br>
+ * <p>
+ * Example to allow single parameterless annotation on the same line:
+ * </p>
  * <pre>
- * <code>
- * class SomeClass
- * {
- *      {@literal @}Test
- *      void method() {
- *      
- *      }
- * }
- * </code>
+ * &#64;Override public int hashCode() { ... }
  * </pre>
- * 
- * </p>
- * <p>
- * Annotation names must be specified exactly the same way it specified in code,
- * thus if Check must match annotation with fully qualified name, corresponding
- * options must contain qualified annotation name and vice versa. For example,
- * if annotation regex is "org.junit.Test" Check will recognize "{@literal @}
- * org.junit.Test" annotation and will skip "{@literal @}Test" annotation and
- * vice versa if annotation regex is "Test" Check will recognize "{@literal @}
- * Test" annotation and skip "{@literal @}org.junit.Test" annotation.
- * </p>
- * <p>
- * Following configuration will adjust Check to look for classes annotated with
- * annotation "RunWith" or classes with methods annotated with "Test" and verify
- * that classes names end with "Test" or "Tests".
- * 
+ *
+ * <p>Use following configuration:
  * <pre>
- *     &ltmodule name="NameConventionForJUnit4TestClassesCheck"&gt
- *       &ltproperty name="expectedClassNameRegex" value=".+Tests|.+Test"/&gt
- *       &ltproperty name="classAnnotationNameRegex" value="RunWith"/&gt
- *       &ltproperty name="methodAnnotationNameRegex" value="Test"/&gt
- *     &lt/module&gt
+ * &lt;module name=&quot;AnnotationLocation&quot;&gt;
+ *    &lt;property name=&quot;allowSamelineMultipleAnnotations&quot; value=&quot;false&quot;/&gt;
+ *    &lt;property name=&quot;allowSamelineSingleParameterlessAnnotation&quot;
+ *    value=&quot;true&quot;/&gt;
+ *    &lt;property name=&quot;allowSamelineParameterizedAnnotation&quot; value=&quot;false&quot;
+ *    /&gt;
+ * &lt;/module&gt;
  * </pre>
+ * <br>
+ * <p>
+ * Example to allow multiple parameterized annotations on the same line:
  * </p>
- * 
- * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
+ * <pre>
+ * &#64;SuppressWarnings("deprecation") &#64;Mock DataLoader loader;
+ * </pre>
+ *
+ * <p>Use following configuration:
+ * <pre>
+ * &lt;module name=&quot;AnnotationLocation&quot;&gt;
+ *    &lt;property name=&quot;allowSamelineMultipleAnnotations&quot; value=&quot;true&quot;/&gt;
+ *    &lt;property name=&quot;allowSamelineSingleParameterlessAnnotation&quot;
+ *    value=&quot;true&quot;/&gt;
+ *    &lt;property name=&quot;allowSamelineParameterizedAnnotation&quot; value=&quot;true&quot;
+ *    /&gt;
+ * &lt;/module&gt;
+ * </pre>
+ * <br>
+ * <p>
+ * Example to allow multiple parameterless annotations on the same line:
+ * </p>
+ * <pre>
+ * &#64;Partial &#64;Mock DataLoader loader;
+ * </pre>
+ *
+ * <p>Use following configuration:
+ * <pre>
+ * &lt;module name=&quot;AnnotationLocation&quot;&gt;
+ *    &lt;property name=&quot;allowSamelineMultipleAnnotations&quot; value=&quot;true&quot;/&gt;
+ *    &lt;property name=&quot;allowSamelineSingleParameterlessAnnotation&quot;
+ *    value=&quot;true&quot;/&gt;
+ *    &lt;property name=&quot;allowSamelineParameterizedAnnotation&quot; value=&quot;false&quot;
+ *    /&gt;
+ * &lt;/module&gt;
+ * </pre>
+ *
+ * @author maxvetrenko
  */
-public class NameConventionForJunit4TestClassesCheck extends Check
-{
+public class AnnotationLocationCheck extends AbstractCheck {
     /**
-     * Violation message key.
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
      */
-    public static final String MSG_KEY = "name.convention.for.test.classes";
+    public static final String MSG_KEY_ANNOTATION_LOCATION_ALONE = "annotation.location.alone";
 
     /**
-     * <p>
-     * Regular expression which matches expected names of JUnit test classes.
-     * </p>
-     * <p>
-     * Default value is
-     * ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase\\d*|.+TestCases\\d*".
-     * </p>
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
      */
-    private Pattern expectedClassNameRegex =
-            Pattern.compile(".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase\\d*|.+TestCases\\d*");
+    public static final String MSG_KEY_ANNOTATION_LOCATION = "annotation.location";
 
     /**
-     * <p>
-     * Regular expression which matches JUnit class test annotation names.
-     * </p>
-     * <p>
-     * By default this regex is empty.
-     * </p>
+     * If true, it allows single prameterless annotation to be located on the same line as
+     * target element.
      */
-    private Pattern classAnnotationNameRegex;
+    private boolean allowSamelineSingleParameterlessAnnotation = true;
 
     /**
-     * <p>
-     * Regular expression which matches JUnit method test annotation names.
-     * </p>
-     * <p>
-     * Default value is "Test|org.junit.Test".
-     * </p>
+     * If true, it allows parameterized annotation to be located on the same line as
+     * target element.
      */
-    private Pattern methodAnnotationNameRegex =
-            Pattern.compile("Test|org.junit.Test");
+    private boolean allowSamelineParameterizedAnnotation;
 
     /**
-     * Sets regexp to match 'expected' class names for JUnit tests.
-     * @param expectedClassNameRegex
-     *        regexp to match 'correct' JUnit test class names.
+     * If true, it allows annotation to be located on the same line as
+     * target element.
      */
-    public void setExpectedClassNameRegex(String expectedClassNameRegex)
-    {
-        if (expectedClassNameRegex != null && !expectedClassNameRegex.isEmpty()) {
-            this.expectedClassNameRegex = Pattern.compile(expectedClassNameRegex);
-        }
-        else {
-            this.expectedClassNameRegex = null;
-        }
+    private boolean allowSamelineMultipleAnnotations;
+
+    /**
+     * Sets if allow same line single parameterless annotation.
+     * @param allow User's value of allowSamelineSingleParameterlessAnnotation.
+     */
+    public final void setAllowSamelineSingleParameterlessAnnotation(boolean allow) {
+        allowSamelineSingleParameterlessAnnotation = allow;
     }
 
     /**
-     * Sets class test annotation name regexp for JUnit tests.
-     * @param annotationNameRegex
-     *        regexp to match annotations for unit test classes.
+     * Sets if allow parameterized annotation to be located on the same line as
+     * target element.
+     * @param allow User's value of allowSamelineParameterizedAnnotation.
      */
-    public void setClassAnnotationNameRegex(String annotationNameRegex)
-    {
-        if (annotationNameRegex != null && !annotationNameRegex.isEmpty()) {
-            classAnnotationNameRegex = Pattern.compile(annotationNameRegex);
-        }
-        else {
-            classAnnotationNameRegex = null;
-        }
+    public final void setAllowSamelineParameterizedAnnotation(boolean allow) {
+        allowSamelineParameterizedAnnotation = allow;
     }
 
     /**
-     * Sets method test annotation name regexp for JUnit tests.
-     * @param annotationNameRegex
-     *        regexp to match annotations for unit test classes.
+     * Sets if allow annotation to be located on the same line as
+     * target element.
+     * @param allow User's value of allowSamelineMultipleAnnotations.
      */
-    public void setMethodAnnotationNameRegex(String annotationNameRegex)
-    {
-        if (annotationNameRegex != null && !annotationNameRegex.isEmpty()) {
-            methodAnnotationNameRegex = Pattern.compile(annotationNameRegex);
-        }
-        else {
-            methodAnnotationNameRegex = null;
-        }
+    public final void setAllowSamelineMultipleAnnotations(boolean allow) {
+        allowSamelineMultipleAnnotations = allow;
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] { TokenTypes.CLASS_DEF };
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.CLASS_DEF,
+            TokenTypes.INTERFACE_DEF,
+            TokenTypes.ENUM_DEF,
+            TokenTypes.METHOD_DEF,
+            TokenTypes.CTOR_DEF,
+            TokenTypes.VARIABLE_DEF,
+        };
     }
 
     @Override
-    public void visitToken(DetailAST classDefNode)
-    {
-        if ((isClassDefinitionAnnotated(classDefNode) || isAtleastOneMethodAnnotated(classDefNode))
-                && hasUnexpectedName(classDefNode)) {
-            logUnexpectedClassName(classDefNode);
+    public int[] getAcceptableTokens() {
+        return new int[] {
+            TokenTypes.CLASS_DEF,
+            TokenTypes.INTERFACE_DEF,
+            TokenTypes.ENUM_DEF,
+            TokenTypes.METHOD_DEF,
+            TokenTypes.CTOR_DEF,
+            TokenTypes.VARIABLE_DEF,
+            TokenTypes.PARAMETER_DEF,
+            TokenTypes.ANNOTATION_DEF,
+            TokenTypes.TYPECAST,
+            TokenTypes.LITERAL_THROWS,
+            TokenTypes.IMPLEMENTS_CLAUSE,
+            TokenTypes.TYPE_ARGUMENT,
+            TokenTypes.LITERAL_NEW,
+            TokenTypes.DOT,
+            TokenTypes.ANNOTATION_FIELD_DEF,
+        };
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return ArrayUtils.EMPTY_INT_ARRAY;
+    }
+
+    @Override
+    public void visitToken(DetailAST ast) {
+        final DetailAST modifiersNode = ast.findFirstToken(TokenTypes.MODIFIERS);
+
+        if (hasAnnotations(modifiersNode)) {
+            checkAnnotations(modifiersNode, getAnnotationLevel(modifiersNode));
         }
     }
 
     /**
-     * Checks whether class definition annotated with user defined annotation.
-     * @param classDefNode
-     *        a class definition node
-     * @return true, if class definition annotated with user defined annotation
+     * Some javadoc.
+     * @param modifierNode Some javadoc.
+     * @return Some javadoc.
      */
-    private boolean isClassDefinitionAnnotated(DetailAST classDefNode)
-    {
-        return hasAnnotation(classDefNode, classAnnotationNameRegex);
+    private static boolean hasAnnotations(DetailAST modifierNode) {
+        return modifierNode.findFirstToken(TokenTypes.ANNOTATION) != null;
     }
 
     /**
-     * Checks whether class contains at least one method annotated with user
-     * defined annotation.
-     * @param classDefNode
-     *        a class definition node
-     * @return true, if class contains at least one method annotated with user
-     *         defined annotation
+     * Some javadoc.
+     * @param modifierNode Some javadoc.
+     * @return Some javadoc.
      */
-    private boolean isAtleastOneMethodAnnotated(DetailAST classDefNode)
-    {
-        DetailAST classMemberNode =
-                classDefNode.findFirstToken(TokenTypes.OBJBLOCK).getFirstChild();
+    private static int getAnnotationLevel(DetailAST modifierNode) {
+        return modifierNode.getParent().getColumnNo();
+    }
 
-        while (classMemberNode != null) {
-            if (classMemberNode.getType() == TokenTypes.METHOD_DEF &&
-                    hasAnnotation(classMemberNode, methodAnnotationNameRegex))
-            {
-                return true;
+    /**
+     * Some javadoc.
+     * @param modifierNode Some javadoc.
+     * @param correctLevel Some javadoc.
+     */
+    private void checkAnnotations(DetailAST modifierNode, int correctLevel) {
+        DetailAST annotation = modifierNode.getFirstChild();
+
+        while (annotation != null && annotation.getType() == TokenTypes.ANNOTATION) {
+            final boolean hasParameters = isParameterized(annotation);
+
+            if (!isCorrectLocation(annotation, hasParameters)) {
+                log(annotation.getLineNo(),
+                        MSG_KEY_ANNOTATION_LOCATION_ALONE, getAnnotationName(annotation));
             }
-
-            classMemberNode = classMemberNode.getNextSibling();
-        }
-
-        return false;
-    }
-
-    /**
-     * Returns true, if class has unexpected name.
-     * @param classDefNode
-     *        a class definition node
-     * @return true, if class has unexpected name
-     */
-    private boolean hasUnexpectedName(final DetailAST classDefNode)
-    {
-        final String className = getIdentifierName(classDefNode);
-        return !isMatchesRegex(expectedClassNameRegex, className);
-    }
-
-    /**
-     * Returns true, if class or method has annotation with name specified in
-     * regexp.
-     * @param methodOrClassDefNode
-     *        the node of type TokenTypes.METHOD_DEF or TokenTypes.CLASS_DEF
-     * @param annotationNamesRegexp
-     *        regexp contains annotation names
-     * @return true, if the class or method contains one of the annotations,
-     *         specified in the regexp
-     */
-    private boolean hasAnnotation(DetailAST methodOrClassDefNode, Pattern annotationNamesRegexp)
-    {
-        DetailAST modifierNode =
-                methodOrClassDefNode.findFirstToken(TokenTypes.MODIFIERS).getFirstChild();
-
-        boolean result = false;
-
-        while (modifierNode != null) {
-            if (modifierNode.getType() == TokenTypes.ANNOTATION) {
-                String annotationName = getIdentifierName(modifierNode);
-
-                if (isMatchesRegex(annotationNamesRegexp, annotationName)) {
-                    result = true;
-                    break;
-                }
+            else if (annotation.getColumnNo() != correctLevel && !hasNodeBefore(annotation)) {
+                log(annotation.getLineNo(), MSG_KEY_ANNOTATION_LOCATION,
+                    getAnnotationName(annotation), annotation.getColumnNo(), correctLevel);
             }
-
-            modifierNode = modifierNode.getNextSibling();
+            annotation = annotation.getNextSibling();
         }
-
-        return result;
     }
 
     /**
-     * Logs unexpected class name.
-     * @param classDef
-     *        the node of type TokenTypes.CLASS_DEF
+     * Some javadoc.
+     * @param annotation Some javadoc.
+     * @return Some javadoc.
      */
-    private void logUnexpectedClassName(DetailAST classDef)
-    {
-        log(classDef.findFirstToken(TokenTypes.IDENT), MSG_KEY, expectedClassNameRegex);
+    private static boolean isParameterized(DetailAST annotation) {
+        return annotation.findFirstToken(TokenTypes.EXPR) != null;
     }
 
     /**
-     * Returns name of identifier contained in specified node.
-     * @param aNodeWithIdent
-     *        a node containing identifier or qualified identifier.
-     * @return identifier name for specified node. If node contains qualified
-     *         name then method returns its text representation.
+     * Some javadoc.
+     * @param annotation Some javadoc.
+     * @param hasParams Some javadoc.
+     * @return Some javadoc.
      */
-    private static String getIdentifierName(DetailAST identifierNode)
-    {
-        DetailAST identNode = identifierNode.findFirstToken(TokenTypes.IDENT);
-        String result;
+    private boolean isCorrectLocation(DetailAST annotation, boolean hasParams) {
+        final boolean allowingCondition;
 
-        if (identNode != null) {
-            result = identNode.getText();
+        if (hasParams) {
+            allowingCondition = allowSamelineParameterizedAnnotation;
         }
         else {
-            result = "";
-
-            DetailAST node = identifierNode.findFirstToken(TokenTypes.DOT);
-
-            while (node.getType() == TokenTypes.DOT) {
-                result = "." + node.getLastChild().getText() + result;
-
-                node = node.getFirstChild();
-            }
-
-            result = node.getText() + result;
+            allowingCondition = allowSamelineSingleParameterlessAnnotation;
         }
-
-        return result;
+        return allowSamelineMultipleAnnotations
+            || allowingCondition && !hasNodeBefore(annotation)
+            || !allowingCondition && !hasNodeBeside(annotation);
     }
 
     /**
-     * Matches string against regexp.
-     * @param regexPattern
-     *        regex to match string with. May be null.
-     * @param str
-     *        a string to match against regex.
-     * @return false if regex is null, otherwise result of matching string
-     *         against regex.
+     * Some javadoc.
+     * @param annotation Some javadoc.
+     * @return Some javadoc.
      */
-    private static boolean isMatchesRegex(Pattern regexPattern, String str)
-    {
-        if (regexPattern != null) {
-            return regexPattern.matcher(str).matches();
+    private static String getAnnotationName(DetailAST annotation) {
+        DetailAST identNode = annotation.findFirstToken(TokenTypes.IDENT);
+        if (identNode == null) {
+            identNode = annotation.findFirstToken(TokenTypes.DOT).findFirstToken(TokenTypes.IDENT);
         }
-        else {
-            return false;
+        return identNode.getText();
+    }
+
+    /**
+     * Some javadoc.
+     * @param annotation Some javadoc.
+     * @return Some javadoc.
+     */
+    private static boolean hasNodeAfter(DetailAST annotation) {
+        final int annotationLineNo = annotation.getLineNo();
+        DetailAST nextNode = annotation.getNextSibling();
+
+        if (nextNode == null) {
+            nextNode = annotation.getParent().getNextSibling();
         }
+
+        return annotationLineNo == nextNode.getLineNo();
+    }
+
+    /**
+     * Some javadoc.
+     * @param annotation Some javadoc.
+     * @return Some javadoc.
+     */
+    private static boolean hasNodeBefore(DetailAST annotation) {
+        final int annotationLineNo = annotation.getLineNo();
+        final DetailAST previousNode = annotation.getPreviousSibling();
+
+        return previousNode != null && annotationLineNo == previousNode.getLineNo();
+    }
+
+    /**
+     * Some javadoc.
+     * @param annotation Some javadoc.
+     * @return Some javadoc.
+     */
+    private static boolean hasNodeBeside(DetailAST annotation) {
+        return hasNodeBefore(annotation) || hasNodeAfter(annotation);
     }
 }]]></script>
         <script type="text/javascript">
