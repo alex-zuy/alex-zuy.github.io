@@ -1,0 +1,52 @@
+digraph dependencies {
+rankdir = "LR";
+subgraph clustersimple {
+"findBundle(Set,ResourceBundle)" [ color="#000000ff" shape="polygon" ];
+"logMissingTranslation(String,String)" [ color="#000000ff" ];
+"logIoException(IOException,File)" [ color="#000000ff" ];
+"processFiltered(File,List)" [ color="#ffff00ff" shape="trapezium" ];
+"getPath(String)" [ color="#000000ff" shape="polygon" ];
+"extractBaseName(String)" [ color="#000000ff" shape="polygon" ];
+"isValidLanguageCode(String)" [ color="#000000ff" shape="polygon" ];
+"checkFilesForConsistencyRegardingTheirKeys(SetMultimap,Set)" [ color="#000000ff" ];
+"getMissingFileName(ResourceBundle,String)" [ color="#000000ff" shape="polygon" ];
+}
+"checkExistenceOfRequiredTranslations(ResourceBundle)" [ color="#000000ff" ];
+"finishProcessing()" [ color="#00ff00ff" shape="trapezium" ];
+"setRequiredTranslations(String)" [ color="#00ff00ff" ];
+"checkTranslationKeys(ResourceBundle)" [ color="#000000ff" ];
+"groupFilesIntoBundles(Set,Pattern)" [ color="#000000ff" shape="polygon" ];
+"checkExistenceOfDefaultTranslation(ResourceBundle)" [ color="#000000ff" ];
+"validateUserSpecifiedLanguageCodes(SortedSet)" [ color="#000000ff" ];
+"getTranslationKeys(File)" [ color="#000000ff" ];
+"checkExistenceOfRequiredTranslations(ResourceBundle)" -> "getMissingFileName(ResourceBundle,String)" [ label="3/69" ];
+"checkExistenceOfRequiredTranslations(ResourceBundle)" -> "logMissingTranslation(String,String)" [ label="9/213" ];
+"finishProcessing()" -> "groupFilesIntoBundles(Set,Pattern)" [ label="4/67" ];
+"finishProcessing()" -> "checkExistenceOfDefaultTranslation(ResourceBundle)" [ label="1/16" ];
+"finishProcessing()" -> "checkExistenceOfRequiredTranslations(ResourceBundle)" [ label="2/30" ];
+"finishProcessing()" -> "checkTranslationKeys(ResourceBundle)" [ label="3/45" ];
+"setRequiredTranslations(String)" -> "validateUserSpecifiedLanguageCodes(SortedSet)" [ label="1/10" ];
+"checkTranslationKeys(ResourceBundle)" -> "getTranslationKeys(File)" [ label="6/151" ];
+"checkTranslationKeys(ResourceBundle)" -> "checkFilesForConsistencyRegardingTheirKeys(SetMultimap,Set)" [ label="7/175" ];
+"groupFilesIntoBundles(Set,Pattern)" -> "extractBaseName(String)" [ label="3/88" ];
+"groupFilesIntoBundles(Set,Pattern)" -> "getPath(String)" [ label="4/119" ];
+"groupFilesIntoBundles(Set,Pattern)" -> "findBundle(Set,ResourceBundle)" [ label="2/67" ];
+"checkExistenceOfDefaultTranslation(ResourceBundle)" -> "getMissingFileName(ResourceBundle,String)" [ label="4/83" ];
+"checkExistenceOfDefaultTranslation(ResourceBundle)" -> "logMissingTranslation(String,String)" [ label="10/227" ];
+"validateUserSpecifiedLanguageCodes(SortedSet)" -> "isValidLanguageCode(String)" [ label="1/17" ];
+"getTranslationKeys(File)" -> "logIoException(IOException,File)" [ label="3/60" ];
+/*
+Legend
+Node border color:
+    a) GREEN - public
+    b) YELLOW - protected
+    c) BLACK - private
+    d) BLUE - default
+Node shape:
+    if static - rectangle
+    otherwise if override - trapezium
+    otherwise if overloaded - triangle
+    otherwise ellipse
+
+*/
+}

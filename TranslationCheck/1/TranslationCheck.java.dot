@@ -1,0 +1,52 @@
+digraph dependencies {
+rankdir = "LR";
+subgraph clustersimple {
+"processFiltered(File,List)" [ color="#ffff00ff" shape="trapezium" ];
+"logMissingTranslation(String,String)" [ color="#000000ff" ];
+"isValidLanguageCode(String)" [ color="#000000ff" shape="polygon" ];
+"logIoException(IOException,File)" [ color="#000000ff" ];
+"getPath(String)" [ color="#000000ff" shape="polygon" ];
+"findBundle(Set,ResourceBundle)" [ color="#000000ff" shape="polygon" ];
+"extractBaseName(String)" [ color="#000000ff" shape="polygon" ];
+"checkFilesForConsistencyRegardingTheirKeys(SetMultimap,Set)" [ color="#000000ff" ];
+"getMissingFileName(ResourceBundle,String)" [ color="#000000ff" shape="polygon" ];
+}
+"finishProcessing()" [ color="#00ff00ff" shape="trapezium" ];
+"checkTranslationKeys(ResourceBundle)" [ color="#000000ff" ];
+"groupFilesIntoBundles(Set,Pattern)" [ color="#000000ff" shape="polygon" ];
+"setRequiredTranslations(String)" [ color="#00ff00ff" ];
+"validateUserSpecifiedLanguageCodes(SortedSet)" [ color="#000000ff" ];
+"checkExistenceOfDefaultTranslation(ResourceBundle)" [ color="#000000ff" ];
+"checkExistenceOfRequiredTranslations(ResourceBundle)" [ color="#000000ff" ];
+"getTranslationKeys(File)" [ color="#000000ff" ];
+"finishProcessing()" -> "groupFilesIntoBundles(Set,Pattern)" [ label="3/52" ];
+"finishProcessing()" -> "checkExistenceOfDefaultTranslation(ResourceBundle)" [ label="4/80" ];
+"finishProcessing()" -> "checkExistenceOfRequiredTranslations(ResourceBundle)" [ label="5/94" ];
+"finishProcessing()" -> "checkTranslationKeys(ResourceBundle)" [ label="6/109" ];
+"checkTranslationKeys(ResourceBundle)" -> "getTranslationKeys(File)" [ label="5/120" ];
+"checkTranslationKeys(ResourceBundle)" -> "checkFilesForConsistencyRegardingTheirKeys(SetMultimap,Set)" [ label="6/144" ];
+"groupFilesIntoBundles(Set,Pattern)" -> "extractBaseName(String)" [ label="6/136" ];
+"groupFilesIntoBundles(Set,Pattern)" -> "getPath(String)" [ label="7/167" ];
+"groupFilesIntoBundles(Set,Pattern)" -> "findBundle(Set,ResourceBundle)" [ label="4/78" ];
+"setRequiredTranslations(String)" -> "validateUserSpecifiedLanguageCodes(SortedSet)" [ label="4/34" ];
+"validateUserSpecifiedLanguageCodes(SortedSet)" -> "isValidLanguageCode(String)" [ label="1/17" ];
+"checkExistenceOfDefaultTranslation(ResourceBundle)" -> "getMissingFileName(ResourceBundle,String)" [ label="4/72" ];
+"checkExistenceOfDefaultTranslation(ResourceBundle)" -> "logMissingTranslation(String,String)" [ label="9/196" ];
+"checkExistenceOfRequiredTranslations(ResourceBundle)" -> "getMissingFileName(ResourceBundle,String)" [ label="3/58" ];
+"checkExistenceOfRequiredTranslations(ResourceBundle)" -> "logMissingTranslation(String,String)" [ label="8/182" ];
+"getTranslationKeys(File)" -> "logIoException(IOException,File)" [ label="3/60" ];
+/*
+Legend
+Node border color:
+    a) GREEN - public
+    b) YELLOW - protected
+    c) BLACK - private
+    d) BLUE - default
+Node shape:
+    if static - rectangle
+    otherwise if override - trapezium
+    otherwise if overloaded - triangle
+    otherwise ellipse
+
+*/
+}
