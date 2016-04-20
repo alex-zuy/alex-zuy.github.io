@@ -1,0 +1,43 @@
+digraph dependencies {
+rankdir = "LR";
+subgraph clustersimple {
+"fireFileFinished(String)" [ color="#00ff00ff" shape="trapezium" ];
+"addFilter(Filter)" [ color="#00ff00ff" ];
+"processFile(File)" [ color="#000000ff" ];
+"fireErrors(String,SortedSet)" [ color="#00ff00ff" shape="trapezium" ];
+"fireAuditStarted()" [ color="#000000ff" ];
+"addFileSetCheck(FileSetCheck)" [ color="#00ff00ff" ];
+"fireAuditFinished()" [ color="#000000ff" ];
+"fireFileStarted(String)" [ color="#00ff00ff" shape="trapezium" ];
+"addListener(AuditListener)" [ color="#00ff00ff" ];
+}
+"setupChild(Configuration)" [ color="#ffff00ff" shape="trapezium" ];
+"process(List)" [ color="#00ff00ff" ];
+"Checker()" [ color="#00ff00ff" ];
+"processFiles(List)" [ color="#000000ff" ];
+"setupChild(Configuration)" -> "addFileSetCheck(FileSetCheck)" [ label="1/43" ];
+"setupChild(Configuration)" -> "addFilter(Filter)" [ label="2/52" ];
+"setupChild(Configuration)" -> "addListener(AuditListener)" [ label="5/82" ];
+"process(List)" -> "fireAuditStarted()" [ label="4/92" ];
+"process(List)" -> "processFiles(List)" [ label="1/31" ];
+"process(List)" -> "fireAuditFinished()" [ label="5/100" ];
+"Checker()" -> "addListener(AuditListener)" [ label="8/125" ];
+"processFiles(List)" -> "fireFileStarted(String)" [ label="5/82" ];
+"processFiles(List)" -> "processFile(File)" [ label="1/35" ];
+"processFiles(List)" -> "fireErrors(String,SortedSet)" [ label="7/112" ];
+"processFiles(List)" -> "fireFileFinished(String)" [ label="6/97" ];
+/*
+Legend
+Node border color:
+    a) GREEN - public
+    b) YELLOW - protected
+    c) BLACK - private
+    d) BLUE - default
+Node shape:
+    if static - rectangle
+    otherwise if override - trapezium
+    otherwise if overloaded - triangle
+    otherwise ellipse
+
+*/
+}
